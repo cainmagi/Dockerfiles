@@ -32,7 +32,7 @@ where `5901` is the entry (input) port and `6080` is the service (output) port.
 
 Here is the list of each dockerfile:
 
-1. xubuntu at the branch [**xubuntu**](../xubuntu)
+1. xubuntu at the branch [**xubuntu**](https://github.com/cainmagi/Dockerfiles/tree/xubuntu)
 
    Download the file and run such command to build the image:
    
