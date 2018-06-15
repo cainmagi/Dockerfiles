@@ -1,37 +1,49 @@
-## Welcome to GitHub Pages
+# Dockerfile Collection for DGX-230
 
-You can use the [editor on GitHub](https://github.com/cainmagi/Dockerfiles/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## Master branch
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Here we provide a submodule `noVNCbin` cloned from 
 
-### Markdown
+[https://github.com/novnc/noVNC](https://github.com/novnc/noVNC)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+and we also provide a wrapping script `noVNC` which calls the `noVNCbin` scripts here.
 
-```markdown
-Syntax highlighted code block
+To make use of this service, just copy this branch to your `/usr/local/bin/` like
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```Bash
+/usr/local/bin/
+|---noVNC
+`---noVNCbin
+    |---utils
+    |   |---launch.sh
+    |   `---...
+    `---...
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+And you could use such simple command on your Bash:
 
-### Jekyll Themes
+```Bash
+$ noVNC IP=172.17.0.2:5901 PORT=6080
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/cainmagi/Dockerfiles/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+where `5901` is the entry (input) port and `6080` is the service (output) port.
 
-### Support or Contact
+## Dockerfiles
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Here is the list of each dockerfile:
+
+1. xubuntu at the branch [**xubuntu**](tree/xubuntu)
+
+   Download the file and run such command to build the image:
+   
+   ```Bash
+   $ nvidia-docker build -t xubuntu:1.0 xubuntu
+   ```
+   
+   where `xubuntu` is the folder of the corresponding branch.
+   
+## Update records
+
+### ver 1.0 @ 20180605
+
+Create the branch, add the noVNC submodule and add the `xubuntu` dockerfile.
