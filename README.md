@@ -30,8 +30,8 @@ This version of **xubuntu** is particularly designed for installing **ffmpeg** a
 After building sucessfully, use this command:
 
 ```Bash
-# cd ~
-# bash install-ffmpeg
+$ cd ~
+$ bash install-ffmpeg
 ```
 
 If succeed, you should not be able to see any error report. Note that the libraries are download in `/apps/source`, built in `/apps/build` and installed in `/usr/local/bin`. You could change these path in the script easily.
