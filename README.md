@@ -34,15 +34,29 @@ Here is the list of each dockerfile:
 
 1. xubuntu at the branch [**xubuntu**](https://github.com/cainmagi/Dockerfiles/tree/xubuntu)
 
-   Download the file and run such command to build the image:
+    Download the file and run such command to build the image:
+    
+    ```Bash
+    $ nvidia-docker build -t xubuntu:1.0 xubuntu
+    ```
+    
+    where `xubuntu` is the folder of the corresponding branch.
    
-   ```Bash
-   $ nvidia-docker build -t xubuntu:1.0 xubuntu
-   ```
-   
-   where `xubuntu` is the folder of the corresponding branch.
+2. xubuntu-tf at the branch  [**xubuntu-tf**](https://github.com/cainmagi/Dockerfiles/tree/xubuntu-tf)
+
+    Download the branch and run such command to build the image:
+
+    ```Bash
+    $ nvidia-docker build -t xubuntu-tf:1.0 xubuntu-tf
+    ```
+
+    where `xubuntu-tf` is the folder of the corresponding branch.
    
 ## Update records
+
+### ver 1.1 @ 20180815
+
+Add the `xubuntu-tf` dockerfile.
 
 ### ver 1.0 @ 20180605
 
