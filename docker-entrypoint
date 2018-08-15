@@ -2,24 +2,24 @@
 
 . ~/.bashrc
 
-echo "---------------------------------"
-echo "    XUbuntu Desktop Container"
-echo "        Yuchen Jin"
-echo "cuda:9.0-cudnn7-devel-ubuntu16.04"
-echo "---------------------------------"
+echo "-----------------------------------"
+echo "     XUbuntu Desktop Container"
+echo "           Yuchen Jin"
+echo "nvcr.io/nvidia/tensorflow:18.06-py3"
+echo "-----------------------------------"
 echo "This is a ubuntu desktop based on VNC server, to understand how to use it, follow these steps:"
 echo "    S1: Input the password as the instruction."
 echo "    S2: Confirm the password and remember the port used by this VNC session."
-echo "        This setting is only required when you first enter the container. If you want to change the password, use \"vncpasswd\" to do that."
+echo "        This setting is only required when you first enter the container. If you want to change the password, use \"tigervncpasswd\" to do that."
 echo "    S3: Check the host IP address returned from the screen."
 echo "    S4: Run \"noVNC\" outside the container by \"$ noVNC IP=... PORT=...\" where \"PORT\" is optional."
 echo "    S5: Check the URL returned by noVNC, and use a web browser to connect the desktop URL."
 echo "    S6: Input the password which is set in S1."
-echo "    S7: Now you would see the terminal, just typing \"$ startxfce4 &\"."
-echo "    S8: Enjoy your remote desktop. Note that you should not close both the terminal of the docker and the default terminal of noVNC screen."
+echo "    S7: Now you would see the desktop has been launched"
+echo "    S8: Enjoy your remote desktop. Note that you should not close both the terminal running the container and the default terminal of noVNC screen."
 echo "    S9: Use \"xrandr -s 1920x1080\" to choose the resolution as you want."
 echo "        Available list: 1920x1080, 1280x720, 1366x768, 1024x768, 800x600."
-echo "    S10: Before quit from the docker, remember call \"vnc4server -kill :1\" (or other port) outside the VNC."
+echo "    S10: Before quit from the docker, remember call \"tigervncserver -kill :1\" (or other port) outside the VNC."
 echo ""
 
 echo "---------"
@@ -28,5 +28,5 @@ hostname -I
 echo "---------"
 
 echo "VNC settings:"
-vnc4server -geometry 1920x1080 -geometry 1280x720 -geometry 1366x768 -geometry 1024x768 -geometry 800x600
+tigervncserver -name xubuntu-tf -depth 24 -geometry 1920x1080
 exec bash
