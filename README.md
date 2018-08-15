@@ -43,8 +43,8 @@ It is important that **you need to install ffmpeg before installing this library
 Use this command to do that:
 
 ```Bash
-# cd ~
-# bash install-opencv3
+$ cd ~
+$ bash install-opencv3
 ```
 
 If succeed, you should not be able to see any error report. Note that the libraries are download in `/apps/source`, built in `/apps/build` and installed in `/usr/local`. You could change these path in the script easily.
@@ -54,9 +54,9 @@ If succeed, you should not be able to see any error report. Note that the librar
 * The `make test` for opencv3 may not be processed well during the testing for cuda.
 * You should not add `ppa:ubuntu-toolchain-r/test` by yourself, because we need to keep the gcc-5.4 back and not upgraded to gcc-5.5. But we may meet errors when using `apt-get`. If we find "*dependency error*" related to gcc, we could try to install the apps like this:
     ```Bash
-    # add-apt-repository -y ppa:ubuntu-toolchain-r/test && apt-get update -y 
-    # apt-get install ...
-    # add-apt-repository -y ppa:ubuntu-toolchain-r/test -r && apt-get update -y 
+    $ add-apt-repository -y ppa:ubuntu-toolchain-r/test && apt-get update -y 
+    $ apt-get install ...
+    $ add-apt-repository -y ppa:ubuntu-toolchain-r/test -r && apt-get update -y 
     ```
    
 ## Update records
