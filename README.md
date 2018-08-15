@@ -1,6 +1,6 @@
 # Dockerfile Collection for DGX-230
 
-## XUbuntu
+## XUbuntu-tensorflow
 
 Download the branch and run such command to build the image:
 

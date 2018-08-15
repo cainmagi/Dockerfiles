@@ -121,7 +121,7 @@ COPY install-* /root/
 RUN chmod +x /root/Desktop/ --recursive
 
 # Copy backgrounds, icons and themes
-ADD https://github.com/cainmagi/Dockerfiles/releases/download/1.0/share.tar.gz /usr/share/
+RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/1.0/share.tar.gz | tar xvz -C /usr/share
 RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Mono && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Panel && \
