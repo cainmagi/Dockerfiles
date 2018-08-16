@@ -258,7 +258,8 @@ ldconfig
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 50 --slave /usr/bin/g++ g++ /usr/bin/g++-5 || fail
 
 msg "Installation finished for OpenCV"
-msg "Have added $INSTALL_PATH/lib/python3.5/dist-packages/ to your PYTHONPATH"
-msg "Have added $INSTALL_PATH/lib/python2.7/dist-packages/ to your PYTHONPATH"
-echo "export PYTHONPATH=\$PYTHONPATH:$INSTALL_PATH/lib/python3.5/dist-packages:$INSTALL_PATH/lib/python2.7/dist-packages" >> ~/.bashrc 
-export PYTHONPATH=$PYTHONPATH:$INSTALL_PATH/lib/python3.5/dist-packages:$INSTALL_PATH/lib/python2.7/dist-packages
+# Note that we should not add these path, because the folder of python2 may be interrupted.
+#msg "Have added $INSTALL_PATH/lib/python3.5/dist-packages/ to your PYTHONPATH"
+#msg "Have added $INSTALL_PATH/lib/python2.7/dist-packages/ to your PYTHONPATH"
+#echo "export PYTHONPATH=\$PYTHONPATH:$INSTALL_PATH/lib/python3.5/dist-packages:$INSTALL_PATH/lib/python2.7/dist-packages" >> ~/.bashrc 
+#export PYTHONPATH=$PYTHONPATH:$INSTALL_PATH/lib/python3.5/dist-packages:$INSTALL_PATH/lib/python2.7/dist-packages

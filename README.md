@@ -2,7 +2,23 @@
 
 ## XUbuntu-tensorflow
 
-Download the branch and run such command to build the image:
+### Online building
+
+If you do not want to change the contents of the dockerfile, you could use such command to build the image:
+
+```Bash
+$ nvidia-docker build -t xubuntu-tf:1.0 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf
+```
+
+### Offline building
+
+Otherwise, you need to clone the branch firsly:
+
+```Bash
+$ git clone --single-branch -b xubuntu-tf https://github.com/cainmagi/Dockerfiles.git xubuntu-tf
+```
+
+After that, run such command to build the image:
 
 ```Bash
 $ nvidia-docker build -t xubuntu-tf:1.0 xubuntu-tf
@@ -24,6 +40,22 @@ This version of **xubuntu** is particularly designed for installing **ffmpeg** a
 * **Almost fully installed opencv3**: it is accompanied with a script for installing opencv3 with all image processing libraries, video processing libraries, parallel libraries, GTK GUI, Java toolkit, Ceres solver and some other features. Note that it is provided for python.
 
 ## Instructions
+
+We have two methods for installing ffmpeg and opencv3. You may select a method according to your case.
+
+### Install ffmpeg and opencv3 by building image
+
+Note tha only if you do not change anything of this dockerfile, you could use this method to build an image with ffmpeg and opencv3 directly. The command is
+
+```Bash
+$ nvidia-docker build -t xubuntu-tf:1.0 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf --build-arg BUILD_OPENCV3=1
+```
+
+If you only want to install ffmpeg, use `BUILD_FFMPEG=1` for instead. Such an option could be also used for offline building.
+
+### Install ffmpeg and opencv3 by running script
+
+If you use the command suggested as it is, you could run the following scripts inside the container after the image is built.
 
 ### Install ffmpeg
 
@@ -49,6 +81,15 @@ $ bash install-opencv3
 
 If succeed, you should not be able to see any error report. Note that the libraries are download in `/apps/source`, built in `/apps/build` and installed in `/usr/local`. You could change these path in the script easily.
 
+### After installation
+
+If you have installed ffmpeg or opencv3, you need to run this command after installtion.
+
+```Bash
+$ cd ~
+$ bash install-tensorflow-reinstall
+```
+
 ### Some possible bugs
 
 * The `make test` for opencv3 may not be processed well during the testing for cuda.
@@ -60,6 +101,11 @@ If succeed, you should not be able to see any error report. Note that the librar
     ```
    
 ## Update records
+
+### ver 1.1 @ 20180816
+
+1. Provide options for the dockerfile to let it be able to build ffmpeg and opencv3 automatically.
+2. Fix the bug that the tensorboard could not be use by rebuilding tensorflow after building the image.
 
 ### ver 1.0 @ 20180815
 
