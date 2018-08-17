@@ -102,6 +102,12 @@ $ bash install-tensorflow-reinstall
    
 ## Update records
 
+### ver 1.12 @ 20180816
+
+1. Update the base tensorflow image to 18.07.
+2. Update tigervnc to 1.9.0.
+3. Enable users to determine whether to rebuild tensorflow during the building phase.
+
 ### ver 1.1 @ 20180816
 
 1. Provide options for the dockerfile to let it be able to build ffmpeg and opencv3 automatically.
