@@ -1,11 +1,11 @@
 #
 # XUbuntu Desktop self-loaded Dockerfile
 #
-# nvcr.io/nvidia/tensorflow:18.06-py3
+# nvcr.io/nvidia/tensorflow:18.07-py3
 #
 
 # Pull base image.
-FROM nvcr.io/nvidia/tensorflow:18.06-py3
+FROM nvcr.io/nvidia/tensorflow:18.07-py3
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG BUILD_OPENCV3=0
@@ -109,12 +109,13 @@ RUN pip3 install numpy --upgrade
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
 # Install modern vncserver
-RUN apt-get -y install x11-utils libfontenc1 libjpeg-turbo8 libpixman-1-0 libtasn1-3-bin libxfont1 libxtst6 x11-xkb-utils && \
+RUN apt-get -y install x11-utils libfontenc1 libjpeg-turbo8 libpixman-1-0 libtasn1-3-bin libxfont1 libxtst6 x11-xkb-utils libxfont1-dev x11proto-fonts-dev libfontenc-dev
+ && \
     apt-get -f -y install && \
     apt-get -y autoremove
-RUN wget -O tigervncserver_1.8.0-1ubuntu1_amd64.deb https://bintray.com/tigervnc/stable/download_file?file_path=ubuntu-16.04LTS%2Famd64%2Ftigervncserver_1.8.0-1ubuntu1_amd64.deb
-RUN dpkg -i tigervncserver_1.8.0-1ubuntu1_amd64.deb && \
-    rm -f tigervncserver_1.8.0-1ubuntu1_amd64.deb
+RUN wget -O tigervncserver_1.9.0-1ubuntu1_amd64.deb https://bintray.com/tigervnc/stable/download_file?file_path=ubuntu-16.04LTS%2Famd64%2Ftigervncserver_1.9.0-1ubuntu1_amd64.deb
+RUN dpkg -i tigervncserver_1.9.0-1ubuntu1_amd64.deb && \
+    rm -f tigervncserver_1.9.0-1ubuntu1_amd64.deb
 
 # Create shortcuts and launch script
 COPY .bashrc /root/
@@ -124,7 +125,7 @@ COPY install-* /root/
 RUN chmod +x /root/Desktop/ --recursive
 
 # Copy backgrounds, icons and themes
-RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.12/share.tar.gz | tar xvz -C /usr/share
+RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.12/share.tar.gz | tar xz -C /usr/share
 RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Mono && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Panel && \
