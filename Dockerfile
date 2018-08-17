@@ -112,9 +112,9 @@ RUN chmod +x /usr/local/bin/docker-entrypoint
 RUN apt-get -y install x11-utils libfontenc1 libjpeg-turbo8 libpixman-1-0 libtasn1-3-bin libxfont1 libxtst6 x11-xkb-utils libxfont1-dev x11proto-fonts-dev libfontenc-dev && \
     apt-get -f -y install && \
     apt-get -y autoremove
-RUN wget -O tigervncserver_1.9.0-1ubuntu1_amd64.deb https://bintray.com/tigervnc/stable/download_file?file_path=ubuntu-16.04LTS%2Famd64%2Ftigervncserver_1.9.0-1ubuntu1_amd64.deb
-RUN dpkg -i tigervncserver_1.9.0-1ubuntu1_amd64.deb && \
-    rm -f tigervncserver_1.9.0-1ubuntu1_amd64.deb
+RUN wget -O tigervncserver_1.8.0-1ubuntu1_amd64.deb https://bintray.com/tigervnc/stable/download_file?file_path=ubuntu-16.04LTS%2Famd64%2Ftigervncserver_1.8.0-1ubuntu1_amd64.deb
+RUN dpkg -i tigervncserver_1.8.0-1ubuntu1_amd64.deb && \
+    rm -f tigervncserver_1.8.0-1ubuntu1_amd64.deb
 
 # Create shortcuts and launch script
 COPY .bashrc /root/
@@ -144,7 +144,7 @@ RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash i
 RUN if [ "x$BUILD_OPENCV3" = "x1" ] ; then bash install-opencv3 ; fi
 
 # Rebuild tensorflow
-RUN if [ "xBUILD_TENSORFLOW" = "x1" ] ; then bash install-tensorflow-reinstall ; fi
+RUN if [ "x$BUILD_TENSORFLOW" = "x1" ] ; then bash install-tensorflow-reinstall ; fi
 
 # Define working directory.
 WORKDIR /workspace
