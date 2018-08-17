@@ -14,6 +14,8 @@ do
     esac    
 done
 
+MACHINE_IP=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+
 echo "****************************"
 echo "* noVNC Shortcut by Yuchen *"
 echo "****************************"
@@ -29,8 +31,8 @@ fi
 echo "Current container IP = $IP"
 
 echo "---------------------"
-echo "Note that you need to replace \"COT-DGX-230\" with \"172.26.52.206\" in the URL"
-echo "    http://172.26.52.206:$SHOWPORT/vnc.html?host=172.26.52.206&port=$SHOWPORT"
+echo "Note that you need to replace \"$HOSTNAME\" with \"$MACHINE_IP\" in the URL"
+echo "    http://$MACHINE_IP:$SHOWPORT/vnc.html?host=$MACHINE_IP&port=$SHOWPORT"
 echo "---------------------"
 
 if [ "$PORT" = "0" ]

@@ -54,6 +54,12 @@ Here is the list of each dockerfile:
    
 ## Update records
 
+### ver 1.12 @ 20180816
+
+1. Revise the `xubuntu-tf` dockerfile and upgrade its dependencies.
+2. Revise `noVNC`, now we do not need to change anything but just copy it for the installation.
+3. Arrange the page of this project.
+
 ### ver 1.1 @ 20180815
 
 Add the `xubuntu-tf` dockerfile.
