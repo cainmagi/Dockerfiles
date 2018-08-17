@@ -127,13 +127,13 @@ apt-get install -y                                                            \
   python3-pip                                                                 \
 || fail
 apt-get -y install --reinstall python-pkg-resources || fail
-pip2 install -U numpy && \
-pip3 install -U numpy && \
+pip2 install -U numpy==1.14.5 && \
+pip3 install -U numpy==1.14.5 && \
 pip2 install --upgrade setuptools && \
 pip3 install --upgrade setuptools && \
 pip2 install wheel && pip3 install wheel && \
-pip3 install numpy scipy matplotlib scikit-image scikit-learn ipython && \
-pip2 install numpy matplotlib scipy scikit-image scikit-learn
+pip3 install numpy==1.14.5 scipy matplotlib scikit-image scikit-learn ipython && \
+pip2 install numpy==1.14.5 matplotlib scipy scikit-image scikit-learn
 
 msg "Installing JDK."
 apt-get install -y                                                            \

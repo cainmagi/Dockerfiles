@@ -139,7 +139,7 @@ RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
     gtk-update-icon-cache /usr/share/icons/Suru
 
 # Optional build
-RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-ffmpeg ; fi
+RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-ffmpeg && bash ~/.bashrc ; fi
 RUN if [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-opencv3 ; fi
 
 # Rebuild tensorflow

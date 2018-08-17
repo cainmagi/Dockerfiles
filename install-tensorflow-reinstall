@@ -28,7 +28,7 @@ apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -y dist-upgra
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 90 --slave /usr/bin/g++ g++ /usr/bin/g++-5 || fail
 
 # Upgrade python2 & python3 numpy
-pip3 install numpy scipy matplotlib --upgrade || fail
+pip3 install numpy==1.14.5 scipy matplotlib --upgrade || fail
 
 # Reinstall tensorflow
 cp /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1
