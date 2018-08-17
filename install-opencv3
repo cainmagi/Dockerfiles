@@ -172,13 +172,13 @@ for repo in $REPOS; do
   fi
 done
 
-#CHECKOUT_REPOS="opencv
-#opencv_contrib
-#opencv_extra"
-#for ckrepo in $CHECKOUT_REPOS; do
-#  msg "Checkouting $ckrepo Package"
-#  cd $SOURCE_ROOT_PATH/$ckrepo && git checkout 3.4.2
-#done
+CHECKOUT_REPOS="opencv
+  opencv_contrib
+  opencv_extra"
+for ckrepo in $CHECKOUT_REPOS; do
+  msg "Checkouting $ckrepo Package"
+  cd $SOURCE_ROOT_PATH/$ckrepo && git checkout 3.4.2
+done
 
 # Install gcc-5, rolling back to 5.4 and switch to it
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 90 --slave /usr/bin/g++ g++ /usr/bin/g++-5 || fail
