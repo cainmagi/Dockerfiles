@@ -109,8 +109,7 @@ RUN pip3 install numpy --upgrade
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
 # Install modern vncserver
-RUN apt-get -y install x11-utils libfontenc1 libjpeg-turbo8 libpixman-1-0 libtasn1-3-bin libxfont1 libxtst6 x11-xkb-utils libxfont1-dev x11proto-fonts-dev libfontenc-dev
- && \
+RUN apt-get -y install x11-utils libfontenc1 libjpeg-turbo8 libpixman-1-0 libtasn1-3-bin libxfont1 libxtst6 x11-xkb-utils libxfont1-dev x11proto-fonts-dev libfontenc-dev && \
     apt-get -f -y install && \
     apt-get -y autoremove
 RUN wget -O tigervncserver_1.9.0-1ubuntu1_amd64.deb https://bintray.com/tigervnc/stable/download_file?file_path=ubuntu-16.04LTS%2Famd64%2Ftigervncserver_1.9.0-1ubuntu1_amd64.deb
