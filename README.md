@@ -48,7 +48,7 @@ We have two methods for installing ffmpeg and opencv3. You may select a method a
 Note tha only if you do not change anything of this dockerfile, you could use this method to build an image with ffmpeg and opencv3 directly. The command is
 
 ```Bash
-$ nvidia-docker build -t xubuntu-tf:1.0 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf --build-arg BUILD_OPENCV3=1
+$ nvidia-docker build -t xubuntu-tf:1.0 --build-arg BUILD_OPENCV3=1 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf
 ```
 
 If you only want to install ffmpeg, use `BUILD_FFMPEG=1` for instead. Such an option could be also used for offline building.

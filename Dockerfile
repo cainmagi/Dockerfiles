@@ -10,7 +10,6 @@ FROM nvcr.io/nvidia/tensorflow:18.06-py3
 ARG DEBIAN_FRONTEND=noninteractive
 ARG BUILD_OPENCV3=0
 ARG BUILD_FFMPEG=0
-ARG BUILD_TENSORFLOW=1
 ENV USER root
 
 # Install prepared packages.
@@ -139,12 +138,12 @@ RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
     gtk-update-icon-cache /usr/share/icons/Suru
 
 # Optional build
-WORKDIR /root
-RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash install-ffmpeg ; fi
-RUN if [ "x$BUILD_OPENCV3" = "x1" ] ; then bash install-opencv3 ; fi
+# WORKDIR /root
+RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-ffmpeg ; fi
+RUN if [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-opencv3 ; fi
 
 # Rebuild tensorflow
-RUN if [ "x$BUILD_TENSORFLOW" = "x1" ] ; then bash install-tensorflow-reinstall ; fi
+# RUN if [ "x$BUILD_TENSORFLOW" = "x1" ] ; then bash /root/install-tensorflow-reinstall ; fi
 
 # Define working directory.
 WORKDIR /workspace
