@@ -10,7 +10,7 @@ FROM nvcr.io/nvidia/tensorflow:18.07-py3
 ARG DEBIAN_FRONTEND=noninteractive
 ARG BUILD_OPENCV3=0
 ARG BUILD_FFMPEG=0
-ARG NOBUILD_TENSORFLOW=0
+ARG BUILD_TENSORFLOW=0
 ENV USER root
 
 # Install prepared packages.
@@ -121,10 +121,10 @@ COPY .bashrc /root/
 COPY shortcuts/* /root/Desktop/
 COPY xstartup /root/.vnc/
 COPY install-* /root/
-RUN chmod +x /root/Desktop/ --recursive
+RUN chmod +x /root/Desktop/ --recursive && chmod +x /root/.vnc/xstartup && chmod +x /root/install-* && chmod +x /root/.bashrc
 
 # Copy backgrounds, icons and themes
-RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.12/share.tar.gz | tar xz -C /usr/share
+RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.13/share.tar.gz | tar xz -C /usr/share
 RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Mono && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Panel && \
@@ -143,7 +143,7 @@ RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /
 RUN if [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-opencv3 ; fi
 
 # Rebuild tensorflow
-# RUN if [ "x$NOBUILD_TENSORFLOW" != "x1" ] ; then bash /root/install-tensorflow-reinstall ; fi
+# RUN if [ "x$BUILD_TENSORFLOW" = "x1" ] ; then bash /root/install-tensorflow-reinstall ; fi
 
 # Define working directory.
 WORKDIR /workspace

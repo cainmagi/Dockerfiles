@@ -102,6 +102,9 @@ $ bash install-tensorflow-reinstall
    
 ## Update records
 
+### ver 1.13 @ 20180817
+Fix the bug that the xstartup does not be authorized by online building.
+
 ### ver 1.12 @ 20180816
 
 1. Update the base tensorflow image to 18.07.
