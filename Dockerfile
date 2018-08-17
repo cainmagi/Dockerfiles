@@ -10,7 +10,7 @@ FROM nvcr.io/nvidia/tensorflow:18.07-py3
 ARG DEBIAN_FRONTEND=noninteractive
 ARG BUILD_OPENCV3=0
 ARG BUILD_FFMPEG=0
-ARG BUILD_TENSORFLOW=0
+ARG BUILD_TENSORFLOW=1
 ENV USER root
 
 # Install prepared packages.
