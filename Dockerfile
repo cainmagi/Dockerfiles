@@ -143,7 +143,7 @@ RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /
 RUN if [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-opencv3 ; fi
 
 # Rebuild tensorflow
-# RUN if [ "x$BUILD_TENSORFLOW" = "x1" ] ; then bash /root/install-tensorflow-reinstall ; fi
+RUN if [ "x$BUILD_TENSORFLOW" = "x1" ] ; then bash /root/install-tensorflow-reinstall ; fi
 
 # Define working directory.
 WORKDIR /workspace
