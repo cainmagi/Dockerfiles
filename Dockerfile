@@ -124,7 +124,7 @@ COPY install-* /root/
 RUN chmod +x /root/Desktop/ --recursive && chmod +x /root/.vnc/xstartup && chmod +x /root/install-* && chmod +x /root/.bashrc
 
 # Copy backgrounds, icons and themes
-RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.13/share.tar.gz | tar xz -C /usr/share
+RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.14/share.tar.gz | tar xz -C /usr/share
 RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Mono && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Panel && \
