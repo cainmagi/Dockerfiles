@@ -109,7 +109,7 @@ RUN pip3 install numpy --upgrade
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
 # Install modern vncserver
-RUN apt-get -y install x11-utils libfontenc1 libjpeg-turbo8 libpixman-1-0 libtasn1-3-bin libxfont1 libxtst6 x11-xkb-utils && \
+RUN apt-get -y install x11-utils libfontenc1 libjpeg-turbo8 libpixman-1-0 libtasn1-3-bin libxfont1 libxtst6 x11-xkb-utils libxfont1-dev x11proto-fonts-dev libfontenc-dev && \
     apt-get -f -y install && \
     apt-get -y autoremove
 RUN wget -O tigervncserver_1.9.0-1ubuntu1_amd64.deb https://bintray.com/tigervnc/stable/download_file?file_path=ubuntu-16.04LTS%2Famd64%2Ftigervncserver_1.9.0-1ubuntu1_amd64.deb
@@ -124,7 +124,7 @@ COPY install-* /root/
 RUN chmod +x /root/Desktop/ --recursive
 
 # Copy backgrounds, icons and themes
-RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.1/share.tar.gz | tar xvz -C /usr/share
+RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.12/share.tar.gz | tar xvz -C /usr/share
 RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Mono && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Panel && \
@@ -139,11 +139,11 @@ RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
     gtk-update-icon-cache /usr/share/icons/Suru
 
 # Optional build
-RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then cd /root/ && bash install-ffmpeg ; fi
-RUN if [ "x$BUILD_OPENCV3" = "x1" ] ; then cd /root/ && bash install-opencv3 ; fi
+RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-ffmpeg ; fi
+RUN if [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-opencv3 ; fi
 
 # Rebuild tensorflow
-RUN if [ "xBUILD_TENSORFLOW" = "x1" ] ; then cd /root/ && bash install-tensorflow-reinstall ; fi
+RUN if [ "xBUILD_TENSORFLOW" = "x1" ] ; then bash /root/install-tensorflow-reinstall ; fi
 
 # Define working directory.
 WORKDIR /workspace
