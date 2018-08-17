@@ -5,7 +5,7 @@
 echo "-----------------------------------"
 echo "     XUbuntu Desktop Container"
 echo "           Yuchen Jin"
-echo "nvcr.io/nvidia/tensorflow:18.06-py3"
+echo "nvcr.io/nvidia/tensorflow:18.07-py3"
 echo "-----------------------------------"
 echo "This is a ubuntu desktop based on VNC server, to understand how to use it, follow these steps:"
 echo "    S1: Input the password as the instruction."
