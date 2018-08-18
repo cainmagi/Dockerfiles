@@ -98,8 +98,10 @@ fi
 #    . /etc/bash_completion
 #fi
 
-LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH"
+LIBRARY_PATH="/usr/local/cuda/lib64/stubs"
+LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64"
 export LD_LIBRARY_PATH
+export LIBRARY_PATH
 
 export MKL_CBWR=AUTO
 alias python=python3
