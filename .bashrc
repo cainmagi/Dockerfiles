@@ -98,8 +98,8 @@ fi
 #    . /etc/bash_completion
 #fi
 
-LIBRARY_PATH="/usr/local/cuda/lib64/stubs"
-LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64"
+LIBRARY_PATH="/usr/local/cuda/lib64/stubs:"
+LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/lib:/usr/lib:/usr/local/lib"
 export LD_LIBRARY_PATH
 export LIBRARY_PATH
 

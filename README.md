@@ -102,11 +102,17 @@ $ bash install-tensorflow-reinstall
    
 ## Update records
 
+### ver 1.15 @ 20180818
+
+1. Revise the `.bashrc` to add more paths.
+2. Let the `.bashrc` update the enviormental variables before final compilation.
+
 ### ver 1.14 @ 20180817
 
 We have found that tensorflow 1.8.0 is not compatible with numpy 1.15.0, so we have to switch the latter one back to 1.14.5.
 
 ### ver 1.13 @ 20180817
+
 Fix the bug that the xstartup does not be authorized by online building.
 
 ### ver 1.12 @ 20180816
