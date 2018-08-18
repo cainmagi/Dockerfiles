@@ -12,6 +12,10 @@ where `xubuntu` is the folder of the corresponding branch.
    
 ## Update records
 
+### ver 1.1beta @ 20180818
+
+A testing for the preparation for new caffe image.
+
 ### ver 1.0 @ 20180605
 
 Create the dockerfile branch.
