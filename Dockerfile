@@ -43,7 +43,7 @@ RUN apt-get install -f -y && \
     apt-get -y dist-upgrade
 
 # Install the desktop
-RUN apt-get install build-essential 
+RUN apt-get install -y --no-install-recommends build-essential 
 RUN apt-get install -y --no-install-recommends firefox
 RUN apt-get install -y --no-install-recommends xubuntu-desktop
 
@@ -65,14 +65,14 @@ RUN apt-get install -y --no-install-recommends xfce4 && \
 # additional packages
 RUN apt-get install -y --no-install-recommends ffmpeg libopencv-gpu2.4v5 qt5-default qt5-doc-html qt5-image-formats-plugins qt5-style-plugins
 RUN apt-get install -y --no-install-recommends chromium-browser vim-gnome codeblocks vlc smplayer gimp gedit gnome-screenshot gvfs
-RUN add-apt-repository ppa:nomacs/stable && \
-    apt-get update && apt-get install nomacs
+RUN add-apt-repository -y ppa:nomacs/stable && \
+    apt-get update -y && apt-get install nomacs -y --no-install-recommends
 
 # Install LibreOffice and Texlive    
-RUN apt-add-repository -y ppa:libreoffice/ppa && apt-get update
-RUN apt-get install libreoffice
-RUN add-apt-repository ppa:jonathonf/texlive && apt-get update
-RUN apt-get install texlive-full kile
+RUN apt-add-repository -y ppa:libreoffice/ppa && apt-get -y update
+RUN apt-get install -y --no-install-recommends libreoffice
+RUN add-apt-repository -y ppa:jonathonf/texlive && apt-get -y update
+RUN apt-get install -y --no-install-recommends texlive-full kile
 
 RUN add-apt-repository -y ppa:notepadqq-team/notepadqq
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
@@ -88,7 +88,7 @@ RUN apt-get install -y --no-install-recommends libatk1.0-0:i386 libc6:i386 libca
 RUN dpkg -i peazip.deb && rm -f peazip.deb
 RUN ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu/AdbeRdr9.5.5-1_i386linux_enu.deb -O adobereader.deb
 RUN apt-get install -y --no-install-recommends libgtk2.0-0:i386 libnss3-1d:i386 libnspr4-0d:i386 libxml2:i386 libxslt1.1:i386 libstdc++6:i386
-RUN dpkg -i adobereader.deb && rm -f adobereader.deb && apt-get -f install
+RUN dpkg -i adobereader.deb && rm -f adobereader.deb && apt-get -y -f install
 
 RUN apt-get install -y fonts-wqy-zenhei
 RUN [ -d /usr/share/fonts/opentype ] || mkdir /usr/share/fonts/opentype
