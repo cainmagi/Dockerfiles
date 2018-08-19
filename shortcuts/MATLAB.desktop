@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=MATLAB
+Comment=Launch MATLAB R2018a
+Exec=matlab -desktop  %U
+Icon=/usr/local/MATLAB/R2018a/ui/install/addonsinstallerclient/images/apple-icons/apple-touch-icon-144x144.png
+Terminal=false
+StartupNotify=false
+Path=/root

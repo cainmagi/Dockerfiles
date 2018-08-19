@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+# The script for rebuild caffe
+apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
+
+# Switch to gcc-6 and check the version
+update-alternatives --install /usr/bin/gcc gcc /usr/local/bin/gcc-6 90 --slave /usr/bin/g++ g++ /usr/local/bin/g++-6 || fail
+#update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 90 --slave /usr/bin/g++ g++ /usr/bin/g++-5 || fail
+GCCVERSION=$(gcc --version | grep ^gcc | sed 's/^.* //g')
+if [ "x$GCCVERSION" != "x6.3.0" ]; then
+  msg "Error: GCC version is $GCCVERSION, but we need 6.3.0"
+  exit 1
+fi
+
+cd /opt/caffe || fail
+mkdir -p build || fail && cd build || fail && rm ./* -rf || fail
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local            \
+      -DUSE_NCCL=ON                                     \
+      -DUSE_CUDNN=ON                                    \
+      -DBUILD_matlab=ON                                 \
+      -DCUDA_ARCH_NAME=Manual                           \
+      -DCUDA_ARCH_BIN="35 52 60 61 70"                  \
+      -DCUDA_ARCH_PTX="70"                              \
+.. || fail
+make -j32 all || fail
+make -j32 install || fail
+ldconfig || fail
+
+update-alternatives --install /usr/bin/gcc gcc /usr/local/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/local/bin/g++-6

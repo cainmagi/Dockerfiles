@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+# The script for rebuild caffe
+apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
+
+cd /opt/caffe || fail
+mkdir -p build || fail && cd build || fail && rm ./* -rf || fail
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local            \
+      -DUSE_NCCL=ON                                     \
+      -DUSE_CUDNN=ON                                    \
+      -DBUILD_matlab=OFF                                \
+      -DCUDA_ARCH_NAME=Manual                           \
+      -DCUDA_ARCH_BIN="35 52 60 61 70"                  \
+      -DCUDA_ARCH_PTX="70"                              \
+.. || fail
+make -j32 all || fail
+make -j32 install || fail
+ldconfig || fail

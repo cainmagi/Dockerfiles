@@ -9,6 +9,7 @@ FROM nvcr.io/nvidia/caffe:18.07-py2
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG BUILD_GCC=1
+ARG BUILD_CAFFE_INDEP=1
 ARG BUILD_CAFFE=0
 ENV USER root
 
@@ -123,9 +124,8 @@ RUN dpkg -i tigervncserver_1.9.0-1ubuntu1_amd64.deb && \
 # Create shortcuts and launch script
 COPY shortcuts/* /root/Desktop/
 COPY xstartup /root/.vnc/
-# COPY install-caffe-reinstall /root/
-RUN chmod +x /root/Desktop/ --recursive && chmod +x /root/.vnc/xstartup
-# && chmod +x /root/install-caffe-reinstall 
+# COPY install-caffe-* /root/
+RUN chmod +x /root/Desktop/ --recursive && chmod +x /root/.vnc/xstartup && chmod +x /root/install-caffe-*
 
 # Copy backgrounds, icons and themes
 RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.15/share.tar.gz | tar xz -C /usr/share
@@ -141,6 +141,11 @@ RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
     gtk-update-icon-cache /usr/share/icons/Paper && \
     gtk-update-icon-cache /usr/share/icons/Paper-Mono-Dark && \
     gtk-update-icon-cache /usr/share/icons/Suru
+
+# Rebuild caffe
+RUN bash /root/.bashrc
+RUN if [ "x$BUILD_CAFFE_INDEP" = "x1" ] ; then if [ "x$BUILD_GCC" = "x1" ] ; then bash /root/install-caffe-dependency; else bash /root/install-caffe-dependency-nonmatlab; fi; fi
+RUN if [ "x$BUILD_CAFFE" = "x1" ] ; then if [ "x$BUILD_GCC" = "x1" ] ; then bash /root/install-caffe-reinstall; else bash /root/install-caffe-reinstall-nonmatlab; fi; fi
 
 # Define working directory.
 WORKDIR /workspace
