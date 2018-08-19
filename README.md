@@ -7,7 +7,7 @@
 If you do not want to change the contents of the dockerfile, you could use such command to build the image:
 
 ```Bash
-$ nvidia-docker build -t xubuntu-tf:1.0 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf
+$ nvidia-docker build -t xubuntu-tf:1.15 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf
 ```
 
 ### Offline building
@@ -21,7 +21,7 @@ $ git clone --single-branch -b xubuntu-tf https://github.com/cainmagi/Dockerfile
 After that, run such command to build the image:
 
 ```Bash
-$ nvidia-docker build -t xubuntu-tf:1.0 xubuntu-tf
+$ nvidia-docker build -t xubuntu-tf:1.15 xubuntu-tf
 ```
 
 where `xubuntu-tf` is the folder of the corresponding branch.
