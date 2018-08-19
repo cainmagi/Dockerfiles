@@ -86,7 +86,7 @@ RUN apt-get install -y --no-install-recommends notepadqq code
 RUN wget https://ufpr.dl.sourceforge.net/project/peazip/6.6.0/peazip_6.6.0.LINUX.GTK2-2_i386.deb -O peazip.deb
 RUN apt-get install -y --no-install-recommends libatk1.0-0:i386 libc6:i386 libcairo2:i386 libgdk-pixbuf2.0-0:i386 libglib2.0-0:i386 libgtk2.0-0:i386 libpango1.0-0:i386 libx11-6:i386 libcanberra-gtk-module:i386
 RUN dpkg -i peazip.deb && rm -f peazip.deb
-RUN ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu/AdbeRdr9.5.5-1_i386linux_enu.deb -O adobereader.deb
+RUN wget ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu/AdbeRdr9.5.5-1_i386linux_enu.deb -O adobereader.deb
 RUN apt-get install -y --no-install-recommends libgtk2.0-0:i386 libnss3-1d:i386 libnspr4-0d:i386 libxml2:i386 libxslt1.1:i386 libstdc++6:i386
 RUN dpkg -i adobereader.deb && rm -f adobereader.deb && apt-get -y -f install
 
