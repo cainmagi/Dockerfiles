@@ -124,7 +124,7 @@ RUN dpkg -i tigervncserver_1.9.0-1ubuntu1_amd64.deb && \
 # Create shortcuts and launch script
 COPY shortcuts/* /root/Desktop/
 COPY xstartup /root/.vnc/
-# COPY install-caffe-* /root/
+COPY install-caffe-* /root/
 RUN chmod +x /root/Desktop/ --recursive && chmod +x /root/.vnc/xstartup && chmod +x /root/install-caffe-*
 
 # Copy backgrounds, icons and themes
