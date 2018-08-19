@@ -60,7 +60,8 @@ For those who need to install MATLAB after building this image, please follow th
 1. Build the image by the suggested command with default options.
 2. Install MATLAB in `/usr/local/`
 3. Add `export PATH=$PATH:/usr/local/MATLAB/R2018a/bin/` to your `.bashrc` so that you could call `mex` in terminal.
-4. Run `install-caffe-reinstall` in your `/root/` folder.
+4. You had better to use `update-alternatives --config gcc` to select `gcc-6` as your default compiler. However you could skip this step because the installation script would choose gcc-6 automatically.
+5. Run `install-caffe-reinstall` in your `/root/` folder.
 
 ### Some possible bugs
 
