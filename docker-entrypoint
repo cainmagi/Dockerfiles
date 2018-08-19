@@ -28,5 +28,5 @@ hostname -I
 echo "---------"
 
 echo "VNC settings:"
-tigervncserver -name xubuntu-tf -depth 24 -geometry 1920x1080
+tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
 exec bash
