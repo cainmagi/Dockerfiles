@@ -110,7 +110,7 @@ RUN apt-get remove -y python3-pip && \
     apt-get install -y python3-pip --reinstall
 RUN pip2 install matplotlib Cython numpy scipy scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask
 RUN apt-get install -y python-sip python-pyqt5 python-tk
-RUN pip2 install numpy --upgrade
+RUN pip2 install numpy==1.14.5 --upgrade
 RUN chmod +x /usr/local/bin/docker-entrypoint
     
 # Install modern vncserver
