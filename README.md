@@ -54,6 +54,11 @@ Here is the list of each dockerfile:
    
 ## Update records
 
+### ver 1.15 @ 20180819
+
+1. Revise the `xubuntu-tf` dockerfile for fixing some bugs in the installation scripts.
+2. Revise the `xubuntu` dockerfile, upgrade its dependencies and make a good preparation for installing caffe with gcc-6.3.0 in this image.
+
 ### ver 1.12 @ 20180816
 
 1. Revise the `xubuntu-tf` dockerfile and upgrade its dependencies.
