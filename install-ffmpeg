@@ -173,7 +173,7 @@ PATH="$BIN_PATH:$PATH" PKG_CONFIG_PATH="$BUILD_PATH/lib/pkgconfig:$PKG_CONFIG_PA
   --enable-nonfree || fail && \
 PATH="$BUILD_PATH:$PATH" make -j32 || fail && \
 make install || fail && \
-hash -r
+hash -r && ldconfig || fail
 
 # Switch back
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 50 --slave /usr/bin/g++ g++ /usr/bin/g++-5 || fail
