@@ -25,6 +25,7 @@ apt-get -y update -qq || fail && apt-get -y install \
   automake \
   build-essential \
   cmake \
+  libtool \
   git-core \
   pkg-config \
   wget \
@@ -33,7 +34,9 @@ apt-get -y update -qq || fail && apt-get -y install \
   software-properties-common \
   python-software-properties \
   python3-software-properties \
-  libtool  || fail
+  libprotobuf-dev \
+  protobuf-compiler \
+  python-protobuf || fail
 
 apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
 

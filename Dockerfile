@@ -13,6 +13,11 @@ ARG BUILD_OPENCV3=0
 ARG BUILD_FFMPEG=0
 ARG BUILD_TENSORFLOW=1
 ENV USER root
+ENV LIBRARY_PATH "/usr/local/cuda/lib64/stubs:"
+ENV LD_LIBRARY_PATH "/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/lib:/usr/lib:/usr/local/lib64:/usr/local/lib"
+ENV MKL_CBWR AUTO
+ENV PKG_CONFIG_PATH "/usr/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/local/lib/pkgconfig"
+ENV PKG_CONFIG_LIBDIR "/lib/x86_64-linux-gnu:/usr/lib:/usr/lib/x86_64-linux-gnu:/usr/local/lib"
 
 # Install prepared packages.
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
@@ -23,8 +28,7 @@ RUN apt-mark hold iptables && \
 RUN apt-get install -y --no-install-recommends build-essential software-properties-common python-software-properties python3-software-properties 
 COPY .bashrc /root/
 COPY install-* /root/
-COPY set-base-env* /root/
-RUN chmod +x /root/install-gcc && chmod +x /root/.bashrc && chmod +x /root/set-base-env* && bash /root/set-base-env-base
+RUN chmod +x /root/install-gcc && chmod +x /root/.bashrc
 RUN if [ "x$BUILD_GCC" = "x1" ] ; then bash /root/install-gcc ; fi
 
 # Setting language
@@ -137,12 +141,11 @@ RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
 
 # Optional build
 RUN bash /root/.bashrc
-RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-ffmpeg && bash /root/set-base-env-ffmpeg ; fi
+RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-ffmpeg ; fi
 RUN if [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-opencv3 ; fi
 
 # Rebuild tensorflow
 RUN if [ "x$BUILD_TENSORFLOW" = "x1" ] ; then bash /root/install-tensorflow-reinstall ; fi
-RUN rm -rf /root/set-base-env*
 
 # Define working directory.
 WORKDIR /workspace

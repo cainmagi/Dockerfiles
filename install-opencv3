@@ -153,6 +153,11 @@ INSTALL_PATH="/usr/local"
 CUDA_PATH="/usr/local/cuda"
 mkdir -p $SOURCE_ROOT_PATH $BUILD_PATH
 
+LD_LIBRARY_PATH=$BUILD_PATH/ffmpeg/lib:$LD_LIBRARY_PATH
+PATH=$BUILD_PATH/ffmpeg:$PATH
+PKG_CONFIG_PATH=$BUILD_PATH/ffmpeg/lib/pkgconfig:$PKG_CONFIG_PATH
+PKG_CONFIG_LIBDIR=$BUILD_PATH/ffmpeg/lib/:$PKG_CONFIG_LIBDIR
+
 # Get opencv3 and its dependencies' repositories
 cd $SOURCE_ROOT_PATH
 rm ceres-solver -rf  || fail && \
