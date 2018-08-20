@@ -99,7 +99,7 @@ fi
 #fi
 
 LIBRARY_PATH="/usr/local/cuda/lib64/stubs:"
-LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/lib:/usr/lib:/usr/local/lib"
+LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/lib:/usr/local/lib:/lib:/lib/x86_64-linux-gnu:/lib/i386-linux-gnu"
 export LD_LIBRARY_PATH
 export LIBRARY_PATH
 
@@ -108,4 +108,4 @@ alias python=python3
 alias pip=pip3
 
 export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/local/lib/pkgconfig
-export PKG_CONFIG_LIBDIR=/lib/x86_64-linux-gnu:/usr/lib:/usr/lib/x86_64-linux-gnu:/usr/local/lib
+export PKG_CONFIG_LIBDIR=/lib/x86_64-linux-gnu:/lib/i386-linux-gnu:/usr/lib:/usr/lib/x86_64-linux-gnu:/usr/local/lib

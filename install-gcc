@@ -113,7 +113,9 @@ make -j32 install || fail
 ldconfig || fail
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 50 --slave /usr/bin/g++ g++ /usr/bin/g++-5 || fail
 
-echo "export LD_LIBRARY_PATH=$BIN_PATH/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc 
+echo "export LD_LIBRARY_PATH=$BIN_PATH/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+echo "export PKG_CONFIG_LIBDIR=$BIN_PATH/lib64:\$PKG_CONFIG_LIBDIR" >> ~/.bashrc
 export LD_LIBRARY_PATH=$BIN_PATH/lib64:$LD_LIBRARY_PATH
+export PKG_CONFIG_LIBDIR=$BIN_PATH/lib64:$PKG_CONFIG_LIBDIR
 
 msg "Installation finished. Now you could use \"update-alternatives --config gcc\" to control the version of gcc/g++."
