@@ -45,7 +45,6 @@ MKL_CBWR=AUTO
 mkdir -p $SOURCE_PATH $BUILD_PATH $BIN_PATH/gcc-6 $BIN_PATH/gcc-8 || fail
 
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 50 --slave /usr/bin/g++ g++ /usr/bin/g++-5
-update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-5 50
 
 # Install gcc-6
 msg "Installing gcc-6."
@@ -68,7 +67,6 @@ make -j32 || fail
 make install || fail
 
 update-alternatives --install /usr/bin/gcc gcc /usr/local/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/local/bin/g++-6 || fail
-update-alternatives --install /usr/bin/gfortran gfortran /usr/local/bin/gfortran-6 60 || fail
 
 # Install gcc-8
 msg "Installing gcc-8."
@@ -90,7 +88,25 @@ make -j32 || fail
 make install || fail
 
 update-alternatives --install /usr/bin/gcc gcc /usr/local/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/local/bin/g++-8 || fail
-update-alternatives --install /usr/bin/gfortran gfortran /usr/local/bin/gfortran-8 80 || fail
+
+# Install libprotobuf with gcc-5
+update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 90 --slave /usr/bin/g++ g++ /usr/bin/g++-5
+SOURCE_PATH="/apps/source"
+BUILD_PATH="/apps/build"
+BIN_PATH="/usr/local"
+# Build and install protobuf
+cd $SOURCE_ROOT_PATH || fail
+git clone -b 'v3.5.1' --single-branch --depth 1 https://github.com/google/protobuf.git || fail
+cd protobuf || fail
+./autogen.sh || fail
+cd $BUILD_PATH || fail
+mkdir -p protobuf || fail && cd protobuf || fail
+$SOURCE_ROOT_PATH/protobuf/configure           \
+    --prefix=$BIN_PATH || fail
+make -j32 || fail
+make -j32 install || fail
+ldconfig || fail
+update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 50 --slave /usr/bin/g++ g++ /usr/bin/g++-5
 
 echo "export LD_LIBRARY_PATH=$BIN_PATH/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc 
 export LD_LIBRARY_PATH=$BIN_PATH/lib64:$LD_LIBRARY_PATH
