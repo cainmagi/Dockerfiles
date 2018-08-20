@@ -39,6 +39,8 @@ apt-get install -y                                                            \
   qt5-default                                                                 \
   libgtk2.0-dev libgtk-3-dev                                                  \
 || fail
+ln -s /usr/lib/python2.7/dist-packages/vtk/libvtkRenderingPythonTkWidgets.x86_64-linux-gnu.so /usr/lib/x86_64-linux-gnu/libvtkRenderingPythonTkWidgets.so || fail
+update-alternatives --install /usr/bin/vtk vtk /usr/bin/vtk6 60 || fail
 
 msg "Installing media I/O componenets."
 apt-get install -y                                                            \

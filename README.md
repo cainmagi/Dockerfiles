@@ -93,14 +93,14 @@ $ bash install-tensorflow-reinstall
 ### Some possible bugs
 
 * The `make test` for opencv3 may not be processed well during the testing for cuda.
-* You should not add `ppa:ubuntu-toolchain-r/test` by yourself, because we need to keep the gcc-5.4 back and not upgraded to gcc-5.5. But we may meet errors when using `apt-get`. If we find "*dependency error*" related to gcc, we could try to install the apps like this:
-    ```Bash
-    $ add-apt-repository -y ppa:ubuntu-toolchain-r/test && apt-get update -y 
-    $ apt-get install ...
-    $ add-apt-repository -y ppa:ubuntu-toolchain-r/test -r && apt-get update -y 
-    ```
+* You should not add `ppa:ubuntu-toolchain-r/test`, because we need to keep the gcc-5.4 back and not upgraded to gcc-5.5.
    
 ## Update records
+
+### ver 1.2 @ 20180820
+
+1. Change the gcc installation by compilation method.
+2. Revise the `install-opencv3` script to fix a bug with vtk-6.
 
 ### ver 1.15 @ 20180818
 

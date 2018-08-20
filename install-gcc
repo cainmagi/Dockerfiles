@@ -1,0 +1,99 @@
+#!/bin/bash
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+# The script for installing newest ffmpeg
+apt-get -y update -qq || fail && apt-get -y install \
+  autoconf \
+  automake \
+  build-essential \
+  cmake \
+  git-core \
+  pkg-config \
+  wget \
+  zlib1g-dev \
+  build-essential \
+  software-properties-common \
+  python-software-properties \
+  python3-software-properties || fail
+
+apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
+
+SOURCE_PATH="/apps/source/gcc"
+BUILD_PATH="/apps/build/gcc"
+BIN_PATH="/usr/local"
+LIBRARY_PATH=/usr/local/cuda/lib64/stubs
+LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64"
+MKL_CBWR=AUTO
+mkdir -p $SOURCE_PATH $BUILD_PATH $BIN_PATH/gcc-6 $BIN_PATH/gcc-8 || fail
+
+update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 50 --slave /usr/bin/g++ g++ /usr/bin/g++-5
+update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-5 50
+
+# Install gcc-6
+msg "Installing gcc-6."
+cd $SOURCE_PATH || fail
+wget http://www.netgull.com/gcc/releases/gcc-6.3.0/gcc-6.3.0.tar.bz2 || fail
+tar -xf gcc-6.3.0.tar.bz2 || fail && cd gcc-6.3.0 || fail
+./contrib/download_prerequisites || fail
+mkdir -p $BUILD_PATH/gcc-6.3.0 || fail && cd $BUILD_PATH/gcc-6.3.0 || fail
+$SOURCE_PATH/gcc-6.3.0/configure                     \
+    --prefix=$BIN_PATH                               \
+    --program-suffix=-6                              \
+    --enable-shared                                  \
+    --enable-threads=posix                           \
+    --enable-clocale=gnu                             \
+    --disable-multilib                               \
+    --with-system-zlib                               \
+    --enable-languages=c,c++,fortran,go,objc,obj-c++ || fail
+#--enable-__cxa_atexit
+make -j32 || fail
+make install || fail
+
+update-alternatives --install /usr/bin/gcc gcc /usr/local/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/local/bin/g++-6 || fail
+update-alternatives --install /usr/bin/gfortran gfortran /usr/local/bin/gfortran-6 60 || fail
+
+# Install gcc-8
+msg "Installing gcc-8."
+cd $SOURCE_PATH || fail
+wget http://ftp.gnu.org/gnu/gcc/gcc-8.2.0/gcc-8.2.0.tar.xz || fail
+tar -xf gcc-8.2.0.tar.xz || fail && cd gcc-8.2.0 || fail
+./contrib/download_prerequisites || fail
+mkdir -p $BUILD_PATH/gcc-8.2.0 || fail && cd $BUILD_PATH/gcc-8.2.0 || fail
+$SOURCE_PATH/gcc-8.2.0/configure                     \
+    --prefix=$BIN_PATH                               \
+    --program-suffix=-8                              \
+    --enable-shared                                  \
+    --enable-threads=posix                           \
+    --enable-clocale=gnu                             \
+    --disable-multilib                               \
+    --with-system-zlib                               \
+    --enable-languages=c,c++,fortran,go,objc,obj-c++ || fail
+make -j32 || fail
+make install || fail
+
+update-alternatives --install /usr/bin/gcc gcc /usr/local/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/local/bin/g++-8 || fail
+update-alternatives --install /usr/bin/gfortran gfortran /usr/local/bin/gfortran-8 80 || fail
+
+echo "export LD_LIBRARY_PATH=$BIN_PATH/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc 
+export LD_LIBRARY_PATH=$BIN_PATH/lib64:$LD_LIBRARY_PATH
+
+msg "Installation finished. Now you could use \"update-alternatives --config gcc\" to control the version of gcc/g++."
+msg "Installation finished. Now you could use \"update-alternatives --config gfortran\" to control the version of gfortran."

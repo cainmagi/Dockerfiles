@@ -8,6 +8,7 @@
 FROM nvcr.io/nvidia/tensorflow:18.07-py3
 
 ARG DEBIAN_FRONTEND=noninteractive
+ARG BUILD_GCC=1
 ARG BUILD_OPENCV3=0
 ARG BUILD_FFMPEG=0
 ARG BUILD_TENSORFLOW=1
@@ -21,11 +22,10 @@ RUN apt-mark hold iptables && \
 # Upgrade GCC to 8.x
 RUN apt-get install -y --no-install-recommends build-essential software-properties-common python-software-properties python3-software-properties 
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
-RUN apt-get update -y && apt-get install -y --no-install-recommends gcc-snapshot
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 50 --slave /usr/bin/g++ g++ /usr/bin/g++-5
-RUN apt-get update -y && apt-get install -y --no-install-recommends gcc-8 g++-8
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
-RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test -r && apt-get update -y
+COPY .bashrc /root/
+COPY install-* /root/
+RUN chmod +x /root/install-gcc && chmod +x /root/.bashrc && bash /root/.bashrc
+RUN if [ "x$BUILD_GCC" = "x1" ] ; then bash /root/install-gcc ; fi
 
 # Setting language
 
@@ -80,9 +80,7 @@ RUN apt-get update -y
 RUN apt-get -y dist-upgrade
 RUN apt-get install -y --no-install-recommends notepadqq code
 RUN wget https://ufpr.dl.sourceforge.net/project/peazip/6.6.0/peazip_6.6.0.LINUX.GTK2-2_i386.deb -O peazip.deb
-RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && apt-get update -y
 RUN apt-get install -y --no-install-recommends libatk1.0-0:i386 libc6:i386 libcairo2:i386 libgdk-pixbuf2.0-0:i386 libglib2.0-0:i386 libgtk2.0-0:i386 libpango1.0-0:i386 libx11-6:i386 libcanberra-gtk-module:i386
-RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test -r && apt-get update -y
 RUN dpkg -i peazip.deb && \
     rm -f peazip.deb
 
@@ -120,11 +118,10 @@ RUN dpkg -i tigervncserver_1.9.0-1ubuntu1_amd64.deb && \
 COPY .bashrc /root/
 COPY shortcuts/* /root/Desktop/
 COPY xstartup /root/.vnc/
-COPY install-* /root/
 RUN chmod +x /root/Desktop/ --recursive && chmod +x /root/.vnc/xstartup && chmod +x /root/install-* && chmod +x /root/.bashrc
 
 # Copy backgrounds, icons and themes
-RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.15/share.tar.gz | tar xz -C /usr/share
+RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.2/share.tar.gz | tar xz -C /usr/share
 RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Mono && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Panel && \
@@ -140,7 +137,7 @@ RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
 
 # Optional build
 RUN bash /root/.bashrc
-RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-ffmpeg && bash /root/.bashrc ; fi
+RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-ffmpeg && source ~/.profile ; fi
 RUN if [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-opencv3 ; fi
 
 # Rebuild tensorflow
