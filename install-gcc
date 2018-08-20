@@ -53,13 +53,13 @@ SOURCE_PATH="/apps/source"
 BUILD_PATH="/apps/build"
 BIN_PATH="/usr/local"
 # Build and install protobuf
-cd $SOURCE_ROOT_PATH || fail
+cd $SOURCE_PATH || fail
 git clone -b 'v3.5.1' --single-branch --depth 1 https://github.com/google/protobuf.git || fail
 cd protobuf || fail
 ./autogen.sh || fail
 cd $BUILD_PATH || fail
 mkdir -p protobuf || fail && cd protobuf || fail
-$SOURCE_ROOT_PATH/protobuf/configure           \
+$SOURCE_PATH/protobuf/configure           \
     --prefix=$BIN_PATH || fail
 make -j32 || fail
 make -j32 install || fail
