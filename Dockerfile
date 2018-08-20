@@ -12,6 +12,11 @@ ARG BUILD_GCC=1
 ARG BUILD_CAFFE_INDEP=1
 ARG BUILD_CAFFE=0
 ENV USER root
+ENV LIBRARY_PATH "/usr/local/cuda/lib64/stubs:"
+ENV LD_LIBRARY_PATH "/usr/lib/x86_64-linux-gnu:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/lib64:/usr/lib:/usr/local/lib:/lib:/lib/x86_64-linux-gnu:/lib/i386-linux-gnu"
+ENV MKL_CBWR AUTO
+ENV PKG_CONFIG_PATH "/usr/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/local/lib/pkgconfig"
+ENV PKG_CONFIG_LIBDIR "/lib/x86_64-linux-gnu:/lib/i386-linux-gnu:/usr/lib:/usr/lib/x86_64-linux-gnu:/usr/local/lib64:/usr/local/lib"
 
 # Install prepared packages.
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
