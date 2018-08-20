@@ -94,6 +94,7 @@ make install || fail
 update-alternatives --install /usr/bin/gcc gcc /usr/local/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/local/bin/g++-8 || fail
 
 # Install libprotobuf with gcc-5
+msg "Installing libprotobuf with gcc-5."
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 90 --slave /usr/bin/g++ g++ /usr/bin/g++-5 || fail
 SOURCE_PATH="/apps/source"
 BUILD_PATH="/apps/build"
@@ -116,4 +117,3 @@ echo "export LD_LIBRARY_PATH=$BIN_PATH/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
 export LD_LIBRARY_PATH=$BIN_PATH/lib64:$LD_LIBRARY_PATH
 
 msg "Installation finished. Now you could use \"update-alternatives --config gcc\" to control the version of gcc/g++."
-msg "Installation finished. Now you could use \"update-alternatives --config gfortran\" to control the version of gfortran."
