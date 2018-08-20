@@ -47,7 +47,7 @@ mkdir -p $SOURCE_PATH $BUILD_PATH $BIN_PATH/gcc-6 $BIN_PATH/gcc-8 || fail
 
 
 # Install libprotobuf with gcc-5
-apt-get install -y libprotobuf-dev python-protobuf python3-protobuf || fail
+apt-get install -y libprotobuf-dev python-protobuf || fail
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 90 --slave /usr/bin/g++ g++ /usr/bin/g++-5 || fail
 SOURCE_PATH="/apps/source"
 BUILD_PATH="/apps/build"
