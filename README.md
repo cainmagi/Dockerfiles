@@ -30,7 +30,7 @@ where `xubuntu-tf` is the folder of the corresponding branch.
 
 This version of **xubuntu** is particularly designed for installing **ffmpeg** and **opencv3** inside the docker image *nvcr.io/nvidia/tensorflow*. It has these special features:
 
-* **Two versions of gcc**: it contains gcc-8.1 and gcc-5.4, where gcc-5.4 is the original version of *nvcr.io/nvidia/tensorflow*.
+* **Two versions of gcc**: it contains gcc-8.2, gcc-6.3 and gcc-5.4, where gcc-5.4 is the original version of *nvcr.io/nvidia/tensorflow* and we suggest to use gcc-5.4 in most cases.
 * **Fully installed xfce4 desktop**: it has most of the useful plug-ins for xfce4 desktop. While libreoffice and texlive are **not** installed.
 * **Support Chinese**: it contains Chinese fonts and input methods.
 * **Modern VNC server**: it contains [tigervncserver][tigervnc], which is a modern VNC server and could provide more features than tightvncserver and vnc4server, like cutomizing display settings, fully implemented animated cursor and shadow effects.
