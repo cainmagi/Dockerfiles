@@ -46,7 +46,7 @@ BIN_PATH="/usr/local"
 LIBRARY_PATH=/usr/local/cuda/lib64/stubs
 LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64"
 MKL_CBWR=AUTO
-mkdir -p $SOURCE_PATH $BUILD_PATH $BIN_PATH/gcc-6 $BIN_PATH/gcc-8 || fail
+mkdir -p $SOURCE_PATH $BUILD_PATH $BIN_PATH || fail
 
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 50 --slave /usr/bin/g++ g++ /usr/bin/g++-5
 update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-5 50
