@@ -21,7 +21,6 @@ RUN apt-mark hold iptables && \
 
 # Upgrade GCC to 8.x
 RUN apt-get install -y --no-install-recommends build-essential software-properties-common python-software-properties python3-software-properties 
-RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
 COPY .bashrc /root/
 COPY install-* /root/
 RUN chmod +x /root/install-gcc && chmod +x /root/.bashrc && bash /root/.bashrc
