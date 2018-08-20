@@ -23,7 +23,8 @@ RUN apt-mark hold iptables && \
 RUN apt-get install -y --no-install-recommends build-essential software-properties-common python-software-properties python3-software-properties 
 COPY .bashrc /root/
 COPY install-* /root/
-RUN chmod +x /root/install-gcc && chmod +x /root/.bashrc && bash /root/.bashrc
+COPY set-base-env* /root/
+RUN chmod +x /root/install-gcc && chmod +x /root/.bashrc && chmod +x /root/set-base-env* && bash /root/set-base-env-base
 RUN if [ "x$BUILD_GCC" = "x1" ] ; then bash /root/install-gcc ; fi
 
 # Setting language
@@ -136,11 +137,12 @@ RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
 
 # Optional build
 RUN bash /root/.bashrc
-RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-ffmpeg && source ~/.profile ; fi
+RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-ffmpeg && bash /root/set-base-env-ffmpeg ; fi
 RUN if [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-opencv3 ; fi
 
 # Rebuild tensorflow
 RUN if [ "x$BUILD_TENSORFLOW" = "x1" ] ; then bash /root/install-tensorflow-reinstall ; fi
+RUN rm -rf /root/set-base-env*
 
 # Define working directory.
 WORKDIR /workspace
