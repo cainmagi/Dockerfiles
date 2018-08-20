@@ -45,10 +45,14 @@ Here is the list of each dockerfile:
     Run such a command to build the newest image online:
 
     ```Bash
-    $ nvidia-docker build -t xubuntu-tf:1.15 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf
+    $ nvidia-docker build -t xubuntu-tf:1.2 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf
     ```
    
 ## Update records
+
+### ver 1.16 @ 20180820
+
+Update xubuntu-tf to 1.2 version.
 
 ### ver 1.15 @ 20180819
 
