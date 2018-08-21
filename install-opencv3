@@ -161,7 +161,9 @@ PKG_CONFIG_LIBDIR=$BUILD_PATH/ffmpeg/lib/:$PKG_CONFIG_LIBDIR
 # Get opencv3 and its dependencies' repositories
 cd $SOURCE_ROOT_PATH
 rm ceres-solver -rf  || fail && \
-git clone -b 1.14.x https://ceres-solver.googlesource.com/ceres-solver || fail
+git clone https://ceres-solver.googlesource.com/ceres-solver || fail
+rm tbb -rf  || fail && \
+git clone -b 4.4.6 https://github.com/01org/tbb.git || fail
 REPOS="opencv,https://github.com/opencv/opencv.git
   opencv_contrib,https://github.com/opencv/opencv_contrib.git
   opencv_extra,https://github.com/opencv/opencv_extra.git"
@@ -193,9 +195,15 @@ update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 90 --slave /usr/bi
 #   curl -H "User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36" -o $f "https://gcc.gnu.org/viewcvs/gcc/branches/gcc-5-branch/gcc/config/i386/${f}?view=co&revision=245536&content-type=text%2Fplain&pathrev=245536"
 #done && mv avx512*intrin.h  /usr/lib/gcc/x86_64-linux-gnu/5/include/
 
-# Install gcc-4.9 and switch to it
-#apt-get update -y && apt-get install -y --no-install-recommends gcc-4.9 g++-4.9 || fail
-#update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 90 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9 || fail
+# Compile libTBB2018
+mcd "$SOURCE_ROOT_PATH/tbb"
+make -j32 
+echo "export LIBRARY_PATH=$SOURCE_ROOT_PATH/tbb/build/linux_intel64_gcc_cc5.4.0_libc2.23_kernel4.4.0_release:$SOURCE_ROOT_PATH/tbb/build/linux_intel64_gcc_cc5.4.0_libc2.23_kernel4.4.0_debug:\$LIBRARY_PATH" >> ~/.bashrc 
+echo "export TBBROOT=$SOURCE_ROOT_PATH/tbb" >> ~/.bashrc
+echo "export CPATH=$CPATH:$SOURCE_ROOT_PATH/tbb/include" >> ~/.bashrc
+export LIBRARY_PATH=$SOURCE_ROOT_PATH/tbb/build/linux_intel64_gcc_cc5.4.0_libc2.23_kernel4.4.0_release:$SOURCE_ROOT_PATH/tbb/build/linux_intel64_gcc_cc5.4.0_libc2.23_kernel4.4.0_debug:$LIBRARY_PATH
+export TBBROOT=$SOURCE_ROOT_PATH/tbb
+export CPATH=$CPATH:$SOURCE_ROOT_PATH/tbb/include
 
 # Compile Ceres Solver
 msg "Configuring Ceres Solver."
@@ -214,6 +222,8 @@ make -j32 install || fail
 
 msg "Configuring OpenCV3."
 mcd "$BUILD_PATH/opencv"
+cp /usr/include/lapacke*.h /usr/include/openblas || fail
+mv /root/CMakeLists.txt $SOURCE_ROOT_PATH/opencv/samples/gpu -rf || fail
 cmake -D BUILD_EXAMPLES=ON                                                     \
       -D BUILD_OPENCV_JAVA=OFF                                                 \
       -D BUILD_OPENCV_JS=ON                                                    \
@@ -246,8 +256,8 @@ cmake -D BUILD_EXAMPLES=ON                                                     \
       -D WITH_OPENGL=ON                                                        \
       -D WITH_QT=OFF                                                           \
       -D WITH_GTK=ON                                                           \
-      -D WITH_TBB=OFF                                                          \
-      -D WITH_OPENMP=ON                                                        \
+      -D WITH_TBB=ON                                                           \
+      -D WITH_OPENMP=OFF                                                       \
       -D WITH_V4L=ON                                                           \
       -D WITH_VTK=ON                                                           \
       -D WITH_XINE=ON                                                          \
@@ -260,7 +270,6 @@ sh -c 'echo "/usr/local/lib" >> /etc/ld.so.conf.d/opencv.conf'
 ldconfig
 
 # Switch back and recover from the rolled back gcc
-#update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 40 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9 || fail
 #apt-get -y install gcc-5 g++-5 --reinstall
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 50 --slave /usr/bin/g++ g++ /usr/bin/g++-5 || fail
 

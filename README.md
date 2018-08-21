@@ -7,7 +7,7 @@
 If you do not want to change the contents of the dockerfile, you could use such command to build the image:
 
 ```Bash
-$ nvidia-docker build -t xubuntu-tf:1.2 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf
+$ nvidia-docker build -t xubuntu-tf:1.25 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf
 ```
 
 ### Offline building
@@ -21,7 +21,7 @@ $ git clone --single-branch -b xubuntu-tf https://github.com/cainmagi/Dockerfile
 After that, run such command to build the image:
 
 ```Bash
-$ nvidia-docker build -t xubuntu-tf:1.2 xubuntu-tf
+$ nvidia-docker build -t xubuntu-tf:1.25 xubuntu-tf
 ```
 
 where `xubuntu-tf` is the folder of the corresponding branch.
@@ -48,7 +48,7 @@ We have two methods for installing ffmpeg and opencv3. You may select a method a
 Note tha only if you do not change anything of this dockerfile, you could use this method to build an image with ffmpeg and opencv3 directly. The command is
 
 ```Bash
-$ nvidia-docker build -t xubuntu-tf:1.2 --build-arg BUILD_OPENCV3=1 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf
+$ nvidia-docker build -t xubuntu-tf:1.25 --build-arg BUILD_OPENCV3=1 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf
 ```
 
 If you only want to install ffmpeg, use `BUILD_FFMPEG=1` for instead. Such an option could be also used for offline building.
@@ -96,6 +96,13 @@ $ bash install-tensorflow-reinstall
 * You should not add `ppa:ubuntu-toolchain-r/test`, because we need to keep the gcc-5.4 back and not upgraded to gcc-5.5.
    
 ## Update records
+
+### ver 1.25 @ 20180821
+
+1. Switch the parallel support of opencv3 from openMP to libTBB.
+2. Fix the bug of libvtk6 and openBLAS when building opencv3.
+3. Upgrade the build-example makelist of opencv3 with TBB checking.
+4. Re-arrange the ffmpeg and opencv installation.
 
 ### ver 1.2 @ 20180820
 

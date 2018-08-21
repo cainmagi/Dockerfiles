@@ -69,7 +69,7 @@ RUN apt-get install -y --no-install-recommends xfce4 && \
       xfce4-verve-plugin xfce4-weather-plugin xfce4-appfinder xfce4-artwork xfce4-dict
 
 # additional packages
-RUN apt-get install -y --no-install-recommends ffmpeg libopencv-gpu2.4v5 qt5-default qt5-doc-html qt5-image-formats-plugins qt5-style-plugins
+RUN apt-get install -y --no-install-recommends qt5-default qt5-doc-html qt5-image-formats-plugins qt5-style-plugins
 RUN apt-get install -y --no-install-recommends chromium-browser vim-gnome codeblocks vlc smplayer gimp gedit okular gnome-screenshot gvfs
 RUN add-apt-repository ppa:nomacs/stable && \
     apt-get update && apt-get install nomacs
@@ -122,10 +122,11 @@ RUN dpkg -i tigervncserver_1.9.0-1ubuntu1_amd64.deb && \
 COPY .bashrc /root/
 COPY shortcuts/* /root/Desktop/
 COPY xstartup /root/.vnc/
-RUN chmod +x /root/Desktop/ --recursive && chmod +x /root/.vnc/xstartup && chmod +x /root/install-* && chmod +x /root/.bashrc
+COPY opencv-dep/CMakeLists.txt /root/
+RUN chmod +x /root/Desktop/ --recursive && chmod +x /root/.vnc/xstartup && chmod +x /root/install-* && chmod +x /root/.bashrc && chmod 777 /root/CMakeLists.txt
 
 # Copy backgrounds, icons and themes
-RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.2/share.tar.gz | tar xz -C /usr/share
+RUN wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.25/share.tar.gz | tar xz -C /usr/share
 RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Mono && \
     gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Panel && \
@@ -140,9 +141,8 @@ RUN gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce && \
     gtk-update-icon-cache /usr/share/icons/Suru
 
 # Optional build
-RUN bash /root/.bashrc
-RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-ffmpeg ; fi
-RUN if [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-opencv3 ; fi
+RUN if [ "x$BUILD_FFMPEG" = "x1" ] || [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-ffmpeg ; else apt-get install -y --no-install-recommends ffmpeg ; fi
+RUN if [ "x$BUILD_OPENCV3" = "x1" ] ; then bash /root/install-opencv3 ; else apt-get install -y --no-install-recommends libopencv-gpu2.4v5 ; fi
 
 # Rebuild tensorflow
 RUN if [ "x$BUILD_TENSORFLOW" = "x1" ] ; then bash /root/install-tensorflow-reinstall ; fi
