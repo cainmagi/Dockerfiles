@@ -2,6 +2,8 @@
 
 ## XUbuntu
 
+**Note that this branch needs to be upgraded, and currently it is not useable.**
+
 ### Online building
 
 If you do not want to change the contents of the dockerfile, you could use such command to build the image:
@@ -68,6 +70,10 @@ For those who need to install MATLAB after building this image, please follow th
 We have found that in MATLAB, `caffe.test.test_solver` would cause a collision, which means there may some errors for loading a solver. Unfortunately we have not found a solution for it.
    
 ## Update records
+
+### ver 1.2beta @ 20180821
+
+Tag this branch with "beta" sign.
 
 ### ver 1.12 @ 20180819
 
