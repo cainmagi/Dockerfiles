@@ -223,7 +223,7 @@ make -j32 install || fail
 msg "Configuring OpenCV3."
 mcd "$BUILD_PATH/opencv"
 cp /usr/include/lapacke*.h /usr/include/openblas || fail
-mv /root/CMakeLists.txt $SOURCE_ROOT_PATH/opencv/samples/gpu -rf || fail
+mv /root/CMakeLists.txt $SOURCE_ROOT_PATH/opencv/samples/gpu -f || fail
 cmake -D BUILD_EXAMPLES=ON                                                     \
       -D BUILD_OPENCV_JAVA=OFF                                                 \
       -D BUILD_OPENCV_JS=ON                                                    \
