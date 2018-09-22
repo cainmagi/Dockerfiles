@@ -102,9 +102,8 @@ RUN apt-get install -f -y && \
 
 COPY docker-entrypoint /usr/local/bin/
 COPY get-pip.py /root/
+RUN apt-get install -y python-pip python3-pip
 RUN python3 /root/get-pip.py --force-reinstall && python2 /root/get-pip.py --force-reinstall
-RUN apt-get remove -y python-pip && \
-    apt-get install -y python-pip --reinstall
 RUN pip3 install matplotlib Cython numpy scipy scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask
 RUN apt-get install -y python3-sip python3-pyqt5 python3-tk
 RUN pip3 install numpy==1.14.5 --upgrade
