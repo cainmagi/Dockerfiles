@@ -1,11 +1,11 @@
 #
 # XUbuntu Desktop self-loaded Dockerfile
 #
-# nvcr.io/nvidia/tensorflow:18.09-py3
+# nvcr.io/nvidia/tensorflow:18.08-py3
 #
 
 # Pull base image.
-FROM nvcr.io/nvidia/tensorflow:18.09-py3
+FROM nvcr.io/nvidia/tensorflow:18.08-py3
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG BUILD_GCC=1
