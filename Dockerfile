@@ -33,8 +33,7 @@ RUN apt-get install -f -y && \
     apt-get -y dist-upgrade
 
 # Install the desktop
-RUN apt-get install build-essential 
-RUN apt-get install -y --no-install-recommends firefox
+RUN apt-get install -y --no-install-recommends build-essential 
 RUN apt-get install -y --no-install-recommends xubuntu-desktop
 
 # Install the xfce4 addons
