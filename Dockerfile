@@ -51,7 +51,7 @@ RUN apt-get install -y --no-install-recommends xfce4 && \
       xfce4-genmon-plugin xfce4-smartbookmark-plugin xfce4-timer-plugin \
       xfce4-verve-plugin xfce4-weather-plugin xfce4-appfinder xfce4-artwork xfce4-dict
 
-RUN apt-get install -y --no-install-recommends apt-transport-https at-spi2-core
+RUN apt-get install -y --no-install-recommends apt-transport-https at-spi2-core wget
 RUN /etc/init.d/dbus start
 
 RUN apt-get install -f -y && \
