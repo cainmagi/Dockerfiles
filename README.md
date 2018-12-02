@@ -69,7 +69,7 @@ If succeed, you should not be able to see any error report. The built tools coul
 
 ## Update records
 
-### ver 1.01 @ 20181202
+### ver 1.02 @ 20181202
 
 1. Fix a bug.
 2. Update the readme file.
