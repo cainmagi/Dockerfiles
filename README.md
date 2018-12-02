@@ -7,7 +7,7 @@
 If you do not want to change the contents of the dockerfile, you could use such command to build the image:
 
 ```Bash
-$ nvidia-docker build -t xubuntu-simplesc:1.0 https://github.com/cainmagi/Dockerfiles.git#xubuntu-simplesc
+$ nvidia-docker build -t xubuntu-simplesc:1.03 https://github.com/cainmagi/Dockerfiles.git#xubuntu-simplesc
 ```
 
 ### Offline building
@@ -21,7 +21,7 @@ $ git clone --single-branch -b xubuntu-simplesc https://github.com/cainmagi/Dock
 After that, run such command to build the image:
 
 ```Bash
-$ nvidia-docker build -t xubuntu-simplesc:1.0 xubuntu-simplesc
+$ nvidia-docker build -t xubuntu-simplesc:1.03 xubuntu-simplesc
 ```
 
 where `xubuntu-simplesc` is the folder of the corresponding branch.
@@ -42,7 +42,7 @@ This is the minimal desktop test based on *ubuntu:16.04* image, it has:
 Note tha only if you do not change anything of this dockerfile, you could use this method to build an image with SimpleScalar directly. The command is
 
 ```Bash
-$ nvidia-docker build -t xubuntu-simplesc:1.01 --build-arg BUILD_SIMPLESC=1 https://github.com/cainmagi/Dockerfiles.git#xubuntu-simplesc
+$ nvidia-docker build -t xubuntu-simplesc:1.03 --build-arg BUILD_SIMPLESC=1 https://github.com/cainmagi/Dockerfiles.git#xubuntu-simplesc
 ```
 
 Actually, `BUILD_SIMPLESC=1` is the default option, so you do not need to specify it particularly.
@@ -52,7 +52,7 @@ Actually, `BUILD_SIMPLESC=1` is the default option, so you do not need to specif
 First, you should disable the automatic installation during the image building process:
 
 ```Bash
-$ nvidia-docker build -t xubuntu-simplesc:1.01 --build-arg BUILD_SIMPLESC=0 https://github.com/cainmagi/Dockerfiles.git#xubuntu-simplesc
+$ nvidia-docker build -t xubuntu-simplesc:1.03 --build-arg BUILD_SIMPLESC=0 https://github.com/cainmagi/Dockerfiles.git#xubuntu-simplesc
 ```
 
 After building sucessfully, use this command:
