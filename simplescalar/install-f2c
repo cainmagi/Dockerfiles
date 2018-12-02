@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e # To stop as soon as an error occured
 
-IDIR=$PWD"/build"
+IDIR="/root/simplescalar/build"
 
 # Build f2c tool
-yes | cp -rf $PWD/f2c-addition/* $IDIR/f2c-1994.09.27
+yes | cp -rf $IDIR/../f2c-addition/* $IDIR/f2c-1994.09.27
 cd $IDIR/f2c-1994.09.27
 make all
 make install
