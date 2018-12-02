@@ -64,7 +64,8 @@ RUN apt-get install -f -y && \
 
 COPY docker-entrypoint /usr/local/bin/
 COPY shortcuts/* /root/Desktop/
-COPY get-pip.py simplescalar /root/
+COPY get-pip.py /root/
+COPY simplescalar /root/simplescalar
 RUN apt-get install -y python-pip python3-pip
 RUN python3 /root/get-pip.py --force-reinstall && python2 /root/get-pip.py --force-reinstall
 RUN chmod +x /root/Desktop/ --recursive && chmod +x /usr/local/bin/docker-entrypoint && chmod +x /root/simplescalar/install-* && chmod 777 /root/simplescalar/f2c-addition/ --recursive
