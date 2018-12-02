@@ -59,7 +59,7 @@ After building sucessfully, use this command:
 
 ```Bash
 $ cd /root/simplescalar/
-$ mkdir -p build && cd build && wget -nc https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-simplesc-v1.0/simplesim-3v0e.tgz && cd ..
+$ mkdir -p build && cd build && wget -nc https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-simplesc-v1%2C0/simplesim-3v0e.tgz && cd ..
 $ bash install-simplesc
 $ source ./.bashrc
 $ bash install-f2c

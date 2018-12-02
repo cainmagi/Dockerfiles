@@ -79,7 +79,7 @@ RUN dpkg -i tigervncserver_1.9.80-1ubuntu1_amd64.deb && \
     rm -f tigervncserver_1.9.80-1ubuntu1_amd64.deb
     
 # Optional build
-RUN if [ "x$BUILD_SIMPLESC" = "x1" ] ; then mkdir -p /root/simplescalar/build && cd /root/simplescalar/build && wget -nc https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-simplesc-v1.0/simplesim-3v0e.tgz ; fi
+RUN if [ "x$BUILD_SIMPLESC" = "x1" ] ; then mkdir -p /root/simplescalar/build && cd /root/simplescalar/build && wget -nc https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-simplesc-v1%2C0/simplesim-3v0e.tgz ; fi
 RUN if [ "x$BUILD_SIMPLESC" = "x1" ] ; then bash /root/simplescalar/install-simplesc ; fi
 RUN if [ "x$BUILD_SIMPLESC" = "x1" ] ; then bash /root/simplescalar/install-f2c ; fi
 
