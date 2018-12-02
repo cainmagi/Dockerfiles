@@ -95,10 +95,10 @@ make install
 
 
 cd ../simplesim*
-make config-pisa
+make config-alpha
 make
-# You can check that SimpleScalar (not the toolchain) works with the command-line:
-# ./sim-safe tests-pisa/bin.little/test-math
+# Use alpha mode to compile SimpleScalar, if we need to switch to PISA mode, use `config-pisa` instead of 
+# `config-alpha` here.
 
 
 cd ../

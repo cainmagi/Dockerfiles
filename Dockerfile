@@ -69,6 +69,7 @@ COPY simplescalar /root/simplescalar
 RUN apt-get install -y python-pip python3-pip
 RUN python3 /root/get-pip.py --force-reinstall && python2 /root/get-pip.py --force-reinstall
 RUN chmod +x /root/Desktop/ --recursive && chmod +x /usr/local/bin/docker-entrypoint && chmod +x /root/simplescalar/install-* && chmod 777 /root/simplescalar/f2c-addition/ --recursive
+RUN cd /root/simplescalar && wget -nc https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-simplesc-v1.03/Hack-guide.pdf && wget -nc https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-simplesc-v1.03/Project-guide.pdf && wget -nc https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-simplesc-v1.03/User-guide-v2.pdf
 
 # Install modern vncserver
 RUN apt-get -y install x11-utils libfontenc1 libjpeg-turbo8 libpixman-1-0 libtasn1-3-bin libxfont1 libxtst6 x11-xkb-utils libxfont1-dev x11proto-fonts-dev libfontenc-dev && \
@@ -79,7 +80,7 @@ RUN dpkg -i tigervncserver_1.9.80-1ubuntu1_amd64.deb && \
     rm -f tigervncserver_1.9.80-1ubuntu1_amd64.deb
     
 # Optional build
-RUN if [ "x$BUILD_SIMPLESC" = "x1" ] ; then mkdir -p /root/simplescalar/build && cd /root/simplescalar/build && wget -nc https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-simplesc-v1%2C0/simplesim-3v0e.tgz && cd .. ; fi
+RUN if [ "x$BUILD_SIMPLESC" = "x1" ] ; then mkdir -p /root/simplescalar/build && cd /root/simplescalar/build && wget -nc https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-simplesc-v1.03/simplesim-3v0e.tgz && cd .. ; fi
 RUN if [ "x$BUILD_SIMPLESC" = "x1" ] ; then bash /root/simplescalar/install-simplesc ; fi
 RUN if [ "x$BUILD_SIMPLESC" = "x1" ] ; then bash /root/simplescalar/install-f2c ; fi
 

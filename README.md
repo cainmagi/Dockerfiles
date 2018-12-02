@@ -59,7 +59,7 @@ After building sucessfully, use this command:
 
 ```Bash
 $ cd /root/simplescalar/
-$ mkdir -p build && cd build && wget -nc https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-simplesc-v1%2C0/simplesim-3v0e.tgz && cd ..
+$ mkdir -p build && cd build && wget -nc https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-simplesc-v1.03/simplesim-3v0e.tgz && cd ..
 $ bash install-simplesc
 $ source ./.bashrc
 $ bash install-f2c
@@ -68,6 +68,11 @@ $ bash install-f2c
 If succeed, you should not be able to see any error report. The built tools could be found in `/root/simplescalar/build/simplesim-3.0`, you could copy them to `/root/simplescalar/bin` so that you could get access to them directly.
 
 ## Update records
+
+### ver 1.03 @ 20181202
+
+1. Use alpha mode instead of PISA mode in sdenel's script, which is more suitable for our course project.
+2. Add some documents to this project.
 
 ### ver 1.02 @ 20181202
 
