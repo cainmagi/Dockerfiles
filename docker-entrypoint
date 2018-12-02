@@ -5,7 +5,7 @@
 echo "-----------------------------------"
 echo "     XUbuntu Desktop Container"
 echo "           Yuchen Jin"
-echo "    ubuntu:16.04    minimal test   "
+echo "    ubuntu:16.04    SimpleScalar   "
 echo "-----------------------------------"
 echo "This is a ubuntu desktop based on VNC server, to understand how to use it, follow these steps:"
 echo "    S1: Input the password as the instruction."
@@ -27,5 +27,5 @@ hostname -I
 echo "---------"
 
 echo "VNC settings:"
-tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
+tigervncserver -name xubuntu-simpleSc -depth 24 -geometry 1920x1080
 exec bash

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=SimpleScalar-v3
+Comment=Open SimpleScalar build folder v3.0e
+Exec=thunar /root/simplescalar/ %F
+Icon=folder-visiting
+Path=
+Terminal=false
+StartupNotify=false

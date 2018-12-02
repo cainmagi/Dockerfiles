@@ -8,6 +8,8 @@
 FROM ubuntu:16.04
 
 ARG DEBIAN_FRONTEND=noninteractive
+ARG BUILD_SIMPLESC=1
+ARG PATH="/root/simplescalar/build/bin:/root/simplescalar/build:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 ENV USER root
 ENV MKL_CBWR AUTO
 
@@ -51,6 +53,8 @@ RUN apt-get install -y --no-install-recommends xfce4 && \
       xfce4-genmon-plugin xfce4-smartbookmark-plugin xfce4-timer-plugin \
       xfce4-verve-plugin xfce4-weather-plugin xfce4-appfinder xfce4-artwork xfce4-dict
 
+# additional packages
+RUN apt-get install -y --no-install-recommends chromium-browser gedit okular gnome-screenshot gvfs
 RUN apt-get install -y --no-install-recommends apt-transport-https at-spi2-core wget
 RUN /etc/init.d/dbus start
 
@@ -60,9 +64,11 @@ RUN apt-get install -f -y && \
 
 COPY docker-entrypoint /usr/local/bin/
 COPY get-pip.py /root/
+COPY shortcuts/* /root/Desktop/
+COPY simplescalar /root/
 RUN apt-get install -y python-pip python3-pip
 RUN python3 /root/get-pip.py --force-reinstall && python2 /root/get-pip.py --force-reinstall
-RUN chmod +x /usr/local/bin/docker-entrypoint
+RUN chmod +x /root/Desktop/ --recursive && chmod +x /usr/local/bin/docker-entrypoint && chmod +x /root/simplescalar/install-* && chmod 777 /root/simplescalar/f2c-addition/ --recursive
 
 # Install modern vncserver
 RUN apt-get -y install x11-utils libfontenc1 libjpeg-turbo8 libpixman-1-0 libtasn1-3-bin libxfont1 libxtst6 x11-xkb-utils libxfont1-dev x11proto-fonts-dev libfontenc-dev && \
@@ -71,6 +77,11 @@ RUN apt-get -y install x11-utils libfontenc1 libjpeg-turbo8 libpixman-1-0 libtas
 RUN wget -O tigervncserver_1.9.80-1ubuntu1_amd64.deb http://tigervnc.bphinz.com/nightly/ubuntu-16.04LTS/amd64/tigervncserver_1.9.80+20181130git4f19e757-1ubuntu1_amd64.deb
 RUN dpkg -i tigervncserver_1.9.80-1ubuntu1_amd64.deb && \
     rm -f tigervncserver_1.9.80-1ubuntu1_amd64.deb
+    
+# Optional build
+RUN if [ "x$BUILD_SIMPLESC" = "x1" ] ; then mkdir -p /root/simplescalar/build && cd /root/simplescalar/build && wget -nc https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-simplesc-v1.0/simplesim-3v0e.tgz ; fi
+RUN if [ "x$BUILD_SIMPLESC" = "x1" ] ; then bash /root/simplescalar/install-simplesc ; fi
+RUN if [ "x$BUILD_SIMPLESC" = "x1" ] ; then bash /root/simplescalar/install-f2c ; fi
 
 # Create shortcuts and launch script
 COPY xstartup /root/.vnc/
