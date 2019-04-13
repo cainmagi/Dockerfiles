@@ -45,10 +45,18 @@ Here is the list of each dockerfile:
     Run such a command to build the newest image online:
 
     ```Bash
-    $ nvidia-docker build -t xubuntu-tf:1.2 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf
+    $ nvidia-docker build -t xubuntu-tf:1.25 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf
     ```
    
 ## Update records
+
+### ver 1.2 @ 20180820
+
+Update master branch. This update includes:
+
+1. Update the submodule `noVNC` to newest version.
+
+2. Update the start script so that it could be appiled to both `Ubuntu 16.04` and `Ubuntu 18.04`.
 
 ### ver 1.16 @ 20180820
 
