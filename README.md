@@ -23,7 +23,7 @@ To make use of this service, just copy this branch to your `/usr/local/bin/` lik
 And you could use such simple command on your Bash:
 
 ```Bash
-$ noVNC IP=172.17.0.2:5901 PORT=6080
+$ noVNC IP=192.168.127.128:5901 PORT=6080
 ```
 
 where `5901` is the entry (input) port and `6080` is the service (output) port.
