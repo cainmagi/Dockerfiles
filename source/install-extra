@@ -51,6 +51,7 @@ curl https://bootstrap.pypa.io/get-pip.py -o /root/get-pip.py || fail
 apt-get install -y python-pip python3-pip || fail
 python3 /root/get-pip.py --force-reinstall || fail && python2 /root/get-pip.py --force-reinstall || fail
 pip3 install matplotlib Cython numpy==1.16.4 scipy scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
+pip2 install numpy --upgrade || fail
 apt-get install -y python3-sip python3-pyqt5 python3-tk || fail
 chmod +x /usr/local/bin/docker-entrypoint || fail
 

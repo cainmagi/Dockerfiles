@@ -33,7 +33,7 @@ where `xubuntu-tf2` is the folder of the corresponding branch.
 The noVNC is incorporated inside the docker image, hence use such command to launch the image:
 
 ```Bash
-$ nvidia-docker run -it --rm -v ~:/homelocal -p 5901:5901 -p 6080:6080 xubuntu-tf:2.0
+$ nvidia-docker run -it --rm -v ~:/homelocal -p 6080:6080 xubuntu-tf:2.0
 ```
 
 There is a tip, if the 6080 port has been occupied, change it by another value, for example, using
@@ -41,6 +41,16 @@ There is a tip, if the 6080 port has been occupied, change it by another value, 
 ```bash
 $ ... -p 6081:6080 ... 
 ```
+
+If you find that the noVNC could be accessed, but the server could not be connected, this problem may be caused by saving the image without closing server before. In this case, you need to shut down the current server and delete these files:
+
+```bash
+rm ~/.vnc/*.log
+rm ~/.vnc/*.pid
+rm ~/tmp/.X11-unix
+```
+
+Then save the image again.
 
 ## Features
 
