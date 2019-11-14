@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends apt-utils && ap
 # Upgrade GCC to 9.x
 RUN apt-get install -y --no-install-recommends build-essential software-properties-common
 COPY source /root/
-RUN chmod +x /root/source/ --recursive && bash /root/source/detach
+RUN ls /root/ && chmod +x /root/source/ --recursive && bash /root/source/detach
 RUN if [ "x$BUILD_GCC" = "x1" ] ; then cd /root && bash install-gcc ; fi
 
 # Setting language
