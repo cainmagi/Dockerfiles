@@ -55,7 +55,7 @@ RUN bash /root/install-novnc
 RUN bash /root/install-theme
 
 # Rebuild tensorflow
-RUN if [ "x$BUILD_TENSORFLOW" = "x1" ] ; then cd /opt/tensorflow && bash ./nvbuild.sh --python3.6 ; fi
+RUN if [ "x$BUILD_TENSORFLOW" = "x1" ] ; then cd /opt/tensorflow && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 95 --slave /usr/bin/g++ g++ /usr/bin/g++-7 && bash ./nvbuild.sh --python3.6 && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 70 --slave /usr/bin/g++ g++ /usr/bin/g++-7  ; fi
 
 # Define working directory.
 WORKDIR /root
