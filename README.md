@@ -50,6 +50,10 @@ Here is the list of each dockerfile:
    
 ## Update records
 
+### ver 1.3 @ 20191114
+
+Finish the `xubuntu-tf2` dockerfile.
+
 ### ver 1.2 @ 20180820
 
 Update master branch. This update includes:
