@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+# The script for installing additional packages.
+msg "Install extra packages."
+apt-get install -y --no-install-recommends qt5-default qt5-doc-html qt5-image-formats-plugins qt5-style-plugins chromium-browser vim-gnome codeblocks vlc smplayer gedit okular gnome-screenshot || fail
+add-apt-repository -y ppa:nomacs/stable || fail && apt-get update -y || fail && apt-get install -y nomacs || fail
+
+add-apt-repository -y ppa:notepadqq-team/notepadqq || fail
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg || fail
+mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg || fail
+sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list' || fail
+dpkg --add-architecture i386 || fail
+apt-get install -y --no-install-recommends apt-transport-https || fail
+apt-get update -y || fail
+apt-get -y dist-upgrade || fail
+apt-get install -y --no-install-recommends notepadqq code || fail
+wget https://ufpr.dl.sourceforge.net/project/peazip/6.6.0/peazip_6.6.0.LINUX.GTK2-2_i386.deb -O peazip.deb || fail
+apt-get install -y --no-install-recommends libatk1.0-0:i386 libc6:i386 libcairo2:i386 libgdk-pixbuf2.0-0:i386 libglib2.0-0:i386 libgtk2.0-0:i386 libpango1.0-0:i386 libx11-6:i386 libcanberra-gtk-module:i386 || fail
+dpkg -i peazip.deb || fail && rm -f peazip.deb || fail
+
+apt-get install -y fonts-wqy-zenhei || fail
+[ -d /usr/share/fonts/opentype ] || mkdir /usr/share/fonts/opentype
+git clone https://github.com/adobe-fonts/source-code-pro.git /usr/share/fonts/opentype/scp || fail
+fc-cache -f -v || fail
+apt-get install -y fcitx fcitx-googlepinyin fcitx-table-wbpy fcitx-pinyin fcitx-sunpinyin || fail
+apt-get install -y at-spi2-core || fail
+/etc/init.d/dbus start || fail
+
+apt-get install -f -y || fail && apt-get upgrade -y || fail && apt-get -y dist-upgrade || fail
+
+curl https://bootstrap.pypa.io/get-pip.py -o /root/get-pip.py || fail
+apt-get install -y python-pip python3-pip || fail
+python3 /root/get-pip.py --force-reinstall || fail && python2 /root/get-pip.py --force-reinstall || fail
+pip3 install matplotlib Cython numpy==1.16.4 scipy scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
+apt-get install -y python3-sip python3-pyqt5 python3-tk || fail
+chmod +x /usr/local/bin/docker-entrypoint || fail
+
+msg "Installation for extra packages finished."
