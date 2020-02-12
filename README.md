@@ -23,7 +23,7 @@ $ git clone --single-branch -b xubuntu-torch https://github.com/cainmagi/Dockerf
 After that, run such command to build the image:
 
 ```Bash
-$ nvidia-docker build -t xubuntu-tc:2.0 xubuntu-torch
+$ nvidia-docker build -t xubuntu-tc:1.0 xubuntu-torch
 ```
 
 where `xubuntu-tc` is the folder of the corresponding branch.
