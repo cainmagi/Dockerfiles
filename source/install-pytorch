@@ -24,6 +24,7 @@ msg "Install PyTorch."
 
 cd /opt/pytorch || fail && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 95 --slave /usr/bin/g++ g++ /usr/bin/g++-7 || fail
 cd pytorch || fail
+CUDA_HOME="/usr/local/cuda" \
 TORCH_CUDA_ARCH_LIST="5.2 6.0 6.1 7.0 7.5+PTX" \
 CMAKE_PREFIX_PATH="$(dirname $(which conda))/../" \
 NCCL_INCLUDE_DIR="/usr/include/" \
