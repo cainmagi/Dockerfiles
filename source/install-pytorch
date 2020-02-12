@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+# The script for installing additional packages.
+msg "Install PyTorch."
+
+cd /opt/pytorch || fail && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 95 --slave /usr/bin/g++ g++ /usr/bin/g++-7 || fail
+cd pytorch || fail
+TORCH_CUDA_ARCH_LIST="5.2 6.0 6.1 7.0 7.5+PTX" \
+CMAKE_PREFIX_PATH="$(dirname $(which conda))/../" \
+NCCL_INCLUDE_DIR="/usr/include/" \
+NCCL_LIB_DIR="/usr/lib/" \
+python setup.py install || fail
+python setup.py clean || fail
+
+update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 70 --slave /usr/bin/g++ g++ /usr/bin/g++-7 || fail
+
+msg "Installation for PyTorch finished."

@@ -1,16 +1,44 @@
 #!/bin/bash
+set -e
+cat <<EOF
+
+=============
+== PyTorch ==
+=============
+
+NVIDIA Release ${NVIDIA_PYTORCH_VERSION} (build ${NVIDIA_BUILD_ID})
+PyTorch Version ${PYTORCH_VERSION}
+
+Container image Copyright (c) 2019, NVIDIA CORPORATION.  All rights reserved.
+
+Copyright (c) 2014-2019 Facebook Inc.
+Copyright (c) 2011-2014 Idiap Research Institute (Ronan Collobert)
+Copyright (c) 2012-2014 Deepmind Technologies    (Koray Kavukcuoglu)
+Copyright (c) 2011-2012 NEC Laboratories America (Koray Kavukcuoglu)
+Copyright (c) 2011-2013 NYU                      (Clement Farabet)
+Copyright (c) 2006-2010 NEC Laboratories America (Ronan Collobert, Leon Bottou, Iain Melvin, Jason Weston)
+Copyright (c) 2006      Idiap Research Institute (Samy Bengio)
+Copyright (c) 2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
+Copyright (c) 2015      Google Inc.
+Copyright (c) 2015      Yangqing Jia
+Copyright (c) 2013-2016 The Caffe contributors
+All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION.  All rights reserved.
+NVIDIA modifications are covered by the license terms that apply to the underlying project or file.
+EOF
 
 . ~/.bashrc
 
 MACHINE_IP=$(hostname -I | awk 'NR==1 {print $1}')
 
-if [[ "$(find /usr -name libcuda.so.1 | grep -v "compat") " == " " || "$(ls /dev/nvidiactl 2>/dev/null) " == " " ]]; then
+if [[ "$(find -L /usr -name libcuda.so.1 2>/dev/null | grep -v "compat") " == " " || "$(ls /dev/nvidiactl 2>/dev/null) " == " " ]]; then
   echo
   echo "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available."
   echo "   Use 'nvidia-docker run' to start this container; see"
   echo "   https://github.com/NVIDIA/nvidia-docker/wiki/nvidia-docker ."
 else
-  ( /usr/local/bin/checkSMVER.sh )  
+  ( /usr/local/bin/checkSMVER.sh )
   DRIVER_VERSION=$(sed -n 's/^NVRM.*Kernel Module *\([0-9.]*\).*$/\1/p' /proc/driver/nvidia/version 2>/dev/null || true)
   if [[ ! "$DRIVER_VERSION" =~ ^[0-9]*.[0-9]*(.[0-9]*)?$ ]]; then
     echo "Failed to detect NVIDIA driver version."
@@ -73,8 +101,8 @@ fi
 if [[ "$(df -k /dev/shm |grep ^shm |awk '{print $2}') " == "65536 " ]]; then
   echo
   echo "NOTE: The SHMEM allocation limit is set to the default of 64MB.  This may be"
-  echo "   insufficient for TensorFlow.  NVIDIA recommends the use of the following flags:"
-  echo "   nvidia-docker run --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 ..."
+  echo "   insufficient for PyTorch.  NVIDIA recommends the use of the following flags:"
+  echo "   nvidia-docker run --ipc=host ..."
 fi
 
 echo
@@ -82,21 +110,20 @@ echo
 echo "-----------------------------------"
 echo "     XUbuntu Desktop Container"
 echo "           Yuchen Jin"
-echo "nvcr.io/nvidia/tensorflow:19.10-py3"
+echo "  nvcr.io/nvidia/pytorch:20.01-py3 "
 echo "          ubuntu 18.04"
 echo "-----------------------------------"
 echo "This is a ubuntu desktop based on VNC server, to understand how to use it, follow these steps:"
 echo "    S1: Input the password as the instruction."
 echo "    S2: Confirm the password and remember the port used by this VNC session."
 echo "        This setting is only required when you first enter the container. If you want to change the password, use \"tigervncpasswd\" to do that."
-echo "    S3: Check the host IP address returned from the screen."
-echo "    S4: Run \"noVNC\" outside the container by \"$ noVNC IP=... PORT=...\" where \"PORT\" is optional."
-echo "    S5: Check the URL returned by noVNC, and use a web browser to connect the desktop URL."
-echo "    S6: Input the password which is set in S1."
-echo "    S7: Now you would see the desktop has been launched"
-echo "    S8: Enjoy your remote desktop. Note that you should not close both the terminal running the container and the default terminal of noVNC screen."
-echo "    S9: Use \"xrandr -s 1920x1080\" to choose the resolution as you want."
-echo "    S10: Before quit from the docker, remember call \"tigervncserver -kill :1\" (or other port) outside the VNC."
+echo "    S3: Both the VNC server and noVNC should launch automatically."
+echo "    S4: Use a web browser to connect the desktop URL, where the port is related to your settings when launching the container."
+echo "    S5: Input the password which is set in S1."
+echo "    S6: Now you would see the desktop has been launched"
+echo "    S7: Enjoy your remote desktop. Note that you should not close both the terminal running the container and the default terminal of noVNC screen."
+echo "    S8: Use \"xrandr -s 1920x1080\" to choose the resolution as you want."
+echo "    S9: Before quit from the docker, use CTRL+C to kill the noVNC, then remember to call \"tigervncserver -kill :1\" (or other port) outside the VNC."
 echo ""
 
 echo "---------"
