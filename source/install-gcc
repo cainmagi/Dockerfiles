@@ -50,7 +50,7 @@ SOURCE_PATH="/apps/source/gcc"
 BUILD_PATH="/apps/build/gcc"
 BIN_PATH="/usr/local"
 LIBRARY_PATH=/usr/local/cuda/lib64/stubs
-LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/compat/lib:/usr/local/cuda/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/nvvm/lib64:/usr/local/lib64:/usr/lib:/usr/local/lib:/lib:/lib/x86_64-linux-gnu:/lib/i386-linux-gnu"
+LD_LIBRARY_PATH="/usr/local/cuda/compat/lib.real:/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/lib/x86_64-linux-gnu:/usr/local/cuda/lib64:/usr/local/cuda/nvvm/lib64:/usr/local/lib64:/usr/lib:/usr/local/lib:/lib:/lib/x86_64-linux-gnu:/lib/i386-linux-gnu"
 MKL_CBWR=AUTO
 mkdir -p $SOURCE_PATH $BUILD_PATH $BIN_PATH/gcc-6 $BIN_PATH/gcc-9 || fail
 mkdir -p $SOURCE_PATH/src/google/protobuf/ || fail
