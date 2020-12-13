@@ -37,8 +37,8 @@ RUN bash /root/scripts/install-desktop MODE=apps
 RUN bash /root/scripts/install-desktop MODE=vnc
 
 # Install themes
-COPY scripts/install-themes /root/scripts/
-RUN bash /root/scripts/install-desktop MODE=theme
+COPY scripts/install-theme /root/scripts/
+RUN bash /root/scripts/install-theme MODE=theme
 
 # Create shortcuts and launch script
 COPY xstartup /root/.vnc/
