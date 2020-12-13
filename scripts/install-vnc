@@ -34,12 +34,23 @@ done
 if [ "x${MODE}" = "xvnc" ]
 then
     apt-get -y update -qq || fail && apt-get -y install git || fail
+    apt-get -y install lsb-release lsb-core || fail
+    UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
 
-    apt-get -y install fontconfig-config fonts-dejavu-core libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2 libelf1 libfontconfig1 libfontenc-dev libfontenc1 libfreetype6 libfreetype6-dev libgl1 libgl1-mesa-dri libgl1-mesa-glx libglapi-mesa libglu1-mesa libice6 libjpeg-turbo8 libllvm8 libpciaccess0 libpixman-1-0 libpng-dev libpng16-16 libpthread-stubs0-dev libsensors4 libsm6 libtasn1-bin libx11-6 libx11-data libx11-dev libx11-doc libx11-xcb1 libxau-dev libxau6 libxaw7 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-shape0 libxcb-sync1 libxcb1 libxcb1-dev libxcomposite1 libxcursor1 libxdamage1 libxdmcp-dev libxdmcp6 libxext6 libxfixes3 libxfont-dev libxfont2 libxft2 libxi6 libxinerama1 libxkbfile1 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrender1 libxshmfence1 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 ucf x11-common x11-utils x11-xkb-utils x11proto-core-dev xauth xorg-sgml-doctools xtrans-dev pciutils lm-sensors libxcb-doc mesa-utils xfonts-100dpi xfonts-75dpi xfonts-scalable nickle xorg-docs-core || fail
-
-    apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -f -y install || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
-
-    wget -O tigervncserver_install.deb https://bintray.com/tigervnc/stable/download_file?file_path=ubuntu-16.04LTS%2Famd64%2Ftigervncserver_1.11.0-1ubuntu1_amd64.deb
+    if [ "x${UBUNTU_VER}" = "18.04" ]
+    then
+        apt-get -y install fontconfig-config fonts-dejavu-core libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2 libelf1 libfontconfig1 libfontenc-dev libfontenc1 libfreetype6 libfreetype6-dev libgl1 libgl1-mesa-dri libgl1-mesa-glx libglapi-mesa libglu1-mesa libice6 libjpeg-turbo8 libllvm8 libpciaccess0 libpixman-1-0 libpng-dev libpng16-16 libpthread-stubs0-dev libsensors4 libsm6 libtasn1-bin libx11-6 libx11-data libx11-dev libx11-doc libx11-xcb1 libxau-dev libxau6 libxaw7 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-shape0 libxcb-sync1 libxcb1 libxcb1-dev libxcomposite1 libxcursor1 libxdamage1 libxdmcp-dev libxdmcp6 libxext6 libxfixes3 libxfont-dev libxfont2 libxft2 libxi6 libxinerama1 libxkbfile1 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrender1 libxshmfence1 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 ucf x11-common x11-utils x11-xkb-utils x11proto-core-dev xauth xorg-sgml-doctools xtrans-dev pciutils lm-sensors libxcb-doc mesa-utils xfonts-100dpi xfonts-75dpi xfonts-scalable nickle xorg-docs-core || fail
+        apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -f -y install || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
+        wget -O tigervncserver_install.deb https://bintray.com/tigervnc/stable/download_file?file_path=ubuntu-18.04LTS%2Famd64%2Ftigervncserver_1.11.0-1ubuntu1_amd64.deb
+    fi
+    
+    if [ "x${UBUNTU_VER}" = "16.04" ]
+    then
+        apt-get -y install x11-common xserver-common x11-utils xauth libfontenc1 libfreetype6 libgl1-mesa-dri libjpeg-turbo8 libpixman-1-0 libtasn1-3-bin libx11-6 fontconfig-config fonts-dejavu-core libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2 libelf1 libfontconfig1 libfontenc-dev libfontenc1 libfreetype6 libfreetype6-dev libgl1-mesa-dri libgl1-mesa-glx libglapi-mesa libglu1-mesa libice6 libjpeg-turbo8 libllvm6.0 libpciaccess0 libpixman-1-0 libpng12-0 libpng12-dev libpthread-stubs0-dev libsensors4 libsm6 libtasn1-3-bin libtasn1-bin libtxc-dxtn-s2tc0 libx11-6 libx11-data libx11-dev libx11-doc libx11-xcb1 libxau-dev libxau6 libxaw7 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-shape0 libxcb-sync1 libxcb1 libxcb1-dev libxcomposite1 libxcursor1 libxdamage1 libxdmcp-dev libxdmcp6 libxext6 libxfixes3 libxfont1 libxfont1-dev libxft2 libxi6 libxinerama1 libxkbfile1 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrender1 libxshmfence1 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 ucf x11-common x11-utils x11-xkb-utils x11proto-core-dev x11proto-fonts-dev x11proto-input-dev x11proto-kb-dev xauth xorg-sgml-doctools xtrans-dev || fail
+        apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -f -y install || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
+        wget -O tigervncserver_install.deb https://bintray.com/tigervnc/stable/download_file?file_path=ubuntu-16.04LTS%2Famd64%2Ftigervncserver_1.10.1-1ubuntu1_amd64.deb
+    fi
+    
     dpkg -i tigervncserver_install.deb
     rm -f tigervncserver_install.deb
 
