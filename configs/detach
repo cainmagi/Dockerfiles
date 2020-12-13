@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+THIS_ROOT=/root/configs
+# The script for installing newest ffmpeg
+msg "Move files to /root"
+chmod +rwx $THIS_ROOT --recursive || fail
+mv $THIS_ROOT/.bashrc /root || fail
+
+msg "Move files to /etc"
+echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+mv $THIS_ROOT/locale.gen /etc || fail
+
+msg "Move files to /root/ subfolders"
+mkdir -p "/root/.vnc" || fail
+mkdir -p "/root/Desktop" || fail
+mv $THIS_ROOT/xstartup /root/.vnc || fail
+mv $THIS_ROOT/shortcuts/* /root/Desktop || fail
+
+msg "Move files to /usr/local/bin/"
+mkdir -p "/usr/local/bin" || fail
+mv $THIS_ROOT/docker-entrypoint /usr/local/bin/ || fail
+
+msg "Move files finished."

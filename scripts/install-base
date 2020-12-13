@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+MODE=init
+
+for ARGUMENT in "$@"
+do
+    KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+    case "$KEY" in
+        MODE)  PORT=${VALUE} ;;
+        *)   
+    esac    
+done
+
+if [ "x${MODE}" = "xinit" ]
+then 
+    apt-get update || fail
+    apt-get install -y --no-install-recommends apt-utils || fail
+    apt-mark hold iptables || fail
+    apt-get -y dist-upgrade || fail
+    apt-get autoremove -y  || fail
+    apt-get clean || fail
+
+    # Setting language
+    echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+    echo "LANG=en_US.UTF-8" > /etc/locale.conf
+    apt-get install -y locales || fail
+    locale-gen en_US.UTF-8
+
+    update-locale --reset LANG=$LANG
+    apt-get install -f -y || fail
+    apt-get upgrade -y || fail
+    apt-get -y dist-upgrade || fail
+
+    # Install the desktop
+    apt-get install -y --no-install-recommends build-essential || fail
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        cmake ccache \
+        checkinstall pkg-config git \
+        apt-transport-https at-spi2-core wget \
+    || fail
+    msg "Installation for the basic packages finishes."
+fi
+
+if [ "x${MODE}" = "xcheck" ]
+then
+    apt-get -y update || fail
+    apt-get -y upgrade || fail
+    apt-get -y dist-upgrade || fail
+    apt-get -y autoremove || fail
+    apt-get -y autoclean || fail
+    msg "Checking the packages finishes."
+fi

@@ -99,13 +99,19 @@ fi
 #fi
 
 LIBRARY_PATH="/usr/local/cuda/lib64/stubs:"
-LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/lib:/usr/local/lib:/lib:/lib/x86_64-linux-gnu:/lib/i386-linux-gnu"
+LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/compat/lib:/usr/local/cuda/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/nvvm/lib64:/usr/local/lib64:/usr/lib:/usr/local/lib:/lib:/lib/x86_64-linux-gnu:/lib/i386-linux-gnu"
+TMP="/tmp"
+PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/local/lib/pkgconfig"
+PKG_CONFIG_LIBDIR="/lib/x86_64-linux-gnu:/lib/i386-linux-gnu:/usr/lib:/usr/lib/x86_64-linux-gnu:/usr/local/lib64:/usr/local/lib"
 export LD_LIBRARY_PATH
 export LIBRARY_PATH
+export TMP
+export PKG_CONFIG_PATH
+export PKG_CONFIG_LIBDIR
 
 export MKL_CBWR=AUTO
-alias python=python2.7
-alias pip=pip2.7
+alias python=python3
+alias pip=pip3
 
-export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/local/lib/pkgconfig
-export PKG_CONFIG_LIBDIR=/lib/x86_64-linux-gnu:/lib/i386-linux-gnu:/usr/lib:/usr/lib/x86_64-linux-gnu:/usr/local/lib
+PATH="/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/tensorrt/bin"
+export PATH

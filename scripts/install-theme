@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+MODE=theme
+
+for ARGUMENT in "$@"
+do
+    KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+    case "$KEY" in
+        MODE)  PORT=${VALUE} ;;
+        *)   
+    esac    
+done
+
+if [ "x${MODE}" = "xtheme" ]
+then 
+    # Install xfce4 Desktop
+    wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.25/share.tar.gz | tar xz -C /usr/share || fail
+        gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce || fail && \
+        gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Mono || fail && \
+        gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Panel || fail && \
+        gtk-update-icon-cache /usr/share/icons/elementary-xfce-darkest || fail && \
+        gtk-update-icon-cache /usr/share/icons/Arc-X-D || fail && \
+        gtk-update-icon-cache /usr/share/icons/Arc-X-P || fail && \
+        gtk-update-icon-cache /usr/share/icons/DarK || fail && \
+        gtk-update-icon-cache /usr/share/icons/Numix || fail && \
+        gtk-update-icon-cache /usr/share/icons/Numix-Light || fail && \
+        gtk-update-icon-cache /usr/share/icons/Paper || fail && \
+        gtk-update-icon-cache /usr/share/icons/Paper-Mono-Dark || fail && \
+        gtk-update-icon-cache /usr/share/icons/Suru || fail
+    msg "Installation for the themes finishes."
+fi
