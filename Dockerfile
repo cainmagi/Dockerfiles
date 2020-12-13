@@ -22,23 +22,23 @@ ENV LANGUAGE en_US.UTF-8
 
 # Install prepared packages
 COPY scripts/install-base /root/scripts/
-RUN chmod +x /root/install-base && bash /root/install-base MODE=init
+RUN chmod +x /root/scripts/install-base && bash /root/scripts/install-base MODE=init
 
 # Install xfce4 Desktop
 COPY scripts/install-desktop /root/scripts/
-RUN chmod +x /root/install-desktop && bash /root/install-desktop MODE=desktop
+RUN chmod +x /root/scripts/install-desktop && bash /root/scripts/install-desktop MODE=desktop
 RUN /etc/init.d/dbus start
-RUN bash /root/install-base MODE=check
+RUN bash /root/scripts/install-base MODE=check
 
 # Install extra packages
-RUN bash /root/install-desktop MODE=apps
+RUN bash /root/scripts/install-desktop MODE=apps
 
 # Install modern vncserver
-RUN bash /root/install-desktop MODE=vnc
+RUN bash /root/scripts/install-desktop MODE=vnc
 
 # Install themes
 COPY scripts/install-themes /root/scripts/
-RUN bash /root/install-desktop MODE=theme
+RUN bash /root/scripts/install-desktop MODE=theme
 
 # Create shortcuts and launch script
 COPY xstartup /root/.vnc/
