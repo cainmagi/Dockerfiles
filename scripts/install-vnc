@@ -39,9 +39,9 @@ then
 
     apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -f -y install || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
 
-    wget -O tigervncserver_1.11.80.deb http://tigervnc.bphinz.com/nightly/ubuntu-18.04LTS/amd64/tigervncserver_1.11.80+20201204gitd43c1b3c-1ubuntu1_amd64.deb
-    dpkg -i tigervncserver_1.11.80.deb
-    rm -f tigervncserver_1.11.80.deb
+    wget -O tigervncserver_install.deb https://bintray.com/tigervnc/stable/download_file?file_path=ubuntu-16.04LTS%2Famd64%2Ftigervncserver_1.11.0-1ubuntu1_amd64.deb
+    dpkg -i tigervncserver_install.deb
+    rm -f tigervncserver_install.deb
 
     SOURCE_PATH="/apps/source/"
     BUILD_PATH="/usr/local/bin"
