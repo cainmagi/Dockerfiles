@@ -55,10 +55,17 @@ then
     # Install the desktop
     apt-get install -y --no-install-recommends build-essential || fail
     apt-get install -y --no-install-recommends \
+        autoconf \
+        automake \
         build-essential \
         cmake ccache \
-        checkinstall pkg-config git \
+        checkinstall pkg-config libtool git \
         apt-transport-https at-spi2-core wget \
+        software-properties-common \
+        zlib1g-dev \
+        libprotobuf-dev \
+        protobuf-compiler \
+        python-protobuf \
     || fail
     msg "Installation for the basic packages finishes."
 fi
