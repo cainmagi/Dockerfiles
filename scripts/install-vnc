@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+MODE=vnc
+
+for ARGUMENT in "$@"
+do
+    KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+    case "$KEY" in
+        MODE)  MODE=${VALUE} ;;
+        *)   
+    esac    
+done
+
+if [ "x${MODE}" = "xvnc" ]
+    apt-get -y update -qq || fail && apt-get -y install git || fail
+
+    apt-get -y install fontconfig-config fonts-dejavu-core libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2 libelf1 libfontconfig1 libfontenc-dev libfontenc1 libfreetype6 libfreetype6-dev libgl1 libgl1-mesa-dri libgl1-mesa-glx libglapi-mesa libglu1-mesa libice6 libjpeg-turbo8 libllvm8 libpciaccess0 libpixman-1-0 libpng-dev libpng16-16 libpthread-stubs0-dev libsensors4 libsm6 libtasn1-bin libx11-6 libx11-data libx11-dev libx11-doc libx11-xcb1 libxau-dev libxau6 libxaw7 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-shape0 libxcb-sync1 libxcb1 libxcb1-dev libxcomposite1 libxcursor1 libxdamage1 libxdmcp-dev libxdmcp6 libxext6 libxfixes3 libxfont-dev libxfont2 libxft2 libxi6 libxinerama1 libxkbfile1 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrender1 libxshmfence1 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 ucf x11-common x11-utils x11-xkb-utils x11proto-core-dev xauth xorg-sgml-doctools xtrans-dev pciutils lm-sensors libxcb-doc mesa-utils xfonts-100dpi xfonts-75dpi xfonts-scalable nickle cairo-5c xorg-docs-core || fail
+
+    apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -f -y install || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
+
+    wget -O tigervncserver_1.11.80.deb http://tigervnc.bphinz.com/nightly/ubuntu-18.04LTS/amd64/tigervncserver_1.11.80+20201204gitd43c1b3c-1ubuntu1_amd64.deb
+    dpkg -i tigervncserver_1.11.80.deb
+    rm -f tigervncserver_1.11.80.deb
+
+    SOURCE_PATH="/apps/source/"
+    BUILD_PATH="/usr/local/bin"
+    mkdir -p $SOURCE_PATH || fail
+
+    # Install noVNC
+    msg "Install noVNC."
+    cd $SOURCE_PATH || fail
+    git clone https://github.com/novnc/noVNC.git || fail
+    ln -s $SOURCE_PATH/noVNC/utils/launch.sh $BUILD_PATH/noVNC
+
+    msg "Installation for VNC finished."
+fi
+
+if [ "x${MODE}" = "xtheme" ]
+then 
+    # Install xfce4 Desktop
+    wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.25/share.tar.gz | tar xz -C /usr/share || fail
+        gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce || fail && \
+        gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Mono || fail && \
+        gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Panel || fail && \
+        gtk-update-icon-cache /usr/share/icons/elementary-xfce-darkest || fail && \
+        gtk-update-icon-cache /usr/share/icons/Arc-X-D || fail && \
+        gtk-update-icon-cache /usr/share/icons/Arc-X-P || fail && \
+        gtk-update-icon-cache /usr/share/icons/DarK || fail && \
+        gtk-update-icon-cache /usr/share/icons/Numix || fail && \
+        gtk-update-icon-cache /usr/share/icons/Numix-Light || fail && \
+        gtk-update-icon-cache /usr/share/icons/Paper || fail && \
+        gtk-update-icon-cache /usr/share/icons/Paper-Mono-Dark || fail && \
+        gtk-update-icon-cache /usr/share/icons/Suru || fail
+    msg "Installation for the themes finishes."
+fi

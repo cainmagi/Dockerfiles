@@ -33,12 +33,10 @@ RUN bash /root/scripts/install-base MODE=check
 # Install extra packages
 RUN bash /root/scripts/install-desktop MODE=apps
 
-# Install modern vncserver
-RUN bash /root/scripts/install-desktop MODE=vnc
-
-# Install themes
-COPY scripts/install-theme /root/scripts/
-RUN bash /root/scripts/install-theme MODE=theme
+# Install modern vncserver and themes
+COPY scripts/install-vnc /root/scripts/
+RUN bash /root/scripts/install-vnc MODE=vnc
+RUN bash /root/scripts/install-vnc MODE=theme
 
 # Create shortcuts and launch script
 COPY xstartup /root/.vnc/
