@@ -38,11 +38,6 @@ COPY scripts/install-vnc /root/scripts/
 RUN bash /root/scripts/install-vnc MODE=vnc
 RUN bash /root/scripts/install-vnc MODE=theme
 
-# Create shortcuts and launch script
-COPY xstartup /root/.vnc/
-COPY docker-entrypoint /usr/local/bin/
-RUN chmod +x /root/.vnc/xstartup
-
 # Define working directory.
 WORKDIR /root
 
