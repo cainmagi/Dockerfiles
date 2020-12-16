@@ -90,7 +90,6 @@ then
     pip3 install matplotlib Cython numpy scipy scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
     pip2 install numpy --upgrade || fail
     apt-get install -y python3-sip python3-pyqt5 python3-tk || fail
-    chmod +x /usr/local/bin/docker-entrypoint || fail
     msg "Installation for the extra packages finishes."
 fi
 

@@ -41,6 +41,7 @@ RUN bash /root/scripts/install-vnc MODE=theme
 
 # Define working directory.
 COPY docker-entrypoint /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint
 WORKDIR /root
 
 # Define default command.
