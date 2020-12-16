@@ -77,19 +77,23 @@ echo "---------"
 
 echo "VNC settings:"
 
-FILE=/root/.vnc/passwd
-if [[ -f "${FILE}" ]]; then
+FILE_VNCPASSWD=/root/.vnc/passwd
+if [[ -f "${FILE_VNCPASSWD}" ]]; then
     echo "Find VNC password."
 else
-    tigervncpasswd ${FILE}
+    tigervncpasswd ${FILE_VNCPASSWD}
 fi
 
 if $XVNC
 then
-    x0tigervncserver -display=:1 -Geometry=1920x1080+0+0 -rfbport=5901 -passwordfile=${FILE} &
+    x0tigervncserver -display=:1 -Geometry=1920x1080+0+0 -rfbport=5901 -passwordfile=${FILE_VNCPASSWD} &
 else
     tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
 fi
 noVNC --vnc $MACHINE_IP:5901 --listen 6080
 
-exec "/bin/bash"
+if [[ $# -eq 0 ]]; then
+    exec "/bin/bash"
+else
+    exec "$@"
+fi
