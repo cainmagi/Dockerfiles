@@ -22,6 +22,7 @@ function mcd {
 }
 
 BASH=false
+XVNC=false
 # Pass options from command line
 for ARGUMENT in "$@"
 do
@@ -32,6 +33,7 @@ do
     fi
     case "$KEY" in
             --bash)         BASH=true ;;
+            --xvnc)         XVNC=true ;;
             *)   
     esac    
 done
@@ -82,8 +84,7 @@ else
     tigervncpasswd ${FILE}
 fi
 
-IS_TIGERVNCSERVER="$((command -v tigervncserver))"
-if [ "x${IS_TIGERVNCSERVER}" = "x" ]
+if $XVNC
 then
     x0tigervncserver -display=:1 -Geometry=1920x1080+0+0 -rfbport=5901 -passwordfile=${FILE} &
 else
