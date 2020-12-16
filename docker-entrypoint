@@ -22,12 +22,7 @@ function mcd {
 }
 
 BASH=false
-if [ "x${LAUNCH_USE_VNC}" = "xxvnc" ]
-then
-    XVNC=true
-else
-    XVNC=false
-fi
+XVNC=false
 # Pass options from command line
 for ARGUMENT in "$@"
 do
@@ -45,7 +40,6 @@ done
 
 MACHINE_IP=$(hostname -I | awk 'NR==1 {print $1}')
 echo "Check script: ${LAUNCH_SCRIPT_ORIGINAL}"
-echo "Check VNC server: ${LAUNCH_USE_VNC}"
 if [ "x${LAUNCH_SCRIPT_ORIGINAL}" != "x" ]
 then
     echo "Launch script: ${LAUNCH_SCRIPT_ORIGINAL}"
@@ -92,13 +86,13 @@ fi
 
 if $XVNC
 then
-    Xvnc :0 -depth 24 -geometry 1920x1080 &
+    Xtigervnc :0 -depth 24 -geometry 1920x1080 -br &
     sleep 3
-    x0tigervncserver -display=:1 -Geometry=1920x1080+0+0 -rfbport=5902 -PasswordFile=${FILE_VNCPASSWD} &
+    x0tigervncserver -display=:0 -Geometry=1920x1080+0+0 -rfbport=5901 -PasswordFile=${FILE_VNCPASSWD} &
 else
     tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
 fi
-noVNC --vnc $MACHINE_IP:5902 --listen 6080
+noVNC --vnc $MACHINE_IP:5901 --listen 6080
 
 if [[ $# -eq 0 ]]; then
     exec "/bin/bash"
