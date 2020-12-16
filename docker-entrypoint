@@ -2,6 +2,40 @@
 
 . ~/.bashrc
 
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+BASH=false
+# Pass options from command line
+for ARGUMENT in "$@"
+do
+    KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    if [[ $KEY != '--*' ]]
+    then
+        VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+    fi
+    case "$KEY" in
+            --bash)         BASH=true ;;
+            *)   
+    esac    
+done
+
 MACHINE_IP=$(hostname -I | awk 'NR==1 {print $1}')
 echo "Check script: ${LAUNCH_SCRIPT_ORIGINAL}"
 if [ "x${LAUNCH_SCRIPT_ORIGINAL}" != "x" ]
@@ -45,7 +79,7 @@ fi
 IS_TIGERVNCSERVER=$(command -v tigervncserver)
 if [ "x${IS_TIGERVNCSERVER}" = "x" ]
 then
-    x0tigervncserver -display=:1 -Geometry=1920x1080+0+0 -rfbport=5900 -passwordfile=${FILE} &
+    x0tigervncserver -display=:1 -Geometry=1920x1080+0+0 -rfbport=5901 -passwordfile=${FILE} &
 else
     tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
 fi

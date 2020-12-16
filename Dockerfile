@@ -45,4 +45,5 @@ RUN chmod +x /usr/local/bin/docker-entrypoint
 WORKDIR /root
 
 # Define default command.
-ENTRYPOINT ["docker-entrypoint"]
+ENTRYPOINT ["bash", "docker-entrypoint"]
+CMD [""]
