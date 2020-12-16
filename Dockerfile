@@ -40,6 +40,7 @@ RUN bash /root/scripts/install-vnc MODE=vnc
 RUN bash /root/scripts/install-vnc MODE=theme
 
 # Define working directory.
+COPY docker-entrypoint /usr/local/bin/
 WORKDIR /root
 
 # Define default command.

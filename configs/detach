@@ -37,8 +37,4 @@ mkdir -p "/root/Desktop" || fail
 mv $THIS_ROOT/xstartup /root/.vnc || fail
 mv $THIS_ROOT/shortcuts/* /root/Desktop || fail
 
-msg "Move files to /usr/local/bin/"
-mkdir -p "/usr/local/bin" || fail
-mv $THIS_ROOT/docker-entrypoint /usr/local/bin/ || fail
-
 msg "Move files finished."
