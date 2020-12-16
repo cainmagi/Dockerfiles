@@ -25,7 +25,7 @@ echo "    S6: Input the password which is set in S1."
 echo "    S7: Now you would see the desktop has been launched"
 echo "    S8: Enjoy your remote desktop. Note that you should not close both the terminal running the container and the default terminal of noVNC screen."
 echo "    S9: Use \"xrandr -s 1920x1080\" to choose the resolution as you want."
-echo "    S10: Before quit from the docker, remember call \"tigervncserver -kill :1\" (or other port) outside the VNC."
+echo "    S10: Before quit from the docker, remember to kill the vnc server."
 echo ""
 
 echo "---------"
@@ -35,7 +35,20 @@ echo "---------"
 
 echo "VNC settings:"
 
-tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
+FILE=/root/.vnc/passwd
+if [[ -f "${FILE}" ]]; then
+    echo "Find VNC password."
+else
+    tigervncpasswd ${FILE}
+fi
+
+IS_TIGERVNCSERVER=$(command -v tigervncserver)
+if [ "x${IS_TIGERVNCSERVER}" = "x" ]
+then
+    x0tigervncserver -display=:1 -Geometry=1920x1080+0+0 -rfbport=5900 -passwordfile=${FILE} &
+else
+    tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
+fi
 noVNC --vnc $MACHINE_IP:5901 --listen 6080
 
 if [[ $# -eq 0 ]]; then
