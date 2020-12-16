@@ -5,13 +5,13 @@
 MACHINE_IP=$(hostname -I | awk 'NR==1 {print $1}')
 if [ "x${LAUNCH_SCRIPT_ORIGINAL}" != "x" ]
 then
+    echo "Launch script: ${LAUNCH_SCRIPT_ORIGINAL}"
     bash $LAUNCH_SCRIPT_ORIGINAL
 fi
 
 echo "-----------------------------------"
 echo "     XUbuntu Desktop Container"
 echo "           Yuchen Jin"
-echo "          ubuntu 18.04"
 echo "-----------------------------------"
 echo "This is a ubuntu desktop based on VNC server, to understand how to use it, follow these steps:"
 echo "    S1: Input the password as the instruction."
@@ -34,7 +34,7 @@ echo "---------"
 
 echo "VNC settings:"
 noVNC --vnc $MACHINE_IP:5901 --listen 6080 &
-tigervncserver -name xubuntu -depth 24 -geometry 1920x1080 &
+tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
 
 if [[ $# -eq 0 ]]; then
   exec "/bin/bash"
