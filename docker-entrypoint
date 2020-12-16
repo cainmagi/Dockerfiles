@@ -82,7 +82,7 @@ else
     tigervncpasswd ${FILE}
 fi
 
-IS_TIGERVNCSERVER=$((command -v tigervncserver))
+IS_TIGERVNCSERVER="$((command -v tigervncserver))"
 if [ "x${IS_TIGERVNCSERVER}" = "x" ]
 then
     x0tigervncserver -display=:1 -Geometry=1920x1080+0+0 -rfbport=5901 -passwordfile=${FILE} &
