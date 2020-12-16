@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ~/.bashrc
+source ~/.bashrc
 
 # Make bashline configurations.
 set -e
@@ -92,8 +92,8 @@ fi
 
 if $XVNC
 then
-    Xvnc :0 -depth 24 -geometry 1920x1080 &
-    x0tigervncserver -display=:0 -Geometry=1920x1080+0+0 -rfbport=5901 -passwordfile=${FILE_VNCPASSWD} &
+    Xvnc :1 -depth 24 -geometry 1920x1080 &
+    x0tigervncserver -display=:1 -Geometry=1920x1080+0+0 -rfbport=5901 -passwordfile=${FILE_VNCPASSWD} &
 else
     tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
 fi
