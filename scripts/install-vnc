@@ -46,9 +46,12 @@ then
         
         wget -O tigervncserver_install.deb https://bintray.com/tigervnc/stable/download_file?file_path=ubuntu-18.04LTS%2Famd64%2Ftigervncserver_1.11.0-1ubuntu1_amd64.deb
         wget -O tigervncserver https://raw.githubusercontent.com/metalefty/tigervnc/master/unix/vncserver
+        dpkg -i tigervncserver_install.deb
         cp tigervncserver /usr/bin
         chmod ugo+x /usr/bin/tigervncserver
         ln -s /usr/bin/tigervncserver /usr/bin/vncserver 
+        rm -f tigervncserver_install.deb
+        rm -f tigervncserver
     fi
     
     if [ "x${UBUNTU_VER}" = "x16.04" ]
