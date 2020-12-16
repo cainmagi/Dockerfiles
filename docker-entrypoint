@@ -92,9 +92,9 @@ fi
 
 if $XVNC
 then
-    Xvnc :1 -depth 24 -geometry 1920x1080 &
+    Xvnc :0 -depth 24 -geometry 1920x1080 &
     sleep 3
-    x0tigervncserver -display=:1 -Geometry=1920x1080+0+0 -rfbport=5902 -passwordfile=${FILE_VNCPASSWD} &
+    x0tigervncserver -display=:1 -Geometry=1920x1080+0+0 -rfbport=5902 -PasswordFile=${FILE_VNCPASSWD} &
 else
     tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
 fi
