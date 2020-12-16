@@ -93,11 +93,12 @@ fi
 if $XVNC
 then
     Xvnc :1 -depth 24 -geometry 1920x1080 &
-    x0tigervncserver -display=:1 -Geometry=1920x1080+0+0 -rfbport=5901 -passwordfile=${FILE_VNCPASSWD} &
+    sleep 3
+    x0tigervncserver -display=:1 -Geometry=1920x1080+0+0 -rfbport=5902 -passwordfile=${FILE_VNCPASSWD} &
 else
     tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
 fi
-noVNC --vnc $MACHINE_IP:5901 --listen 6080
+noVNC --vnc $MACHINE_IP:5902 --listen 6080
 
 if [[ $# -eq 0 ]]; then
     exec "/bin/bash"
