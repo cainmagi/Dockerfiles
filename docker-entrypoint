@@ -92,6 +92,6 @@ then
 else
     tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
 fi
-bash noVNC --vnc $MACHINE_IP:5901 --listen 6080
+exec noVNC --vnc $MACHINE_IP:5901 --listen 6080
 
 exec bash
