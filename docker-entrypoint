@@ -84,8 +84,4 @@ fi
 
 jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_PASSWORD} --allow-root ${OPTION_ROOT}
 
-if [[ $# -eq 0 ]]; then
-    exec "/bin/bash"
-else
-    exec "$@"
-fi
+exec "/bin/bash"
