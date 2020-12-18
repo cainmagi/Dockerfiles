@@ -21,20 +21,11 @@ function mcd {
 
 THIS_ROOT=/root/configs
 # The script for installing newest ffmpeg
-msg "Move files to /root"
-chmod +rwx $THIS_ROOT --recursive || fail
-mv $THIS_ROOT/.bashrc /root || fail
 
 msg "Move files to /etc"
 echo "LC_ALL=en_US.UTF-8" >> /etc/environment
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 mv $THIS_ROOT/locale.gen /etc || fail
-
-msg "Move files to /root/ subfolders"
-mkdir -p "/root/.vnc" || fail
-mkdir -p "/root/Desktop" || fail
-mv $THIS_ROOT/xstartup /root/.vnc || fail
-mv $THIS_ROOT/shortcuts/* /root/Desktop || fail
 
 msg "Move files finished."

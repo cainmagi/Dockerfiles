@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+MODE=python
+
+for ARGUMENT in "$@"
+do
+    KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+    case "$KEY" in
+        MODE)  MODE=${VALUE} ;;
+        *)   
+    esac    
+done
+
+if [ "x${MODE}" = "xpython" ]
+then     
+    apt-get install -y --no-install-recommends apt-transport-https || fail
+    apt-get install -y at-spi2-core || fail
+    apt-get update -y || fail && apt-get -y dist-upgrade || fail
+    curl https://bootstrap.pypa.io/get-pip.py -o /root/get-pip.py || fail
+    apt-get install -y python-pip python3-pip || fail
+    python3 /root/get-pip.py --force-reinstall || fail && python2 /root/get-pip.py --force-reinstall || fail
+    pip3 install matplotlib Cython numpy scipy scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
+    pip2 install numpy --upgrade || fail
+    apt-get install -y python3-sip python3-pyqt5 python3-tk || fail
+    apt-get install -f -y || fail && apt-get upgrade -y || fail && apt-get -y dist-upgrade || fail
+    msg "Installation for the python finishes."
+fi
+
+if [ "x${MODE}" = "xjupyter" ]
+then
+    pip3 install jupyterlab
+fi

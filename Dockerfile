@@ -1,5 +1,5 @@
 #
-# XUbuntu Desktop self-loaded Dockerfile
+# Jupyter Lab self-loaded Dockerfile
 #
 # BASE_IMAGE
 #
@@ -12,7 +12,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ENV USER root
 ENV MKL_CBWR AUTO
-ENV LAUNCH_SCRIPT_ORIGINAL=$BASE_LAUNCH
 
 # Move configs.
 COPY configs /root/configs
@@ -25,21 +24,14 @@ ENV LANGUAGE en_US.UTF-8
 COPY scripts/install-base /root/scripts/
 RUN chmod +x /root/scripts/install-base && bash /root/scripts/install-base MODE=init
 
-# Install xfce4 Desktop
-COPY scripts/install-desktop /root/scripts/
-RUN chmod +x /root/scripts/install-desktop && bash /root/scripts/install-desktop MODE=desktop
-RUN /etc/init.d/dbus start
+# Install python
+COPY scripts/install-python /root/scripts/
+RUN chmod +x /root/scripts/install-python && bash /root/scripts/install-python MODE=python
+RUN bash /root/scripts/install-python MODE=jupyter
 RUN bash /root/scripts/install-base MODE=check
 
-# Install extra packages
-RUN bash /root/scripts/install-desktop MODE=apps
-
-# Install modern vncserver and themes
-COPY scripts/install-vnc /root/scripts/
-RUN bash /root/scripts/install-vnc MODE=vnc
-RUN bash /root/scripts/install-vnc MODE=theme
-
 # Define working directory.
+ENV LAUNCH_SCRIPT_ORIGINAL $BASE_LAUNCH
 COPY docker-entrypoint /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint
 WORKDIR /root

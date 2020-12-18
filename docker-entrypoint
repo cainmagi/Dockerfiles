@@ -22,7 +22,8 @@ function mcd {
 }
 
 BASH=false
-XVNC=false
+ROOT_DIR="/homelocal"
+PASSWORD=""
 # Pass options from command line
 for ARGUMENT in "$@"
 do
@@ -33,7 +34,8 @@ do
     fi
     case "$KEY" in
             --bash)         BASH=true ;;
-            --xvnc)       XVNC=true ;;
+            password)       PASSWORD=${VALUE} ;;
+            rootdir)        ROOT_DIR=${VALUE} ;;
             *)   
     esac    
 done
@@ -53,21 +55,14 @@ then
 fi
 
 echo "-----------------------------------"
-echo "     XUbuntu Desktop Container"
+echo "       Jupyter Lab Container"
 echo "           Yuchen Jin"
 echo "-----------------------------------"
-echo "This is a ubuntu desktop based on VNC server, to understand how to use it, follow these steps:"
-echo "    S1: Input the password as the instruction."
-echo "    S2: Confirm the password and remember the port used by this VNC session."
-echo "        This setting is only required when you first enter the container. If you want to change the password, use \"tigervncpasswd\" to do that."
-echo "    S3: Check the host IP address returned from the screen."
-echo "    S4: Run \"noVNC\" outside the container by \"$ noVNC IP=... PORT=...\" where \"PORT\" is optional."
-echo "    S5: Check the URL returned by noVNC, and use a web browser to connect the desktop URL."
-echo "    S6: Input the password which is set in S1."
-echo "    S7: Now you would see the desktop has been launched"
-echo "    S8: Enjoy your remote desktop. Note that you should not close both the terminal running the container and the default terminal of noVNC screen."
-echo "    S9: Use \"xrandr -s 1920x1080\" to choose the resolution as you want."
-echo "    S10: Before quit from the docker, remember to kill the vnc server."
+echo "This is a container used for launching jupyterlab."
+echo "Use the following options to configure the lab:"
+echo "    --password: set the password of the lab manually."
+echo "    --rootdir: set the root directory of the lab."
+echo "If not setting the password manually, users need to check the token shown in the terminal."
 echo ""
 
 echo "---------"
@@ -75,24 +70,19 @@ echo "Host IP:"
 echo $MACHINE_IP
 echo "---------"
 
-echo "VNC settings:"
-
-FILE_VNCPASSWD=/root/.vnc/passwd
-if [[ -f "${FILE_VNCPASSWD}" ]]; then
-    echo "Find VNC password."
-else
-    tigervncpasswd ${FILE_VNCPASSWD}
-fi
-
-if $XVNC
+OPTION_PASSWORD=""
+if [ "x${PASSWORD}" != "x" ]
 then
-    Xtigervnc :0 -depth 24 -geometry 1920x1080 -br &
-    sleep 3
-    x0tigervncserver -display=:0 -Geometry=1920x1080+0+0 -rfbport=5901 -PasswordFile=${FILE_VNCPASSWD} &
-else
-    tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
+    OPTION_PASSWORD="--NotebookApp.token='${PASSWORD}'"
 fi
-noVNC --vnc $MACHINE_IP:5901 --listen 6080
+
+OPTION_ROOT=""
+if [ "x${ROOT_DIR}" != "x" ]
+then
+    OPTION_ROOT="--notebook-dir=${ROOT_DIR}"
+fi
+
+jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_PASSWORD} --allow-root ${OPTION_ROOT}
 
 if [[ $# -eq 0 ]]; then
     exec "/bin/bash"
