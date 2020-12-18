@@ -33,7 +33,7 @@ do
     fi
     case "$KEY" in
             --bash)         BASH=true ;;
-            --xvnc)       XVNC=true ;;
+            --xvnc)         XVNC=true ;;
             *)   
     esac    
 done
@@ -43,7 +43,7 @@ echo "Check script: ${LAUNCH_SCRIPT_ORIGINAL}"
 if [ "x${LAUNCH_SCRIPT_ORIGINAL}" != "x" ]
 then
     echo "Launch script: ${LAUNCH_SCRIPT_ORIGINAL}"
-    bash $LAUNCH_SCRIPT_ORIGINAL
+    bash $LAUNCH_SCRIPT_ORIGINAL echo "Finish launching."
 fi
 
 if $BASH

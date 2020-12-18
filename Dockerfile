@@ -6,13 +6,12 @@
 
 # Pull base image.
 ARG BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.04-py3
-ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
 FROM $BASE_IMAGE
+ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV USER root
 ENV MKL_CBWR AUTO
-ENV LAUNCH_SCRIPT_ORIGINAL=$BASE_LAUNCH
 
 # Move configs.
 COPY configs /root/configs
@@ -40,6 +39,7 @@ RUN bash /root/scripts/install-vnc MODE=vnc
 RUN bash /root/scripts/install-vnc MODE=theme
 
 # Define working directory.
+ENV LAUNCH_SCRIPT_ORIGINAL=$BASE_LAUNCH
 COPY docker-entrypoint /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint
 WORKDIR /root
