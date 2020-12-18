@@ -31,7 +31,7 @@ RUN bash /root/scripts/install-python MODE=jupyter
 RUN bash /root/scripts/install-base MODE=check
 
 # Define working directory.
-ENV LAUNCH_SCRIPT_ORIGINAL $BASE_LAUNCH
+ENV LAUNCH_SCRIPT_ORIGINAL=$BASE_LAUNCH
 COPY docker-entrypoint /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint
 WORKDIR /root
