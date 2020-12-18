@@ -6,9 +6,9 @@
 
 # Pull base image.
 ARG BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.04-py3
-ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
 FROM $BASE_IMAGE
 ARG DEBIAN_FRONTEND=noninteractive
+ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
 
 ENV USER root
 ENV MKL_CBWR AUTO
