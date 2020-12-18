@@ -45,7 +45,7 @@ echo "Check script: ${LAUNCH_SCRIPT_ORIGINAL}"
 if [ "x${LAUNCH_SCRIPT_ORIGINAL}" != "x" ]
 then
     echo "Launch script: ${LAUNCH_SCRIPT_ORIGINAL}"
-    bash $LAUNCH_SCRIPT_ORIGINAL
+    bash $LAUNCH_SCRIPT_ORIGINAL echo "Finish launching."
 fi
 
 if $BASH
