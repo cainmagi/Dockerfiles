@@ -94,8 +94,4 @@ else
 fi
 noVNC --vnc $MACHINE_IP:5901 --listen 6080
 
-if [[ $# -eq 0 ]]; then
-    exec "/bin/bash"
-else
-    exec "$@"
-fi
+exec "/bin/bash"
