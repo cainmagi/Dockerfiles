@@ -94,4 +94,4 @@ else
 fi
 noVNC --vnc $MACHINE_IP:5901 --listen 6080
 
-exec "/bin/bash"
+exec bash
