@@ -35,6 +35,15 @@ This is the minimal desktop test based on *ubuntu:16.04* image, it has:
 
 ## Update records
 
+### ver 1.1 @ 12/18/2020
+
+1. Support Ubuntu 20.04.
+2. Fix the font issues.
+
+### ver 1.0 @ 12/18/2020
+
+Re-craft this dockerfile.
+
 ### ver 1.0 @ 20181201
 
 Create the dockerfile branch.

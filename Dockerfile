@@ -8,6 +8,7 @@
 ARG BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.04-py3
 FROM $BASE_IMAGE
 ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
+ARG NOVNC_COMPAT=""
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV USER root

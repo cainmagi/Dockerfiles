@@ -52,10 +52,13 @@ then
     exit 0
 fi
 
-echo "-----------------------------------"
-echo "     XUbuntu Desktop Container"
-echo "           Yuchen Jin"
-echo "-----------------------------------"
+echo "----------------------------------------"
+echo " XUbuntu Desktop Container"
+echo " Yuchen Jin"
+echo "----------------------------------------"
+echo " Pre-request script:"
+echo "   ${LAUNCH_SCRIPT_ORIGINAL} "
+echo "----------------------------------------"
 echo "This is a ubuntu desktop based on VNC server, to understand how to use it, follow these steps:"
 echo "    S1: Input the password as the instruction."
 echo "    S2: Confirm the password and remember the port used by this VNC session."
