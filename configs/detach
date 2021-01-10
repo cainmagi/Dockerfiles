@@ -19,22 +19,58 @@ function mcd {
   cd "$1" || fail
 }
 
+MODE=basic
+
+for ARGUMENT in "$@"
+do
+    KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+    case "$KEY" in
+        MODE)  MODE=${VALUE} ;;
+        *)   
+    esac    
+done
+
 THIS_ROOT=/root/configs
-# The script for installing newest ffmpeg
-msg "Move files to /root"
-chmod +rwx $THIS_ROOT --recursive || fail
-mv $THIS_ROOT/.bashrc /root || fail
 
-msg "Move files to /etc"
-echo "LC_ALL=en_US.UTF-8" >> /etc/environment
-echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-echo "LANG=en_US.UTF-8" > /etc/locale.conf
-mv $THIS_ROOT/locale.gen /etc || fail
+if [ "x${MODE}" = "xbasic" ]
+then 
+  msg "Detach script, basic mode."
+  # The script for installing newest ffmpeg
+  msg "Move files to /root"
+  chmod +rwx $THIS_ROOT --recursive || fail
+  mv $THIS_ROOT/.bashrc /root || fail
 
-msg "Move files to /root/ subfolders"
-mkdir -p "/root/.vnc" || fail
-mkdir -p "/root/Desktop" || fail
-mv $THIS_ROOT/xstartup /root/.vnc || fail
-mv $THIS_ROOT/shortcuts/* /root/Desktop || fail
+  msg "Move files to /etc"
+  echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+  echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+  echo "LANG=en_US.UTF-8" > /etc/locale.conf
+  mv $THIS_ROOT/locale.gen /etc || fail
+
+  msg "Move files to /root/ subfolders"
+  mkdir -p "/root/.vnc" || fail
+  mkdir -p "/root/Desktop" || fail
+  mv $THIS_ROOT/xstartup /root/.vnc || fail
+  mv $THIS_ROOT/shortcuts/basic/* /root/Desktop || fail
+fi
+
+if [ "x${MODE}" = "xspecial" ]
+then
+  msg "Detach script, special mode."
+  apt-get update || fail
+  apt-get -y install lsb-release lsb-core || fail
+  UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
+  
+  if [ "x${UBUNTU_VER}" = "x20.04" ]
+  then
+    msg "Move files to /root/ subfolders (For ubuntu 20.04)"
+    mkdir -p "/root/Desktop" || fail
+    mv $THIS_ROOT/shortcuts/20-04/* /root/Desktop || fail
+  else
+    msg "Move files to /root/ subfolders (For ubuntu <20.04)"
+    mkdir -p "/root/Desktop" || fail
+    mv $THIS_ROOT/shortcuts/others/* /root/Desktop || fail
+  fi
+fi
 
 msg "Move files finished."

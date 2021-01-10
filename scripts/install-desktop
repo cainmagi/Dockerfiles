@@ -84,7 +84,17 @@ then
     apt-get install -y --no-install-recommends lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
 
-    apt-get install -y --no-install-recommends qt5-default qt5-doc-html qt5-image-formats-plugins qt5-style-plugins chromium-browser codeblocks vlc smplayer gedit okular gnome-screenshot || fail
+    if [ "x${UBUNTU_VER}" = "x20.04" ]
+    then
+        wget -O google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb || fail
+        apt-get install -y --no-install-recommends ./google-chrome.deb || fail
+        rm -f google-chrome.deb || fail
+    else
+        apt-get install -y --no-install-recommends chromium-browser || fail
+    fi
+
+    apt-get install -y --no-install-recommends qt5-default qt5-doc-html qt5-image-formats-plugins qt5-style-plugins codeblocks vlc smplayer gedit okular gnome-screenshot || fail
+    
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
         apt-get install -y --no-install-recommends vim-gtk3 vim-gui-common || fail

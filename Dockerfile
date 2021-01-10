@@ -16,7 +16,7 @@ ENV MKL_CBWR AUTO
 
 # Move configs.
 COPY configs /root/configs
-RUN chmod +x /root/configs/ --recursive && bash /root/configs/detach
+RUN chmod +x /root/configs/ --recursive && bash /root/configs/detach MODE=basic
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
@@ -24,6 +24,7 @@ ENV LANGUAGE en_US.UTF-8
 # Install prepared packages
 COPY scripts/install-base /root/scripts/
 RUN chmod +x /root/scripts/install-base && bash /root/scripts/install-base MODE=init
+RUN bash /root/configs/detach MODE=special
 
 # Install xfce4 Desktop
 COPY scripts/install-desktop /root/scripts/
