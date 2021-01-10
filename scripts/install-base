@@ -58,7 +58,7 @@ then
         autoconf \
         automake \
         build-essential \
-        cmake ccache \
+        cmake ccache curl \
         checkinstall pkg-config libtool git \
         apt-transport-https at-spi2-core wget \
         software-properties-common \
