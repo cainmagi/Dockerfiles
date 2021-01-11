@@ -50,6 +50,11 @@ Here is the list of each dockerfile:
    
 ## Update records
 
+### ver 1.4 @ 1/11/2021
+
+1. Finish the re-crafted `xubuntu` dockerfile.
+2. Update the submodule `noVNC` to newest version.
+
 ### ver 1.3 @ 20191114
 
 Finish the `xubuntu-tf2` dockerfile.
@@ -59,7 +64,6 @@ Finish the `xubuntu-tf2` dockerfile.
 Update master branch. This update includes:
 
 1. Update the submodule `noVNC` to newest version.
-
 2. Update the start script so that it could be appiled to both `Ubuntu 16.04` and `Ubuntu 18.04`.
 
 ### ver 1.16 @ 20180820
