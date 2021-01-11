@@ -32,13 +32,6 @@ To find your launch script of your base image, use
 docker inspect <your-base-image>:<tag>
 ```
 
-> This docker file has been tested sucessfully on:
->
-> * `nvcr.io/nvidia/pytorch:20.12-py3` (`Ubuntu 20.04`, `python 3.8`)
-> * `nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04` (`Ubuntu 20.04`)
-> * `nvcr.io/nvidia/pytorch:20.11-py3` (`Ubuntu 18.04`, `python 3.6`)
-> * `nvcr.io/nvidia/tensorflow:19.03-py3` (`Ubuntu 16.04`, `python 3.5`)
-
 ### Offline building
 
 Otherwise, you need to clone the branch firsly:
@@ -93,10 +86,20 @@ This is the minimal desktop test based on *ubuntu:16.04* image, it has:
 
 ## Update records
 
-### ver 1.1 @ 12/18/2020
+### ver 1.1 @ 1/10/2021
 
 1. Support Ubuntu 20.04.
 2. Fix the font issues.
+3. Finish all testings for Ubuntu 16.04, 18.04 and 20.04.
+
+Testing report:
+
+> This docker file has been tested sucessfully on:
+>
+> * `nvcr.io/nvidia/pytorch:20.12-py3` (`Ubuntu 20.04`, `python 3.8`)
+> * `nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04` (`Ubuntu 20.04`)
+> * `nvcr.io/nvidia/pytorch:20.11-py3` (`Ubuntu 18.04`, `python 3.6`)
+> * `nvcr.io/nvidia/tensorflow:19.03-py3` (`Ubuntu 16.04`, `python 3.5`)
 
 ### ver 1.0 @ 12/18/2020
 
