@@ -137,7 +137,9 @@ then
         gtk-update-icon-cache /usr/share/icons/Tela-ubuntu || fail && \
         gtk-update-icon-cache /usr/share/icons/Tela-ubuntu-dark || fail && \
         gtk-update-icon-cache /usr/share/icons/WhiteSur || fail && \
-        gtk-update-icon-cache /usr/share/icons/WhiteSur-dark || fail
+        gtk-update-icon-cache /usr/share/icons/WhiteSur-dark || fail && \
+        gtk-update-icon-cache /usr/share/icons/Win10Sur || fail && \
+        gtk-update-icon-cache /usr/share/icons/Win10Sur-dark || fail
     fi
 
     msg "Installation for the themes finishes."
