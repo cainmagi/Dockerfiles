@@ -25,6 +25,7 @@ There are 3 available options:
 | `BASE_IMAGE` | The base image for building this desktop image. | `nvcr.io/nvidia/tensorflow:19.04-py3` |
 | `BASE_LAUNCH` | The entrypoint script from the base image. If there is no entry script, please use `""`. | `/usr/local/bin/nvidia_entrypoint.sh` |
 | `NOVNC_COMPAT` | If set, the noVNC would be switched to compatible mode. It should be used when your `python` is `<=3.5`. | ` ` |
+| `WITH_CHINESE` | If set, the image would be built with Chinese support for vscode, sublime and codeblocks. | `true` |
 
 To find your launch script of your base image, use
 
@@ -85,6 +86,11 @@ This is the minimal desktop test based on *ubuntu:16.04* image, it has:
 * **Useful apps**: including nomacs, notepadqq, visual studio code, peazip, okular, smplayer and chrome.
 
 ## Update records
+
+### ver 1.2 @ 1/10/2021
+
+1. Add extra Chinese supports for some packages.
+2. Add vscode package installation script.
 
 ### ver 1.1 @ 1/10/2021
 
