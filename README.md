@@ -14,8 +14,9 @@ This image is compatible for Ubuntu 16.04, 18.04 and 20.04. Please check your ba
 
 We provide two examples:
 
-* Start from `pytorch` image: `docker build -t xubuntu-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh https://github.com/cainmagi/Dockerfiles.git#xubuntu`
-* Start from `cuda` image: `docker build -t xubuntu-cuda:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" https://github.com/cainmagi/Dockerfiles.git#xubuntu`
+* Start from `pytorch 1.8.0a` image: `docker build -t xubuntu-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh https://github.com/cainmagi/Dockerfiles.git#xubuntu`
+* Start from `cuda 11.1` image: `docker build -t xubuntu-cuda:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" https://github.com/cainmagi/Dockerfiles.git#xubuntu`
+* Start from `tensorflow 1.13.1` image: `docker build -t xubuntu-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg NOVNC_COMPAT=true https://github.com/cainmagi/Dockerfiles.git#xubuntu`
 
 There are 3 available options:
 
@@ -30,6 +31,13 @@ To find your launch script of your base image, use
 ```bash
 docker inspect <your-base-image>:<tag>
 ```
+
+> This docker file has been tested sucessfully on:
+>
+> * `nvcr.io/nvidia/pytorch:20.12-py3` (`Ubuntu 20.04`, `python 3.8`)
+> * `nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04` (`Ubuntu 20.04`)
+> * `nvcr.io/nvidia/pytorch:20.11-py3` (`Ubuntu 18.04`, `python 3.6`)
+> * `nvcr.io/nvidia/tensorflow:19.03-py3` (`Ubuntu 16.04`, `python 3.5`)
 
 ### Offline building
 
