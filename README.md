@@ -12,7 +12,7 @@ docker build -t xubuntu:1.0 https://github.com/cainmagi/Dockerfiles.git#xubuntu
 
 This image is compatible for Ubuntu 16.04, 18.04 and 20.04. Please check your base image and confirm that the Ubuntu inside the image is compatible with this dockerfile.
 
-We provide two examples:
+We provide 3 examples:
 
 * Start from `pytorch 1.8.0a` image: `docker build -t xubuntu-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh https://github.com/cainmagi/Dockerfiles.git#xubuntu`
 * Start from `cuda 11.1` image: `docker build -t xubuntu-cuda:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" https://github.com/cainmagi/Dockerfiles.git#xubuntu`
