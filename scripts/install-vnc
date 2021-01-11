@@ -108,18 +108,37 @@ fi
 if [ "x${MODE}" = "xtheme" ]
 then 
     # Install xfce4 Desktop
+    apt-get -y install lsb-release lsb-core || fail
+    UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
+
     wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.25/share.tar.gz | tar xz -C /usr/share || fail
-        gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce || fail && \
-        gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Mono || fail && \
-        gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Panel || fail && \
-        gtk-update-icon-cache /usr/share/icons/elementary-xfce-darkest || fail && \
-        gtk-update-icon-cache /usr/share/icons/Arc-X-D || fail && \
-        gtk-update-icon-cache /usr/share/icons/Arc-X-P || fail && \
-        gtk-update-icon-cache /usr/share/icons/DarK || fail && \
-        gtk-update-icon-cache /usr/share/icons/Numix || fail && \
-        gtk-update-icon-cache /usr/share/icons/Numix-Light || fail && \
-        gtk-update-icon-cache /usr/share/icons/Paper || fail && \
-        gtk-update-icon-cache /usr/share/icons/Paper-Mono-Dark || fail && \
-        gtk-update-icon-cache /usr/share/icons/Suru || fail
+    gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce || fail && \
+    gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Mono || fail && \
+    gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Panel || fail && \
+    gtk-update-icon-cache /usr/share/icons/elementary-xfce-darkest || fail && \
+    gtk-update-icon-cache /usr/share/icons/Arc-X-D || fail && \
+    gtk-update-icon-cache /usr/share/icons/Arc-X-P || fail && \
+    gtk-update-icon-cache /usr/share/icons/DarK || fail && \
+    gtk-update-icon-cache /usr/share/icons/Numix || fail && \
+    gtk-update-icon-cache /usr/share/icons/Numix-Light || fail && \
+    gtk-update-icon-cache /usr/share/icons/Paper || fail && \
+    gtk-update-icon-cache /usr/share/icons/Paper-Mono-Dark || fail && \
+    gtk-update-icon-cache /usr/share/icons/Suru || fail
+
+    if [ "x${UBUNTU_VER}" = "x20.04" ]
+    then
+        wget -qO- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.1-u20.04/share-ubuntu-20-04.tar.gz | tar xz -C /usr/share || fail
+        gtk-update-icon-cache /usr/share/icons/ePapirus || fail && \
+        gtk-update-icon-cache /usr/share/icons/McMojave-circle || fail && \
+        gtk-update-icon-cache /usr/share/icons/McMojave-circle-dark || fail && \
+        gtk-update-icon-cache /usr/share/icons/Papirus || fail && \
+        gtk-update-icon-cache /usr/share/icons/Papirus-Dark || fail && \
+        gtk-update-icon-cache /usr/share/icons/Papirus-Light || fail && \
+        gtk-update-icon-cache /usr/share/icons/Tela-ubuntu || fail && \
+        gtk-update-icon-cache /usr/share/icons/Tela-ubuntu-dark || fail && \
+        gtk-update-icon-cache /usr/share/icons/WhiteSur || fail && \
+        gtk-update-icon-cache /usr/share/icons/WhiteSur-dark || fail
+    fi
+
     msg "Installation for the themes finishes."
 fi
