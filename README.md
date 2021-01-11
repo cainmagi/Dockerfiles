@@ -7,7 +7,7 @@
 If you do not want to change the contents of the dockerfile, you could use such command to build the image:
 
 ```Bash
-$ nvidia-docker build -t xubuntu:1.0 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+$ docker build -t xubuntu:1.0 https://github.com/cainmagi/Dockerfiles.git#xubuntu
 ```
 
 This image is compatible for Ubuntu 16.04, 18.04 and 20.04. Please check your base image and confirm that the Ubuntu inside the image is compatible with this dockerfile.
@@ -43,7 +43,7 @@ $ git clone --single-branch -b xubuntu https://github.com/cainmagi/Dockerfiles.g
 After that, run such command to build the image:
 
 ```Bash
-$ nvidia-docker build -t xubuntu:1.0 xubuntu
+$ docker build -t xubuntu:1.0 xubuntu
 ```
 
 where `xubuntu` is the folder of the corresponding branch. The options in online building examples could be also used for offline buliding.
