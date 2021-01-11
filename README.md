@@ -64,7 +64,13 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 * By `BASH`: If you want to enter the command line but do not start the desktop, please use
 
     ```bash
-    docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu-tc:1.0 --bash
+    docker run --gpus all -it --rm -v ~:/homelocal xubuntu-tc:1.0 --bash
+    ```
+
+* By any script: If you want run any script inside the docker for only one time, please use
+
+    ```bash
+    docker run --gpus all -it --rm -v ~:/homelocal xubuntu-tc:1.0 script=<the-path-to-your-script>
     ```
 
 ## Features

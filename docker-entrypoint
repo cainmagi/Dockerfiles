@@ -21,8 +21,8 @@ function mcd {
   cd "$1" || fail
 }
 
-BASH=false
-XVNC=false
+MODE="vnc"
+MODE_RUN_SCRIPT=""
 # Pass options from command line
 for ARGUMENT in "$@"
 do
@@ -32,8 +32,10 @@ do
         VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
     fi
     case "$KEY" in
-            --bash)         BASH=true ;;
-            --xvnc)         XVNC=true ;;
+            --bash)         MODE="bash" ;;
+            --vnc)          MODE="vnc" ;;
+            --xvnc)         MODE="xvnc" ;;
+            script)         MODE_RUN_SCRIPT=${VALUE} ;;
             *)   
     esac    
 done
@@ -43,12 +45,19 @@ echo "Check script: ${LAUNCH_SCRIPT_ORIGINAL}"
 if [ "x${LAUNCH_SCRIPT_ORIGINAL}" != "x" ]
 then
     echo "Launch script: ${LAUNCH_SCRIPT_ORIGINAL}"
-    bash $LAUNCH_SCRIPT_ORIGINAL echo "Finish launching."
+    bash $LAUNCH_SCRIPT_ORIGINAL
+    echo "Finish launching."
 fi
 
-if $BASH
+if [ "x${MODE}" = "xbash" ]
 then
     exec bash
+    exit 0
+fi
+
+if [ "x${MODE_RUN_SCRIPT}" != "x" ]
+then
+    exec bash ${MODE_RUN_SCRIPT}
     exit 0
 fi
 
@@ -87,7 +96,7 @@ else
     tigervncpasswd ${FILE_VNCPASSWD}
 fi
 
-if $XVNC
+if [ "x${MODE}" = "xxvnc" ]
 then
     Xtigervnc :0 -depth 24 -geometry 1920x1080 -br &
     sleep 3
