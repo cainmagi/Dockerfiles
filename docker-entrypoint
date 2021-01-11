@@ -45,8 +45,7 @@ echo "Check script: ${LAUNCH_SCRIPT_ORIGINAL}"
 if [ "x${LAUNCH_SCRIPT_ORIGINAL}" != "x" ]
 then
     echo "Launch script: ${LAUNCH_SCRIPT_ORIGINAL}"
-    bash $LAUNCH_SCRIPT_ORIGINAL
-    echo "Finish launching."
+    bash $LAUNCH_SCRIPT_ORIGINAL echo "Finish launching."
 fi
 
 if [ "x${MODE}" = "xbash" ]
@@ -57,7 +56,7 @@ fi
 
 if [ "x${MODE_RUN_SCRIPT}" != "x" ]
 then
-    exec bash ${MODE_RUN_SCRIPT}
+    echo "${MODE_RUN_SCRIPT}" | bash
     exit 0
 fi
 
