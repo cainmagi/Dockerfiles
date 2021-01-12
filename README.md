@@ -114,6 +114,7 @@ This is the minimal desktop test based on *ubuntu:16.04* image, it has:
 1. Add extra Chinese supports for some packages.
 2. Add vscode package installation script.
 3. Add exposed ports (`5901`, `6080`).
+4. Add `Jupyter Lab` supports.
 
 ### ver 1.1 @ 1/10/2021
 
