@@ -19,6 +19,14 @@ The basic usage for any of the following image could be divided into 4 cases:
     ```bash
     docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0
     ```
+    
+    The above command is the equivalent to
+    
+    ```bash
+    docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0 --vnc
+    ```
+    
+    This option would force the image to launch the VNC server.
 
 * By external VNC viewer: If you have installed a VNC viewer on your client side, and want to connect the VNC server of the image directly, please use:
 
@@ -82,10 +90,17 @@ When you want to save your image, follow the instructions below:
     ```
     root@<container-id>: # 
     ```
-5. **Tips**: If you are saving a container launched with options, you need to use the following command to save the image with the options flushed:
-    ```bash
-    docker commit --change='CMD [""]' <container-id> <image-name>:<tag>
-    ```
+    
+> Note 1: 
+> If you are saving a container launched with options (for example, `docker run ... xubuntu:1.0 --bash`), you need to use the following command to save the image with the options flushed:
+> ```bash
+> docker commit --change='CMD [""]' <container-id> <image-name>:<tag>
+> ```
+> If you do not add the option, your launching options would be remembered in your new image.
+    
+> Note 2:
+>
+> In **any** case when you launch your container by backend mode (with option `-dit`), you should not commit your image, because you could not kill your `tigervncserver` without interactive shell.
 
 ### Docker image info list
 
