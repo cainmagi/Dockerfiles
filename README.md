@@ -50,41 +50,4 @@ Here is the list of each dockerfile:
    
 ## Update records
 
-### ver 1.4 @ 1/11/2021
-
-1. Finish the re-crafted `xubuntu` dockerfile.
-2. Update the submodule `noVNC` to newest version.
-
-### ver 1.3 @ 20191114
-
-Finish the `xubuntu-tf2` dockerfile.
-
-### ver 1.2 @ 20180820
-
-Update master branch. This update includes:
-
-1. Update the submodule `noVNC` to newest version.
-2. Update the start script so that it could be appiled to both `Ubuntu 16.04` and `Ubuntu 18.04`.
-
-### ver 1.16 @ 20180820
-
-Update xubuntu-tf to 1.2 version.
-
-### ver 1.15 @ 20180819
-
-1. Revise the `xubuntu-tf` dockerfile for fixing some bugs in the installation scripts.
-2. Revise the `xubuntu` dockerfile, upgrade its dependencies and make a good preparation for installing caffe with gcc-6.3.0 in this image.
-
-### ver 1.12 @ 20180816
-
-1. Revise the `xubuntu-tf` dockerfile and upgrade its dependencies.
-2. Revise `noVNC`, now we do not need to change anything but just copy it for the installation.
-3. Arrange the page of this project.
-
-### ver 1.1 @ 20180815
-
-Add the `xubuntu-tf` dockerfile.
-
-### ver 1.0 @ 20180605
-
-Create the branch, add the noVNC submodule and add the `xubuntu` dockerfile.
+See the update records in [docs-DGX branch](https://github.com/cainmagi/Dockerfiles/blob/docs-DGX/index.md#update-records).
