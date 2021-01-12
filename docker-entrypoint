@@ -23,6 +23,8 @@ function mcd {
 
 MODE="vnc"
 MODE_RUN_SCRIPT=""
+JLAB_PASSWORD=""
+JLAB_ROOT_DIR="/homelocal"
 # Pass options from command line
 for ARGUMENT in "$@"
 do
@@ -35,7 +37,10 @@ do
             --bash)         MODE="bash" ;;
             --vnc)          MODE="vnc" ;;
             --xvnc)         MODE="xvnc" ;;
+            --jlab)         MODE="jupyter" ;;
             script)         MODE_RUN_SCRIPT=${VALUE} ;;
+            jlab_password)  JLAB_PASSWORD=${VALUE} ;;
+            jlab_rootdir)   JLAB_ROOT_DIR=${VALUE} ;;
             *)   
     esac    
 done
@@ -57,6 +62,38 @@ fi
 if [ "x${MODE_RUN_SCRIPT}" != "x" ]
 then
     echo "${MODE_RUN_SCRIPT}" | bash
+    exit 0
+fi
+
+if [ "x${MODE}" = "xjupyter" ]
+then
+    echo "-----------------------------------"
+    echo " XUbuntu Desktop Container"
+    echo " Yuchen Jin"
+    echo " Only jupyterlab mode"
+    echo "-----------------------------------"
+    echo "This is a container used for launching jupyterlab."
+    echo "Use the following options to configure the lab:"
+    echo "    --jlab_password: set the password of the lab manually."
+    echo "    --jlab_rootdir: set the root directory of the lab."
+    echo "If not setting the password manually, users need to check the token shown in the terminal."
+    echo ""
+    
+    OPTION_JLAB_PASSWORD=""
+    if [ "x${JLAB_PASSWORD}" != "x" ]
+    then
+        OPTION_JLAB_PASSWORD="--NotebookApp.token='${JLAB_PASSWORD}'"
+    fi
+
+    OPTION_JLAB_ROOT=""
+    if [ "x${JLAB_ROOT_DIR}" != "x" ]
+    then
+        OPTION_JLAB_ROOT="--notebook-dir=${JLAB_ROOT_DIR}"
+    fi
+
+    jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_JLAB_PASSWORD} --allow-root ${OPTION_JLAB_ROOT}
+    
+    exec bash
     exit 0
 fi
 

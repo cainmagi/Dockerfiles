@@ -47,6 +47,10 @@ COPY docker-entrypoint /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint
 WORKDIR /root
 
+# Expose the built-in ports.
+EXPOSE 5901
+EXPOSE 6080
+
 # Define default command.
 ENTRYPOINT ["bash", "docker-entrypoint"]
 CMD [""]

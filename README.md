@@ -14,9 +14,23 @@ This image is compatible for Ubuntu 16.04, 18.04 and 20.04. Please check your ba
 
 We provide 3 examples:
 
-* Start from `pytorch 1.8.0a` image: `docker build -t xubuntu-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh https://github.com/cainmagi/Dockerfiles.git#xubuntu`
-* Start from `cuda 11.1` image: `docker build -t xubuntu-cuda:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" https://github.com/cainmagi/Dockerfiles.git#xubuntu`
-* Start from `tensorflow 1.13.1` image: `docker build -t xubuntu-tf:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg NOVNC_COMPAT=true https://github.com/cainmagi/Dockerfiles.git#xubuntu`
+* Start from `pytorch 1.8.0a` image:
+    
+    ```bash
+    docker build -t xubuntu-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh https://github.com/cainmagi/Dockerfiles.git#xubuntu
+    ```
+    
+* Start from `cuda 11.1` image:
+    
+    ```bash
+    docker build -t xubuntu-cuda:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" https://github.com/cainmagi/Dockerfiles.git#xubuntu
+    ```
+    
+* Start from `tensorflow 1.13.1` image:
+    
+    ```bash
+    docker build -t xubuntu-tf:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg NOVNC_COMPAT=true https://github.com/cainmagi/Dockerfiles.git#xubuntu
+    ```
 
 There are 3 available options:
 
@@ -63,16 +77,24 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
     docker run --gpus all -it --rm -v ~:/homelocal -p 5901:5901 xubuntu:1.0
     ```
 
+* By `Jupyter Lab`: If you want to launch the Jupyter Lab but do not start the desktop, please use
+
+    ```bash
+    docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.0 --jlab jlab_password=openjupyter jlab_rootdir=/homelocal
+    ```
+    
+    The `jlab_password` would override the default random token. The `jlab_rootdir` is the root folder of the launched jupyter lab. If not set `jlab_rootdir`, the default root folder would be `/homelocal`.
+    
 * By `BASH`: If you want to enter the command line but do not start the desktop, please use
 
     ```bash
-    docker run --gpus all -it --rm -v ~:/homelocal xubuntu-tc:1.0 --bash
+    docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.0 --bash
     ```
 
 * By any script: If you want run any script inside the docker for only one time, please use
 
     ```bash
-    docker run --gpus all -it --rm -v ~:/homelocal xubuntu-tc:1.0 script=<the-path-to-your-script>
+    docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.0 script=<the-path-to-your-script>
     ```
 
 ## Features
@@ -87,10 +109,11 @@ This is the minimal desktop test based on *ubuntu:16.04* image, it has:
 
 ## Update records
 
-### ver 1.2 @ 1/10/2021
+### ver 1.2 @ 1/12/2021
 
 1. Add extra Chinese supports for some packages.
 2. Add vscode package installation script.
+3. Add exposed ports (`5901`, `6080`).
 
 ### ver 1.1 @ 1/10/2021
 

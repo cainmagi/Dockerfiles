@@ -185,11 +185,11 @@ then
     then
         apt-get install -y python3-pip || fail
         python3 /root/get-pip.py --force-reinstall || fail
-        pip3 install matplotlib Cython numpy scipy scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
+        pip3 install matplotlib Cython numpy scipy scikit-image ipython jupyterlab h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
     else
         apt-get install -y python-pip python3-pip || fail
         python3 /root/get-pip.py --force-reinstall || fail && python2 /root/get-pip.py --force-reinstall || fail
-        pip3 install matplotlib Cython numpy scipy scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
+        pip3 install matplotlib Cython numpy scipy scikit-image ipython jupyterlab h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
         pip2 install numpy --upgrade || fail
     fi
     apt-get install -y python3-sip python3-pyqt5 python3-tk || fail
