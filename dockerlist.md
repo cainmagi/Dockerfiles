@@ -91,6 +91,8 @@ When you want to save your image, follow the instructions below:
 
 Here we would show the list of currently built images. Please check each item to find the information of any specific image.
 
+-----
+
 #### xubuntu-tf2:1.0
 
 **X-Ubuntu Tensorflow 2**
@@ -109,6 +111,8 @@ This image contains:
 * `Python 3.8.5`
 * `xubuntu` desktop with apps
 * `Ubuntu 20.04`
+
+-----
 
 #### xubuntu-tf:1.0
 
@@ -129,6 +133,8 @@ This image contains:
 * `xubuntu` desktop with apps
 * `Ubuntu 16.04`
 
+-----
+
 #### xubuntu-tc:1.0
 
 **X-Ubuntu PyTorch**
@@ -147,6 +153,8 @@ This image contains:
 * `Python 3.8.5`
 * `xubuntu` desktop with apps
 * `Ubuntu 20.04`
+
+-----
 
 #### xubuntu-tc1.0:1.0
 
@@ -167,6 +175,8 @@ This image contains:
 * `xubuntu` desktop with apps
 * `Ubuntu 16.04`
 
+-----
+
 #### xubuntu-matlab:r2020b
 
 **X-Ubuntu MATLAB R2020b**
@@ -183,3 +193,5 @@ This image contains:
 * `Python 3.8.5`
 * `xubuntu` desktop with apps
 * `Ubuntu 20.04`
+
+-----
