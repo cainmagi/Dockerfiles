@@ -39,8 +39,11 @@ The basic usage for any of the following image could be divided into 4 cases:
     ```
     
 > Note:
+>
 > It is not required to launch noVNC separately for the newly relesed images. Because the noVNC has been built-in in the images. If we use `-p xxxx:6080` to launch our image, we only need to open our browser and use the following address:
+>
 > http://<dgx-230-ip>:xxxx/vnc.html?host=<dgx-230-ip>&port=xxxx
+>
 > Here is a tip: the configs after `vnc.html` could be omitted if you only need to get access to your own desktop.
 
 ### Usage: backend mode
@@ -58,6 +61,7 @@ docker run --gpus all -dit --rm -v ~:/homelocal -p 5901:5901 xubuntu:1.0
 In this case, unless you use `docker kill` or `docker stop` to terminate your container, the container would be kept running.
 
 > Note:
+>
 > The backend mode should not be launched by the released images directly, because those images would require users to set password when firstly opening the container. Users should set thier passwords, save the image separately and then could use the backend mode to launch their own images.
 
 ### Usage: save the image
