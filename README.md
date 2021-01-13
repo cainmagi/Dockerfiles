@@ -15,19 +15,19 @@ This image is compatible for Ubuntu 16.04, 18.04 and 20.04. Please check your ba
 We provide 3 examples:
 
 * Start from `pytorch 1.8.0a` image:
-    
+
     ```bash
     docker build -t xubuntu-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh https://github.com/cainmagi/Dockerfiles.git#xubuntu
     ```
-    
+
 * Start from `cuda 11.1` image:
-    
+
     ```bash
     docker build -t xubuntu-cuda:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" https://github.com/cainmagi/Dockerfiles.git#xubuntu
     ```
-    
+
 * Start from `tensorflow 1.13.1` image:
-    
+
     ```bash
     docker build -t xubuntu-tf:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg NOVNC_COMPAT=true https://github.com/cainmagi/Dockerfiles.git#xubuntu
     ```
@@ -82,9 +82,9 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
     ```bash
     docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.0 --jlab jlab_password=openjupyter jlab_rootdir=/homelocal
     ```
-    
+
     The `jlab_password` would override the default random token. The `jlab_rootdir` is the root folder of the launched jupyter lab. If not set `jlab_rootdir`, the default root folder would be `/homelocal`.
-    
+
 * By `BASH`: If you want to enter the command line but do not start the desktop, please use
 
     ```bash
@@ -106,8 +106,16 @@ This is the minimal desktop test based on *ubuntu:16.04* image, it has:
 * **Modern VNC server**: it contains [tigervncserver][tigervnc], which is a modern VNC server and could provide more features than tightvncserver and vnc4server, like cutomizing display settings, fully implemented animated cursor and shadow effects.
 * **Compatible for multiple Ubuntu versions**: including Ubuntu 16.04, 18.04 and 20.04.
 * **Useful apps**: including nomacs, notepadqq, visual studio code, peazip, okular, smplayer and chrome.
+* **Multiple launching method**: including VNC server, jupyterlab, bash and arbitrary script mode.
+* **Chinese language support**: for some apps including vscode, sublime, codeblocks.
 
 ## Update records
+
+### ver 1.3 @ 1/12/2021
+
+1. Re-craft the icons and themes for `ubuntu 20.04`.
+2. Add `gcc` and `gfortran` supports for building the image.
+3. Add some packages for the desktop.
 
 ### ver 1.2 @ 1/12/2021
 
