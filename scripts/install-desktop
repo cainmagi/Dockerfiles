@@ -110,7 +110,7 @@ then
     if [ "x${WITH_CHINESE}" != "x" ]
     then
         mkdir -p /usr/share/codeblocks/locale/zh_CN || fail
-        wget -O /usr/share/codeblocks/locale/zh_CN/CodeBlocks.mo https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.1-u20.04/CodeBlocks_zhCN.mo || fail
+        wget -O /usr/share/codeblocks/locale/zh_CN/CodeBlocks.mo https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.3-u20.04/CodeBlocks_zhCN.mo || fail
         chmod +rwx /usr/share/codeblocks/locale --recursive || fail
     fi
     
