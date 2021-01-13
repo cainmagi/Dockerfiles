@@ -163,12 +163,12 @@ then
         vscode-icons-team.vscode-icons
         shd101wyy.markdown-preview-enhanced"
     for c_ext in ${CODE_EXTENSIONS}; do
-        code --install-extension ${c_ext} --extensions-dir /usr/share/code/resources/app/extensions --user-data-dir ~/.vscode/settings || fail
+        code --install-extension ${c_ext} --extensions-dir ~/.vscode/extensions --user-data-dir ~/.vscode/settings || fail
     done
 
     if [ "x${WITH_CHINESE}" != "x" ]
     then
-        code --install-extension ms-ceintl.vscode-language-pack-zh-hans --extensions-dir /usr/share/code/resources/app/extensions --user-data-dir ~/.vscode/settings || fail
+        code --install-extension ms-ceintl.vscode-language-pack-zh-hans --extensions-dir ~/.vscode/extensions --user-data-dir ~/.vscode/settings || fail
     fi
 
     if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
