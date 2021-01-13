@@ -111,12 +111,13 @@ This is the minimal desktop test based on *ubuntu:16.04* image, it has:
 
 ## Update records
 
-### ver 1.3 @ 1/12/2021
+### ver 1.3 @ 1/13/2021
 
 1. Re-craft the icons and themes for `ubuntu 20.04`.
 2. Add `gcc` and `gfortran` supports for building the image.
 3. Add some packages for the desktop.
 4. Add check for `ubuntu` version.
+5. Add meta-data in the dockerfile.
 
 ### ver 1.2 @ 1/12/2021
 

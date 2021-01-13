@@ -7,6 +7,10 @@
 # Pull base image.
 ARG BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.04-py3
 FROM $BASE_IMAGE
+LABEL maintainer="Yuchen Jin <cainmagi@gmail.com>" \
+      author="Yuchen Jin <cainmagi@gmail.com>" \
+      description="xUbuntu desktop dockerfile for ubuntu 16.04, 18.04 and 20.04 images." \
+      version="1.3"
 ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
 ARG NOVNC_COMPAT=""
 ARG WITH_CHINESE="true"
