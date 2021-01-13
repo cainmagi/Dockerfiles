@@ -82,7 +82,7 @@ then
     OPTION_JLAB_PASSWORD=""
     if [ "x${JLAB_PASSWORD}" != "x" ]
     then
-        OPTION_JLAB_PASSWORD="--NotebookApp.token='${JLAB_PASSWORD}'"
+        OPTION_JLAB_PASSWORD="--NotebookApp.token=${JLAB_PASSWORD}"
     fi
 
     OPTION_JLAB_ROOT=""
