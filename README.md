@@ -116,6 +116,7 @@ This is the minimal desktop test based on *ubuntu:16.04* image, it has:
 1. Re-craft the icons and themes for `ubuntu 20.04`.
 2. Add `gcc` and `gfortran` supports for building the image.
 3. Add some packages for the desktop.
+4. Add check for `ubuntu` version.
 
 ### ver 1.2 @ 1/12/2021
 
