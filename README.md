@@ -111,6 +111,11 @@ This is the minimal desktop test based on *ubuntu:16.04* image, it has:
 
 ## Update records
 
+### ver 1.4 (alpha) @ 1/15/2021
+
+1. Arrange the theme pack installations.
+2. Add some packages for the desktop.
+
 ### ver 1.3 @ 1/13/2021
 
 1. Re-craft the icons and themes for `ubuntu 20.04`.

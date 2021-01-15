@@ -113,7 +113,8 @@ then
 
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
-        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.3-u20.04/share-ubuntu-20-04.tar.gz | tar xz -C /usr/share || fail
+        msg "Installing basic theme pack."
+        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-ubuntu-20-04.tar.xz | tar xJ -C /usr/share || fail
         gtk-update-icon-cache /usr/share/icons/ePapirus || fail && \
         gtk-update-icon-cache /usr/share/icons/McMojave-circle || fail && \
         gtk-update-icon-cache /usr/share/icons/McMojave-circle-dark || fail && \
@@ -130,9 +131,14 @@ then
         gtk-update-icon-cache /usr/share/icons/MacOS-3D-Light || fail && \
         gtk-update-icon-cache /usr/share/icons/MacOS-3D-Dark || fail && \
         gtk-update-icon-cache /usr/share/icons/Material-Originals || fail && \
-        gtk-update-icon-cache /usr/share/icons/Material-Originals-dark || fail && \
+        gtk-update-icon-cache /usr/share/icons/Material-Originals-dark || fail
+
+        msg "Installing windows-style theme pack."
+        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-win-ubuntu-20-04.tar.gz | tar xJ -C /usr/share || fail
         gtk-update-icon-cache /usr/share/icons/Windows-10-master || fail && \
-        gtk-update-icon-cache /usr/share/icons/Windows-XP-master || fail
+        gtk-update-icon-cache /usr/share/icons/Windows-XP-master || fail && \
+        gtk-update-icon-cache /usr/share/icons/Chicago95 || fail && \
+        gtk-update-icon-cache /usr/share/icons/Chicago95-tux || fail
     else
         wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.25/share.tar.gz | tar xz -C /usr/share || fail
         gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce || fail && \

@@ -69,7 +69,7 @@ then
         automake \
         build-essential \
         gcc gcc-multilib gfortran gfortran-multilib \
-        cmake ccache curl \
+        cmake ccache curl xz-utils \
         checkinstall pkg-config libtool git \
         apt-transport-https at-spi2-core wget \
         software-properties-common \

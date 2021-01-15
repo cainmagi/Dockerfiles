@@ -49,7 +49,7 @@ then
     then
         # Install libgtk
         apt-get install -y --no-install-recommends libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev \
-            libgirepository1.0-dev libgraphite2-utils imagemagick pavucontrol || fail
+            libgirepository1.0-dev libgraphite2-utils imagemagick pavucontrol purge || fail
         # Install xfce-plugin
         apt-get install -y --no-install-recommends libxfce4panel-2.0-4 libxfce4ui-1-0 libxfce4ui-2-0 libxfce4ui-common \
             libxfce4util-common libxfce4util7 xfce4-appfinder xfce4-notifyd xfce4-panel xfce4-session xfce4-settings \
@@ -126,7 +126,7 @@ then
     if [ "x${WITH_CHINESE}" != "x" ]
     then
         mkdir -p /usr/share/codeblocks/locale/zh_CN || fail
-        wget -O /usr/share/codeblocks/locale/zh_CN/CodeBlocks.mo https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.3-u20.04/CodeBlocks_zhCN.mo || fail
+        wget -O /usr/share/codeblocks/locale/zh_CN/CodeBlocks.mo https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/CodeBlocks_zhCN.mo || fail
         chmod +rwx /usr/share/codeblocks/locale --recursive || fail
     fi
     
@@ -202,7 +202,7 @@ then
     [ -d /usr/share/fonts/opentype ] || mkdir /usr/share/fonts/opentype
     git clone https://github.com/adobe-fonts/source-code-pro.git /usr/share/fonts/opentype/scp || fail
     fc-cache -r -v || fail
-    apt-get install -y fcitx fcitx-googlepinyin fcitx-table-wbpy fcitx-pinyin fcitx-sunpinyin || fail
+    apt-get install -y fcitx fcitx-googlepinyin fcitx-table-wbpy fcitx-pinyin fcitx-sunpinyin fcitx-module-dbus || fail
     apt-get install -y at-spi2-core || fail
     /etc/init.d/dbus start || fail
 
