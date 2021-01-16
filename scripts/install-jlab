@@ -35,6 +35,15 @@ function install_nodejs {
     && nvm use default" || fail
 }
 
+function run_with_nodejs {
+    NVM_DIR="/usr/local/nvm"
+    bash -c ". $NVM_DIR/nvm.sh \
+    && . $NVM_DIR/bash_completion \
+    && nvm alias default v$1 \
+    && nvm use default \
+    && $2" || fail
+}
+
 VERSION=unset
 EXTRA_TIERS=1
 
@@ -65,7 +74,8 @@ then
     if ! command -v nvm &> /dev/null; then
         install_nvm 0.37.2 || fail
     fi
-    install_nodejs 10.23.1 || fail
+    NODEJS_VER=10.23.1
+    install_nodejs ${NODEJS_VER} || fail
 fi
 
 # Install version 2
@@ -76,7 +86,8 @@ then
     if ! command -v nvm &> /dev/null; then
         install_nvm 0.37.2 || fail
     fi
-    install_nodejs 12.20.1 || fail
+    NODEJS_VER=12.20.1
+    install_nodejs ${NODEJS_VER} || fail
 fi
 
 # Install version 3
@@ -87,7 +98,8 @@ then
     if ! command -v nvm &> /dev/null; then
         install_nvm 0.37.2 || fail
     fi
-    install_nodejs 15.6.0 || fail
+    NODEJS_VER=15.6.0
+    install_nodejs ${NODEJS_VER} || fail
 fi
 
 ## Install extra packages.
@@ -99,7 +111,8 @@ then
     then
         msg "Installing Jupyter Lab extensions, tier 2."
         python3 -m pip install plotly || fail
-        jupyter labextension install jupyterlab-plotly --no-build || fail
+        run_with_nodejs "${NODEJS_VER}" "jupyter labextension install jupyterlab-plotly --no-build" || fail
+        msg "Test finish."
         
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
