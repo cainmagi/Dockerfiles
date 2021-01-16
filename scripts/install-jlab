@@ -81,7 +81,7 @@ fi
 if [ "x${VERSION}" = "x1" ]
 then
     msg "Installing Jupyter Lab, ver 1.2.18."
-    python3 -m pip install jupyterlab==1.2.18 || fail
+    python3 -m pip install jupyter==1.0.0 jupyter-core==4.6.3 jupyterlab==1.2.18 || fail
     if ! command -v nvm &> /dev/null; then
         install_nvm 0.37.2 || fail
     fi
@@ -92,7 +92,7 @@ fi
 if [ "x${VERSION}" = "x2" ]
 then
     msg "Installing Jupyter Lab, ver 2.2.9."
-    python3 -m pip install jupyterlab==2.2.9 || fail
+    python3 -m pip install jupyter==1.0.0 jupyter-core==4.6.3 jupyterlab==2.2.9 || fail
     if ! command -v nvm &> /dev/null; then
         install_nvm 0.37.2 || fail
     fi
@@ -103,7 +103,7 @@ fi
 if [ "x${VERSION}" = "x3" ]
 then
     msg "Installing Jupyter Lab, ver 3.0.5."
-    python3 -m pip install jupyterlab==3.0.5 || fail
+    python3 -m pip install jupyter==1.0.0 jupyter-core==4.6.3 jupyterlab==3.0.5 || fail
     if ! command -v nvm &> /dev/null; then
         install_nvm 0.37.2 || fail
     fi
