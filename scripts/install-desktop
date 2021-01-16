@@ -55,7 +55,7 @@ then
     then
         # Install libgtk
         apt-get install -y --no-install-recommends libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev \
-            libgirepository1.0-dev libgraphite2-utils imagemagick pavucontrol purge || fail
+            libgirepository1.0-dev libgraphite2-utils imagemagick pavucontrol || fail
         # Install xfce-plugin
         apt-get install -y --no-install-recommends libxfce4panel-2.0-4 libxfce4ui-1-0 libxfce4ui-2-0 libxfce4ui-common \
             libxfce4util-common libxfce4util7 xfce4-appfinder xfce4-notifyd xfce4-panel xfce4-session xfce4-settings \
