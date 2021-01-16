@@ -156,9 +156,9 @@ then
         then
             # Compatibility for conda.
             if nvm_has "conda"; then
-                conda remove -y wrapt || fail
+                conda install -y -c conda-forge wrapt==1.12.1 || fail
             fi
-            python3 -m pip install python-language-server[all] || fail
+            python3 -m pip install python-language-server[all]==0.36.2 || fail
 
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
