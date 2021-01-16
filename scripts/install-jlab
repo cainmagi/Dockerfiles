@@ -151,7 +151,6 @@ then
         if [ "x${VERSION}" = "x3" ]
         then
             python3 -m pip install python-language-server[all] || fail
-            run_with_nodejs "jupyter labextension install nbdime-jupyterlab --no-build" || fail
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
                 python3 -m pip install aquirdturtle_collapsible_headings==3.0.1 jupyterlab-system-monitor==0.7.0 lckr-jupyterlab-variableinspector==3.0.2 jupyterlab-lsp==3.0.0 ipympl==0.6.2 jupytext==1.9.1 nbdime==2.1.0 || fail
@@ -160,6 +159,7 @@ then
                 python3 -m pip install ipympl==0.5.8 nbdime==2.0.0 || fail
                 run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.4 --no-build" || fail
             fi
+            run_with_nodejs "jupyter labextension install nbdime-jupyterlab --no-build" || fail
 
             # Install jupyterlab-language-packs
             python3 -m pip install https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/jupyterlab_language_pack_zh_CN-0.0.1.dev0-py2.py3-none-any.whl || fail
