@@ -57,6 +57,7 @@ function run_with_nodejs {
 
 VERSION=unset
 EXTRA_TIERS=1
+COMPATIBLE=false
 
 for ARGUMENT in "$@"
 do
@@ -67,6 +68,7 @@ do
         ver)         VERSION=${VALUE} ;;
         VERSION)     VERSION=${VALUE} ;;
         ex_tiers)    EXTRA_TIERS=${VALUE} ;;
+        compat)      COMPATIBLE=${VALUE} ;;
         *)   
     esac    
 done
@@ -161,9 +163,14 @@ then
 
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
-            python3 -m pip install bokeh pynvml jupyterlab_hdf || fail
-            python3 -m pip install jupyterlab-nvdashboard || fail
-            run_with_nodejs "jupyter labextension install jupyterlab-nvdashboard @jupyterlab/github @jupyterlab/hdf5 --no-build" || fail
+            python3 -m pip install bokeh jupyterlab_hdf || fail
+            run_with_nodejs "jupyter labextension install @jupyterlab/github @jupyterlab/hdf5 --no-build" || fail
+            if [ "x${COMPATIBLE}" != "xtrue" ]
+            then
+                python3 -m pip install pynvml || fail
+                python3 -m pip install jupyterlab-nvdashboard || fail
+                run_with_nodejs "jupyter labextension install jupyterlab-nvdashboard --no-build" || fail
+            fi
         fi
 
         if [ "x${VERSION}" = "x2" ]

@@ -22,6 +22,7 @@ function mcd {
 MODE=python
 JLAB_VERSION=unset
 JLAB_EXTRA_TIERS=2
+JLAB_COMPATIBLE=false
 
 for ARGUMENT in "$@"
 do
@@ -31,6 +32,7 @@ do
         MODE)               MODE=${VALUE} ;;
         JLAB_VER)           JLAB_VERSION=${VALUE} ;;
         JLAB_EXTIERS)       JLAB_EXTRA_TIERS=${VALUE} ;;
+        JLAB_COMPAT)        JLAB_COMPATIBLE=${VALUE} ;;
         *)   
     esac    
 done
@@ -61,6 +63,6 @@ fi
 
 if [ "x${MODE}" = "xjupyter" ]
 then
-    bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS}
+    bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} compat=${JLAB_COMPATIBLE}
     msg "Installation for the Jupyter Lab finishes."
 fi
