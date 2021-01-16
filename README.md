@@ -94,38 +94,45 @@ where `jupyterlab` is the folder of the corresponding branch. The options in onl
 
 This image will install `Jupyter Lab` and its several useful extensions. Different extensions require the support of different Jupyter Lab version. Currently, the Jupyter Lab 3 is still under development. Since it is not stable enough now, we suggest to install Jupyter Lab 2. The available extension list is shown as below:
 
+> Note
+>
+> In the following lists, we use the following symbols to represent:
+>
+> * :white_check_mark:: the package is available for the specific Jupyter Lab version.
+> * :ballot_box_with_check:: the package is available, but not working with `python<=3.5`. If using compatible mode, it would not be installed.
+
 ### Tier 1
 
 To install the following extensions, use the building argument `JLAB_EXTRA_TIERS=1` or `JLAB_EXTRA_TIERS=2`.
 
-| Extension | J-lab1 | J-lab2 | J-lab3 | py<=3.5 |
-| ----- | :-----: | :-----: | :-----: | :-----: |
-| [`jupyterlab-language-pack-zhCN`](https://github.com/jupyterlab/language-packs)                  | | | :heavy_check_mark: | |
-| [`jupyterlab-nbdime`](https://github.com/jupyter/nbdime)                                         | | | :heavy_check_mark: | |
-| [`@aquirdturtle/collapsible_headings`](https://github.com/aquirdTurtle/Collapsible_Headings)     | | | :heavy_check_mark: | |
-| [`jupyterlab-lsp`](https://github.com/krassowski/jupyterlab-lsp)                                 | | | :heavy_check_mark: | |
-| [`jupyterlab-variableinspector`](https://github.com/lckr/jupyterlab-variableInspector)           | | | :heavy_check_mark: | |
-| [`jupyterlab-jupytext`](https://github.com/mwouts/jupytext/tree/master/packages/labextension)    | | :heavy_check_mark: | :heavy_check_mark: | |
-| [`jupyterlab-toc`](https://github.com/jupyterlab/jupyterlab-toc)                                 | | :heavy_check_mark: | :heavy_check_mark: | |
-| [`jupyterlab-hdf5`](https://github.com/jupyterlab/jupyterlab-hdf5)                               | :heavy_check_mark: | :heavy_check_mark: | | |
-| [`jupyterlab-github`](https://github.com/jupyterlab/jupyterlab-github)                           | :heavy_check_mark: | :heavy_check_mark: | | |
-| [`jupyterlab-nvdashboard`](https://github.com/rapidsai/jupyterlab-nvdashboard)                   | :heavy_check_mark: | :heavy_check_mark: | | :x: |
-| [`jupyterlab_go_to_definition`](https://github.com/krassowski/jupyterlab-go-to-definition)       | :heavy_check_mark: | :heavy_check_mark: | | |
-| [`jupyterlab-matplotlib`](https://github.com/matplotlib/jupyter-matplotlib.git)                  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | |
-| [`jupyterlab-manager`](https://github.com/jupyter-widgets/ipywidgets) | :heavy_check_mark:       | :heavy_check_mark: | :heavy_check_mark: | |
-| [`jupyterlab-system-monitor`](https://github.com/jtpio/jupyterlab-system-monitor)                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | |
-| [`jupyterlab-topbar`](https://github.com/jtpio/jupyterlab-topbar)                                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | |
+| Extension | J-lab1 | J-lab2 | J-lab3 |
+| ----- | :-----: | :-----: | :-----: |
+| [`jupyterlab-language-pack-zhCN`](https://github.com/jupyterlab/language-packs)                  | | | :white_check_mark: |
+| [`jupyterlab-nbdime`](https://github.com/jupyter/nbdime)                                         | | | :white_check_mark: |
+| [`@aquirdturtle/collapsible_headings`](https://github.com/aquirdTurtle/Collapsible_Headings)     | | | :white_check_mark: |
+| [`jupyterlab-lsp`](https://github.com/krassowski/jupyterlab-lsp)                                 | | | :white_check_mark: |
+| [`jupyterlab-variableinspector`](https://github.com/lckr/jupyterlab-variableInspector)           | | | :white_check_mark: |
+| [`jupyterlab-jupytext`](https://github.com/mwouts/jupytext/tree/master/packages/labextension)    | | :white_check_mark: | :white_check_mark: |
+| [`jupyterlab-toc`](https://github.com/jupyterlab/jupyterlab-toc)                                 | | :white_check_mark: | :ballot_box_with_check: |
+| [`jupyterlab-hdf5`](https://github.com/jupyterlab/jupyterlab-hdf5)                               | :white_check_mark: | :white_check_mark: | |
+| [`jupyterlab-github`](https://github.com/jupyterlab/jupyterlab-github)                           | :white_check_mark: | :white_check_mark: | |
+| [`jupyterlab-nvdashboard`](https://github.com/rapidsai/jupyterlab-nvdashboard)                   | :ballot_box_with_check: | :ballot_box_with_check: | |
+| [`jupyterlab_go_to_definition`](https://github.com/krassowski/jupyterlab-go-to-definition)       | :white_check_mark: | :white_check_mark: | |
+| [`jupyterlab-matplotlib`](https://github.com/matplotlib/jupyter-matplotlib.git)                  | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| [`jupyterlab-manager`](https://github.com/jupyter-widgets/ipywidgets) | :white_check_mark:       | :white_check_mark: | :white_check_mark: |
+| [`jupyterlab-system-monitor`](https://github.com/jtpio/jupyterlab-system-monitor)                | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| [`jupyterlab-topbar`](https://github.com/jtpio/jupyterlab-topbar)                                | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ### Tier 2
 
 To install the following extensions, use the building argument `JLAB_EXTRA_TIERS=2`.
 
-| Extension | J-lab1 | J-lab2 | J-lab3 | py<=3.5 |
-| ----- | :-----: | :-----: | :-----: | :-----: |
-| [`jupyterlab-tensorboard`](https://github.com/chaoleili/jupyterlab_tensorboard) | :heavy_check_mark: | :heavy_check_mark: | | |
-| [`jupyterlab-dash`](https://github.com/plotly/jupyterlab-dash)                  | :heavy_check_mark: | :heavy_check_mark: | | |
-| [`jupyterlab_html`](https://github.com/mflevine/jupyterlab_html)                | :heavy_check_mark: | | | |
-| [`jupyterlab-plotly`](https://github.com/plotly/plotly.py)                      | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | |
+| Extension | J-lab1 | J-lab2 | J-lab3 |
+| ----- | :-----: | :-----: | :-----: |
+| [`jupyterlab-tensorboard`](https://github.com/chaoleili/jupyterlab_tensorboard) | :white_check_mark: | :white_check_mark: | |
+| [`jupyterlab-dash`](https://github.com/plotly/jupyterlab-dash)                  | :white_check_mark: | :white_check_mark: | |
+| [`jupyterlab_html`](https://github.com/mflevine/jupyterlab_html)                | :white_check_mark: | | |
+| [`jupyterlab-plotly`](https://github.com/plotly/plotly.py)                      | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ## Update records
 

@@ -150,7 +150,10 @@ then
         
         if [ "x${VERSION}" = "x3" ] || [ "x${VERSION}" = "x2" ]
         then
-            run_with_nodejs "jupyter labextension install @jupyterlab/toc --no-build" || fail
+            if [ "x${COMPATIBLE}" != "xtrue" ]
+            then
+                run_with_nodejs "jupyter labextension install @jupyterlab/toc --no-build" || fail
+            fi
         fi
 
         if [ "x${VERSION}" = "x3" ]
