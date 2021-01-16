@@ -62,6 +62,6 @@ fi
 
 if [ "x${MODE}" = "xjupyter" ]
 then
-    bash install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS}
+    bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS}
     msg "Installation for the Jupyter Lab finishes."
 fi
