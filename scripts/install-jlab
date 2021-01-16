@@ -152,8 +152,10 @@ then
         then
             # Compatibility for conda.
             python3 -m pip install python-language-server[all]
+            msg "Try"
             if [ $? -ne 0 ]
             then
+                msg "fall back"
                 conda remove -y wrapt
                 if [ $? -eq 0 ]
                 then
