@@ -55,6 +55,7 @@ fi
 # Install version 1
 if [ "x${VERSION}" = "x1" ]
 then
+    msg "Installing Jupyter Lab, ver 1.2.18."
     python3 -m pip install jupyterlab==1.2.18 || fail
     command -v nvm >/dev/null 2>&1 || { install_nvm 0.37.2 || fail }
     install_nodejs 10.23.1 || fail
@@ -63,6 +64,7 @@ fi
 # Install version 2
 if [ "x${VERSION}" = "x2" ]
 then
+    msg "Installing Jupyter Lab, ver 2.2.9."
     python3 -m pip install jupyterlab==2.2.9 || fail
     command -v nvm >/dev/null 2>&1 || { install_nvm 0.37.2 || fail }
     install_nodejs 12.20.1 || fail
@@ -71,6 +73,7 @@ fi
 # Install version 3
 if [ "x${VERSION}" = "x3" ]
 then
+    msg "Installing Jupyter Lab, ver 3.0.5."
     python3 -m pip install jupyterlab==3.0.5 || fail
     command -v nvm >/dev/null 2>&1 || { install_nvm 0.37.2 || fail }
     install_nodejs 15.6.0 || fail
@@ -83,6 +86,7 @@ then
     # Install tier 2 packages
     if [ "x${EXTRA_TIERS}" = "x2" ]
     then
+        msg "Installing Jupyter Lab extensions, tier 2."
         python3 -m pip install plotly || fail
         jupyter labextension install jupyterlab-plotly --no-build || fail
         
@@ -101,6 +105,7 @@ then
     # Install tier 1 packages
     if [ "x${EXTRA_TIERS}" = "x1" ] || [ "x${EXTRA_TIERS}" = "x2" ]
     then
+        msg "Installing Jupyter Lab extensions, tier 1."
         python3 -m pip install nbresuse || fail
         jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor --no-build || fail
 
@@ -146,6 +151,7 @@ then
 
     if [ "x${EXTRA_TIERS}" = "x3" ] || [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]
     then
+        msg "Installing Jupyter Lab extensions, finally building."
         jupyter lab build || fail
     fi
 fi
