@@ -19,6 +19,18 @@ function mcd {
     cd "$1" || fail
 }
 
+function nvm_default_install_dir {
+    [ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm"
+}
+
+function nvm_install_dir {
+    if [ -n "$NVM_DIR" ]; then
+        printf %s "${NVM_DIR}"
+    else
+        nvm_default_install_dir
+    fi
+}
+
 function install_nvm {
     msg "Installing NVM, version: $1"
     wget -O- https://raw.githubusercontent.com/nvm-sh/nvm/v$1/install.sh | bash || fail
@@ -26,22 +38,21 @@ function install_nvm {
 
 function install_nodejs {
     msg "Installing Node.js, version: $1"
-    NVM_DIR="/usr/local/nvm"
-    msg "Finding NVM in: ${NVM_DIR}".
-    bash -c ". $NVM_DIR/nvm.sh \
-    && . $NVM_DIR/bash_completion \
+    RUN_NVM_DIR="$(nvm_install_dir | command sed "s:^$HOME:\$HOME:")"
+    msg "Finding NVM in: ${RUN_NVM_DIR}".
+    bash -c ". $RUN_NVM_DIR/nvm.sh \
+    && . $RUN_NVM_DIR/bash_completion \
     && nvm install v$1 \
     && nvm alias default v$1 \
     && nvm use default" || fail
 }
 
 function run_with_nodejs {
-    NVM_DIR="/usr/local/nvm"
-    bash -c ". $NVM_DIR/nvm.sh \
-    && . $NVM_DIR/bash_completion \
-    && nvm alias default v$1 \
+    RUN_NVM_DIR="$(nvm_install_dir | command sed "s:^$HOME:\$HOME:")"
+    bash -c ". $RUN_NVM_DIR/nvm.sh \
+    && . $RUN_NVM_DIR/bash_completion \
     && nvm use default \
-    && $2" || fail
+    && $1" || fail
 }
 
 VERSION=unset
@@ -74,8 +85,7 @@ then
     if ! command -v nvm &> /dev/null; then
         install_nvm 0.37.2 || fail
     fi
-    NODEJS_VER=10.23.1
-    install_nodejs ${NODEJS_VER} || fail
+    install_nodejs 10.23.1 || fail
 fi
 
 # Install version 2
@@ -86,8 +96,7 @@ then
     if ! command -v nvm &> /dev/null; then
         install_nvm 0.37.2 || fail
     fi
-    NODEJS_VER=12.20.1
-    install_nodejs ${NODEJS_VER} || fail
+    install_nodejs 12.20.1 || fail
 fi
 
 # Install version 3
@@ -98,8 +107,7 @@ then
     if ! command -v nvm &> /dev/null; then
         install_nvm 0.37.2 || fail
     fi
-    NODEJS_VER=15.6.0
-    install_nodejs ${NODEJS_VER} || fail
+    install_nodejs 15.6.0 || fail
 fi
 
 ## Install extra packages.
@@ -111,17 +119,17 @@ then
     then
         msg "Installing Jupyter Lab extensions, tier 2."
         python3 -m pip install plotly || fail
-        run_with_nodejs "${NODEJS_VER}" "jupyter labextension install jupyterlab-plotly --no-build" || fail
+        run_with_nodejs "jupyter labextension install jupyterlab-plotly --no-build" || fail
         
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
             python3 -m pip install jupyter-tensorboard jupyter-dash || fail
-            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install jupyterlab_tensorboard jupyterlab-dash --no-build" || fail
+            run_with_nodejs "jupyter labextension install jupyterlab_tensorboard jupyterlab-dash --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x1" ]
         then
-            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install @mflevine/jupyterlab_html" || fail
+            run_with_nodejs "jupyter labextension install @mflevine/jupyterlab_html" || fail
         fi
     fi
 
@@ -130,11 +138,11 @@ then
     then
         msg "Installing Jupyter Lab extensions, tier 1."
         python3 -m pip install nbresuse || fail
-        run_with_nodejs "${NODEJS_VER}" "jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor --no-build" || fail
+        run_with_nodejs "jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor --no-build" || fail
         
         if [ "x${VERSION}" = "x3" ] || [ "x${VERSION}" = "x2" ]
         then
-            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install @jupyterlab/toc --no-build" || fail
+            run_with_nodejs "jupyter labextension install @jupyterlab/toc --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x3" ]
@@ -148,26 +156,26 @@ then
             git clone https://github.com/jupyterlab/language-packs.git jlab-language-packs || fail
             cd jlab-language-packs/language-packs/jupyterlab-language-pack-zh-CN || fail
             python3 setup.py build || fail && python3 setup.py install || fail
-            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install nbdime-jupyterlab --no-build" || fail
+            run_with_nodejs "jupyter labextension install nbdime-jupyterlab --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
             python3 -m pip install bokeh pynvml jupyterlab_hdf || fail
             python3 -m pip install jupyterlab-nvdashboard || fail
-            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install jupyterlab-nvdashboard @jupyterlab/github @jupyterlab/hdf5 --no-build" || fail
+            run_with_nodejs "jupyter labextension install jupyterlab-nvdashboard @jupyterlab/github @jupyterlab/hdf5 --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x2" ]
         then
             python3 -m pip install ipympl==0.5.8 jupytext==1.8.2 || fail
-            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 --no-build" || fail
+            run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x1" ]
         then
             python3 -m pip install ipympl==0.5.2 || fail
-            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.1 \
+            run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.1 \
                 @krassowski/jupyterlab_go_to_definition@0.7.1 --no-build" || fail
         fi
     fi
@@ -175,6 +183,6 @@ then
     if [ "x${EXTRA_TIERS}" = "x3" ] || [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]
     then
         msg "Installing Jupyter Lab extensions, finally building."
-        run_with_nodejs "${NODEJS_VER}" "jupyter lab build" || fail
+        run_with_nodejs "jupyter lab build" || fail
     fi
 fi

@@ -56,7 +56,6 @@ then
         python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
         python2 -m pip install numpy --upgrade || fail
     fi
-    apt-get install -y python3-sip python3-pyqt5 python3-tk || fail
     msg "Installation for the extra packages finishes."
 fi
 
