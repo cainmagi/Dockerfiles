@@ -150,7 +150,21 @@ then
 
         if [ "x${VERSION}" = "x3" ]
         then
-            python3 -m pip install python-language-server[all] || fail
+            # Compatibility for conda.
+            python3 -m pip install python-language-server[all]
+            if [ $? -eq 0 ]
+            then
+                conda remove -y wrapt
+                if [ $? -eq 0 ]
+                then
+                    python3 -m pip install python-language-server[all] || fail
+                else
+                    fail $?
+                fi
+            else
+                fail $?
+            fi
+
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
                 python3 -m pip install aquirdturtle_collapsible_headings==3.0.1 jupyterlab-system-monitor==0.7.0 lckr-jupyterlab-variableinspector==3.0.2 jupyterlab-lsp==3.0.0 ipympl==0.6.2 jupytext==1.9.1 nbdime==2.1.0 || fail
