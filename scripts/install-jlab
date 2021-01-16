@@ -151,21 +151,10 @@ then
         if [ "x${VERSION}" = "x3" ]
         then
             # Compatibility for conda.
-            python3 -m pip install python-language-server[all]
-            msg "Try"
-            if [ $? -ne 0 ]
-            then
-                msg "fall back"
-                conda remove -y wrapt
-                if [ $? -eq 0 ]
-                then
-                    python3 -m pip install python-language-server[all] || fail
-                else
-                    fail $?
-                fi
-            else
-                fail $?
+            if ! command -v conda &> /dev/null; then
+                conda remove -y wrapt || fail
             fi
+            python3 -m pip install python-language-server[all] || fail
 
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
