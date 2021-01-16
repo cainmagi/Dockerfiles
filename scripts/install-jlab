@@ -116,12 +116,12 @@ then
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
             python3 -m pip install jupyter-tensorboard jupyter-dash || fail
-            jupyter labextension install jupyterlab_tensorboard jupyterlab-dash --no-build || fail
+            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install jupyterlab_tensorboard jupyterlab-dash --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x1" ]
         then
-            jupyter labextension install @mflevine/jupyterlab_html || fail
+            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install @mflevine/jupyterlab_html" || fail
         fi
     fi
 
@@ -130,13 +130,11 @@ then
     then
         msg "Installing Jupyter Lab extensions, tier 1."
         python3 -m pip install nbresuse || fail
-        msg "Test begin."
         run_with_nodejs "${NODEJS_VER}" "jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor --no-build" || fail
-        msg "Test finish."
-
+        
         if [ "x${VERSION}" = "x3" ] || [ "x${VERSION}" = "x2" ]
         then
-            jupyter labextension install @jupyterlab/toc --no-build || fail
+            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install @jupyterlab/toc --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x3" ]
@@ -150,27 +148,27 @@ then
             git clone https://github.com/jupyterlab/language-packs.git jlab-language-packs || fail
             cd jlab-language-packs/language-packs/jupyterlab-language-pack-zh-CN || fail
             python3 setup.py build || fail && python3 setup.py install || fail
-            jupyter labextension install nbdime-jupyterlab --no-build || fail
+            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install nbdime-jupyterlab --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
             python3 -m pip install bokeh pynvml jupyterlab_hdf || fail
             python3 -m pip install jupyterlab-nvdashboard || fail
-            jupyter labextension install jupyterlab-nvdashboard @jupyterlab/github @jupyterlab/hdf5 --no-build || fail
+            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install jupyterlab-nvdashboard @jupyterlab/github @jupyterlab/hdf5 --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x2" ]
         then
             python3 -m pip install ipympl==0.5.8 jupytext==1.8.2 || fail
-            jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 --no-build || fail
+            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x1" ]
         then
             python3 -m pip install ipympl==0.5.2 || fail
-            jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.1 \
-                @krassowski/jupyterlab_go_to_definition@0.7.1 --no-build || fail
+            run_with_nodejs "${NODEJS_VER}" "jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.1 \
+                @krassowski/jupyterlab_go_to_definition@0.7.1 --no-build" || fail
         fi
     fi
 
