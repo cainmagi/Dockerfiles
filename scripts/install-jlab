@@ -112,7 +112,6 @@ then
         msg "Installing Jupyter Lab extensions, tier 2."
         python3 -m pip install plotly || fail
         run_with_nodejs "${NODEJS_VER}" "jupyter labextension install jupyterlab-plotly --no-build" || fail
-        msg "Test finish."
         
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
@@ -131,7 +130,9 @@ then
     then
         msg "Installing Jupyter Lab extensions, tier 1."
         python3 -m pip install nbresuse || fail
-        jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor --no-build || fail
+        msg "Test begin."
+        run_with_nodejs "${NODEJS_VER}" "jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor --no-build" || fail
+        msg "Test finish."
 
         if [ "x${VERSION}" = "x3" ] || [ "x${VERSION}" = "x2" ]
         then
