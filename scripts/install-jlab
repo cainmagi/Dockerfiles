@@ -92,7 +92,7 @@ fi
 
 ## Install extra packages.
 
-if [ "x${VERSION}" = "xunset" ]
+if [ "x${VERSION}" != "xunset" ]
 then
     # Install tier 2 packages
     if [ "x${EXTRA_TIERS}" = "x2" ]
