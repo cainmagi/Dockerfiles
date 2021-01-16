@@ -21,6 +21,14 @@ function mcd {
     cd "$1" || fail
 }
 
+function run_with_nodejs {
+    NVM_DIR="/usr/local/nvm"
+    bash -c ". $NVM_DIR/nvm.sh \
+    && . $NVM_DIR/bash_completion \
+    && nvm use default \
+    && $1" || fail
+}
+
 MODE="jlab"
 MODE_RUN_SCRIPT=""
 ROOT_DIR="/homelocal"
@@ -94,6 +102,6 @@ then
     OPTION_ROOT="--notebook-dir=${ROOT_DIR}"
 fi
 
-bash -c "source ~/.bashrc && jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_PASSWORD} --allow-root ${OPTION_ROOT}"
+run_with_nodejs "jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_PASSWORD} --allow-root ${OPTION_ROOT}"
 
 exec "/bin/bash"
