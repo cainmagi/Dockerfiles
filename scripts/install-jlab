@@ -155,7 +155,7 @@ then
         if [ "x${VERSION}" = "x3" ]
         then
             # Compatibility for conda.
-            if ! nvm_has "conda"; then
+            if nvm_has "conda"; then
                 conda remove -y wrapt || fail
             fi
             python3 -m pip install python-language-server[all] || fail
