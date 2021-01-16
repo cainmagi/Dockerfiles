@@ -114,7 +114,7 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | [`jupyterlab-variableinspector`](https://github.com/lckr/jupyterlab-variableInspector)           | | | :ballot_box_with_check: |
 | [`jupyterlab-jupytext`](https://github.com/mwouts/jupytext/tree/master/packages/labextension)    | | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-toc`](https://github.com/jupyterlab/jupyterlab-toc)                                 | | :white_check_mark: | :ballot_box_with_check: |
-| [`jupyterlab-hdf5`](https://github.com/jupyterlab/jupyterlab-hdf5)                               | :white_check_mark: | :white_check_mark: | |
+| [`jupyterlab-hdf5`](https://github.com/jupyterlab/jupyterlab-hdf5)                               | :ballot_box_with_check: | :ballot_box_with_check: | |
 | [`jupyterlab-github`](https://github.com/jupyterlab/jupyterlab-github)                           | :white_check_mark: | :white_check_mark: | |
 | [`jupyterlab-nvdashboard`](https://github.com/rapidsai/jupyterlab-nvdashboard)                   | :ballot_box_with_check: | :ballot_box_with_check: | |
 | [`jupyterlab_go_to_definition`](https://github.com/krassowski/jupyterlab-go-to-definition)       | :white_check_mark: | :white_check_mark: | |

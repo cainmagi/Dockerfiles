@@ -151,6 +151,7 @@ then
         if [ "x${VERSION}" = "x3" ]
         then
             python3 -m pip install python-language-server[all] || fail
+            run_with_nodejs "jupyter labextension install nbdime-jupyterlab --no-build" || fail
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
                 python3 -m pip install aquirdturtle_collapsible_headings==3.0.1 jupyterlab-system-monitor==0.7.0 lckr-jupyterlab-variableinspector==3.0.2 jupyterlab-lsp==3.0.0 ipympl==0.6.2 jupytext==1.9.1 nbdime==2.1.0 || fail
@@ -161,23 +162,24 @@ then
             fi
 
             # Install jupyterlab-language-packs
-            mkdir -p /apps/source || fail
-            cd /apps/source || fail
-            git clone https://github.com/jupyterlab/language-packs.git jlab-language-packs || fail
-            cd jlab-language-packs/language-packs/jupyterlab-language-pack-zh-CN || fail
-            python3 setup.py build || fail && python3 setup.py install || fail
-            run_with_nodejs "jupyter labextension install nbdime-jupyterlab --no-build" || fail
+            python3 -m pip install https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/jupyterlab_language_pack_zh_CN-0.0.1.dev0-py2.py3-none-any.whl || fail
+
+            # Legacy commands.
+            #mkdir -p /apps/source || fail
+            #cd /apps/source || fail
+            #git clone https://github.com/jupyterlab/language-packs.git jlab-language-packs || fail
+            #cd jlab-language-packs/language-packs/jupyterlab-language-pack-zh-CN || fail
+            #python3 setup.py build || fail && python3 setup.py install || fail
         fi
 
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
-            python3 -m pip install bokeh jupyterlab_hdf || fail
-            run_with_nodejs "jupyter labextension install @jupyterlab/github @jupyterlab/hdf5 --no-build" || fail
+            python3 -m pip install bokeh || fail
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
                 python3 -m pip install pynvml || fail
-                python3 -m pip install jupyterlab-nvdashboard || fail
-                run_with_nodejs "jupyter labextension install jupyterlab-nvdashboard --no-build" || fail
+                python3 -m pip install jupyterlab-nvdashboard jupyterlab_hdf || fail
+                run_with_nodejs "jupyter labextension install jupyterlab-nvdashboard @jupyterlab/github @jupyterlab/hdf5 --no-build" || fail
             fi
         fi
 
