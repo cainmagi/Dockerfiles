@@ -147,14 +147,6 @@ then
         msg "Installing Jupyter Lab extensions, tier 1."
         python3 -m pip install nbresuse || fail
         run_with_nodejs "jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor --no-build" || fail
-        
-        if [ "x${VERSION}" = "x3" ] || [ "x${VERSION}" = "x2" ]
-        then
-            if [ "x${COMPATIBLE}" != "xtrue" ]
-            then
-                run_with_nodejs "jupyter labextension install @jupyterlab/toc --no-build" || fail
-            fi
-        fi
 
         if [ "x${VERSION}" = "x3" ]
         then
@@ -162,6 +154,7 @@ then
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
                 python3 -m pip install aquirdturtle_collapsible_headings==3.0.1 jupyterlab-system-monitor==0.7.0 lckr-jupyterlab-variableinspector==3.0.2 jupyterlab-lsp==3.0.0 ipympl==0.6.2 jupytext==1.9.1 nbdime==2.1.0 || fail
+                run_with_nodejs "jupyter labextension install @jupyterlab/toc --no-build" || fail
             else
                 python3 -m pip install ipympl==0.5.8 nbdime==2.0.0 || fail
                 run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.4 --no-build" || fail
@@ -197,7 +190,7 @@ then
             else
                 python3 -m pip install jupytext==1.8.1 || fail # for py3.5
             fi
-            run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 --no-build" || fail
+            run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 @jupyterlab/toc --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x1" ]
