@@ -7,7 +7,7 @@
 If you do not want to change the contents of the dockerfile, you could use such command to build the image:
 
 ```Bash
-$ docker build -t jupyterlab:1.0 https://github.com/cainmagi/Dockerfiles.git#jupyterlab
+$ docker build -t jlab:1.0 https://github.com/cainmagi/Dockerfiles.git#jupyterlab
 ```
 
 We provide 3 examples:
@@ -15,19 +15,19 @@ We provide 3 examples:
 * Start from `pytorch 1.8.0a` image:
 
     ```bash
-    docker build -t jupyterlab-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh https://github.com/cainmagi/Dockerfiles.git#jupyterlab
+    docker build -t jlab-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh https://github.com/cainmagi/Dockerfiles.git#jupyterlab
     ```
 
 * Start from `cuda 11.1` image:
 
     ```bash
-    docker build -t jupyterlab-cuda:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" https://github.com/cainmagi/Dockerfiles.git#jupyterlab
+    docker build -t jlab-cuda:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" https://github.com/cainmagi/Dockerfiles.git#jupyterlab
     ```
 
 * Start from `pytorch 1.8.0a`, with Jupyter Lab fully upgraded to `2`:
 
     ```bash
-    docker build -t jupyterlab-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg JLAB_EXTIERS=2 https://github.com/cainmagi/Dockerfiles.git#jupyterlab
+    docker build -t jlab-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg JLAB_EXTIERS=2 https://github.com/cainmagi/Dockerfiles.git#jupyterlab
     ```
 
 There are 4 available options:
@@ -60,7 +60,7 @@ git clone --single-branch -b jupyterlab https://github.com/cainmagi/Dockerfiles.
 After that, run such command to build the image:
 
 ```Bash
-docker build -t jupyterlab:1.0 jupyterlab
+docker build -t jlab:1.0 jupyterlab
 ```
 
 where `jupyterlab` is the folder of the corresponding branch. The options in online building examples could be also used for offline buliding.
@@ -70,7 +70,7 @@ where `jupyterlab` is the folder of the corresponding branch. The options in onl
 * By `Jupyter Lab`: If you want to launch the Jupyter Lab but do not start the desktop, please use
 
     ```bash
-    docker run --gpus all -it --rm -v ~:/homelocal jupyter:1.0 -p 6080:6080 password=openjupyter rootdir=/homelocal
+    docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 jlab:1.0 password=openjupyter rootdir=/homelocal
     ```
 
     The `password` would override the default random token. The `rootdir` is the root folder of the launched jupyter lab. If not set `rootdir`, the default root folder would be `/homelocal`.
@@ -78,13 +78,13 @@ where `jupyterlab` is the folder of the corresponding branch. The options in onl
 * By `BASH`: If you want to enter the command line but do not start the desktop, please use
 
     ```bash
-    docker run --gpus all -it --rm -v ~:/homelocal jupyter:1.0 --bash
+    docker run --gpus all -it --rm -v ~:/homelocal jlab:1.0 --bash
     ```
 
 * By any script: If you want run any script inside the docker for only one time, please use
 
     ```bash
-    docker run --gpus all -it --rm -v ~:/homelocal jupyter:1.0 script=<the-path-to-your-script>
+    docker run --gpus all -it --rm -v ~:/homelocal jlab:1.0 script=<the-path-to-your-script>
     ```
 
 

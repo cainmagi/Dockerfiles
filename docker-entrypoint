@@ -69,8 +69,11 @@ echo "           Yuchen Jin"
 echo "-----------------------------------"
 echo "This is a container used for launching jupyterlab."
 echo "Use the following options to configure the lab:"
-echo "    --password: set the password of the lab manually."
-echo "    --rootdir: set the root directory of the lab."
+echo "    --bash: use this flag to open the interactive bash."
+echo "    --jlab: use this flag to open the jupyter lab."
+echo "    script: pass a string to bash and let the container to run it."
+echo "    password: set the password of the lab manually."
+echo "    rootdir: set the root directory of the lab."
 echo "If not setting the password manually, users need to check the token shown in the terminal."
 echo ""
 
@@ -91,6 +94,6 @@ then
     OPTION_ROOT="--notebook-dir=${ROOT_DIR}"
 fi
 
-jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_PASSWORD} --allow-root ${OPTION_ROOT}
+bash -c "source ~/.bashrc && jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_PASSWORD} --allow-root ${OPTION_ROOT}"
 
 exec "/bin/bash"
