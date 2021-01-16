@@ -107,7 +107,7 @@ then
     if [ "x${COMPATIBLE}" != "xtrue" ]
     then
         msg "Installing Jupyter Lab, ver 3.0.5."
-        python3 -m pip install jupyter==1.0.0 jupyter-core==4.6.3 jupyterlab==3.0.5 || fail
+        python3 -m pip install typing-extensions==3.7.4.3 jupyter==1.0.0 jupyter-core==4.6.3 jupyterlab==3.0.5 || fail
     else
         msg "For compatibility of python<=3.5, installing Jupyter Lab, ver 3.0.0a14."
         python3 -m pip install jupyter==1.0.0 jupyter-core==4.6.3 jupyterlab==3.0.0a14 || fail
