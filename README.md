@@ -154,7 +154,7 @@ The following tests has been passed.
 | `nvcr.io/nvidia/tensorflow:19.03-py3` | :ballot_box_with_check: | :ballot_box_with_check: | :ballot_box_with_check: |
 | `nvcr.io/nvidia/pytorch:19.01-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | `nvcr.io/nvidia/pytorch:20.11-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| `nvcr.io/nvidia/tensorflow:20.12-tf2-py3` | :ballot_box_with_check: | :ballot_box_with_check: | :ballot_box_with_check: |
+| `nvcr.io/nvidia/tensorflow:20.12-tf2-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | `nvcr.io/nvidia/pytorch:20.12-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ## Update records
