@@ -7,7 +7,7 @@
 If you do not want to change the contents of the dockerfile, you could use such command to build the image:
 
 ```Bash
-$ docker build -t jlab:1.0 https://github.com/cainmagi/Dockerfiles.git#jupyterlab
+docker build -t jlab:1.0 https://github.com/cainmagi/Dockerfiles.git#jupyterlab
 ```
 
 We provide 3 examples:
@@ -76,6 +76,8 @@ where `jupyterlab` is the folder of the corresponding branch. The options in onl
 
     The `password` would override the default random token. The `rootdir` is the root folder of the launched jupyter lab. If not set `rootdir`, the default root folder would be `/homelocal`.
 
+    It is equivalent to use `--jlab` or not in the above command. However, if you have saved the image in other modes before, you may need this flag to force the image to enter the Jupyter Lab mode.
+
 * By `BASH`: If you want to enter the command line but do not start the desktop, please use
 
     ```bash
@@ -87,7 +89,6 @@ where `jupyterlab` is the folder of the corresponding branch. The options in onl
     ```bash
     docker run --gpus all -it --rm -v ~:/homelocal jlab:1.0 script=<the-path-to-your-script>
     ```
-
 
 ## Features
 
@@ -132,9 +133,10 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 
 1. Update the `Jupyter Lab` installation script, now it supports 3 different version.
 2. Update the `Jupyter Lab` extension installation script.
-3. Fix some bugs for installing python3.
-4. Add some packages for basic installation.
-5. Add features to the entrypoint script.
+3. Add compatible mode for `python<=3.5`.
+4. Fix some bugs for installing python3.
+5. Add some packages for basic installation.
+6. Add features to the entrypoint script.
 
 ### ver 1.0 @ 12/18/2020
 
