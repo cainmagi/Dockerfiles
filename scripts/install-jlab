@@ -29,7 +29,7 @@ function install_nodejs {
     NVM_DIR="/usr/local/nvm"
     msg "Finding NVM in: ${NVM_DIR}".
     bash -c ". $NVM_DIR/nvm.sh \
-    && $NVM_DIR/bash_complete \
+    && $NVM_DIR/bash_completion \
     && nvm install v$1 \
     && nvm alias default v$1 \
     && nvm use default" || fail
