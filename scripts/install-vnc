@@ -136,7 +136,7 @@ then
         gtk-update-icon-cache /usr/share/icons/Material-Originals-dark || fail
 
         msg "Installing windows-style theme pack."
-        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-win-ubuntu-20-04.tar.gz | tar xJ -C /usr/share || fail
+        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-win-ubuntu-20-04.tar.xz | tar xJ -C /usr/share || fail
         gtk-update-icon-cache /usr/share/icons/Windows-10-master || fail && \
         gtk-update-icon-cache /usr/share/icons/Windows-XP-master || fail && \
         gtk-update-icon-cache /usr/share/icons/Chicago95 || fail && \
