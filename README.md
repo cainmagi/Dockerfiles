@@ -99,7 +99,7 @@ This image will install `Jupyter Lab` and its several useful extensions. Differe
 > In the following lists, we use the following symbols to represent:
 >
 > * :white_check_mark:: the package is available for the specific Jupyter Lab version.
-> * :ballot_box_with_check:: the package is available, but not working with `python<=3.5`. If using compatible mode, it would not be installed.
+> * :ballot_box_with_check:: the package is available, but not working with `python<=3.5`. If using the compatible mode, it would not be installed.
 
 ### Tier 1
 
