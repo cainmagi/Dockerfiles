@@ -26,7 +26,13 @@ function install_nvm {
 
 function install_nodejs {
     msg "Installing Node.js, version: $1"
-    bash -c "source ~/.bashrc && nvm install v$1" || fail
+    NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    msg "Finding NVM in: ${NVM_DIR}".
+    bash -c ". $NVM_DIR/nvm.sh \
+    && $NVM_DIR/bash_complete \
+    && nvm install v$1 \
+    && nvm alias default v$1 \
+    && nvm use default" || fail
 }
 
 VERSION=unset
