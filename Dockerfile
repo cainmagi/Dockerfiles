@@ -12,7 +12,9 @@ LABEL maintainer="Yuchen Jin <cainmagi@gmail.com>" \
       description="xUbuntu desktop dockerfile for ubuntu 16.04, 18.04 and 20.04 images." \
       version="1.4"
 ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
-ARG NOVNC_COMPAT=""
+ARG JLAB_VER=unset
+ARG JLAB_EXTIERS=2
+ARG XUBUNTU_COMPAT="false"
 ARG WITH_CHINESE="true"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -38,11 +40,11 @@ RUN /etc/init.d/dbus start
 RUN bash /root/scripts/install-base MODE=check
 
 # Install extra packages
-RUN bash /root/scripts/install-desktop MODE=apps
+RUN bash /root/scripts/install-desktop MODE=apps JLAB_VER=${JLAB_VER} JLAB_EXTIERS=${JLAB_EXTIERS} JLAB_COMPAT=${XUBUNTU_COMPAT}
 
 # Install modern vncserver and themes
 COPY scripts/install-vnc /root/scripts/
-RUN bash /root/scripts/install-vnc MODE=vnc
+RUN bash /root/scripts/install-vnc MODE=vnc NOVNC_COMPAT=${XUBUNTU_COMPAT}
 RUN bash /root/scripts/install-vnc MODE=theme
 
 # Define working directory.

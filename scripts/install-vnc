@@ -20,13 +20,15 @@ function mcd {
 }
 
 MODE=vnc
+NOVNC_COMPATIBLE=false
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo $ARGUMENT | cut -f1 -d=)
     VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
     case "$KEY" in
-        MODE)  MODE=${VALUE} ;;
+        MODE)          MODE=${VALUE} ;;
+        NOVNC_COMPAT)  NOVNC_COMPATIBLE=${VALUE} ;;
         *)   
     esac    
 done
@@ -93,7 +95,7 @@ then
     git clone https://github.com/novnc/websockify websockify || fail
     
     # This operation is needed when python<=3.5
-    if [ "x${NOVNC_COMPAT}" != "x" ] 
+    if [ "x${NOVNC_COMPATIBLE}" = "xtrue" ] 
     then
         cd websockify || fail
         git checkout v0.9.0

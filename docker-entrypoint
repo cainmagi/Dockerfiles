@@ -21,6 +21,31 @@ function mcd {
   cd "$1" || fail
 }
 
+function nvm_default_install_dir {
+    [ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm"
+}
+
+function nvm_install_dir {
+    if [ -n "$NVM_DIR" ]; then
+        printf %s "${NVM_DIR}"
+    else
+        nvm_default_install_dir
+    fi
+}
+
+function run_with_nodejs {
+    RUN_NVM_DIR="$(nvm_install_dir | command sed "s:^$HOME:\$HOME:")"
+    if [ -s "$RUN_NVM_DIR/nvm.sh" ] && [ -s "$RUN_NVM_DIR/bash_completion" ]
+    then
+        bash -c ". $RUN_NVM_DIR/nvm.sh \
+        && . $RUN_NVM_DIR/bash_completion \
+        && nvm use default \
+        && $1" || fail
+    else
+        bash -c "$1" || fail
+    fi
+}
+
 MODE="vnc"
 MODE_RUN_SCRIPT=""
 JLAB_PASSWORD=""
@@ -74,8 +99,9 @@ then
     echo "-----------------------------------"
     echo "This is a container used for launching jupyterlab."
     echo "Use the following options to configure the lab:"
-    echo "    --jlab_password: set the password of the lab manually."
-    echo "    --jlab_rootdir: set the root directory of the lab."
+    echo "    --jlab: use this flag to open the jupyter lab."
+    echo "    password: set the password of the lab manually."
+    echo "    rootdir: set the root directory of the lab."
     echo "If not setting the password manually, users need to check the token shown in the terminal."
     echo ""
     
@@ -91,7 +117,7 @@ then
         OPTION_JLAB_ROOT="--notebook-dir=${JLAB_ROOT_DIR}"
     fi
 
-    jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_JLAB_PASSWORD} --allow-root ${OPTION_JLAB_ROOT}
+    run_with_nodejs "jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_JLAB_PASSWORD} --allow-root ${OPTION_JLAB_ROOT}"
     
     exec bash
     exit 0
