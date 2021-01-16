@@ -35,10 +35,15 @@ function nvm_install_dir {
 
 function run_with_nodejs {
     RUN_NVM_DIR="$(nvm_install_dir | command sed "s:^$HOME:\$HOME:")"
-    bash -c ". $RUN_NVM_DIR/nvm.sh \
-    && . $RUN_NVM_DIR/bash_completion \
-    && nvm use default \
-    && $1" || fail
+    if [ -s "$RUN_NVM_DIR/nvm.sh" ] && [ -s "$RUN_NVM_DIR/bash_completion" ]
+    then
+        bash -c ". $RUN_NVM_DIR/nvm.sh \
+        && . $RUN_NVM_DIR/bash_completion \
+        && nvm use default \
+        && $1" || fail
+    else
+        bash -c "$1" || fail
+    fi
 }
 
 MODE="jlab"
