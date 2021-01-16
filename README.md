@@ -43,6 +43,11 @@ There are 4 available options:
 > Note:
 >
 > Currently, the Jupyter Lab 3 is still under development. Since it is not stable enough now, we suggest to install Jupyter Lab 2. It means, using `--build-arg JLAB_VER=2 --build-arg JLAB_EXTIERS=2`.
+> Although I have tried to managed some special cases, the installation script may still meet problems if your python is maintained by conda. In the future, I will try to develop the conda version if we need it.
+
+> Note
+>
+> Currently, the dockerfile only supports the base images with `Ubuntu` `16.04`, `18.04` and  `20.04`.
 
 To find your launch script of your base image, use
 
@@ -133,6 +138,24 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | [`jupyterlab-dash`](https://github.com/plotly/jupyterlab-dash)                  | :white_check_mark: | :white_check_mark: | |
 | [`jupyterlab_html`](https://github.com/mflevine/jupyterlab_html)                | :white_check_mark: | | |
 | [`jupyterlab-plotly`](https://github.com/plotly/plotly.py)                      | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+
+## Test report
+
+### 1/16/2021
+
+The following tests has been passed.
+
+> Note:
+>
+> We use :white_check_mark: to represent the image is fully built. In comparison, :ballot_box_with_check: means the image requires to be built in compatible mode.
+
+| Base image | J-lab1 | J-lab2 | J-lab3 |
+| ----- | :-----: | :-----: | :-----: |
+| `nvcr.io/nvidia/tensorflow:19.03-py3` | :ballot_box_with_check: | :ballot_box_with_check: | :ballot_box_with_check: |
+| `nvcr.io/nvidia/pytorch:19.01-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| `nvcr.io/nvidia/pytorch:20.11-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| `nvcr.io/nvidia/tensorflow:20.12-tf2-py3` | :ballot_box_with_check: | :ballot_box_with_check: | :ballot_box_with_check: |
+| `nvcr.io/nvidia/pytorch:20.12-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ## Update records
 
