@@ -109,9 +109,9 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | ----- | :-----: | :-----: | :-----: |
 | [`jupyterlab-language-pack-zhCN`](https://github.com/jupyterlab/language-packs)                  | | | :white_check_mark: |
 | [`jupyterlab-nbdime`](https://github.com/jupyter/nbdime)                                         | | | :white_check_mark: |
-| [`@aquirdturtle/collapsible_headings`](https://github.com/aquirdTurtle/Collapsible_Headings)     | | | :white_check_mark: |
-| [`jupyterlab-lsp`](https://github.com/krassowski/jupyterlab-lsp)                                 | | | :white_check_mark: |
-| [`jupyterlab-variableinspector`](https://github.com/lckr/jupyterlab-variableInspector)           | | | :white_check_mark: |
+| [`@aquirdturtle/collapsible_headings`](https://github.com/aquirdTurtle/Collapsible_Headings)     | | | :ballot_box_with_check: |
+| [`jupyterlab-lsp`](https://github.com/krassowski/jupyterlab-lsp)                                 | | | :ballot_box_with_check: |
+| [`jupyterlab-variableinspector`](https://github.com/lckr/jupyterlab-variableInspector)           | | | :ballot_box_with_check: |
 | [`jupyterlab-jupytext`](https://github.com/mwouts/jupytext/tree/master/packages/labextension)    | | :white_check_mark: | :white_check_mark: |
 | [`jupyterlab-toc`](https://github.com/jupyterlab/jupyterlab-toc)                                 | | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-hdf5`](https://github.com/jupyterlab/jupyterlab-hdf5)                               | :white_check_mark: | :white_check_mark: | |
@@ -120,7 +120,7 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | [`jupyterlab_go_to_definition`](https://github.com/krassowski/jupyterlab-go-to-definition)       | :white_check_mark: | :white_check_mark: | |
 | [`jupyterlab-matplotlib`](https://github.com/matplotlib/jupyter-matplotlib.git)                  | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [`jupyterlab-manager`](https://github.com/jupyter-widgets/ipywidgets) | :white_check_mark:       | :white_check_mark: | :white_check_mark: |
-| [`jupyterlab-system-monitor`](https://github.com/jtpio/jupyterlab-system-monitor)                | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| [`jupyterlab-system-monitor`](https://github.com/jtpio/jupyterlab-system-monitor)                | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-topbar`](https://github.com/jtpio/jupyterlab-topbar)                                | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ### Tier 2
