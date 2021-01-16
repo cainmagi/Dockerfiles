@@ -1,0 +1,151 @@
+#!/bin/bash
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+    echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+    msg "Error : $?"
+    exit 1
+}
+
+function mcd {
+    mkdir -p "$1" || fail
+    cd "$1" || fail
+}
+
+function install_nvm {
+    msg "Installing NVM, version: $1"
+    wget -O- https://raw.githubusercontent.com/nvm-sh/nvm/v$1/install.sh | bash || fail
+    source ~/.bashrc || fail
+}
+
+function install_nodejs {
+    msg "Installing Node.js, version: $1"
+    nvm install v$1 || fail
+}
+
+VERSION=unset
+EXTRA_TIERS=1
+
+for ARGUMENT in "$@"
+do
+    KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+    case "$KEY" in
+        version)     VERSION=${VALUE} ;;
+        ver)         VERSION=${VALUE} ;;
+        VERSION)     VERSION=${VALUE} ;;
+        ex_tiers)    EXTRA_TIERS=${VALUE} ;;
+        *)   
+    esac    
+done
+
+# Unset the version
+if [ "x${VERSION}" = "xunset" ]
+then
+    python3 -m pip install jupyterlab || fail
+fi
+
+# Install version 1
+if [ "x${VERSION}" = "x1" ]
+then
+    python3 -m pip install jupyterlab==1.2.18 || fail
+    command -v nvm >/dev/null 2>&1 || { install_nvm 0.37.2 || fail }
+    install_nodejs 10.23.1 || fail
+fi
+
+# Install version 2
+if [ "x${VERSION}" = "x2" ]
+then
+    python3 -m pip install jupyterlab==2.2.9 || fail
+    command -v nvm >/dev/null 2>&1 || { install_nvm 0.37.2 || fail }
+    install_nodejs 12.20.1 || fail
+fi
+
+# Install version 3
+if [ "x${VERSION}" = "x3" ]
+then
+    python3 -m pip install jupyterlab==3.0.5 || fail
+    command -v nvm >/dev/null 2>&1 || { install_nvm 0.37.2 || fail }
+    install_nodejs 15.6.0 || fail
+fi
+
+## Install extra packages.
+
+if [ "x${VERSION}" = "xunset" ]
+then
+    # Install tier 2 packages
+    if [ "x${EXTRA_TIERS}" = "x2" ]
+    then
+        python3 -m pip install plotly || fail
+        jupyter labextension install jupyterlab-plotly --no-build || fail
+        
+        if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
+        then
+            python3 -m pip install jupyter-tensorboard jupyter-dash || fail
+            jupyter labextension install jupyterlab_tensorboard jupyterlab-dash --no-build || fail
+        fi
+
+        if [ "x${VERSION}" = "x1" ]
+        then
+            jupyter labextension install @mflevine/jupyterlab_html || fail
+        fi
+    fi
+
+    # Install tier 1 packages
+    if [ "x${EXTRA_TIERS}" = "x1" ] || [ "x${EXTRA_TIERS}" = "x2" ]
+    then
+        python3 -m pip install nbresuse || fail
+        jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor --no-build || fail
+
+        if [ "x${VERSION}" = "x3" ] || [ "x${VERSION}" = "x2" ]
+        then
+            jupyter labextension install @jupyterlab/toc --no-build || fail
+        fi
+
+        if [ "x${VERSION}" = "x3" ]
+        then
+            python3 -m pip install python-language-server[all] || fail
+            python3 -m pip install aquirdturtle_collapsible_headings==3.0.1 jupyterlab-system-monitor==0.7.0 lckr-jupyterlab-variableinspector==3.0.2 jupyterlab-lsp==3.0.0 ipympl==0.6.2 jupytext==1.9.1 nbdime==2.1.0 || fail
+
+            # Install jupyterlab-language-packs
+            mkdir -p /apps/source || fail
+            cd /apps/source || fail
+            git clone https://github.com/jupyterlab/language-packs.git jlab-language-packs || fail
+            cd jlab-language-packs/language-packs/jupyterlab-language-pack-zh-CN || fail
+            python3 setup.py build || fail && python3 setup.py install || fail
+            jupyter labextension install nbdime-jupyterlab --no-build || fail
+        fi
+
+        if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
+        then
+            python3 -m pip install bokeh pynvml jupyterlab_hdf || fail
+            python3 -m pip install jupyterlab-nvdashboard || fail
+            jupyter labextension install jupyterlab-nvdashboard @jupyterlab/github @jupyterlab/hdf5 --no-build || fail
+        fi
+
+        if [ "x${VERSION}" = "x2" ]
+        then
+            python3 -m pip install ipympl==0.5.8 jupytext==1.8.2 || fail
+            jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 --no-build || fail
+        fi
+
+        if [ "x${VERSION}" = "x1" ]
+        then
+            python3 -m pip install ipympl==0.5.2 || fail
+            jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.1 \
+                @krassowski/jupyterlab_go_to_definition@0.7.1 --no-build || fail
+        fi
+    fi
+
+    if [ "x${EXTRA_TIERS}" = "x3" ] || [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]
+    then
+        jupyter lab build || fail
+    fi
+fi

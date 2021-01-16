@@ -7,8 +7,14 @@
 # Pull base image.
 ARG BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.04-py3
 FROM $BASE_IMAGE
+LABEL maintainer="Yuchen Jin <cainmagi@gmail.com>" \
+      author="Yuchen Jin <cainmagi@gmail.com>" \
+      description="Jupyter Lab dockerfile supporting 1.x, 2.x and 3.x versions." \
+      version="1.1"
 ARG DEBIAN_FRONTEND=noninteractive
 ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
+ARG JLAB_VER=unset
+ARG JLAB_EXTIERS=2
 
 ENV USER root
 ENV MKL_CBWR AUTO
@@ -27,7 +33,7 @@ RUN chmod +x /root/scripts/install-base && bash /root/scripts/install-base MODE=
 # Install python
 COPY scripts/install-python /root/scripts/
 RUN chmod +x /root/scripts/install-python && bash /root/scripts/install-python MODE=python
-RUN bash /root/scripts/install-python MODE=jupyter
+RUN bash /root/scripts/install-python MODE=jupyter JLAB_VER=${JLAB_VER} JLAB_EXTIERS=${JLAB_EXTIERS}
 RUN bash /root/scripts/install-base MODE=check
 
 # Define working directory.

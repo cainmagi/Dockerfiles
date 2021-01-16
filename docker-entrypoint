@@ -8,20 +8,21 @@ RESET='\033[0m'
 COLOR='\033[1;32m'
 
 function msg {
-  echo -e "${COLOR}$(date): $1${RESET}"
+    echo -e "${COLOR}$(date): $1${RESET}"
 }
 
 function fail {
-  msg "Error : $?"
-  exit 1
+    msg "Error : $?"
+    exit 1
 }
 
 function mcd {
-  mkdir -p "$1" || fail
-  cd "$1" || fail
+    mkdir -p "$1" || fail
+    cd "$1" || fail
 }
 
-BASH=false
+MODE="jlab"
+MODE_RUN_SCRIPT=""
 ROOT_DIR="/homelocal"
 PASSWORD=""
 # Pass options from command line
@@ -33,7 +34,9 @@ do
         VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
     fi
     case "$KEY" in
-            --bash)         BASH=true ;;
+            --bash)         MODE="bash" ;;
+            --jlab)         MODE="jupyter" ;;
+            script)         MODE_RUN_SCRIPT=${VALUE} ;;
             password)       PASSWORD=${VALUE} ;;
             rootdir)        ROOT_DIR=${VALUE} ;;
             *)   
@@ -48,9 +51,15 @@ then
     bash $LAUNCH_SCRIPT_ORIGINAL echo "Finish launching."
 fi
 
-if $BASH
+if [ "x${MODE}" = "xbash" ]
 then
     exec bash
+    exit 0
+fi
+
+if [ "x${MODE_RUN_SCRIPT}" != "x" ]
+then
+    echo "${MODE_RUN_SCRIPT}" | bash
     exit 0
 fi
 
@@ -73,7 +82,7 @@ echo "---------"
 OPTION_PASSWORD=""
 if [ "x${PASSWORD}" != "x" ]
 then
-    OPTION_PASSWORD="--NotebookApp.token='${PASSWORD}'"
+    OPTION_PASSWORD="--NotebookApp.token=${PASSWORD}"
 fi
 
 OPTION_ROOT=""
