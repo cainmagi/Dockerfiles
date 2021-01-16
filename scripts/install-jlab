@@ -19,6 +19,10 @@ function mcd {
     cd "$1" || fail
 }
 
+nvm_has() {
+  type "$1" > /dev/null 2>&1
+}
+
 function nvm_default_install_dir {
     [ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm"
 }
@@ -84,7 +88,7 @@ if [ "x${VERSION}" = "x1" ]
 then
     msg "Installing Jupyter Lab, ver 1.2.18."
     python3 -m pip install jupyter==1.0.0 jupyter-core==4.6.3 jupyterlab==1.2.18 || fail
-    if ! command -v nvm &> /dev/null; then
+    if ! nvm_has "nvm"; then
         install_nvm 0.37.2 || fail
     fi
     install_nodejs 10.23.1 || fail
@@ -95,7 +99,7 @@ if [ "x${VERSION}" = "x2" ]
 then
     msg "Installing Jupyter Lab, ver 2.2.9."
     python3 -m pip install jupyter==1.0.0 jupyter-core==4.6.3 jupyterlab==2.2.9 || fail
-    if ! command -v nvm &> /dev/null; then
+    if ! nvm_has "nvm"; then
         install_nvm 0.37.2 || fail
     fi
     install_nodejs 12.20.1 || fail
@@ -112,7 +116,7 @@ then
         msg "For compatibility of python<=3.5, installing Jupyter Lab, ver 3.0.0a14."
         python3 -m pip install jupyter==1.0.0 jupyter-core==4.6.3 jupyterlab==3.0.0a14 || fail
     fi
-    if ! command -v nvm &> /dev/null; then
+    if ! nvm_has "nvm"; then
         install_nvm 0.37.2 || fail
     fi
     install_nodejs 15.6.0 || fail
@@ -151,7 +155,7 @@ then
         if [ "x${VERSION}" = "x3" ]
         then
             # Compatibility for conda.
-            if ! command -v conda &> /dev/null; then
+            if ! nvm_has "conda"; then
                 conda remove -y wrapt || fail
             fi
             python3 -m pip install python-language-server[all] || fail
