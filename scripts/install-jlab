@@ -22,12 +22,11 @@ function mcd {
 function install_nvm {
     msg "Installing NVM, version: $1"
     wget -O- https://raw.githubusercontent.com/nvm-sh/nvm/v$1/install.sh | bash || fail
-    source ~/.bashrc || fail
 }
 
 function install_nodejs {
     msg "Installing Node.js, version: $1"
-    nvm install v$1 || fail
+    bash -c "source ~/.bashrc && nvm install v$1" || fail
 }
 
 VERSION=unset
@@ -57,7 +56,9 @@ if [ "x${VERSION}" = "x1" ]
 then
     msg "Installing Jupyter Lab, ver 1.2.18."
     python3 -m pip install jupyterlab==1.2.18 || fail
-    command -v nvm >/dev/null 2>&1 || { install_nvm 0.37.2 || fail }
+    if ! command -v nvm &> /dev/null; then
+        install_nvm 0.37.2 || fail
+    fi
     install_nodejs 10.23.1 || fail
 fi
 
@@ -66,7 +67,9 @@ if [ "x${VERSION}" = "x2" ]
 then
     msg "Installing Jupyter Lab, ver 2.2.9."
     python3 -m pip install jupyterlab==2.2.9 || fail
-    command -v nvm >/dev/null 2>&1 || { install_nvm 0.37.2 || fail }
+    if ! command -v nvm &> /dev/null; then
+        install_nvm 0.37.2 || fail
+    fi
     install_nodejs 12.20.1 || fail
 fi
 
@@ -75,7 +78,9 @@ if [ "x${VERSION}" = "x3" ]
 then
     msg "Installing Jupyter Lab, ver 3.0.5."
     python3 -m pip install jupyterlab==3.0.5 || fail
-    command -v nvm >/dev/null 2>&1 || { install_nvm 0.37.2 || fail }
+    if ! command -v nvm &> /dev/null; then
+        install_nvm 0.37.2 || fail
+    fi
     install_nodejs 15.6.0 || fail
 fi
 
