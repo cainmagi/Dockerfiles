@@ -175,6 +175,6 @@ then
     if [ "x${EXTRA_TIERS}" = "x3" ] || [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]
     then
         msg "Installing Jupyter Lab extensions, finally building."
-        jupyter lab build || fail
+        run_with_nodejs "${NODEJS_VER}" "jupyter lab build" || fail
     fi
 fi
