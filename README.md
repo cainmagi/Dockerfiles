@@ -116,7 +116,7 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 
 ## Update records
 
-### ver 1.4 (alpha) @ 1/15/2021
+### ver 1.4 @ 1/16/2021
 
 1. Arrange the theme pack installations.
 2. Add fully supported Jupyter Lab installation.
