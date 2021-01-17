@@ -322,6 +322,14 @@ This image contains:
 
 -----
 
+#### xubuntu-matlab-xp:r2020b
+
+**X-Ubuntu MATLAB R2020b (Windows XP Theme)**
+
+This image is configured based on [`xubuntu-matlab:r2020b`](#xubuntu-matlabr2020b). All the installed packages are the same. The only difference is that it is switched to a Windows XP theme. This image is an example for showing how to make the xUbuntu like Windows.
+
+-----
+
 ### Jupyter Lab
 
 The following images are built based on [jupyterlab branch][git-jlab]. Actually, the xUbuntu images has been **already equipped with** `Jupyter Lab`. However, the versions of all of those JLab releases are `2.2.9`. Here we provide images with `Jupyter Lab 3.0.5`. The JLab 3 has just quitted the pre-release stage for not very long. Currently, the newest version is `3.0.5`. It means most extensions designed for JLab 1 or 2 would not support JLab 3. However, there are also some useful extensions only supporting JLab 3, like Chinese localization, variable inspector and language linter. These images are provided for who want to try the newest Jupyter Lab. All of them do not support desktop applications.
