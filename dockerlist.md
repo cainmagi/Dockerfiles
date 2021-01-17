@@ -123,7 +123,7 @@ When you want to save your image, follow the instructions below:
 
 Here I am maintaining a list of currently built docker images on our DGX-230. Most of them are built based on:
 
-[Jupyter Lab][git-jlab]
+[jupyterlab branch][git-jlab]
 
 ### Usage: interactive mode
 
@@ -324,7 +324,7 @@ This image contains:
 
 ### Jupyter Lab
 
-The following images are built based on [xubuntu branch][git-xubuntu]. Actually, the xUbuntu images has been **already equipped with** `Jupyter Lab`. However, the versions of all of those JLab releases are `2.2.9`. Here we provide images with `Jupyter Lab 3.0.5`. The JLab 3 has just quitted the pre-release stage for not very long. Currently, the newest version is `3.0.5`. It means most extensions designed for JLab 1 or 2 would not support JLab 3. However, there are also some useful extensions only supporting JLab 3, like Chinese localization, variable inspector and language linter. These images are provided for who want to try the newest Jupyter Lab. All of them do not support desktop applications.
+The following images are built based on [jupyterlab branch][git-jlab]. Actually, the xUbuntu images has been **already equipped with** `Jupyter Lab`. However, the versions of all of those JLab releases are `2.2.9`. Here we provide images with `Jupyter Lab 3.0.5`. The JLab 3 has just quitted the pre-release stage for not very long. Currently, the newest version is `3.0.5`. It means most extensions designed for JLab 1 or 2 would not support JLab 3. However, there are also some useful extensions only supporting JLab 3, like Chinese localization, variable inspector and language linter. These images are provided for who want to try the newest Jupyter Lab. All of them do not support desktop applications.
 
 -----
 
