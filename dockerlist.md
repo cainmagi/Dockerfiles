@@ -4,7 +4,7 @@ To get back to the main page, click [here](./index).
 
 ## Documentation for currently built images (xUbuntu)
 
-> Updated on 1/16/2021
+> Updated on 1/17/2021
 
 Here I am maintaining a list of currently built docker images on our DGX-230. Most of them are built based on:
 
@@ -213,7 +213,7 @@ The following images are build based on [xubuntu branch][git-xubuntu].
 
 -----
 
-#### xubuntu-tf2:1.0
+#### nvcr.io/uoh053018/xubuntu-tf:1.4-2.3.1
 
 **X-Ubuntu Tensorflow 2**
 
@@ -222,7 +222,13 @@ The xubuntu tensorflow `2.x` image. Currently, the tensorflow version is `2.3.1`
 This image is built based on the following command:
 
 ```bash
-docker build -t xubuntu-tf2:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:20.12-tf2-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+docker build -t nvcr.io/uoh053018/xubuntu-tf:1.4-2.3.1 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:20.12-tf2-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+```
+
+This image has been also uploaded to our DGC account, check [here][nv-tf] for viewing details. With our NVIDIA account, you could pull the image directly by:
+
+```bash
+docker pull nvcr.io/uoh053018/xubuntu-tf:1.4-2.3.1
 ```
 
 This image contains:
@@ -235,16 +241,22 @@ This image contains:
 
 -----
 
-#### xubuntu-tf:1.0
+#### nvcr.io/uoh053018/xubuntu-tf:1.4-1.13.1
 
 **X-Ubuntu Tensorflow 1.13.1**
 
-The xubuntu tensorflow `1.13.1` image.
+The xubuntu tensorflow `1.x` image. Currently, the tensorflow version is `1.13.1`.
 
 This image is built based on the following command:
 
 ```bash
-docker build -t xubuntu-tf:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg XUBUNTU_COMPAT=true https://github.com/cainmagi/Dockerfiles.git#xubuntu
+docker build -t nvcr.io/uoh053018/xubuntu-tf:1.4-1.13.1 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg XUBUNTU_COMPAT=true https://github.com/cainmagi/Dockerfiles.git#xubuntu
+```
+
+This image has been also uploaded to our DGC account, check [here][nv-tf] for viewing details. With our NVIDIA account, you could pull the image directly by:
+
+```bash
+docker pull nvcr.io/uoh053018/xubuntu-tf:1.4-1.13.1
 ```
 
 This image contains:
@@ -257,7 +269,7 @@ This image contains:
 
 -----
 
-#### xubuntu-tc:1.0
+#### nvcr.io/uoh053018/xubuntu-tc:1.4-1.8.0
 
 **X-Ubuntu PyTorch**
 
@@ -266,12 +278,18 @@ The xubuntu latest PyTorch image. Currently, the PyTorch version is `1.8.0a0+160
 This image is built based on the following command:
 
 ```bash
-docker build -t xubuntu-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+docker build -t nvcr.io/uoh053018/xubuntu-tc:1.4-1.8.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+```
+
+This image has been also uploaded to our DGC account, check [here][nv-tc] for viewing details. With our NVIDIA account, you could pull the image directly by:
+
+```bash
+docker pull nvcr.io/uoh053018/xubuntu-tc:1.4-1.8.0
 ```
 
 This image contains:
 
-* `PyTorch 1.8.0a`
+* `PyTorch 1.8.0a0+1606899`
 * `Python 3.8.5`
 * `xubuntu` desktop with apps
 * `Jupyter Lab 2.2.9`
@@ -279,7 +297,7 @@ This image contains:
 
 -----
 
-#### xubuntu-tc1.0:1.0
+#### nvcr.io/uoh053018/xubuntu-tc:1.4-1.8.0
 
 **X-Ubuntu PyTorch 1.0**
 
@@ -288,12 +306,18 @@ The xubuntu PyTorch 1.0 image. Currently, the PyTorch version is `1.0.0a0+056cfa
 This image is built based on the following command:
 
 ```bash
-docker build -t xubuntu-tc1.0:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:19.01-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+docker build -t nvcr.io/uoh053018/xubuntu-tc:1.4-1.0.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:19.01-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+```
+
+This image has been also uploaded to our DGC account, check [here][nv-tc] for viewing details. With our NVIDIA account, you could pull the image directly by:
+
+```bash
+docker pull nvcr.io/uoh053018/xubuntu-tc:1.4-1.0.0
 ```
 
 This image contains:
 
-* `PyTorch 1.0.0a`
+* `PyTorch 1.0.0a0+056cfaf`
 * `Python 3.6.7`
 * `xubuntu` desktop with apps
 * `Jupyter Lab 2.2.9`
@@ -301,13 +325,15 @@ This image contains:
 
 -----
 
-#### xubuntu-matlab:r2020b
+#### nvcr.io/uoh053018/xubuntu-matlab:r2020b
 
 **X-Ubuntu MATLAB R2020b**
 
 The xubuntu MATLAB `R2020b` image.
 
-This image is built based on the [`xubuntu-tf2:1.0`](#xubuntu-tf210) image. The MATLAB and other packages are installed by manually. Note that a license is needed if you want to launch MATLAB.
+This image is built based on the [`xubuntu-tf:1.4-2.3.1`](#nvcriouoh053018xubuntu-tf14-231) image. The MATLAB and other packages are installed by manually. Note that a license is needed if you want to launch MATLAB.
+
+Because the layer of installing matlab is too large, we have not found a method for pushing the image to our NGC account. Maybe we could solve this problem in the future.
 
 This image contains:
 
@@ -322,11 +348,11 @@ This image contains:
 
 -----
 
-#### xubuntu-matlab-xp:r2020b
+#### nvcr.io/uoh053018/xubuntu-matlab-xp:r2020b
 
 **X-Ubuntu MATLAB R2020b (Windows XP Theme)**
 
-This image is configured based on [`xubuntu-matlab:r2020b`](#xubuntu-matlabr2020b). All the installed packages are the same. The only difference is that it is switched to a Windows XP theme. This image is an example for showing how to make the xUbuntu like Windows.
+This image is configured based on [`xubuntu-matlab:r2020b`](#nvcriouoh053018xubuntu-matlabr2020b). All the installed packages are the same. The only difference is that it is switched to a Windows XP theme. This image is an example for showing how to make the xUbuntu like Windows.
 
 -----
 
@@ -380,3 +406,5 @@ This image contains:
 
 [git-xubuntu]:https://github.com/cainmagi/Dockerfiles/tree/xubuntu "xUbuntu"
 [git-jlab]:https://github.com/cainmagi/Dockerfiles/tree/jupyterlab "Jupyter Lab"
+[nv-tf]:https://ngc.nvidia.com/containers/uoh053018:xubuntu-tf "X-Ubuntu Tensorflow"
+[nv-tc]:https://ngc.nvidia.com/containers/uoh053018:xubuntu-tc "X-Ubuntu PyTorch"
