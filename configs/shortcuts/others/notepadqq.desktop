@@ -76,7 +76,7 @@ Name[vi]=Mở cửa sổ mới
 Name[zh_CN]=打开新窗口
 Name[zh_HK]=開啟新的視窗
 Name[zh_TW]=開啟新的視窗
-Exec=notepadqq --new-window
+Exec=notepadqq --allow-root --new-window
 OnlyShowIn=Unity;
 
 [Desktop Action Document]
@@ -128,5 +128,5 @@ Name[vi]=Mở tài liệu mới
 Name[zh_CN]=打开新文档
 Name[zh_HK]=開啟新的文件
 Name[zh_TW]=開啟新的文件
-Exec=notepadqq
+Exec=notepadqq --allow-root
 OnlyShowIn=Unity;
