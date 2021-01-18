@@ -297,7 +297,7 @@ This image contains:
 
 -----
 
-#### nvcr.io/uoh053018/xubuntu-tc:1.4-1.8.0
+#### nvcr.io/uoh053018/xubuntu-tc:1.4-1.0.0
 
 **X-Ubuntu PyTorch 1.0**
 
