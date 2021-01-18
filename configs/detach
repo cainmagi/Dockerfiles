@@ -95,8 +95,8 @@ TARGET_USER_MENU=/root/.local/share/applications
 # The path for overwritting MIME types.
 TARGET_CONFIG=/root/.config
 # The path for overwritting pannel settings.
-TARGET_PANNEL=${TARGET_CONFIG}/xfce4/
-TARGET_PANNEL_CONFIG=${TARGET_CONFIG}/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+TARGET_PANNEL=${TARGET_CONFIG}/xfce4/panel
+TARGET_PANNEL_CONFIG=${TARGET_CONFIG}/xfce4/xfconf/xfce-perchannel-xml #xfce4-panel.xml
 
 msg "Detach script."
 
@@ -125,7 +125,15 @@ then
     apt-get -y install lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
     
-    mkdir -p "/root/Desktop" || fail
+    mkdir -p ${TARGET_DESKTOP} || fail
+    mkdir -p ${TARGET_MENU} || fail
+    mkdir -p ${TARGET_USER_MENU} || fail
+    mkdir -p ${TARGET_CONFIG} || fail
+    chmod +rw ${TARGET_DESKTOP} --recursive || fail
+    chmod +rw ${TARGET_MENU} --recursive || fail
+    chmod +rw ${TARGET_USER_MENU} --recursive || fail
+    chmod +rw ${TARGET_CONFIG} --recursive || fail
+    
     mv_shortcuts_baisic || fail
 
     if [ "x${UBUNTU_VER}" = "x20.04" ]
@@ -139,6 +147,11 @@ fi
 if [ "x${MODE}" = "xpannel" ]
 then
     msg "Move files to pannel, require to be implemented."
+
+    mkdir -p ${TARGET_PANNEL} || fail
+    mkdir -p ${TARGET_PANNEL_CONFIG} || fail
+    chmod +rw ${TARGET_PANNEL} --recursive || fail
+    chmod +rw ${TARGET_PANNEL_CONFIG} --recursive || fail
 fi
 
 msg "Move files finished."
