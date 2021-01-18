@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=PyCharm
+Comment=Launch PyCharm 2020.3.2.
+Exec=pycharm %U
+Icon=/opt/pycharm-community-2020.3.2/bin/pycharm.svg
+Path=
+Terminal=false
+StartupNotify=false
+Categories=Development;IDE;GTK;

@@ -6,17 +6,72 @@ RESET='\033[0m'
 COLOR='\033[1;32m'
 
 function msg {
-  echo -e "${COLOR}$(date): $1${RESET}"
+    echo -e "${COLOR}$(date): $1${RESET}"
 }
 
 function fail {
-  msg "Error : $?"
-  exit 1
+    msg "Error : $?"
+    exit 1
 }
 
 function mcd {
-  mkdir -p "$1" || fail
-  cd "$1" || fail
+    mkdir -p "$1" || fail
+    cd "$1" || fail
+}
+
+function mv_shortcuts_baisic {
+    msg "Moving basic shortcuts for all Ubuntu."
+    
+    cp -f $THIS_ROOT/shortcuts/common/all/code.desktop ${TARGET_MENU}/ || fail
+    mv $THIS_ROOT/shortcuts/common/all/code.desktop ${TARGET_DESKTOP}/ || fail
+    
+    mv $THIS_ROOT/shortcuts/common/all/peazip.desktop ${TARGET_DESKTOP}/ || fail
+
+    # With PyCharm
+    if [[ "${WITH_EXTRA_APPS}" = *"p"* ]]; then
+        cp -f $THIS_ROOT/shortcuts/common/all/PyCharm.desktop ${TARGET_USER_MENU}/ || fail
+        mv $THIS_ROOT/shortcuts/common/all/PyCharm.desktop ${TARGET_DESKTOP}/ || fail
+    fi
+    if [ "x${WITH_CHINESE}" = "xtrue" ]
+    then
+        # With GIMP
+        if [[ "${WITH_EXTRA_APPS}" = *"g"* ]]; then
+            cp -f $THIS_ROOT/shortcuts/chinese/all/gimp.desktop ${TARGET_MENU}/ || fail
+            mv $THIS_ROOT/shortcuts/chinese/all/gimp.desktop ${TARGET_DESKTOP}/ || fail
+        fi
+    else
+        # With GIMP
+        if [[ "${WITH_EXTRA_APPS}" = *"g"* ]]; then
+            cp -f $THIS_ROOT/shortcuts/english/all/gimp.desktop ${TARGET_MENU}/ || fail
+            mv $THIS_ROOT/shortcuts/english/all/gimp.desktop ${TARGET_DESKTOP}/ || fail
+        fi
+    fi
+}
+
+function mv_shortcuts_20_04 {
+    msg "Moving basic shortcuts for Ubuntu 20.04."
+    mv $THIS_ROOT/shortcuts/common/20-04/sublime_text.desktop ${TARGET_DESKTOP}/ || fail
+    if [ "x${WITH_CHINESE}" = "xtrue" ]
+    then
+        cp -f $THIS_ROOT/shortcuts/chinese/20-04/google-chrome.desktop ${TARGET_MENU}/ || fail
+        mv $THIS_ROOT/shortcuts/chinese/20-04/google-chrome.desktop ${TARGET_DESKTOP}/ || fail
+    else
+        cp -f $THIS_ROOT/shortcuts/english/20-04/google-chrome.desktop ${TARGET_MENU}/ || fail
+        mv $THIS_ROOT/shortcuts/english/20-04/google-chrome.desktop ${TARGET_DESKTOP}/ || fail
+    fi
+}
+
+function mv_shortcuts_18or16_04 {
+    msg "Moving basic shortcuts for Ubuntu 18.04 / 16.04."
+    mv $THIS_ROOT/shortcuts/common/18or16-04/notepadqq.desktop ${TARGET_DESKTOP}/ || fail
+    if [ "x${WITH_CHINESE}" = "xtrue" ]
+    then
+        cp -f $THIS_ROOT/shortcuts/chinese/18or16-04/chromium-browser.desktop ${TARGET_MENU}/ || fail
+        mv $THIS_ROOT/shortcuts/chinese/18or16-04/chromium-browser.desktop ${TARGET_DESKTOP}/ || fail
+    else
+        cp -f $THIS_ROOT/shortcuts/english/18or16-04/chromium-browser.desktop ${TARGET_MENU}/ || fail
+        mv $THIS_ROOT/shortcuts/english/18or16-04/chromium-browser.desktop ${TARGET_DESKTOP}/ || fail
+    fi
 }
 
 MODE=basic
@@ -32,45 +87,58 @@ do
 done
 
 THIS_ROOT=/root/configs
+# The path for overwritting desktop apps.
+TARGET_DESKTOP=/root/Desktop
+# The path for overwritting menu apps.
+TARGET_MENU=/usr/share/applications
+TARGET_USER_MENU=/root/.local/share/applications
+# The path for overwritting MIME types.
+TARGET_CONFIG=/root/.config
+# The path for overwritting pannel settings.
+TARGET_PANNEL=${TARGET_CONFIG}/xfce4/
+TARGET_PANNEL_CONFIG=${TARGET_CONFIG}/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+
+msg "Detach script."
 
 if [ "x${MODE}" = "xbasic" ]
 then 
-  msg "Detach script, basic mode."
-  # The script for installing newest ffmpeg
-  msg "Move files to /root"
-  chmod +rwx $THIS_ROOT --recursive || fail
-  mv $THIS_ROOT/.bashrc /root || fail
+    msg "Detach script, basic mode."
+    # The script for installing newest ffmpeg
+    msg "Move files to /root"
+    chmod +rwx $THIS_ROOT --recursive || fail
+    mv $THIS_ROOT/.bashrc /root || fail
 
-  msg "Move files to /etc"
-  echo "LC_ALL=en_US.UTF-8" >> /etc/environment
-  echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-  echo "LANG=en_US.UTF-8" > /etc/locale.conf
-  mv $THIS_ROOT/locale.gen /etc || fail
+    msg "Move files to /etc"
+    echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+    echo "LANG=en_US.UTF-8" > /etc/locale.conf
+    mv $THIS_ROOT/locale.gen /etc || fail
 
-  msg "Move files to /root/ subfolders"
-  mkdir -p "/root/.vnc" || fail
-  mkdir -p "/root/Desktop" || fail
-  mv $THIS_ROOT/xstartup /root/.vnc || fail
-  mv $THIS_ROOT/shortcuts/basic/* /root/Desktop || fail
+    msg "Move files to /root/ subfolders"
+    mkdir -p "/root/.vnc" || fail
+    mv $THIS_ROOT/xstartup /root/.vnc || fail
 fi
 
-if [ "x${MODE}" = "xspecial" ]
+if [ "x${MODE}" = "xshortcuts" ]
 then
-  msg "Detach script, special mode."
-  apt-get update || fail
-  apt-get -y install lsb-release lsb-core || fail
-  UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
-  
-  if [ "x${UBUNTU_VER}" = "x20.04" ]
-  then
-    msg "Move files to /root/ subfolders (For ubuntu 20.04)"
+    apt-get update || fail
+    apt-get -y install lsb-release lsb-core || fail
+    UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
+    
     mkdir -p "/root/Desktop" || fail
-    mv $THIS_ROOT/shortcuts/20-04/* /root/Desktop || fail
-  else
-    msg "Move files to /root/ subfolders (For ubuntu <20.04)"
-    mkdir -p "/root/Desktop" || fail
-    mv $THIS_ROOT/shortcuts/others/* /root/Desktop || fail
-  fi
+    mv_shortcuts_baisic || fail
+
+    if [ "x${UBUNTU_VER}" = "x20.04" ]
+    then
+        mv_shortcuts_20_04 || fail
+    else
+        mv_shortcuts_18or16_04 || fail
+    fi
+fi
+
+if [ "x${MODE}" = "xpannel" ]
+then
+    msg "Move files to pannel, require to be implemented."
 fi
 
 msg "Move files finished."

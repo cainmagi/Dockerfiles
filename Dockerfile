@@ -10,12 +10,13 @@ FROM $BASE_IMAGE
 LABEL maintainer="Yuchen Jin <cainmagi@gmail.com>" \
       author="Yuchen Jin <cainmagi@gmail.com>" \
       description="xUbuntu desktop dockerfile for ubuntu 16.04, 18.04 and 20.04 images." \
-      version="1.4"
+      version="1.5a"
 ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
 ARG JLAB_VER=unset
 ARG JLAB_EXTIERS=2
 ARG XUBUNTU_COMPAT="false"
 ARG WITH_CHINESE="true"
+ARG WITH_EXTRA_APPS=""
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV USER root
@@ -31,7 +32,6 @@ ENV LANGUAGE en_US.UTF-8
 # Install prepared packages
 COPY scripts/install-base /root/scripts/
 RUN chmod +x /root/scripts/install-base && bash /root/scripts/install-base MODE=init
-RUN bash /root/configs/detach MODE=special
 
 # Install xfce4 Desktop
 COPY scripts/install-desktop /root/scripts/
@@ -41,6 +41,7 @@ RUN bash /root/scripts/install-base MODE=check
 
 # Install extra packages
 RUN bash /root/scripts/install-desktop MODE=apps JLAB_VER=${JLAB_VER} JLAB_EXTIERS=${JLAB_EXTIERS} JLAB_COMPAT=${XUBUNTU_COMPAT}
+RUN bash /root/configs/detach MODE=shortcuts
 
 # Install modern vncserver and themes
 COPY scripts/install-vnc /root/scripts/
