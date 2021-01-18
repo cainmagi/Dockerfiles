@@ -225,7 +225,7 @@ This image is built based on the following command:
 docker build -t nvcr.io/uoh053018/xubuntu-tf:1.4-2.3.1 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:20.12-tf2-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
 ```
 
-This image has been also uploaded to our DGC account, check [here][nv-tf] for viewing details. With our NVIDIA account, you could pull the image directly by:
+This image has been also uploaded to our NGC account, check [here][nv-tf] for viewing details. With our NVIDIA account, you could pull the image directly by:
 
 ```bash
 docker pull nvcr.io/uoh053018/xubuntu-tf:1.4-2.3.1
@@ -253,7 +253,7 @@ This image is built based on the following command:
 docker build -t nvcr.io/uoh053018/xubuntu-tf:1.4-1.13.1 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg XUBUNTU_COMPAT=true https://github.com/cainmagi/Dockerfiles.git#xubuntu
 ```
 
-This image has been also uploaded to our DGC account, check [here][nv-tf] for viewing details. With our NVIDIA account, you could pull the image directly by:
+This image has been also uploaded to our NGC account, check [here][nv-tf] for viewing details. With our NVIDIA account, you could pull the image directly by:
 
 ```bash
 docker pull nvcr.io/uoh053018/xubuntu-tf:1.4-1.13.1
@@ -281,7 +281,7 @@ This image is built based on the following command:
 docker build -t nvcr.io/uoh053018/xubuntu-tc:1.4-1.8.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
 ```
 
-This image has been also uploaded to our DGC account, check [here][nv-tc] for viewing details. With our NVIDIA account, you could pull the image directly by:
+This image has been also uploaded to our NGC account, check [here][nv-tc] for viewing details. With our NVIDIA account, you could pull the image directly by:
 
 ```bash
 docker pull nvcr.io/uoh053018/xubuntu-tc:1.4-1.8.0
@@ -309,7 +309,7 @@ This image is built based on the following command:
 docker build -t nvcr.io/uoh053018/xubuntu-tc:1.4-1.0.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:19.01-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
 ```
 
-This image has been also uploaded to our DGC account, check [here][nv-tc] for viewing details. With our NVIDIA account, you could pull the image directly by:
+This image has been also uploaded to our NGC account, check [here][nv-tc] for viewing details. With our NVIDIA account, you could pull the image directly by:
 
 ```bash
 docker pull nvcr.io/uoh053018/xubuntu-tc:1.4-1.0.0
