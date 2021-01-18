@@ -37,7 +37,7 @@ The basic usage for any of the following image could be divided into 4 cases:
 * By `Jupyter Lab`: If you want to launch the Jupyter Lab but do not start the desktop, please use
 
     ```bash
-    docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.0 -p 6080:6080 --jlab jlab_password=openjupyter jlab_rootdir=/homelocal
+    docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0 --jlab jlab_password=openjupyter jlab_rootdir=/homelocal
     ```
 
     The `jlab_password` would override the default random token. The `jlab_rootdir` is the root folder of the launched jupyter lab. If not set `jlab_rootdir`, the default root folder would be `/homelocal`. The `--jlab` option is required when you need to force the image to switch to Jupyter Lab mode.
