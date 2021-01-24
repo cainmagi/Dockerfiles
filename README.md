@@ -126,6 +126,7 @@ The plan for the next version.
 - [ ] Enhance the VNC support by OpenSSL entryption.
 - [ ] Upgrade the Jupyter Lab script.
 - [ ] Add some themes.
+- [x] Fix the compatibility problem caused by `pip 21.0`.
 
 ### ver 1.4 @ 1/17/2021
 
