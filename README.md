@@ -116,6 +116,10 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 
 ## Update records
 
+### ver 1.4 @ 1/24/2021
+
+1. Fix the bug caused by the incompatibility of `pip-21`.
+
 ### ver 1.4 @ 1/17/2021
 
 1. Arrange the theme pack installations.
