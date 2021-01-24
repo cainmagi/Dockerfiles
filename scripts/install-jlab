@@ -138,6 +138,7 @@ then
         
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
+            python3 -m pip install "tensorboard<=2.2" || fail # If required, downgrad the tensorboard APIs.
             python3 -m pip install jupyter-tensorboard jupyter-dash || fail
             run_with_nodejs "jupyter labextension install jupyterlab_tensorboard jupyterlab-dash --no-build" || fail
         fi
@@ -175,13 +176,6 @@ then
 
             # Install jupyterlab-language-packs
             python3 -m pip install https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/jupyterlab_language_pack_zh_CN-0.0.1.dev0-py2.py3-none-any.whl || fail
-
-            # Legacy commands.
-            #mkdir -p /apps/source || fail
-            #cd /apps/source || fail
-            #git clone https://github.com/jupyterlab/language-packs.git jlab-language-packs || fail
-            #cd jlab-language-packs/language-packs/jupyterlab-language-pack-zh-CN || fail
-            #python3 setup.py build || fail && python3 setup.py install || fail
         fi
 
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
