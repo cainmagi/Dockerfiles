@@ -87,6 +87,7 @@ fi
 if [ "x${VERSION}" = "x1" ]
 then
     msg "Installing Jupyter Lab, ver 1.2.18."
+    python3 -m pip install tornado==5.1.1 || fail
     python3 -m pip install jupyter jupyter-core --upgrade || fail
     python3 -m pip install jupyterlab==1.2.18 || fail
     if ! nvm_has "nvm"; then
@@ -99,6 +100,7 @@ fi
 if [ "x${VERSION}" = "x2" ]
 then
     msg "Installing Jupyter Lab, ver 2.2.9."
+    python3 -m pip install tornado==5.1.1 || fail
     python3 -m pip install jupyter jupyter-core --upgrade || fail
     python3 -m pip install jupyterlab==2.2.9 || fail
     if ! nvm_has "nvm"; then
@@ -110,6 +112,7 @@ fi
 # Install version 3
 if [ "x${VERSION}" = "x3" ]
 then
+    python3 -m pip install tornado==6.1 || fail
     python3 -m pip install jupyter jupyter-core --upgrade || fail
     if [ "x${COMPATIBLE}" != "xtrue" ]
     then
