@@ -216,7 +216,7 @@ then
 
     if [ "x${JLAB_COMPATIBLE}" = "xtrue" ]
     then
-        curl https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/get-pip-20.3.4.py -o /root/get-pip-3.py || fail
+        wget -O /root/get-pip-3.py https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/get-pip-20.3.4.py || fail
     else
         curl https://bootstrap.pypa.io/get-pip.py -o /root/get-pip-3.py || fail
     fi
