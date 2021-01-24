@@ -159,6 +159,10 @@ The following tests has been passed.
 
 ## Update records
 
+### ver 1.1 @ 1/24/2021
+
+1. Fix the bug caused by the incompatibility of `pip-21`.
+
 ### ver 1.1 @ 1/15/2021
 
 1. Update the `Jupyter Lab` installation script, now it supports 3 different version.

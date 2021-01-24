@@ -46,15 +46,21 @@ then
     apt-get install -y at-spi2-core || fail
     apt-get update -y || fail && apt-get -y dist-upgrade || fail
     
-    curl https://bootstrap.pypa.io/get-pip.py -o /root/get-pip.py || fail
+    if [ "x${JLAB_COMPATIBLE}" = "xtrue" ]
+    then
+        curl https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/get-pip-20.3.4.py -o /root/get-pip-3.py || fail
+    else
+        curl https://bootstrap.pypa.io/get-pip.py -o /root/get-pip-3.py || fail
+    fi
+    curl https://bootstrap.pypa.io/2.7/get-pip.py -o /root/get-pip-2.py || fail
     if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
     then
         apt-get install -y python3-pip || fail
-        python3 /root/get-pip.py --force-reinstall || fail
+        python3 /root/get-pip-3.py --force-reinstall || fail
         python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
     else
         apt-get install -y python-pip python3-pip || fail
-        python3 /root/get-pip.py --force-reinstall || fail && python2 /root/get-pip.py --force-reinstall || fail
+        python3 /root/get-pip-3.py --force-reinstall || fail && python2 /root/get-pip-2.py --force-reinstall || fail
         python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
         python2 -m pip install numpy --upgrade || fail
     fi
