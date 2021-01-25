@@ -138,6 +138,7 @@ then
     # The script for installing newest ffmpeg
     msg "Move files to ${USER_ROOT}"
     chmod +rwx $THIS_ROOT --recursive || fail
+    cp -f $THIS_ROOT/.bashrc /root/ || fail
     mv $THIS_ROOT/.bashrc ${USER_ROOT} || fail
 
     msg "Move files to /etc"
