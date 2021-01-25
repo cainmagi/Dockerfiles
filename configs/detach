@@ -77,8 +77,8 @@ function mv_shortcuts_18or16_04 {
 function mv_pannel_20_04 {
     msg "Moving pannel shortcuts for Ubuntu 20.04."
     rm -rf ${TARGET_PANNEL}/* || fail
-    cp -f ${THIS_ROOT}/xfceconfigs/20-04/panel/* ${TARGET_PANNEL}/ || fail
-    cp -f ${THIS_ROOT}/xfceconfigs/20-04/xfconf/xfce-perchannel-xml/* ${TARGET_PANNEL_CONFIG}/ || fail
+    cp -f ${THIS_ROOT}/xfceconfigs/20-04/xfce4/panel/* ${TARGET_PANNEL}/ || fail
+    cp -f ${THIS_ROOT}/xfceconfigs/20-04/xfce4/xfconf/xfce-perchannel-xml/* ${TARGET_PANNEL_CONFIG}/ || fail
     # Replace google-chrome
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
@@ -91,8 +91,8 @@ function mv_pannel_20_04 {
 function mv_pannel_18or16_04 {
     msg "Moving pannel shortcuts for Ubuntu 18.04 / 16.04."
     rm -rf ${TARGET_PANNEL}/* || fail
-    cp -f ${THIS_ROOT}/xfceconfigs/18or16-04/panel/* ${TARGET_PANNEL}/ || fail
-    cp -f ${THIS_ROOT}/xfceconfigs/18or16-04/xfconf/xfce-perchannel-xml/* ${TARGET_PANNEL_CONFIG}/ || fail
+    cp -f ${THIS_ROOT}/xfceconfigs/18or16-04/xfce4/panel/* ${TARGET_PANNEL}/ || fail
+    cp -f ${THIS_ROOT}/xfceconfigs/18or16-04/xfce4/xfconf/xfce-perchannel-xml/* ${TARGET_PANNEL_CONFIG}/ || fail
     # Replace chromium
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
