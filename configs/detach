@@ -113,7 +113,7 @@ do
 done
 
 USER_ROOT=/home/xubuntu
-THIS_ROOT=${USER_ROOT}/docker-configs
+THIS_ROOT=/root/docker-configs
 # The path for overwritting desktop apps.
 TARGET_DESKTOP=${USER_ROOT}/Desktop
 # The path for overwritting menu apps.
