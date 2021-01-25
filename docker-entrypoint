@@ -21,20 +21,19 @@ function mcd {
   cd "$1" || fail
 }
 
-function nvm_default_install_dir {
-    [ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm"
-}
-
 function nvm_install_dir {
     if [ -n "$NVM_DIR" ]; then
         printf %s "${NVM_DIR}"
     else
-        nvm_default_install_dir
+        [ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm"
     fi
 }
+sudo_nvm_install_dir=$(declare -f nvm_install_dir)
 
 function run_with_nodejs {
-    RUN_NVM_DIR="$(nvm_install_dir)" || fail
+    # Switch to root mode for getting the environment value.
+    RUN_NVM_DIR="$(sudo NVM_DIR=$NVM_DIR bash -c "$sudo_nvm_install_dir; nvm_install_dir")" || fail
+    # Still use the user mode for running the app.
     if [ -s "$RUN_NVM_DIR/nvm.sh" ] && [ -s "$RUN_NVM_DIR/bash_completion" ]
     then
         bash -c ". $RUN_NVM_DIR/nvm.sh \
@@ -50,6 +49,7 @@ MODE="vnc"
 MODE_RUN_SCRIPT=""
 JLAB_PASSWORD=""
 JLAB_ROOT_DIR="/homelocal"
+USER_ROOT="/home/xubuntu"
 # Pass options from command line
 for ARGUMENT in "$@"
 do
@@ -151,7 +151,7 @@ echo "---------"
 
 echo "VNC settings:"
 
-FILE_VNCPASSWD=/root/.vnc/passwd
+FILE_VNCPASSWD=${USER_ROOT}/.vnc/passwd
 if [[ -f "${FILE_VNCPASSWD}" ]]; then
     echo "Find VNC password."
 else

@@ -112,14 +112,15 @@ do
     esac    
 done
 
-THIS_ROOT=/root/docker-configs
+USER_ROOT=/home/xubuntu
+THIS_ROOT=${USER_ROOT}/docker-configs
 # The path for overwritting desktop apps.
-TARGET_DESKTOP=/root/Desktop
+TARGET_DESKTOP=${USER_ROOT}/Desktop
 # The path for overwritting menu apps.
 TARGET_MENU=/usr/share/applications
-TARGET_USER_MENU=/root/.local/share/applications
+TARGET_USER_MENU=${USER_ROOT}/.local/share/applications
 # The path for overwritting MIME types.
-TARGET_CONFIG=/root/.config
+TARGET_CONFIG=${USER_ROOT}/.config
 # The path for overwritting panel settings.
 TARGET_XFCE4CONFIG=${TARGET_CONFIG}/xfce4
 
@@ -127,11 +128,17 @@ msg "Detach script."
 
 if [ "x${MODE}" = "xbasic" ]
 then 
+    msg "Create user xubuntu ..."
+    apt-get install -y --no-install-recommends sudo || fail # Install sudo package
+    useradd -ms /bin/bash xubuntu || fail # Add the user
+    passwd -d xubuntu || fail # Delete the password
+    usermod -a -G sudo xubuntu || fail # Make the user admin
+
     msg "Detach script, basic mode."
     # The script for installing newest ffmpeg
-    msg "Move files to /root"
+    msg "Move files to ${USER_ROOT}"
     chmod +rwx $THIS_ROOT --recursive || fail
-    mv $THIS_ROOT/.bashrc /root || fail
+    mv $THIS_ROOT/.bashrc ${USER_ROOT} || fail
 
     msg "Move files to /etc"
     echo "LC_ALL=en_US.UTF-8" >> /etc/environment
@@ -139,9 +146,9 @@ then
     echo "LANG=en_US.UTF-8" > /etc/locale.conf
     mv $THIS_ROOT/locale.gen /etc || fail
 
-    msg "Move files to /root/ subfolders"
-    mkdir -p "/root/.vnc" || fail
-    mv $THIS_ROOT/xstartup /root/.vnc || fail
+    msg "Move files to ${USER_ROOT}/ subfolders"
+    mkdir -p "${USER_ROOT}/.vnc" || fail
+    mv $THIS_ROOT/xstartup ${USER_ROOT}/.vnc || fail
 fi
 
 if [ "x${MODE}" = "xshortcuts" ]

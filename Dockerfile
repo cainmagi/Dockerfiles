@@ -22,6 +22,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV USER root
 ENV MKL_CBWR AUTO
 
+USER root
+
 # Move configs.
 COPY configs /root/docker-configs
 RUN chmod +x /root/docker-configs/ --recursive && bash /root/docker-configs/detach MODE=basic
@@ -60,5 +62,6 @@ EXPOSE 5901
 EXPOSE 6080
 
 # Define default command.
+USER xubuntu
 ENTRYPOINT ["bash", "docker-entrypoint"]
 CMD [""]

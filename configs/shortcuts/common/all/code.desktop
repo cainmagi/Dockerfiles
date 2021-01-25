@@ -2,8 +2,8 @@
 Name=Visual Studio Code
 Comment=Code Editing. Redefined.
 GenericName=Text Editor
-Exec=/usr/share/code/code --no-sandbox --unity-launch --user-data-dir /root/.vscode/settings %F
-Icon=com.visualstudio.code
+Exec=code --unity-launch --user-data-dir /home/xubuntu/.vscode/settings %F
+Icon=/usr/share/pixmaps/com.visualstudio.code.png
 Type=Application
 StartupNotify=false
 StartupWMClass=Code
@@ -16,5 +16,5 @@ X-Desktop-File-Install-Version=0.24
 
 [Desktop Action new-empty-window]
 Name=New Empty Window
-Exec=/usr/share/code/code --no-sandbox --new-window --user-data-dir /root/.vscode/settings %F
+Exec=code --new-window --user-data-dir /home/xubuntu/.vscode/settings %F
 Icon=com.visualstudio.code

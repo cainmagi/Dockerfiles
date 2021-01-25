@@ -121,6 +121,7 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 The plan for the next version.
 
 - [x] Enhance the launchers of system menu and panels.
+- [x] Set the user as `xubuntu`.
 - [ ] Make python version auto-detected, which means `XUBUNTU_COMPAT` would be removed.
 - [ ] Add options for installing some extra apps, like PyCharm and GIMP.
 - [ ] Enhance the VNC support by OpenSSL entryption.
