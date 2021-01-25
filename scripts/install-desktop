@@ -216,26 +216,26 @@ then
 
     if [ "x${JLAB_COMPATIBLE}" = "xtrue" ]
     then
-        wget -O /root/get-pip-3.py https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/get-pip-20.3.4.py || fail
+        wget -O /root/scripts/get-pip-3.py https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/get-pip-20.3.4.py || fail
     else
-        curl https://bootstrap.pypa.io/get-pip.py -o /root/get-pip-3.py || fail
+        curl https://bootstrap.pypa.io/get-pip.py -o /root/scripts/get-pip-3.py || fail
     fi
-    curl https://bootstrap.pypa.io/2.7/get-pip.py -o /root/get-pip-2.py || fail
+    curl https://bootstrap.pypa.io/2.7/get-pip.py -o /root/scripts/get-pip-2.py || fail
     if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
     then
         apt-get install -y python3-pip || fail
-        python3 /root/get-pip-3.py --force-reinstall || fail
+        python3 /root/scripts/get-pip-3.py --force-reinstall || fail
         python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
     else
         apt-get install -y python-pip python3-pip || fail
-        python3 /root/get-pip-3.py --force-reinstall || fail && python2 /root/get-pip-2.py --force-reinstall || fail
+        python3 /root/scripts/get-pip-3.py --force-reinstall || fail && python2 /root/scripts/get-pip-2.py --force-reinstall || fail
         python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
         python2 -m pip install numpy --upgrade || fail
     fi
     apt-get install -y python3-sip python3-pyqt5 python3-tk || fail
     msg "Installation for the extra packages finishes."
 
-    curl https://raw.githubusercontent.com/cainmagi/Dockerfiles/jlab-v1.1/scripts/install-jlab -o /root/scripts/install-jlab || fail
+    wget -O /root/scripts/install-jlab https://raw.githubusercontent.com/cainmagi/Dockerfiles/jlab-v1.1/scripts/install-jlab || fail
     chmod +x /root/scripts/install-jlab || fail
     bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} compat=${JLAB_COMPATIBLE} || fail
     msg "Installation for the jupyterlab finishes."

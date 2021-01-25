@@ -119,6 +119,8 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 ### ver 1.4 @ 1/24/2021
 
 1. Fix the bug caused by the incompatibility of `pip-21`.
+2. Fix the bug of finding `nvm` path in the entry script.
+3. Adjust the path of `get-pip.py`.
 
 ### ver 1.4 @ 1/17/2021
 
