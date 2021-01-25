@@ -165,6 +165,7 @@ The following tests has been passed.
 2. Fix the bug caused by `tensorboard` requirement.
 3. Fix the bug caused by `tornado>=6` when `jupyterlab<=2`.
 4. Fix a bug of `run_with_nodejs` in installation script and entry script.
+5. Fix a bug for `jupyterlab-system-monitor`.
 
 ### ver 1.1 @ 1/15/2021
 

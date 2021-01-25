@@ -156,7 +156,7 @@ then
     if [ "x${EXTRA_TIERS}" = "x1" ] || [ "x${EXTRA_TIERS}" = "x2" ]
     then
         msg "Installing Jupyter Lab extensions, tier 1."
-        python3 -m pip install nbresuse || fail
+        python3 -m pip install "nbresuse>=0.3.0,<=0.3.6" || fail
         run_with_nodejs "jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor --no-build" || fail
 
         if [ "x${VERSION}" = "x3" ]
