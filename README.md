@@ -116,17 +116,18 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 
 ## Update records
 
-### ver 1.5 (Alpha) @ 1/18/2021
+### ver 1.5 (Alpha) @ 1/25/2021
 
 The plan for the next version.
 
-- [ ] Enhance the launchers of system menu and panels.
+- [x] Enhance the launchers of system menu and panels.
 - [ ] Make python version auto-detected, which means `XUBUNTU_COMPAT` would be removed.
 - [ ] Add options for installing some extra apps, like PyCharm and GIMP.
 - [ ] Enhance the VNC support by OpenSSL entryption.
 - [ ] Upgrade the Jupyter Lab script.
 - [ ] Add some themes.
-- [x] Fix the compatibility problem caused by `pip 21.0`.
+- [x] Fix the [compatibility problem](https://github.com/pypa/pip/issues/9500) caused by `pip 21.0`.
+- [x] Fix small bugs, related to `nvm` path, and `detach` script.
 
 ### ver 1.4 @ 1/17/2021
 

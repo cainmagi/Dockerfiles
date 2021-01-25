@@ -23,8 +23,8 @@ ENV USER root
 ENV MKL_CBWR AUTO
 
 # Move configs.
-COPY configs /root/configs
-RUN chmod +x /root/configs/ --recursive && bash /root/configs/detach MODE=basic
+COPY configs /root/docker-configs
+RUN chmod +x /root/docker-configs/ --recursive && bash /root/docker-configs/detach MODE=basic
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
@@ -41,7 +41,8 @@ RUN bash /root/scripts/install-base MODE=check
 
 # Install extra packages
 RUN bash /root/scripts/install-desktop MODE=apps JLAB_VER=${JLAB_VER} JLAB_EXTIERS=${JLAB_EXTIERS} JLAB_COMPAT=${XUBUNTU_COMPAT}
-RUN bash /root/configs/detach MODE=shortcuts
+RUN bash /root/docker-configs/detach MODE=shortcuts
+RUN bash /root/docker-configs/detach MODE=clean
 
 # Install modern vncserver and themes
 COPY scripts/install-vnc /root/scripts/
