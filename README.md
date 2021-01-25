@@ -141,13 +141,27 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 
 ## Test report
 
-### 1/16/2021
-
-The following tests has been passed.
-
 > Note:
 >
 > We use :white_check_mark: to represent the image is fully built. In comparison, :ballot_box_with_check: means the image requires to be built in compatible mode.
+
+### 1/24/2021
+
+In 1/23/2021, `pip 21.0` has been released. Since this version, `python<=3.5` would not be supported. To solve this problem, see the following issue:
+
+https://github.com/pypa/pip/issues/9500
+
+After fixing this problem for compatibility, I perform the following tests and ensure that all tests get passed.
+
+| Base image | J-lab1 | J-lab2 | J-lab3 |
+| ----- | :-----: | :-----: | :-----: |
+| `nvcr.io/nvidia/tensorflow:19.03-py3` | :ballot_box_with_check: | :ballot_box_with_check: | :ballot_box_with_check: |
+| `nvcr.io/nvidia/pytorch:19.01-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| `nvcr.io/nvidia/pytorch:20.12-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+
+### 1/16/2021
+
+The following tests has been passed.
 
 | Base image | J-lab1 | J-lab2 | J-lab3 |
 | ----- | :-----: | :-----: | :-----: |
