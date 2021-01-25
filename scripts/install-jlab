@@ -42,7 +42,7 @@ function install_nvm {
 
 function install_nodejs {
     msg "Installing Node.js, version: $1"
-    RUN_NVM_DIR="$(nvm_install_dir | command sed "s:^$HOME:\$HOME:")"
+    RUN_NVM_DIR="$(nvm_install_dir)" || fail
     msg "Finding NVM in: ${RUN_NVM_DIR}".
     bash -c ". $RUN_NVM_DIR/nvm.sh \
     && . $RUN_NVM_DIR/bash_completion \
@@ -52,7 +52,7 @@ function install_nodejs {
 }
 
 function run_with_nodejs {
-    RUN_NVM_DIR="$(nvm_install_dir | command sed "s:^$HOME:\$HOME:")"
+    RUN_NVM_DIR="$(nvm_install_dir)" || fail
     bash -c ". $RUN_NVM_DIR/nvm.sh \
     && . $RUN_NVM_DIR/bash_completion \
     && nvm use default \
@@ -141,7 +141,7 @@ then
         
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
-            python3 -m pip install "tensorboard<=2.2" || fail # If required, downgrad the tensorboard APIs.
+            python3 -m pip install "tensorboard>=1.14,<=2.2" || fail # If required, downgrad the tensorboard APIs.
             python3 -m pip install jupyter-tensorboard jupyter-dash || fail
             run_with_nodejs "jupyter labextension install jupyterlab_tensorboard jupyterlab-dash --no-build" || fail
         fi
