@@ -44,7 +44,6 @@ RUN bash /root/scripts/install-base MODE=check
 # Install extra packages
 RUN bash /root/scripts/install-desktop MODE=apps JLAB_VER=${JLAB_VER} JLAB_EXTIERS=${JLAB_EXTIERS} JLAB_COMPAT=${XUBUNTU_COMPAT}
 RUN bash /root/docker-configs/detach MODE=shortcuts
-RUN bash /root/docker-configs/detach MODE=clean
 
 # Install modern vncserver and themes
 COPY scripts/install-vnc /root/scripts/
@@ -55,6 +54,7 @@ RUN bash /root/scripts/install-vnc MODE=theme
 ENV LAUNCH_SCRIPT_ORIGINAL=$BASE_LAUNCH
 COPY docker-entrypoint /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint
+RUN bash /root/docker-configs/detach MODE=clean
 
 # Expose the built-in ports.
 EXPOSE 5901

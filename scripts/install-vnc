@@ -19,6 +19,14 @@ function mcd {
   cd "$1" || fail
 }
 
+function update_icon {
+    msg "gtk-update-icon-cache ${ARGS[@]}"
+    for value in "${ARGS[@]}"
+    do         
+        [ -d "/usr/share/icons/${value}" ] && gtk-update-icon-cache /usr/share/icons/${value} || fail
+    done
+}
+
 MODE=vnc
 NOVNC_COMPATIBLE=false
 
@@ -117,44 +125,18 @@ then
     then
         msg "Installing basic theme pack."
         wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-ubuntu-20-04.tar.xz | tar xJ -C /usr/share || fail
-        gtk-update-icon-cache /usr/share/icons/ePapirus || fail && \
-        gtk-update-icon-cache /usr/share/icons/McMojave-circle || fail && \
-        gtk-update-icon-cache /usr/share/icons/McMojave-circle-dark || fail && \
-        gtk-update-icon-cache /usr/share/icons/Papirus || fail && \
-        gtk-update-icon-cache /usr/share/icons/Papirus-Dark || fail && \
-        gtk-update-icon-cache /usr/share/icons/Papirus-Light || fail && \
-        gtk-update-icon-cache /usr/share/icons/Tela-ubuntu || fail && \
-        gtk-update-icon-cache /usr/share/icons/Tela-ubuntu-dark || fail && \
-        gtk-update-icon-cache /usr/share/icons/WhiteSur || fail && \
-        gtk-update-icon-cache /usr/share/icons/WhiteSur-dark || fail && \
-        gtk-update-icon-cache /usr/share/icons/Win10Sur || fail && \
-        gtk-update-icon-cache /usr/share/icons/Win10Sur-dark || fail && \
-        gtk-update-icon-cache /usr/share/icons/Numix || fail && \
-        gtk-update-icon-cache /usr/share/icons/MacOS-3D-Light || fail && \
-        gtk-update-icon-cache /usr/share/icons/MacOS-3D-Dark || fail && \
-        gtk-update-icon-cache /usr/share/icons/Material-Originals || fail && \
-        gtk-update-icon-cache /usr/share/icons/Material-Originals-dark || fail
+        update_icon "ePapirus" "McMojave-circle" "McMojave-circle-dark" "Papirus" "Papirus-Dark" "Papirus-Light" \
+                    "Tela-ubuntu" "Tela-ubuntu-dark" "WhiteSur" "WhiteSur-dark" "Win10Sur" "Win10Sur-dark" \
+                    "Numix" "MacOS-3D-Light" "MacOS-3D-Dark" "Material-Originals" "Material-Originals-dark" \
+                    "elementary-xfce-darkest" || fail
 
         msg "Installing windows-style theme pack."
         wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-win-ubuntu-20-04.tar.xz | tar xJ -C /usr/share || fail
-        gtk-update-icon-cache /usr/share/icons/Windows-10-master || fail && \
-        gtk-update-icon-cache /usr/share/icons/Windows-XP-master || fail && \
-        gtk-update-icon-cache /usr/share/icons/Chicago95 || fail && \
-        gtk-update-icon-cache /usr/share/icons/Chicago95-tux || fail
+        update_icon "Windows-10-master" "Windows-XP-master" "Chicago95" "Chicago95-tux"  || fail
     else
         wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.25/share.tar.gz | tar xz -C /usr/share || fail
-        gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce || fail && \
-        gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Mono || fail && \
-        gtk-update-icon-cache /usr/share/icons/Adwaita-Xfce-Panel || fail && \
-        gtk-update-icon-cache /usr/share/icons/elementary-xfce-darkest || fail && \
-        gtk-update-icon-cache /usr/share/icons/Arc-X-D || fail && \
-        gtk-update-icon-cache /usr/share/icons/Arc-X-P || fail && \
-        gtk-update-icon-cache /usr/share/icons/DarK || fail && \
-        gtk-update-icon-cache /usr/share/icons/Numix || fail && \
-        gtk-update-icon-cache /usr/share/icons/Numix-Light || fail && \
-        gtk-update-icon-cache /usr/share/icons/Paper || fail && \
-        gtk-update-icon-cache /usr/share/icons/Paper-Mono-Dark || fail && \
-        gtk-update-icon-cache /usr/share/icons/Suru || fail
+        update_icon "Adwaita-Xfce" "Adwaita-Xfce-Mono" "Adwaita-Xfce-Panel" "elementary-xfce-darkest" \
+                    "Arc-X-D" "Arc-X-P" "DarK" "Numix" "Numix-Light" "Paper" "Paper-Mono-Dark" "Suru" || fail
     fi
 
     msg "Installation for the themes finishes."

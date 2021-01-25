@@ -194,7 +194,9 @@ fi
 if [ "x${MODE}" = "xclean" ]
 then
     msg "Clean all files in \"${THIS_ROOT}\"."
-
+    chown xubuntu ${USER_ROOT} --recursive || fail
+    chgrp xubuntu ${USER_ROOT} --recursive || fail
+    chmod ug+rwx ${USER_ROOT} --recursive || fail
     rm -rf ${THIS_ROOT}/shortcuts || fail
     rm -rf ${THIS_ROOT}/xfceconfigs || fail
     rm -rf ${THIS_ROOT}/.bashrc || fail
