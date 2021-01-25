@@ -153,6 +153,7 @@ then
     apt-get -y install lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
     
+    msg "Move shortcuts to the desktop and the menu."
     mkdir -p ${TARGET_DESKTOP} || fail
     mkdir -p ${TARGET_MENU} || fail
     mkdir -p ${TARGET_USER_MENU} || fail
@@ -170,12 +171,8 @@ then
     else
         mv_shortcuts_18or16_04 || fail
     fi
-fi
 
-if [ "x${MODE}" = "xpannel" ]
-then
-    msg "Move files to pannel, require to be implemented."
-
+    msg "Move files to pannel."
     mkdir -p ${TARGET_PANNEL} || fail
     mkdir -p ${TARGET_PANNEL_CONFIG} || fail
     chmod +rw ${TARGET_PANNEL} --recursive || fail
