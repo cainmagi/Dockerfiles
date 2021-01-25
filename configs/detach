@@ -170,7 +170,7 @@ then
     fi
 
     msg "Move files to panel."
-    mkdir -p ${TARGET_XFCE4CONFIG} || fail
+    mkdir -p ${TARGET_XFCE4CONFIG}/panel || fail
     chmod +rw ${TARGET_XFCE4CONFIG} --recursive || fail
 
     if [ "x${UBUNTU_VER}" = "x20.04" ]
