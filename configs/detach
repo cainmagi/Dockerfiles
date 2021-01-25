@@ -129,6 +129,8 @@ msg "Detach script."
 if [ "x${MODE}" = "xbasic" ]
 then 
     msg "Create user xubuntu ..."
+    apt-get update || fail
+    apt-get install -y --no-install-recommends apt-utils || fail
     apt-get install -y --no-install-recommends sudo || fail # Install sudo package
     useradd -ms /bin/bash xubuntu || fail # Add the user
     passwd -d xubuntu || fail # Delete the password
