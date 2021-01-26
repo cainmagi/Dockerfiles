@@ -149,6 +149,7 @@ then
     msg "Move files to /root"
     chmod +rwx $THIS_ROOT --recursive || fail
     cp -f $THIS_ROOT/.bashrc /root/ || fail
+    mkdir -p /root/scripts || fail
     wget -O /root/scripts/get-pyver.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-pyver.py || fail
     chmod +rwx /root/scripts/get-pyver.py || fail
 
