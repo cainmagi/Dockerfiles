@@ -222,9 +222,9 @@ then
         if [ "x${UBUNTU_VER}" = "x20.04" ]; then
             apt-get install -y fonts-noto-cjk-extra ibus-libpinyin fcitx-ui-qimpanel fcitx-module-cloudpinyin fonts-arphic-ukai fcitx-table-wubi ibus-table-wubi kde-config-fcitx fonts-arphic-uming firefox-locale-zh-hans || fail
         fi
-        if [ "x${UBUNTU_VER}" = "x18.04" ]; then
+        #if [ "x${UBUNTU_VER}" = "x18.04" ]; then
             #apt-get install -y fcitx-module-cloudpinyin chromium-browser-l10n kde-l10n-zhcn fcitx-table-wubi fcitx-ui-qimpanel firefox-locale-zh-hans fonts-arphic-uming fonts-arphic-ukai || fail
-        fi
+        #fi
         if [ "x${UBUNTU_VER}" = "x16.04" ]; then
             apt-get install -y fcitx-module-cloudpinyin chromium-browser-l10n kde-l10n-zhcn fcitx-table-wubi fcitx-ui-qimpanel firefox-locale-zh-hans fonts-arphic-uming fonts-arphic-ukai || fail
         fi
