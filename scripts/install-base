@@ -38,7 +38,7 @@ done
 if [ "x${MODE}" = "xinit" ]
 then 
     apt-get update || fail
-    apt-get install -y --no-install-recommends apt-utils || fail
+    apt-get install -y apt-utils || fail
     apt-mark hold iptables || fail
     apt-get -y dist-upgrade || fail
     apt-get autoremove -y  || fail
@@ -72,8 +72,8 @@ then
     apt-get -y dist-upgrade || fail
 
     # Install the desktop
-    apt-get install -y --no-install-recommends build-essential || fail
-    apt-get install -y --no-install-recommends \
+    apt-get install -y build-essential || fail
+    apt-get install -y \
         autoconf \
         automake \
         build-essential \

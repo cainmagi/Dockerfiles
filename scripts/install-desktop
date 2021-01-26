@@ -39,25 +39,25 @@ done
 
 if [ "x${MODE}" = "xdesktop" ]
 then
-    apt-get install -y --no-install-recommends lsb-release lsb-core || fail
+    apt-get install -y lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
     
     # Install xfce4 Desktop
-    apt-get install -y --no-install-recommends dbus-x11 libx11-6 libx11-data libx11-protocol-perl \
-        libx11-xcb1 x11-apps x11-common x11-session-utils x11-utils x11-xkb-utils x11-xserver-utils || fail
+    apt-get install -y dbus-x11 libx11-6 libx11-data libx11-protocol-perl libx11-xcb1 x11-apps \
+        x11-common x11-session-utils x11-utils x11-xkb-utils x11-xserver-utils || fail
     # Install dialog
-    apt-get install -y --no-install-recommends dialog || fail
+    apt-get install -y dialog || fail
     # Install desktop applications.
-    apt-get install -y --no-install-recommends xubuntu-desktop synaptic language-selector-gnome || fail
-    apt-get install -y --no-install-recommends xfce4 || fail
+    apt-get install -y xubuntu-desktop synaptic language-selector-gnome || fail
+    apt-get install -y xfce4 || fail
     # Install the xfce4 addons
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
         # Install libgtk
-        apt-get install -y --no-install-recommends libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev \
+        apt-get install -y libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev \
             libgirepository1.0-dev libgraphite2-utils imagemagick pavucontrol || fail
         # Install xfce-plugin
-        apt-get install -y --no-install-recommends libxfce4panel-2.0-4 libxfce4ui-1-0 libxfce4ui-2-0 libxfce4ui-common \
+        apt-get install -y libxfce4panel-2.0-4 libxfce4ui-1-0 libxfce4ui-2-0 libxfce4ui-common \
             libxfce4util-common libxfce4util7 xfce4-appfinder xfce4-notifyd xfce4-panel xfce4-session xfce4-settings \
             gtk-update-icon-cache xfce4-indicator-plugin xfce4-power-manager xfce4-pulseaudio-plugin xfce4-screenshooter \
             xfce4-statusnotifier-plugin xfce4-terminal xfce4-whiskermenu-plugin xfce4-cpugraph-plugin xfce4-dict \
@@ -65,50 +65,49 @@ then
             xfce4-systemload-plugin xfce4-taskmanager xfce4-verve-plugin xfce4-weather-plugin xfce4-xkb-plugin \
             xfce4-mpc-plugin xfpanel-switch xubuntu-community-wallpapers xul-ext-ubufox mousepad ubuntu-sounds \
             gnome-system-monitor || fail
-        apt-get install -y --no-install-recommends xfce4-battery-plugin xfce4-settings xfce4-clipman-plugin \
-            xfce4-datetime-plugin xfce4-sensors-plugin xfce4-cpufreq-plugin xfce4-diskperf-plugin \
-            xfce4-fsguard-plugin xfce4-genmon-plugin xfce4-smartbookmark-plugin xfce4-timer-plugin || fail
+        apt-get install -y xfce4-battery-plugin xfce4-settings xfce4-clipman-plugin xfce4-datetime-plugin \
+            xfce4-sensors-plugin xfce4-cpufreq-plugin xfce4-diskperf-plugin xfce4-fsguard-plugin \
+            xfce4-genmon-plugin xfce4-smartbookmark-plugin xfce4-timer-plugin || fail
         # Install screen saver
-        apt-get install -y --no-install-recommends xfce4-screensaver xscreensaver-gl-extra xscreensaver-data-extra \
+        apt-get install -y xfce4-screensaver xscreensaver-gl-extra xscreensaver-data-extra \
             xscreensaver-screensaver-bsod || fail
         # Install file manager
-        apt-get install -y --no-install-recommends thunar libthunarx-3-0 thunar-data thunar-archive-plugin \
-            thunar-dropbox-plugin thunar-media-tags-plugin thunar-vcs-plugin thunar-gtkhash thunar-volman || fail
+        apt-get install -y thunar libthunarx-3-0 thunar-data thunar-archive-plugin thunar-dropbox-plugin \
+            thunar-media-tags-plugin thunar-vcs-plugin thunar-gtkhash thunar-volman || fail
         # Install icon themes and wallpapers
-        apt-get install -y --no-install-recommends adwaita-icon-theme elementary-xfce-icon-theme hicolor-icon-theme \
+        apt-get install -y adwaita-icon-theme elementary-xfce-icon-theme hicolor-icon-theme \
             humanity-icon-theme tango-icon-theme gnome-icon-theme xubuntu-community-wallpapers-xenial \
             xubuntu-community-wallpapers-bionic xubuntu-community-wallpapers-trusty || fail
     else
         # Install libgtk
-        apt-get install -y --no-install-recommends \
+        apt-get install -y \
             libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev || fail
-        apt-get install -y --no-install-recommends gtk3-engines-xfce xfce4-notifyd mousepad xfce4-terminal \
+        apt-get install -y gtk3-engines-xfce xfce4-notifyd mousepad xfce4-terminal \
             xfce4-taskmanager gnome-system-monitor lightdm-gtk-greeter-settings || fail
         # Install xfce-plugin
-        apt-get install -y --no-install-recommends xfce4-battery-plugin xfce4-settings \
-            xfce4-clipman-plugin xfce4-cpugraph-plugin xfce4-datetime-plugin \
-            xfce4-netload-plugin xfce4-notes-plugin xfce4-places-plugin \
-            xfce4-sensors-plugin xfce4-systemload-plugin xfce4-linelight-plugin\
-            xfce4-whiskermenu-plugin xfce4-indicator-plugin xfce4-mailwatch-plugin \
-            xfce4-cpufreq-plugin xfce4-diskperf-plugin xfce4-fsguard-plugin \
-            xfce4-genmon-plugin xfce4-smartbookmark-plugin xfce4-timer-plugin \
-            xfce4-verve-plugin xfce4-weather-plugin xfce4-appfinder xfce4-dict || fail
+        apt-get install -y xfce4-battery-plugin xfce4-settings xfce4-clipman-plugin \
+            xfce4-cpugraph-plugin xfce4-datetime-plugin xfce4-netload-plugin \
+            xfce4-notes-plugin xfce4-places-plugin xfce4-sensors-plugin \
+            xfce4-systemload-plugin xfce4-linelight-plugin xfce4-whiskermenu-plugin \
+            xfce4-indicator-plugin xfce4-mailwatch-plugin xfce4-cpufreq-plugin \
+            xfce4-diskperf-plugin xfce4-fsguard-plugin xfce4-genmon-plugin \
+            xfce4-smartbookmark-plugin xfce4-timer-plugin xfce4-verve-plugin \
+            xfce4-weather-plugin xfce4-appfinder xfce4-dict || fail
         # Install screen saver
-        apt-get install -y --no-install-recommends xscreensaver xscreensaver-gl-extra xscreensaver-data-extra \
+        apt-get install -y xscreensaver xscreensaver-gl-extra xscreensaver-data-extra \
             xscreensaver-screensaver-bsod || fail
         # Install file manager.
-        apt-get install -y --no-install-recommends thunar thunar-data thunar-archive-plugin thunar-dropbox-plugin \
+        apt-get install -y thunar thunar-data thunar-archive-plugin thunar-dropbox-plugin \
             thunar-media-tags-plugin thunar-vcs-plugin thunar-gtkhash thunar-volman || fail
     fi
-    apt-get install -y --no-install-recommends \
-        gvfs gvfs-backends gvfs-common gvfs-daemons gvfs-fuse gvfs-libs || fail
+    apt-get install -y gvfs gvfs-backends gvfs-common gvfs-daemons gvfs-fuse gvfs-libs || fail
 
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
         msg "Installating Chinese language supports."
-        apt-get install -y --no-install-recommends language-pack-zh-hans language-pack-zh-hans-base \
-            language-pack-gnome-zh-hans language-pack-gnome-zh-hans-base fonts-noto-cjk fcitx-ui-qimpanel \
-            fcitx-module-cloudpinyin fonts-arphic-ukai fcitx-table-wubi fonts-arphic-uming || fail
+        apt-get install -y language-pack-zh-hans language-pack-zh-hans-base language-pack-gnome-zh-hans \
+            language-pack-gnome-zh-hans-base fonts-noto-cjk fcitx-ui-qimpanel fonts-arphic-ukai \
+            fcitx-module-cloudpinyin fcitx-table-wubi fonts-arphic-uming || fail
     fi
 
     msg "Installation for the XFCE4 desktop finishes."
@@ -116,19 +115,19 @@ fi
 
 if [ "x${MODE}" = "xapps" ]
 then 
-    apt-get install -y --no-install-recommends lsb-release lsb-core || fail
+    apt-get install -y lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
 
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
         wget -O google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb || fail
-        apt-get install -y --no-install-recommends ./google-chrome.deb || fail
+        apt-get install -y ./google-chrome.deb || fail
         rm -f google-chrome.deb || fail
     else
-        apt-get install -y --no-install-recommends chromium-browser || fail
+        apt-get install -y chromium-browser chromium-codecs-ffmpeg chromium-codecs-ffmpeg-extra chromium-browser-l10n || fail
     fi
 
-    apt-get install -y --no-install-recommends firefox qt5-default qt5-doc-html qt5-image-formats-plugins qt5-style-plugins codeblocks vlc smplayer gedit okular gnome-screenshot || fail
+    apt-get install -y firefox qt5-default qt5-doc-html qt5-image-formats-plugins qt5-style-plugins codeblocks vlc smplayer gedit okular gnome-screenshot || fail
 
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
@@ -139,28 +138,28 @@ then
     
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
-        apt-get install -y --no-install-recommends vim-gtk3 vim-gui-common || fail
-        apt-get install -y --no-install-recommends nomacs nomacs-l10n || fail
-        apt-get install -y --no-install-recommends hdf-compass || fail
+        apt-get install -y vim-gtk3 vim-gui-common || fail
+        apt-get install -y nomacs nomacs-l10n || fail
+        apt-get install -y hdf-compass || fail
         # Do not install notepadqq, install sublime instead.
         curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
         add-apt-repository -y "deb https://download.sublimetext.com/ apt/stable/" || fail && apt-get update -y || fail
-        apt-get install -y --no-install-recommends sublime-text || fail
+        apt-get install -y sublime-text || fail
         if [ "x${WITH_CHINESE}" = "xtrue" ]
         then
             git clone -b st3 https://github.com/rexdf/ChineseLocalization.git ${USER_ROOT}/.config/sublime-text-3/Packages/ChineseLocalization || fail
         fi
     else
-        apt-get install -y --no-install-recommends vim-gnome || fail
+        apt-get install -y vim-gnome || fail
         add-apt-repository -y ppa:nomacs/stable || fail && apt-get update -y || fail && apt-get install -y nomacs || fail
         add-apt-repository -y ppa:notepadqq-team/notepadqq || fail && apt-get update -y || fail
 
-        apt-get install -y --no-install-recommends notepadqq || fail
+        apt-get install -y notepadqq || fail
     fi
 
     if [ "x${UBUNTU_VER}" = "x18.04" ]
     then
-        apt-get install -y --no-install-recommends hdf-compass || fail
+        apt-get install -y hdf-compass || fail
     fi
     
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg || fail
@@ -170,9 +169,9 @@ then
     then
         dpkg --add-architecture i386 || fail
     fi
-    apt-get install -y --no-install-recommends apt-transport-https || fail
+    apt-get install -y apt-transport-https || fail
     apt-get update -y || fail && apt-get -y dist-upgrade || fail
-    apt-get install -y --no-install-recommends code || fail
+    apt-get install -y code || fail
 
     # Install extensions for code
     CODE_EXTENSIONS="hookyqr.beautify
@@ -206,12 +205,10 @@ then
     if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
     then
         wget https://github.com/peazip/PeaZip/releases/download/7.7.0/peazip_7.7.0.LINUX.x86_64.GTK2.deb -O peazip.deb || fail
-        dpkg -i peazip.deb || fail && rm -f peazip.deb || fail
     else
         wget https://ufpr.dl.sourceforge.net/project/peazip/6.6.0/peazip_6.6.0.LINUX.GTK2-2_i386.deb -O peazip.deb || fail
-        apt-get install -y --no-install-recommends libatk1.0-0:i386 libc6:i386 libcairo2:i386 libgdk-pixbuf2.0-0:i386 libglib2.0-0:i386 libgtk2.0-0:i386 libpango1.0-0:i386 libx11-6:i386 libcanberra-gtk-module:i386 || fail
-        dpkg -i peazip.deb || fail && rm -f peazip.deb || fail
     fi
+    apt-get -y install ./peazip.deb || fail && rm -f peazip.deb || fail
 
     # Install CJK fonts and input methods.
     apt-get install -y fonts-wqy-zenhei || fail
@@ -229,10 +226,10 @@ then
             apt-get install -y fonts-noto-cjk-extra ibus-libpinyin ibus-table-wubi kde-config-fcitx firefox-locale-zh-hans || fail
         fi
         if [ "x${UBUNTU_VER}" = "x18.04" ]; then
-            apt-get install -y firefox-locale-zh-hans chromium-browser-l10n fonts-noto-cjk-extra kde-config-fcitx || fail
+            apt-get install -y firefox-locale-zh-hans fonts-noto-cjk-extra kde-config-fcitx || fail
         fi
         if [ "x${UBUNTU_VER}" = "x16.04" ]; then
-            apt-get install -y chromium-browser-l10n kde-l10n-zhcn firefox-locale-zh-hans || fail
+            apt-get install -y kde-l10n-zhcn firefox-locale-zh-hans || fail
         fi
     fi
 
