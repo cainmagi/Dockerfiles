@@ -53,9 +53,6 @@ function mv_shortcuts_20_04 {
     msg "Moving basic shortcuts for Ubuntu 20.04."
     # To desktop
     cp -f $THIS_ROOT/shortcuts/common/20-04/sublime_text.desktop ${TARGET_DESKTOP}/ || fail
-    # To menu
-    # Remember to fix this after using get-pyver.py!
-    cp -f $THIS_ROOT/shortcuts/common/20-04/ViTables.desktop ${TARGET_MENU}/ || fail
     
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
@@ -80,6 +77,11 @@ function mv_shortcuts_18or16_04 {
         cp -f $THIS_ROOT/shortcuts/english/18or16-04/chromium-browser.desktop ${TARGET_MENU}/ || fail
         cp -f $THIS_ROOT/shortcuts/english/18or16-04/chromium-browser.desktop ${TARGET_DESKTOP}/ || fail
     fi
+}
+
+function mv_shortcuts_py36p {
+    msg "Moving basic shortcuts for Python 3.6+."
+    cp -f $THIS_ROOT/shortcuts/common/all/ViTables.desktop ${TARGET_MENU}/ || fail
 }
 
 function mv_panel_20_04 {
@@ -164,7 +166,9 @@ then
 
     msg "Move files to ${USER_ROOT}/ subfolders"
     mkdir -p "${USER_ROOT}/.vnc" || fail
+    mkdir -p "/root/.vnc" || fail
     cp -f $THIS_ROOT/xstartup ${USER_ROOT}/.vnc || fail
+    cp -f $THIS_ROOT/xstartup /root/.vnc || fail
 fi
 
 if [ "x${MODE}" = "xshortcuts" ]
@@ -172,7 +176,8 @@ then
     apt-get update || fail
     apt-get -y install lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
-    
+    CURIN_PY_VER=$(/usr/bin/python3 /root/scripts/get-pyver.py 2>&1)
+
     msg "Move shortcuts to the desktop and the menu."
     mkdir -p ${TARGET_DESKTOP} || fail
     mkdir -p ${TARGET_MENU} || fail
@@ -185,6 +190,7 @@ then
     
     mv_shortcuts_basic || fail
 
+    # Requirement: Ubuntu 20.04
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
         mv_shortcuts_20_04 || fail
@@ -192,10 +198,17 @@ then
         mv_shortcuts_18or16_04 || fail
     fi
 
+    # Requirement: Python 3.6+
+    if [ "x${CURIN_PY_VER}" = "xpy36" ] || [ "x${CURIN_PY_VER}" = "xpy37+" ]
+    then
+        mv_shortcuts_py36p || fail
+    fi
+
     msg "Move files to panel."
     mkdir -p ${TARGET_XFCE4CONFIG}/panel || fail
     chmod +rw ${TARGET_XFCE4CONFIG} --recursive || fail
 
+    # Requirement: Ubuntu 20.04
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
         mv_panel_20_04 || fail

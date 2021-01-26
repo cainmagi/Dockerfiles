@@ -2,8 +2,8 @@
 Version=1.0
 Type=Application
 Name=ViTables
-GenericName=ViTables
-Comment=Run ViTables
+GenericName=Dataset viewer
+Comment=Run ViTables for viewing datasets.
 Exec=vitables
 TryExec=vitables
 Categories=Development;Science;

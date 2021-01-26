@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-ARG BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.04-py3
+ARG BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3
 FROM $BASE_IMAGE
 LABEL maintainer="Yuchen Jin <cainmagi@gmail.com>" \
       author="Yuchen Jin <cainmagi@gmail.com>" \
@@ -14,7 +14,6 @@ LABEL maintainer="Yuchen Jin <cainmagi@gmail.com>" \
 ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
 ARG JLAB_VER=unset
 ARG JLAB_EXTIERS=2
-ARG XUBUNTU_COMPAT="false"
 ARG WITH_CHINESE="true"
 ARG WITH_EXTRA_APPS=""
 ARG DEBIAN_FRONTEND=noninteractive
@@ -42,12 +41,12 @@ RUN /etc/init.d/dbus start
 RUN bash /root/scripts/install-base MODE=check
 
 # Install extra packages
-RUN bash /root/scripts/install-desktop MODE=apps JLAB_VER=${JLAB_VER} JLAB_EXTIERS=${JLAB_EXTIERS} JLAB_COMPAT=${XUBUNTU_COMPAT}
+RUN bash /root/scripts/install-desktop MODE=apps JLAB_VER=${JLAB_VER} JLAB_EXTIERS=${JLAB_EXTIERS}
 RUN bash /root/docker-configs/detach MODE=shortcuts
 
 # Install modern vncserver and themes
 COPY scripts/install-vnc /root/scripts/
-RUN bash /root/scripts/install-vnc MODE=vnc NOVNC_COMPAT=${XUBUNTU_COMPAT}
+RUN bash /root/scripts/install-vnc MODE=vnc
 RUN bash /root/scripts/install-vnc MODE=theme
 
 # Define working directory.

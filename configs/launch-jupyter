@@ -33,16 +33,16 @@ sudo_nvm_install_dir=$(declare -f nvm_install_dir)
 function run_with_nodejs {
     # Switch to root mode for getting the environment value.
     RUN_NVM_DIR="$(sudo NVM_DIR=$NVM_DIR bash -c "$sudo_nvm_install_dir; nvm_install_dir")" || fail
-    # Still use the user mode for running the app.
+    # Some services could not be used in user mode, so we use the root mode.
     if [ -s "$RUN_NVM_DIR/nvm.sh" ] && [ -s "$RUN_NVM_DIR/bash_completion" ]
     then
-        bash -c ". $RUN_NVM_DIR/nvm.sh \
+        sudo PATH=$PATH bash -c ". $RUN_NVM_DIR/nvm.sh \
         && . $RUN_NVM_DIR/bash_completion \
         && nvm use default \
         && $1" || fail
     else
-        bash -c "$1" || fail
+        sudo PATH=$PATH bash -c "$1" || fail
     fi
 }
 
-run_with_nodejs "jupyter lab --ip=0.0.0.0 --port=8888 --NotebookApp.open_browser=True --allow-root --notebook-dir=/ --NotebookApp.custom_display_url=http://localhost:8888/" || fail
+run_with_nodejs "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --notebook-dir=/ --NotebookApp.custom_display_url=http://localhost:8888/" || fail

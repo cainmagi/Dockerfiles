@@ -36,12 +36,12 @@ function run_with_nodejs {
     # Still use the user mode for running the app.
     if [ -s "$RUN_NVM_DIR/nvm.sh" ] && [ -s "$RUN_NVM_DIR/bash_completion" ]
     then
-        bash -c ". $RUN_NVM_DIR/nvm.sh \
+        sudo PATH=$PATH bash -c ". $RUN_NVM_DIR/nvm.sh \
         && . $RUN_NVM_DIR/bash_completion \
         && nvm use default \
         && $1" || fail
     else
-        bash -c "$1" || fail
+        sudo PATH=$PATH bash -c "$1" || fail
     fi
 }
 

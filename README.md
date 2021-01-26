@@ -36,11 +36,10 @@ There are 3 available options:
 
 | Option | Description | Default |
 | :-----: | ----- | ----- |
-| `BASE_IMAGE` | The base image for building this desktop image. | `nvcr.io/nvidia/tensorflow:19.04-py3` |
+| `BASE_IMAGE` | The base image for building this desktop image. | `nvcr.io/nvidia/pytorch:20.12-py3` |
 | `BASE_LAUNCH` | The entrypoint script from the base image. If there is no entry script, please use `""`. | `/usr/local/bin/nvidia_entrypoint.sh` |
 | `JLAB_VER` | The version of the Jupyter Lab to be installed. Could be `1`, `2`, `3` or `unset`. If use `unset`, nothing would be installed if there is already a Jupyter Lab. | `unset` |
 | `JLAB_EXTIERS` | The to-be-installed extra extensions for the Jupyter Lab. If `JLAB_VER` is `unset`, nothing would be installed. To view details about which extensions would be installed, see [here](https://github.com/cainmagi/Dockerfiles/tree/jupyterlab#features). | `2` |
-| `XUBUNTU_COMPAT` | If set, the installation of noVNC and Jupyter Lab would be switched to compatible mode. It should be used when your `python` is `<=3.5`. | `false` |
 | `WITH_CHINESE` | If set, the image would be built with Chinese support for vscode, sublime and codeblocks. | `true` |
 
 To find your launch script of your base image, use
@@ -128,7 +127,7 @@ The plan for the next version.
 
 - [x] Enhance the launchers of system menu and panels.
 - [x] Set the user as `xubuntu`, and provide the `--root` mode.
-- [ ] Make python version auto-detected, which means `XUBUNTU_COMPAT` would be removed.
+- [x] Make python version auto-detected, which means `XUBUNTU_COMPAT` has been removed.
 - [ ] Add options for installing some extra apps, like PyCharm and GIMP.
 - [ ] Enhance the VNC support by OpenSSL entryption.
 - [ ] Upgrade the Jupyter Lab script.

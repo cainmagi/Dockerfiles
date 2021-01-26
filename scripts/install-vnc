@@ -20,7 +20,8 @@ function mcd {
 }
 
 function update_icon {
-    msg "gtk-update-icon-cache $@"
+    allargs="'$*'"
+    msg "gtk-update-icon-cache ${allargs}"
     for value in "$@"
     do         
         [ -d "/usr/share/icons/${value}" ] && gtk-update-icon-cache /usr/share/icons/${value} || fail
@@ -28,7 +29,6 @@ function update_icon {
 }
 
 MODE=vnc
-NOVNC_COMPATIBLE=false
 
 for ARGUMENT in "$@"
 do
@@ -36,7 +36,6 @@ do
     VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
     case "$KEY" in
         MODE)          MODE=${VALUE} ;;
-        NOVNC_COMPAT)  NOVNC_COMPATIBLE=${VALUE} ;;
         *)   
     esac    
 done
@@ -103,7 +102,8 @@ then
     git clone https://github.com/novnc/websockify websockify || fail
     
     # This operation is needed when python<=3.5
-    if [ "x${NOVNC_COMPATIBLE}" = "xtrue" ] 
+    CUR_PY_VER=$(python3 /root/scripts/get-pyver.py 2>&1)
+    if [ "x${CUR_PY_VER}" != "xpy36" ] && [ "x${CUR_PY_VER}" != "xpy37+" ]
     then
         cd websockify || fail
         git checkout v0.9.0

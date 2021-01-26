@@ -6,17 +6,21 @@ RESET='\033[0m'
 COLOR='\033[1;32m'
 
 function msg {
-  echo -e "${COLOR}$(date): $1${RESET}"
+    echo -e "${COLOR}$(date): $1${RESET}"
 }
 
 function fail {
-  msg "Error : $?"
-  exit 1
+    msg "Error : $?"
+    exit 1
 }
 
 function mcd {
-  mkdir -p "$1" || fail
-  cd "$1" || fail
+    mkdir -p "$1" || fail
+    cd "$1" || fail
+}
+
+function nvm_has {
+    type "$1" > /dev/null 2>&1
 }
 
 MODE=init
@@ -47,6 +51,11 @@ then
     if [ "x${UBUNTU_VER}" != "x20.04" ] && [ "x${UBUNTU_VER}" != "x18.04" ] && [ "x${UBUNTU_VER}" != "x16.04" ]
     then
         msg "Error: Currently we only support Ubuntu 16.04, 18.04, 20.04. The base image is not supported."
+        exit 1
+    fi
+
+    if ! nvm_has "python3"; then
+        msg "Error: Python3 missing. Currently we do not support automatical installation for python3. Please start from a base image with python3."
         exit 1
     fi
 

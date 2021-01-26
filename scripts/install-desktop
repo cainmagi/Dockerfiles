@@ -22,8 +22,8 @@ function mcd {
 MODE=desktop
 JLAB_VERSION=unset
 JLAB_EXTRA_TIERS=2
-JLAB_COMPATIBLE=false
 USER_ROOT=/home/xubuntu
+CUR_PY_VER=$(python3 /root/scripts/get-pyver.py 2>&1)
 
 for ARGUMENT in "$@"
 do
@@ -33,7 +33,6 @@ do
         MODE)          MODE=${VALUE} ;;
         JLAB_VER)      JLAB_VERSION=${VALUE} ;;
         JLAB_EXTIERS)  JLAB_EXTRA_TIERS=${VALUE} ;;
-        JLAB_COMPAT)   JLAB_COMPATIBLE=${VALUE} ;;
         *)   
     esac    
 done
@@ -216,11 +215,11 @@ then
 
     apt-get install -f -y || fail && apt-get upgrade -y || fail && apt-get -y dist-upgrade || fail
 
-    if [ "x${JLAB_COMPATIBLE}" = "xtrue" ]
+    if [ "x${CUR_PY_VER}" == "xpy36" ] || [ "x${CUR_PY_VER}" == "xpy37+" ]
     then
-        wget -O /root/scripts/get-pip-3.py https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/get-pip-20.3.4.py || fail
-    else
         curl https://bootstrap.pypa.io/get-pip.py -o /root/scripts/get-pip-3.py || fail
+    else
+        wget -O /root/scripts/get-pip-3.py https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/get-pip-20.3.4.py || fail
     fi
     curl https://bootstrap.pypa.io/2.7/get-pip.py -o /root/scripts/get-pip-2.py || fail
     if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
@@ -234,17 +233,26 @@ then
         python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
         python2 -m pip install numpy --upgrade || fail
     fi
-    # The following package may cause incompatiblity problem. It should be fixed after get-pyver.py is used.
-    if [ "x${JLAB_COMPATIBLE}" != "xtrue" ]
-    then
-        python3 -m pip install ViTables || fail
-    fi
 
     apt-get install -y python3-sip python3-pyqt5 python3-tk || fail
     msg "Installation for the extra packages finishes."
 
+    # Note that /usr/bin/python3 may be different from python3 especially when conda exists. This installation needs to follow the installation of python3-pyqt5.
+    CURIN_PY_VER=$(/usr/bin/python3 /root/scripts/get-pyver.py 2>&1)
+    if [ "x${CURIN_PY_VER}" == "xpy36" ] || [ "x${CURIN_PY_VER}" == "xpy37+" ]
+    then
+        /usr/bin/python3 -m pip install ViTables || fail
+    fi
+
     wget -O /root/scripts/install-jlab https://raw.githubusercontent.com/cainmagi/Dockerfiles/jlab-v1.1/scripts/install-jlab || fail
     chmod +x /root/scripts/install-jlab || fail
+
+    if [ "x${CUR_PY_VER}" == "xpy36" ] || [ "x${CUR_PY_VER}" == "xpy37+" ]
+    then
+        JLAB_COMPATIBLE="false"
+    else
+        JLAB_COMPATIBLE="true"
+    fi
     bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} compat=${JLAB_COMPATIBLE} || fail
     msg "Installation for the jupyterlab finishes."
 fi
