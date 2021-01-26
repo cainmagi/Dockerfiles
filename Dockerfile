@@ -18,10 +18,7 @@ ARG WITH_CHINESE="true"
 ARG WITH_EXTRA_APPS=""
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV USER root
-ENV MKL_CBWR AUTO
-
-USER root
+ENV USER="root" MKL_CBWR="AUTO" LAUNCH_SCRIPT_ORIGINAL="$BASE_LAUNCH" PATH="${PATH}:/usr/games"
 
 # Move configs.
 COPY configs /root/docker-configs
@@ -50,7 +47,6 @@ RUN bash /root/scripts/install-vnc MODE=vnc
 RUN bash /root/scripts/install-vnc MODE=theme
 
 # Define working directory.
-ENV LAUNCH_SCRIPT_ORIGINAL=$BASE_LAUNCH
 COPY docker-entrypoint /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint
 RUN bash /root/docker-configs/detach MODE=clean

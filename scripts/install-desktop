@@ -54,8 +54,8 @@ then
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
         # Install libgtk
-        apt-get install -y libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev \
-            libgirepository1.0-dev libgraphite2-utils imagemagick pavucontrol || fail
+        apt-get install -y libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev libgirepository1.0-dev \
+            libgraphite2-utils imagemagick pavucontrol || fail
         # Install xfce-plugin
         apt-get install -y libxfce4panel-2.0-4 libxfce4ui-1-0 libxfce4ui-2-0 libxfce4ui-common \
             libxfce4util-common libxfce4util7 xfce4-appfinder xfce4-notifyd xfce4-panel xfce4-session xfce4-settings \
@@ -80,8 +80,7 @@ then
             xubuntu-community-wallpapers-bionic xubuntu-community-wallpapers-trusty || fail
     else
         # Install libgtk
-        apt-get install -y \
-            libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev || fail
+        apt-get install -y libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev || fail
         apt-get install -y gtk3-engines-xfce xfce4-notifyd mousepad xfce4-terminal \
             xfce4-taskmanager gnome-system-monitor lightdm-gtk-greeter-settings || fail
         # Install xfce-plugin

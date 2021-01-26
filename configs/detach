@@ -19,6 +19,28 @@ function mcd {
     cd "$1" || fail
 }
 
+function rmifex {
+    allargs="'$*'"
+    msg "rm_if_ex ${allargs}"
+    for value in "$@"
+    do         
+        if [ -f ${value} ]; then
+            rm -rf ${value} || fail
+        fi
+    done
+}
+
+function lngame {
+    allargs="'$*'"
+    msg "ln_game ${allargs}"
+    for value in "$@"
+    do         
+        if [ -f /usr/games/${value} ]; then
+            ln -s /usr/games/${value} /usr/local/bin/${value} || fail
+        fi
+    done
+}
+
 function mv_shortcuts_basic {
     msg "Moving basic shortcuts for all Ubuntu."
     # To desktop
@@ -234,11 +256,8 @@ then
     rm -rf ${THIS_ROOT}/locale.gen || fail
     rm -rf ${THIS_ROOT}/sudoers || fail
     rm -rf ${THIS_ROOT}/xstartup || fail
-
     # Remove bad autostart.
-    if [ -f /etc/xdg/autostart/blueman.desktop ]; then
-        rm -rf /etc/xdg/autostart/blueman.desktop || fail
-    fi
+    rmifex /etc/xdg/autostart/blueman.desktop /etc/xdg/autostart/gnome-software-service.desktop || fail
 fi
 
-msg "Move files finished."
+msg "Detach script finished."
