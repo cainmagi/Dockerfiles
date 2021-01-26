@@ -20,8 +20,8 @@ function mcd {
 }
 
 function update_icon {
-    msg "gtk-update-icon-cache ${ARGS[@]}"
-    for value in "${ARGS[@]}"
+    msg "gtk-update-icon-cache $@"
+    for value in "$@"
     do         
         [ -d "/usr/share/icons/${value}" ] && gtk-update-icon-cache /usr/share/icons/${value} || fail
     done

@@ -166,6 +166,7 @@ else
         echo "Find VNC password."
     else
         tigervncpasswd ${FILE_VNCPASSWD}
+        sudo mkdir -p /root/.vnc/ || fail
         sudo cp -f ${FILE_VNCPASSWD} /root/.vnc/ || fail
     fi
 fi
