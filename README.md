@@ -73,13 +73,19 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
     docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0
     ```
 
-    It is equivalent to use `--vnc` or not in the above command. However, if you have saved the image in other modes before, you may need this flag to force the image to enter the VNC mode. The `--vnc` option is required when you need to force the image to switch to VNC mode.
+    It is equivalent to use `--vnc` or not in the above command. However, if you have saved the image in other modes before, you may need this flag to force the image to enter the VNC mode. The `--vnc` option is required when you need to force the image to switch to VNC mode. The following command would force the `vnc` launched by `root` mode.
+
+    ```bash
+    docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0 --root
+    ```
 
 * By external VNC viewer: If you have installed a VNC viewer on your client side, and want to connect the VNC server of the image directly, please use:
 
     ```bash
     docker run --gpus all -it --rm -v ~:/homelocal -p 5901:5901 xubuntu:1.0
     ```
+
+    The `root` mode could be also applied here.
 
 * By `Jupyter Lab`: If you want to launch the Jupyter Lab but do not start the desktop, please use
 
@@ -121,7 +127,7 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 The plan for the next version.
 
 - [x] Enhance the launchers of system menu and panels.
-- [x] Set the user as `xubuntu`.
+- [x] Set the user as `xubuntu`, and provide the `--root` mode.
 - [ ] Make python version auto-detected, which means `XUBUNTU_COMPAT` would be removed.
 - [ ] Add options for installing some extra apps, like PyCharm and GIMP.
 - [ ] Enhance the VNC support by OpenSSL entryption.

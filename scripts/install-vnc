@@ -139,5 +139,9 @@ then
                     "Arc-X-D" "Arc-X-P" "DarK" "Numix" "Numix-Light" "Paper" "Paper-Mono-Dark" "Suru" || fail
     fi
 
+    msg "Installing extra icons."
+    mkdir -p /usr/share/pixmaps || fail
+    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/share-pixmaps.tar.xz | tar xJ -C /usr/share/pixmaps || fail
+
     msg "Installation for the themes finishes."
 fi

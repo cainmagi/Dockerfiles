@@ -61,6 +61,7 @@ do
     case "$KEY" in
             --bash)         MODE="bash" ;;
             --vnc)          MODE="vnc" ;;
+            --root)         MODE="rootvnc" ;;
             --xvnc)         MODE="xvnc" ;;
             --jlab)         MODE="jupyter" ;;
             script)         MODE_RUN_SCRIPT=${VALUE} ;;
@@ -117,7 +118,7 @@ then
         OPTION_JLAB_ROOT="--notebook-dir=${JLAB_ROOT_DIR}"
     fi
 
-    run_with_nodejs "jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_JLAB_PASSWORD} --allow-root ${OPTION_JLAB_ROOT}"
+    run_with_nodejs "jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_JLAB_PASSWORD} --allow-root ${OPTION_JLAB_ROOT} --NotebookApp.custom_display_url=http://${MACHINE_IP}:6080/"
     
     exec bash
     exit 0
@@ -151,11 +152,27 @@ echo "---------"
 
 echo "VNC settings:"
 
-FILE_VNCPASSWD=${USER_ROOT}/.vnc/passwd
-if [[ -f "${FILE_VNCPASSWD}" ]]; then
-    echo "Find VNC password."
+if [ "x${MODE}" = "xrootvnc" ]
+then
+    FILE_VNCPASSWD=/root/.vnc/passwd
+    if [[ -f "${FILE_VNCPASSWD}" ]]; then
+        echo "Find VNC password."
+    else
+        sudo tigervncpasswd ${FILE_VNCPASSWD}
+    fi
 else
-    tigervncpasswd ${FILE_VNCPASSWD}
+    FILE_VNCPASSWD=${USER_ROOT}/.vnc/passwd
+    if [[ -f "${FILE_VNCPASSWD}" ]]; then
+        echo "Find VNC password."
+    else
+        tigervncpasswd ${FILE_VNCPASSWD}
+        sudo cp -f ${FILE_VNCPASSWD} /root/.vnc/ || fail
+    fi
+fi
+
+if [ "x${MODE}" = "xrootvnc" ]
+then
+    sudo tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
 fi
 
 if [ "x${MODE}" = "xxvnc" ]
@@ -163,9 +180,13 @@ then
     Xtigervnc :0 -depth 24 -geometry 1920x1080 -br &
     sleep 3
     x0tigervncserver -display=:0 -Geometry=1920x1080+0+0 -rfbport=5901 -PasswordFile=${FILE_VNCPASSWD} &
-else
+fi
+
+if [ "x${MODE}" = "xvnc" ]
+then
     tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
 fi
+
 exec noVNC --vnc $MACHINE_IP:5901 --listen 6080 &
 
 exec '/bin/bash'

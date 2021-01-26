@@ -1,0 +1,48 @@
+#!/bin/bash
+
+. ~/.bashrc
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+function nvm_install_dir {
+    if [ -n "$NVM_DIR" ]; then
+        printf %s "${NVM_DIR}"
+    else
+        [ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm"
+    fi
+}
+sudo_nvm_install_dir=$(declare -f nvm_install_dir)
+
+function run_with_nodejs {
+    # Switch to root mode for getting the environment value.
+    RUN_NVM_DIR="$(sudo NVM_DIR=$NVM_DIR bash -c "$sudo_nvm_install_dir; nvm_install_dir")" || fail
+    # Still use the user mode for running the app.
+    if [ -s "$RUN_NVM_DIR/nvm.sh" ] && [ -s "$RUN_NVM_DIR/bash_completion" ]
+    then
+        bash -c ". $RUN_NVM_DIR/nvm.sh \
+        && . $RUN_NVM_DIR/bash_completion \
+        && nvm use default \
+        && $1" || fail
+    else
+        bash -c "$1" || fail
+    fi
+}
+
+run_with_nodejs "jupyter lab --ip=0.0.0.0 --port=8888 --NotebookApp.open_browser=True --allow-root --notebook-dir=/ --NotebookApp.custom_display_url=http://localhost:8888/" || fail

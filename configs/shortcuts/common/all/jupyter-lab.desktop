@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Jupyter Lab
+Comment=Launch Jupyter Lab.
+Exec=launch-jupyter
+Icon=/usr/share/pixmaps/launch-jupyter.svg
+Path=
+Terminal=true
+StartupNotify=false
