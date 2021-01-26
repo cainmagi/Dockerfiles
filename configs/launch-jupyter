@@ -33,10 +33,10 @@ sudo_nvm_install_dir=$(declare -f nvm_install_dir)
 function nvm_check_dirs {
     RUN_NVM_DIR_1="$(sudo NVM_DIR=$NVM_DIR bash -c "$sudo_nvm_install_dir; nvm_install_dir" | command sed "s:^$HOME:/root:")" || fail
     RUN_NVM_DIR_2="$(sudo NVM_DIR=$NVM_DIR bash -c "$sudo_nvm_install_dir; nvm_install_dir")" || fail
-    if [ -s $RUN_NVM_DIR_1 ]; then
+    if $(sudo [ -d $RUN_NVM_DIR_1 ]); then
         printf %s $RUN_NVM_DIR_1
     else
-        if [ -s $RUN_NVM_DIR_2 ]; then
+        if $(sudo [ -d $RUN_NVM_DIR_2 ]); then
             printf %s $RUN_NVM_DIR_2
         else
             printf %s ""
@@ -46,9 +46,9 @@ function nvm_check_dirs {
 
 function run_with_nodejs {
     # Switch to root mode for getting the environment value.
-    RUN_NVM_DIR="$(nvm_check_dirs)" || fail 
+    RUN_NVM_DIR=$(nvm_check_dirs) 
     # Some services could not be used in user mode, so we use the root mode.
-    if [ -s "$RUN_NVM_DIR/nvm.sh" ] && [ -s "$RUN_NVM_DIR/bash_completion" ]
+    if $(sudo [ -s "$RUN_NVM_DIR/nvm.sh" ]) && $(sudo [ -s "$RUN_NVM_DIR/bash_completion" ])
     then
         sudo PATH=$PATH bash -c ". $RUN_NVM_DIR/nvm.sh \
         && . $RUN_NVM_DIR/bash_completion \
