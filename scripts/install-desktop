@@ -214,6 +214,23 @@ then
     fc-cache -r -v || fail
     apt-get install -y fcitx fcitx-googlepinyin fcitx-table-wbpy fcitx-pinyin fcitx-sunpinyin fcitx-module-dbus || fail
     apt-get install -y at-spi2-core || fail
+    
+    # Additional packages for Chinese localization.
+    if [ "x${WITH_CHINESE}" = "xtrue" ]
+    then
+        msg "Installating Chinese language supports."
+        if [ "x${UBUNTU_VER}" = "x20.04" ]; then
+            apt-get install -y fonts-noto-cjk-extra ibus-libpinyin fcitx-ui-qimpanel fcitx-module-cloudpinyin fonts-arphic-ukai fcitx-table-wubi ibus-table-wubi kde-config-fcitx fonts-arphic-uming firefox-locale-zh-hans || fail
+        fi
+        if [ "x${UBUNTU_VER}" = "x18.04" ]; then
+            #apt-get install -y fcitx-module-cloudpinyin chromium-browser-l10n kde-l10n-zhcn fcitx-table-wubi fcitx-ui-qimpanel firefox-locale-zh-hans fonts-arphic-uming fonts-arphic-ukai || fail
+        fi
+        if [ "x${UBUNTU_VER}" = "x16.04" ]; then
+            apt-get install -y fcitx-module-cloudpinyin chromium-browser-l10n kde-l10n-zhcn fcitx-table-wubi fcitx-ui-qimpanel firefox-locale-zh-hans fonts-arphic-uming fonts-arphic-ukai || fail
+        fi
+    fi
+
+    # Finish installing localization.
     /etc/init.d/dbus start || fail
 
     apt-get install -f -y || fail && apt-get upgrade -y || fail && apt-get -y dist-upgrade || fail
@@ -242,9 +259,13 @@ then
 
     # Note that /usr/bin/python3 may be different from python3 especially when conda exists. This installation needs to follow the installation of python3-pyqt5.
     CURIN_PY_VER=$(/usr/bin/python3 /root/scripts/get-pyver.py 2>&1)
-    if [ "x${CURIN_PY_VER}" == "xpy36" ] || [ "x${CURIN_PY_VER}" == "xpy37+" ]
+    if [ "x${CURIN_PY_VER}" == "xpy37+" ]
     then
         /usr/bin/python3 -m pip install ViTables || fail
+    fi
+    if [ "x${CURIN_PY_VER}" == "xpy36" ]
+    then
+        /usr/bin/python3 -m pip install "ViTables==3.0.2" "PyQt5<=5.14" || fail
     fi
 
     wget -O /root/scripts/install-jlab https://raw.githubusercontent.com/cainmagi/Dockerfiles/jlab-v1.1/scripts/install-jlab || fail
