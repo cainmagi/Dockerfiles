@@ -160,7 +160,10 @@ then
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg || fail
     install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/ || fail
     sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list' || fail
-    dpkg --add-architecture i386 || fail
+    if [ "x${UBUNTU_VER}" = "x16.04" ]
+    then
+        dpkg --add-architecture i386 || fail
+    fi
     apt-get install -y --no-install-recommends apt-transport-https || fail
     apt-get update -y || fail && apt-get -y dist-upgrade || fail
     apt-get install -y --no-install-recommends code || fail

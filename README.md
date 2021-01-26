@@ -29,7 +29,7 @@ We provide 3 examples:
 * Start from `tensorflow 1.13.1` image:
 
     ```bash
-    docker build -t xubuntu-tf:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg XUBUNTU_COMPAT=true https://github.com/cainmagi/Dockerfiles.git#xubuntu
+    docker build -t xubuntu-tf:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
     ```
 
 There are 3 available options:
@@ -125,15 +125,15 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 
 The plan for the next version.
 
-- [x] Enhance the launchers of system menu and panels.
-- [x] Set the user as `xubuntu`, and provide the `--root` mode.
-- [x] Make python version auto-detected, which means `XUBUNTU_COMPAT` has been removed.
-- [ ] Add options for installing some extra apps, like PyCharm and GIMP.
-- [ ] Enhance the VNC support by OpenSSL entryption.
-- [ ] Upgrade the Jupyter Lab script.
-- [ ] Add some themes.
-- [x] Fix the [compatibility problem](https://github.com/pypa/pip/issues/9500) caused by `pip 21.0`.
-- [x] Fix small bugs, related to `nvm` path, and `detach` script.
+* [x] Enhance the launchers of system menu and panels.
+* [x] Set the user as `xubuntu`, and provide the `--root` mode.
+* [x] Make python version auto-detected, which means `XUBUNTU_COMPAT` has been removed.
+* [ ] Add options for installing some extra apps, like PyCharm and GIMP.
+* [ ] Enhance the VNC support by OpenSSL entryption.
+* [ ] Upgrade the Jupyter Lab script.
+* [ ] Add some themes.
+* [x] Fix the [compatibility problem](https://github.com/pypa/pip/issues/9500) caused by `pip 21.0`.
+* [x] Fix small bugs, related to `nvm` path, `root` authority, and `detach` script.
 
 ### ver 1.4 @ 1/17/2021
 

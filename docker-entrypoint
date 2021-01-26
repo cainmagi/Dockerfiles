@@ -30,9 +30,23 @@ function nvm_install_dir {
 }
 sudo_nvm_install_dir=$(declare -f nvm_install_dir)
 
+function nvm_check_dirs {
+    RUN_NVM_DIR_1="$(sudo NVM_DIR=$NVM_DIR bash -c "$sudo_nvm_install_dir; nvm_install_dir" | command sed "s:^$HOME:/root:")" || fail
+    RUN_NVM_DIR_2="$(sudo NVM_DIR=$NVM_DIR bash -c "$sudo_nvm_install_dir; nvm_install_dir")" || fail
+    if [ -s $RUN_NVM_DIR_1 ]; then
+        printf %s $RUN_NVM_DIR_1
+    else
+        if [ -s $RUN_NVM_DIR_2 ]; then
+            printf %s $RUN_NVM_DIR_2
+        else
+            printf %s ""
+        fi
+    fi
+}
+
 function run_with_nodejs {
     # Switch to root mode for getting the environment value.
-    RUN_NVM_DIR="$(sudo NVM_DIR=$NVM_DIR bash -c "$sudo_nvm_install_dir; nvm_install_dir")" || fail
+    RUN_NVM_DIR="$(nvm_check_dirs)" || fail
     # Still use the user mode for running the app.
     if [ -s "$RUN_NVM_DIR/nvm.sh" ] && [ -s "$RUN_NVM_DIR/bash_completion" ]
     then

@@ -163,6 +163,7 @@ then
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
     echo "LANG=en_US.UTF-8" > /etc/locale.conf
     cp -f $THIS_ROOT/locale.gen /etc || fail
+    cp -f $THIS_ROOT/sudoers /etc || fail
 
     msg "Move files to ${USER_ROOT}/ subfolders"
     mkdir -p "${USER_ROOT}/.vnc" || fail
@@ -220,7 +221,7 @@ fi
 if [ "x${MODE}" = "xclean" ]
 then
     msg "Clean all files in \"${THIS_ROOT}\"."
-    cp -f $THIS_ROOT/.bashrc ${USER_ROOT}/ || fail
+    cp -f /root/.bashrc ${USER_ROOT}/ || fail
     chown xubuntu ${USER_ROOT} --recursive || fail
     chgrp xubuntu ${USER_ROOT} --recursive || fail
     chmod ug+rwx ${USER_ROOT} --recursive || fail
@@ -228,6 +229,7 @@ then
     rm -rf ${THIS_ROOT}/launch-jupyter || fail
     rm -rf ${THIS_ROOT}/.bashrc || fail
     rm -rf ${THIS_ROOT}/locale.gen || fail
+    rm -rf ${THIS_ROOT}/sudoers || fail
     rm -rf ${THIS_ROOT}/xstartup || fail
 fi
 
