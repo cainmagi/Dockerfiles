@@ -234,6 +234,11 @@ then
     rm -rf ${THIS_ROOT}/locale.gen || fail
     rm -rf ${THIS_ROOT}/sudoers || fail
     rm -rf ${THIS_ROOT}/xstartup || fail
+
+    # Remove bad autostart.
+    if [ -f /etc/xdg/autostart/blueman.desktop ]; then
+        rm -rf /etc/xdg/autostart/blueman.desktop || fail
+    fi
 fi
 
 msg "Move files finished."

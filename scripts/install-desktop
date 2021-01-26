@@ -106,8 +106,7 @@ then
     then
         msg "Installating Chinese language supports."
         apt-get install -y language-pack-zh-hans language-pack-zh-hans-base language-pack-gnome-zh-hans \
-            language-pack-gnome-zh-hans-base fonts-noto-cjk fcitx-ui-qimpanel fonts-arphic-ukai \
-            fcitx-module-cloudpinyin fcitx-table-wubi fonts-arphic-uming || fail
+            language-pack-gnome-zh-hans-base fonts-noto-cjk fonts-arphic-ukai fonts-arphic-uming || fail
     fi
 
     msg "Installation for the XFCE4 desktop finishes."
@@ -216,6 +215,7 @@ then
     git clone https://github.com/adobe-fonts/source-code-pro.git /usr/share/fonts/opentype/scp || fail
     fc-cache -r -v || fail
     apt-get install -y fcitx fcitx-googlepinyin fcitx-table-wbpy fcitx-pinyin fcitx-sunpinyin fcitx-module-dbus || fail
+    apt-get install -y fcitx-module-cloudpinyin fcitx-table-wubi || fail
     apt-get install -y at-spi2-core || fail
     
     # Additional packages for Chinese localization.
@@ -223,7 +223,7 @@ then
     then
         msg "Installating Chinese language supports."
         if [ "x${UBUNTU_VER}" = "x20.04" ]; then
-            apt-get install -y fonts-noto-cjk-extra ibus-libpinyin ibus-table-wubi kde-config-fcitx firefox-locale-zh-hans || fail
+            apt-get install -y fonts-noto-cjk-extra ibus-libpinyin ibus-table-wubi firefox-locale-zh-hans kde-config-fcitx || fail
         fi
         if [ "x${UBUNTU_VER}" = "x18.04" ]; then
             apt-get install -y firefox-locale-zh-hans fonts-noto-cjk-extra kde-config-fcitx || fail
