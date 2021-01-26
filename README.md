@@ -121,7 +121,7 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 
 ## Update records
 
-### ver 1.5 (Alpha) @ 1/25/2021
+### ver 1.5 (Alpha) @ 1/26/2021
 
 The plan for the next version.
 
