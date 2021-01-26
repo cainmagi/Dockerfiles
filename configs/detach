@@ -55,7 +55,7 @@ function mv_shortcuts_20_04 {
     cp -f $THIS_ROOT/shortcuts/common/20-04/sublime_text.desktop ${TARGET_DESKTOP}/ || fail
     # To menu
     # Remember to fix this after using get-pyver.py!
-    cp -f $THIS_ROOT/shortcuts/common/all/ViTables.desktop ${TARGET_MENU}/ || fail
+    cp -f $THIS_ROOT/shortcuts/common/20-04/ViTables.desktop ${TARGET_MENU}/ || fail
     
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
