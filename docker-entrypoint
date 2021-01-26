@@ -174,7 +174,7 @@ then
     else
         sudo tigervncpasswd ${FILE_VNCPASSWD}
         mkdir -p /home/xubuntu/.vnc/ || fail
-        if ! $(sudo [ -s /home/xubuntu/.vnc/passwd ]); then
+        if ! $(sudo [ ! -s /home/xubuntu/.vnc/passwd ]); then
             sudo cp -f ${FILE_VNCPASSWD} /home/xubuntu/.vnc/ || fail
             sudo chown xubuntu /home/xubuntu/.vnc/passwd || fail
             sudo chgrp xubuntu /home/xubuntu/.vnc/passwd || fail
@@ -188,7 +188,7 @@ else
     else
         tigervncpasswd ${FILE_VNCPASSWD}
         sudo mkdir -p /root/.vnc/ || fail
-        if ! $(sudo [ -s /root/.vnc/passwd ]); then
+        if ! $(sudo [ ! -s /root/.vnc/passwd ]); then
             sudo cp -f ${FILE_VNCPASSWD} /root/.vnc/ || fail
         fi
     fi
