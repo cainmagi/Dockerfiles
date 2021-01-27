@@ -213,6 +213,13 @@ then
     [ -d /usr/share/fonts/opentype ] || mkdir /usr/share/fonts/opentype
     git clone https://github.com/adobe-fonts/source-code-pro.git /usr/share/fonts/opentype/scp || fail
     fc-cache -r -v || fail
+    
+    # Uninstall ibus if it is installed
+    IBUS_INSTALLED=$(apt -qq --installed list ibus)
+    if [[ "x$IBUS_INSTALLED" != "x" ]]; then
+        apt-get remove -y ibus || fail
+        apt-get autoremove -y || fail
+    fi
     apt-get install -y fcitx fcitx-googlepinyin fcitx-table-wbpy fcitx-pinyin fcitx-sunpinyin fcitx-module-dbus || fail
     apt-get install -y fcitx-module-cloudpinyin fcitx-table-wubi || fail
     apt-get install -y at-spi2-core || fail
@@ -222,7 +229,7 @@ then
     then
         msg "Installating Chinese language supports."
         if [ "x${UBUNTU_VER}" = "x20.04" ]; then
-            apt-get install -y fonts-noto-cjk-extra ibus-libpinyin ibus-table-wubi firefox-locale-zh-hans kde-config-fcitx || fail
+            apt-get install -y fonts-noto-cjk-extra firefox-locale-zh-hans kde-config-fcitx || fail
         fi
         if [ "x${UBUNTU_VER}" = "x18.04" ]; then
             apt-get install -y firefox-locale-zh-hans fonts-noto-cjk-extra kde-config-fcitx || fail

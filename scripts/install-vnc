@@ -121,7 +121,7 @@ then
     apt-get -y install lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
 
-    if [ "x${UBUNTU_VER}" = "x20.04" ]
+    if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
     then
         msg "Installing basic theme pack."
         wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-ubuntu-20-04.tar.xz | tar xJ -C /usr/share || fail

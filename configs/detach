@@ -58,13 +58,13 @@ function mv_shortcuts_basic {
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
         # With GIMP
-        if [[ "${WITH_EXTRA_APPS}" = *"g"* ]]; then
+        if [[ "${WITH_EXTRA_APPS}" = *"g"* ]] || [[ -s "${TARGET_MENU}/gimp.desktop" ]]; then
             cp -f ${THIS_ROOT}/shortcuts/chinese/all/gimp.desktop ${TARGET_MENU}/ || fail
             cp -f ${THIS_ROOT}/shortcuts/chinese/all/gimp.desktop ${TARGET_DESKTOP}/ || fail
         fi
     else
         # With GIMP
-        if [[ "${WITH_EXTRA_APPS}" = *"g"* ]]; then
+        if [[ "${WITH_EXTRA_APPS}" = *"g"* ]] || [[ -s "${TARGET_MENU}/gimp.desktop" ]]; then
             cp -f ${THIS_ROOT}/shortcuts/english/all/gimp.desktop ${TARGET_MENU}/ || fail
             cp -f ${THIS_ROOT}/shortcuts/english/all/gimp.desktop ${TARGET_DESKTOP}/ || fail
         fi
@@ -186,14 +186,15 @@ then
     echo "LANG=en_US.UTF-8" > /etc/locale.conf
     cp -f ${THIS_ROOT}/locale.gen /etc || fail
     cp -f ${THIS_ROOT}/sudoers /etc || fail
+    cp -f ${THIS_ROOT}/etc-profile /etc/profile || fail
     mkdir -p /etc/dpkg/dpkg.cfg.d || fail
     cp -f ${THIS_ROOT}/dpkg-excludes /etc/dpkg/dpkg.cfg.d/excludes || fail
 
     msg "Move files to ${USER_ROOT}/ subfolders"
     mkdir -p "${USER_ROOT}/.vnc" || fail
     mkdir -p "/root/.vnc" || fail
-    cp -f ${THIS_ROOT}/xstartup ${USER_ROOT}/.vnc || fail
-    cp -f ${THIS_ROOT}/xstartup /root/.vnc || fail
+    cp -f ${THIS_ROOT}/vnc-xstartup ${USER_ROOT}/.vnc/xstartup || fail
+    cp -f ${THIS_ROOT}/vnc-xstartup /root/.vnc/xstartup || fail
 fi
 
 if [ "x${MODE}" = "xshortcuts" ]
@@ -251,13 +252,14 @@ then
     chmod ug+rwx ${USER_ROOT} --recursive || fail
     rm -rf ${THIS_ROOT}/shortcuts || fail
     rm -rf ${THIS_ROOT}/dpkg-excludes || fail
+    rm -rf ${THIS_ROOT}/etc-profile || fail
     rm -rf ${THIS_ROOT}/launch-jupyter || fail
     rm -rf ${THIS_ROOT}/.bashrc || fail
     rm -rf ${THIS_ROOT}/locale.gen || fail
     rm -rf ${THIS_ROOT}/sudoers || fail
-    rm -rf ${THIS_ROOT}/xstartup || fail
+    rm -rf ${THIS_ROOT}/vnc-xstartup || fail
     # Remove bad autostart.
-    rmifex /etc/xdg/autostart/blueman.desktop /etc/xdg/autostart/gnome-software-service.desktop || fail
+    rmifex /etc/xdg/autostart/blueman.desktop /etc/xdg/autostart/gnome-software-service.desktop /etc/xdg/autostart/update-notifier.desktop || fail
 fi
 
 msg "Detach script finished."
