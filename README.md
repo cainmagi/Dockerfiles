@@ -144,7 +144,7 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | Extension | J-lab1 | J-lab2 | J-lab3 |
 | ----- | :-----: | :-----: | :-----: |
 | [`jupyterlab-drawio`](https://github.com/QuantStack/jupyterlab-drawio)          | | | :ballot_box_with_check: |
-| [`ipydagred3`](https://github.com/timkpaine/ipydagred3)                         | | :white_check_mark: | :ballot_box_with_check: |
+| [`ipydagred3`](https://github.com/timkpaine/ipydagred3)                         | | | :ballot_box_with_check: |
 | [`jupyterlab_html`](https://github.com/mflevine/jupyterlab_html)                | :white_check_mark: | | |
 | [`jupyterlab-tensorboard`](https://github.com/chaoleili/jupyterlab_tensorboard) | :white_check_mark: | :white_check_mark: | |
 | [`jupyterlab-dash`](https://github.com/plotly/jupyterlab-dash)                  | :white_check_mark: | :white_check_mark: | |
@@ -157,6 +157,20 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 > Note:
 >
 > We use :white_check_mark: to represent the image is fully built. In comparison, :ballot_box_with_check: means the image requires to be built in compatible mode.
+
+### 1/29/2021
+
+We have finished the upgrade for pip based installation script today. Most of the useful extensions are added in this version. Here we show a list of available extensions for the newest Jupyter Lab 3. If anyone feel interested, please keep track on this issue:
+
+https://github.com/jupyterlab/jupyterlab/issues/9461
+
+In this update, the new packages are mostly picked from the above link.
+
+| Base image | J-lab1 | J-lab2 | J-lab3 |
+| ----- | :-----: | :-----: | :-----: |
+| `nvcr.io/nvidia/tensorflow:19.03-py3` | :ballot_box_with_check: | :ballot_box_with_check: | :ballot_box_with_check: |
+| `nvcr.io/nvidia/pytorch:19.01-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| `nvcr.io/nvidia/pytorch:20.12-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ### 1/24/2021
 

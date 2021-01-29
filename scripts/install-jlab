@@ -198,19 +198,14 @@ then
         python3 -m pip install plotly || fail
         run_with_nodejs "jupyter labextension install jupyterlab-plotly --no-build" || fail
 
-        if [ "x${VERSION}" = "x3" ] || [ "x${VERSION}" = "x2" ]
-        then
-            python3 -m pip install ipydagred3 || fail
-        fi
-
         if [ "x${VERSION}" = "x3" ]
         then
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install jupyterlab-drawio bqplot pyviz_comms || fail
+                python3 -m pip install jupyterlab-drawio pyviz_comms bqplot ipydagred3 || fail
             else
                 python3 -m pip install bqplot || fail
-                run_with_nodejs "jupyter labextension install bqplot ipydagred3 --no-build" || fail
+                run_with_nodejs "jupyter labextension install bqplot --no-build" || fail
             fi
         fi
 
@@ -223,7 +218,7 @@ then
 
         if [ "x${VERSION}" = "x2" ]
         then
-            run_with_nodejs "jupyter labextension install @pyviz/jupyterlab_pyviz@1.0.3 ipydagred3 --no-build" || fail
+            run_with_nodejs "jupyter labextension install @pyviz/jupyterlab_pyviz@1.0.3 --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x1" ]
