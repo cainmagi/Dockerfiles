@@ -15,6 +15,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
 ARG JLAB_VER=unset
 ARG JLAB_EXTIERS=2
+ARG JLAB_IMODE=conda
 
 ENV USER=root MKL_CBWR=AUTO LAUNCH_SCRIPT_ORIGINAL=$BASE_LAUNCH
 
@@ -31,7 +32,7 @@ RUN chmod +x /root/scripts/install-base && bash /root/scripts/install-base MODE=
 COPY scripts/install-python /root/scripts/
 RUN chmod +x /root/scripts/install-python && bash /root/scripts/install-python MODE=python
 COPY scripts/install-jlab /root/scripts/
-RUN chmod +x /root/scripts/install-jlab && bash /root/scripts/install-python MODE=jupyter JLAB_VER=${JLAB_VER} JLAB_EXTIERS=${JLAB_EXTIERS}
+RUN chmod +x /root/scripts/install-jlab && bash /root/scripts/install-python MODE=jupyter JLAB_VER=${JLAB_VER} JLAB_EXTIERS=${JLAB_EXTIERS} JLAB_IMODE=${JLAB_IMODE}
 RUN bash /root/scripts/install-base MODE=check
 
 # Define working directory.

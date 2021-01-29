@@ -19,9 +19,14 @@ function mcd {
     cd "$1" || fail
 }
 
+function nvm_has {
+  type "$1" > /dev/null 2>&1
+}
+
 MODE=python
 JLAB_VERSION=unset
 JLAB_EXTRA_TIERS=2
+JLAB_INSTALL_MODE='pip'
 CUR_PY_VER=$(python3 /root/scripts/get-pyver.py 2>&1)
 
 for ARGUMENT in "$@"
@@ -32,6 +37,7 @@ do
         MODE)               MODE=${VALUE} ;;
         JLAB_VER)           JLAB_VERSION=${VALUE} ;;
         JLAB_EXTIERS)       JLAB_EXTRA_TIERS=${VALUE} ;;
+        JLAB_IMODE)         JLAB_INSTALL_MODE=${VALUE} ;;
         *)   
     esac    
 done
@@ -73,6 +79,13 @@ fi
 
 if [ "x${MODE}" = "xjupyter" ]
 then
-    bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
+    if [ "x${JLAB_INSTALL_MODE}" = "xconda" ] && [ nvm_has "conda" ]
+    then
+        msg "Installation for the Jupyter Lab: conda mode."
+        bash /root/scripts/install-jlab-conda version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
+    else
+        msg "Installation for the Jupyter Lab: pip mode."
+        bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
+    fi
     msg "Installation for the Jupyter Lab finishes."
 fi

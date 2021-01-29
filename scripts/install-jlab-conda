@@ -1,0 +1,111 @@
+#!/bin/bash
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+    echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+    msg "Error : $?"
+    exit 1
+}
+
+function mcd {
+    mkdir -p "$1" || fail
+    cd "$1" || fail
+}
+
+function nvm_has {
+  type "$1" > /dev/null 2>&1
+}
+
+function nvm_default_install_dir {
+    [ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm"
+}
+
+function nvm_install_dir {
+    if [ -n "$NVM_DIR" ]; then
+        printf %s "${NVM_DIR}"
+    else
+        nvm_default_install_dir
+    fi
+}
+
+function install_nvm {
+    msg "Installing NVM, version: $1"
+    wget -O- https://raw.githubusercontent.com/nvm-sh/nvm/v$1/install.sh | bash || fail
+}
+
+function install_nodejs {
+    msg "Installing Node.js, version: $1"
+    RUN_NVM_DIR="$(nvm_install_dir)" || fail
+    msg "Finding NVM in: ${RUN_NVM_DIR}".
+    bash -c ". $RUN_NVM_DIR/nvm.sh \
+    && . $RUN_NVM_DIR/bash_completion \
+    && nvm install v$1 \
+    && nvm alias default v$1 \
+    && nvm use default" || fail
+}
+
+function run_with_nodejs {
+    RUN_NVM_DIR="$(nvm_install_dir)" || fail
+    bash -c ". $RUN_NVM_DIR/nvm.sh \
+    && . $RUN_NVM_DIR/bash_completion \
+    && nvm use default \
+    && $1" || fail
+}
+
+VERSION=unset
+EXTRA_TIERS=1
+CUR_PYTHON_VER="py37+"
+
+for ARGUMENT in "$@"
+do
+    KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+    case "$KEY" in
+        version)     VERSION=${VALUE} ;;
+        ver)         VERSION=${VALUE} ;;
+        VERSION)     VERSION=${VALUE} ;;
+        ex_tiers)    EXTRA_TIERS=${VALUE} ;;
+        py_ver)      CUR_PYTHON_VER=${VALUE} ;;
+        *)   
+    esac    
+done
+
+# Unset the version
+if [ "x${VERSION}" = "xunset" ]
+then
+    python3 -m pip install jupyterlab || fail
+fi
+
+# Install version 1
+if [ "x${VERSION}" = "x1" ]
+then
+    msg "Installing Jupyter Lab, ver 1.2.18."
+    
+fi
+
+# Install version 2
+if [ "x${VERSION}" = "x2" ]
+then
+    msg "Installing Jupyter Lab, ver 2.2.9."
+    
+fi
+
+# Install version 3
+if [ "x${VERSION}" = "x3" ]
+then
+    msg "Installing Jupyter Lab, ver 3.0.5."
+fi
+
+## Install extra packages.
+
+# if [ "x${VERSION}" != "xunset" ]
+# then
+    
+# fi
