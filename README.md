@@ -144,10 +144,10 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | Extension | J-lab1 | J-lab2 | J-lab3 |
 | ----- | :-----: | :-----: | :-----: |
 | [`jupyterlab-drawio`](https://github.com/QuantStack/jupyterlab-drawio)          | | | :ballot_box_with_check: |
+| [`ipydagred3`](https://github.com/timkpaine/ipydagred3)                         | | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab_html`](https://github.com/mflevine/jupyterlab_html)                | :white_check_mark: | | |
 | [`jupyterlab-tensorboard`](https://github.com/chaoleili/jupyterlab_tensorboard) | :white_check_mark: | :white_check_mark: | |
 | [`jupyterlab-dash`](https://github.com/plotly/jupyterlab-dash)                  | :white_check_mark: | :white_check_mark: | |
-| [`ipydagred3`](https://github.com/timkpaine/ipydagred3)                         | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`pyviz-comms`](https://github.com/holoviz/pyviz_comms)                         | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-plotly`](https://github.com/plotly/plotly.py)                      | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [`bqplot`](https://github.com/bqplot/bqplot)                                    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
