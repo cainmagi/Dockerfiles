@@ -196,7 +196,7 @@ then
             else
                 python3 -m pip install jupyterlab-git==0.23.3 nbdime==2.0.0 || fail
             fi
-            run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager nbdime-jupyterlab @jupyterlab/git @jupyterlab/mathjax3-extension @jupyterlab/katex-extension @jupyterlab/google-drive @jupyterlab/dataregistry-extension --no-build" || fail
+            run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager nbdime-jupyterlab @jupyterlab/git @jupyterlab/mathjax3-extension @jupyterlab/katex-extension @jupyterlab/google-drive --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x2" ]

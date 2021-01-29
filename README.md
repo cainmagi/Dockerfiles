@@ -133,7 +133,6 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | [`jupyter-bokeh`](https://github.com/bokeh/jupyter_bokeh)                                        |   | :white_check_mark: |   |
 | [`jupyterlab-google-drive`](https://github.com/jupyterlab/jupyterlab-google-drive) |             |   | :white_check_mark: |   |
 | [`jupyterlab-sidecar`](https://github.com/jupyter-widgets/jupyterlab-sidecar) |                  |   | :white_check_mark: |   |
-| [`jupyterlab-data-explorer`](https://github.com/jupyterlab/jupyterlab-data-explorer) |           |   | :white_check_mark: |   |
 
 ### Tier 2
 
@@ -183,7 +182,7 @@ The following tests has been passed.
 ### ver 1.2a @ 1/28/2021
 
 * [x] Make python version auto-detected, which means `JLAB_COMPAT` has been removed.
-* [ ] Support more useful extensions: `nbdime`, `lsp`, `git`, `mathjax&katex`, `debugger`, `bokeh`, `google-drive`, `sidecar`, `data-explorer`.
+* [ ] Support more useful extensions: `nbdime`, `lsp`, `git`, `mathjax&katex`, `debugger`, `bokeh`, `google-drive`, `sidecar`.
 * [ ] Provide a installation script for `conda`.
 
 ### ver 1.1 @ 1/24/2021
