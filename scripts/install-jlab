@@ -177,7 +177,7 @@ then
                 python3 -m pip install jupyterlab-drawio bqplot pyviz_comms || fail
             else
                 python3 -m pip install bqplot pyviz_comms || fail
-                run_with_nodejs "jupyter labextension install bqplot ipydagred3 @pyviz/jupyterlab_pyviz --no-build" || fail
+                run_with_nodejs "jupyter labextension install bqplot ipydagred3 --no-build" || fail
             fi
         fi
 
