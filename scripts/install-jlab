@@ -177,7 +177,7 @@ then
                 python3 -m pip install jupyterlab-drawio bqplot pyviz_comms || fail
             else
                 python3 -m pip install bqplot pyviz_comms || fail
-                run_with_nodejs "jupyter labextension install bqplot ipydagred3 --no-build" || fail
+                run_with_nodejs "jupyter labextension install bqplot ipydagred3 @pyviz/jupyterlab_pyviz --no-build" || fail
             fi
         fi
 
@@ -235,11 +235,11 @@ then
             else
                 python3 -m pip install python-language-server[all]==0.34.0 || fail
             fi
-            python3 -m pip install bqplot sidecar ipylab || fail
+            python3 -m pip install bqplot ipylab || fail
 
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
-                python3 -m pip install aquirdturtle_collapsible_headings==3.0.1 jupyterlab-system-monitor==0.7.0 lckr-jupyterlab-variableinspector==3.0.2 jupyter-lsp==1.1.1 jupyterlab-lsp==3.2.0 "ipympl>=0.6.2" jupytext==1.9.1 || fail
+                python3 -m pip install aquirdturtle_collapsible_headings==3.0.1 jupyterlab-system-monitor==0.7.0 lckr-jupyterlab-variableinspector==3.0.2 jupyter-lsp==1.1.1 jupyterlab-lsp==3.2.0 "ipympl>=0.6.2" jupytext==1.9.1 sidecar || fail
                 run_with_nodejs "jupyter labextension install @jupyterlab/toc @jupyterlab/debugger @jupyterlab/mathjax3-extension @jupyterlab/katex-extension jupyterlab-topbar-extension jupyterlab-system-monitor --no-build" || fail
             else
                 python3 -m pip install ipympl==0.5.8 || fail
@@ -279,7 +279,7 @@ then
                 run_with_nodejs "jupyter labextension install @jupyterlab/git@0.21.1 --no-build" || fail
             fi
             python3 -m pip install ipympl==0.5.8 sidecar==0.4.0 || fail
-            run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 @jupyterlab/toc @jupyterlab/git @bokeh/jupyter_bokeh@2.0.4 @krassowski/jupyterlab-lsp@2.1.2 @jupyter-widgets/jupyterlab-sidecar @jupyterlab/debugger --no-build" || fail
+            run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 @jupyterlab/toc @bokeh/jupyter_bokeh@2.0.4 @krassowski/jupyterlab-lsp@2.1.2 @jupyter-widgets/jupyterlab-sidecar @jupyterlab/debugger --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x1" ]

@@ -128,12 +128,12 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | [`jupyterlab-jupytext`](https://github.com/mwouts/jupytext/tree/master/packages/labextension)    | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-system-monitor`](https://github.com/jtpio/jupyterlab-system-monitor)                | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-topbar`](https://github.com/jtpio/jupyterlab-topbar)                                | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
+| [`jupyterlab-sidecar`](https://github.com/jupyter-widgets/jupyterlab-sidecar)                    | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-katex-extension`](https://github.com/jupyterlab/jupyter-renderers/blob/master/packages/katex-extension) | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-mathjax3-extension`](https://github.com/jupyterlab/jupyter-renderers/blob/master/packages/mathjax3-extension) | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-matplotlib`](https://github.com/matplotlib/jupyter-matplotlib.git)                  | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [`jupyterlab-nbdime`](https://github.com/jupyter/nbdime)                                         | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [`jupyterlab-manager`](https://github.com/jupyter-widgets/ipywidgets)                            | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| [`jupyterlab-sidecar`](https://github.com/jupyter-widgets/jupyterlab-sidecar)                    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 
 ### Tier 2
