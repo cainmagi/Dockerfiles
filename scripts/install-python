@@ -73,12 +73,6 @@ fi
 
 if [ "x${MODE}" = "xjupyter" ]
 then
-    if [ "x${CUR_PY_VER}" == "xpy36" ] || [ "x${CUR_PY_VER}" == "xpy37+" ]
-    then
-        JLAB_COMPATIBLE="false"
-    else
-        JLAB_COMPATIBLE="true"
-    fi
-    bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} compat=${JLAB_COMPATIBLE} || fail
+    bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
     msg "Installation for the Jupyter Lab finishes."
 fi

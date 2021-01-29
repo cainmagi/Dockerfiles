@@ -61,7 +61,7 @@ function run_with_nodejs {
 
 VERSION=unset
 EXTRA_TIERS=1
-COMPATIBLE=false
+CUR_PYTHON_VER="py37+"
 
 for ARGUMENT in "$@"
 do
@@ -72,7 +72,7 @@ do
         ver)         VERSION=${VALUE} ;;
         VERSION)     VERSION=${VALUE} ;;
         ex_tiers)    EXTRA_TIERS=${VALUE} ;;
-        compat)      COMPATIBLE=${VALUE} ;;
+        py_ver)      CUR_PYTHON_VER=${VALUE} ;;
         *)   
     esac    
 done
@@ -114,7 +114,7 @@ if [ "x${VERSION}" = "x3" ]
 then
     python3 -m pip install tornado==6.1 || fail
     python3 -m pip install jupyter jupyter-core --upgrade || fail
-    if [ "x${COMPATIBLE}" != "xtrue" ]
+    if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
     then
         msg "Installing Jupyter Lab, ver 3.0.5."
         python3 -m pip install typing-extensions==3.7.4.3 jupyterlab==3.0.5 || fail
@@ -142,7 +142,7 @@ then
         if [ "x${VERSION}" = "x3" ]
         then
             # For compatible mode.
-            if [ "x${COMPATIBLE}" = "xtrue" ]
+            if [ "x${CUR_PYTHON_VER}" = "xpy35" ] || [ "x${CUR_PYTHON_VER}" = "xpy34-" ]
             then
                 run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build" || fail
             fi
@@ -173,7 +173,7 @@ then
 
         if [ "x${VERSION}" = "x3" ]
         then
-            if [ "x${COMPATIBLE}" != "xtrue" ]
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
                 python3 -m pip install jupyterlab-drawio bqplot pyviz_comms || fail
             else
@@ -205,7 +205,7 @@ then
     then
         msg "Installing Jupyter Lab extensions, tier 1."
         python3 -m pip install "nbresuse>=0.3.3,<=0.3.6" || fail
-        if [ "x${COMPATIBLE}" != "xtrue" ]
+        if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
         then
             python3 -m pip install nbdime==2.1.0 || fail
         else
@@ -215,7 +215,7 @@ then
 
         if [ "x${VERSION}" = "x3" ] || [ "x${VERSION}" = "x2" ]
         then
-            if [ "x${COMPATIBLE}" != "xtrue" ]
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
                 python3 -m pip install xeus-python==0.9.1 || fail
             else
@@ -227,18 +227,22 @@ then
         if [ "x${VERSION}" = "x3" ]
         then
             # Compatibility for conda.
-            if nvm_has "conda"; then
-                conda install -y -c conda-forge wrapt==1.12.1 --freeze-installed || fail
-            fi
-            if [ "x${COMPATIBLE}" != "xtrue" ]
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]
             then
-                python3 -m pip install python-language-server[all]==0.36.2 jupyterlab-drawio || fail
+                if nvm_has "conda"; then
+                    conda install -y -c conda-forge wrapt=1.12.1 || fail
+                fi
+                python3 -m pip install python-language-server[all]==0.36.2 || fail
             else
                 python3 -m pip install python-language-server[all]==0.34.0 || fail
             fi
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
+            then
+                python3 -m pip install jupyterlab-drawio || fail
+            fi
             python3 -m pip install bqplot ipylab || fail
 
-            if [ "x${COMPATIBLE}" != "xtrue" ]
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
                 python3 -m pip install aquirdturtle_collapsible_headings==3.0.1 jupyterlab-system-monitor==0.7.0 lckr-jupyterlab-variableinspector==3.0.2 jupyter-lsp==1.1.1 jupyterlab-lsp==3.2.0 "ipympl>=0.6.2" jupytext==1.9.1 sidecar || fail
                 run_with_nodejs "jupyter labextension install @jupyterlab/toc @jupyterlab/debugger @jupyterlab/mathjax3-extension @jupyterlab/katex-extension jupyterlab-topbar-extension jupyterlab-system-monitor --no-build" || fail
@@ -254,11 +258,13 @@ then
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
             # Compatibility for conda.
-            if nvm_has "conda"; then
-                conda install -y -c conda-forge wrapt==1.12.1 --freeze-installed || fail
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
+                if nvm_has "conda"; then
+                    conda install -y -c conda-forge wrapt=1.12.1 || fail
+                fi
             fi
             python3 -m pip install bokeh jupyter-bokeh || fail
-            if [ "x${COMPATIBLE}" != "xtrue" ]
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
                 python3 -m pip install pynvml || fail
                 python3 -m pip install jupyterlab-nvdashboard jupyterlab_hdf jupytext==1.8.2 || fail
@@ -271,12 +277,17 @@ then
 
         if [ "x${VERSION}" = "x2" ]
         then
-            if [ "x${COMPATIBLE}" != "xtrue" ]
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
+                python3 -m pip install python-language-server[all]==0.36.2 || fail
+            else
+                python3 -m pip install python-language-server[all]==0.34.0 || fail
+            fi
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install python-language-server[all]==0.36.2 jupyter-lsp==0.9.3 jupyterlab-git || fail
+                python3 -m pip install jupyter-lsp==0.9.3 jupyterlab-git || fail
                 run_with_nodejs "jupyter labextension install @jupyterlab/git --no-build" || fail
             else
-                python3 -m pip install python-language-server[all]==0.34.0 jupyter-lsp==0.9.2 jupyterlab-git==0.21.1 || fail
+                python3 -m pip install jupyter-lsp==0.9.2 jupyterlab-git==0.21.1 || fail
                 run_with_nodejs "jupyter labextension install @jupyterlab/git@0.21.1 --no-build" || fail
             fi
             python3 -m pip install ipympl==0.5.8 sidecar==0.4.0 || fail
