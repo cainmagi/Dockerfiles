@@ -162,7 +162,7 @@ then
     if [ "x${EXTRA_TIERS}" = "x2" ]
     then
         msg "Installing Jupyter Lab extensions, tier 2."
-        python3 -m pip install plotly pyviz_comms || fail
+        python3 -m pip install plotly || fail
         run_with_nodejs "jupyter labextension install jupyterlab-plotly --no-build" || fail
 
         if [ "x${VERSION}" = "x3" ] || [ "x${VERSION}" = "x2" ]
@@ -174,17 +174,17 @@ then
         then
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
-                python3 -m pip install jupyterlab-drawio bqplot || fail
+                python3 -m pip install jupyterlab-drawio bqplot pyviz_comms || fail
             else
-                python3 -m pip install bqplot || fail
-                run_with_nodejs "jupyter labextension install bqplot ipydagred3 @pyviz/jupyterlab_pyviz@1.0.4 --no-build" || fail
+                python3 -m pip install bqplot pyviz_comms || fail
+                run_with_nodejs "jupyter labextension install bqplot ipydagred3 --no-build" || fail
             fi
         fi
 
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
             python3 -m pip install "tensorboard>=1.14,<=2.2" || fail # If required, downgrad the tensorboard APIs.
-            python3 -m pip install jupyter-tensorboard jupyter-dash || fail
+            python3 -m pip install jupyter-tensorboard jupyter-dash pyviz_comms || fail
             run_with_nodejs "jupyter labextension install jupyterlab_tensorboard jupyterlab-dash bqplot --no-build" || fail
         fi
 
