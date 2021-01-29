@@ -118,6 +118,7 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | [`jupyterlab-toc`](https://github.com/jupyterlab/jupyterlab-toc)                                 | | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-lsp`](https://github.com/krassowski/jupyterlab-lsp)                                 | | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-debugger`](https://github.com/jupyterlab/debugger)                                  | | :white_check_mark: | :ballot_box_with_check: |
+| [`xpython`](https://github.com/jupyter-xeus/xeus-python)                                         | | :white_check_mark: | :white_check_mark: |
 | [`jupyterlab-hdf5`](https://github.com/jupyterlab/jupyterlab-hdf5)                               | :ballot_box_with_check: | :ballot_box_with_check: | |
 | [`jupyterlab-nvdashboard`](https://github.com/rapidsai/jupyterlab-nvdashboard)                   | :ballot_box_with_check: | :ballot_box_with_check: | |
 | [`jupyterlab-git`](https://github.com/jupyterlab/jupyterlab-git)                                 | :white_check_mark: | :white_check_mark: | |
@@ -147,8 +148,8 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | [`jupyterlab-tensorboard`](https://github.com/chaoleili/jupyterlab_tensorboard) | :white_check_mark: | :white_check_mark: | |
 | [`jupyterlab-dash`](https://github.com/plotly/jupyterlab-dash)                  | :white_check_mark: | :white_check_mark: | |
 | [`ipydagred3`](https://github.com/timkpaine/ipydagred3)                         | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
+| [`pyviz-comms`](https://github.com/holoviz/pyviz_comms)                         | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-plotly`](https://github.com/plotly/plotly.py)                      | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| [`pyviz-comms`](https://github.com/holoviz/pyviz_comms)                         | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [`bqplot`](https://github.com/bqplot/bqplot)                                    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ## Test report
