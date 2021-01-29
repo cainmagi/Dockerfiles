@@ -132,7 +132,7 @@ then
     if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
     then
         msg "Installing Jupyter Lab, ver 3.0.5."
-        python3 -m pip install typing-extensions==3.7.4.3 jupyterlab==3.0.5 || fail
+        python3 -m pip install typing-extensions==3.7.4.3 jupyterlab==3.0.6 || fail
     else
         msg "For compatibility of python<=3.5, installing Jupyter Lab, ver 3.0.0a14."
         python3 -m pip install jupyterlab==3.0.0a14 || fail
