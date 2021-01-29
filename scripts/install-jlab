@@ -141,7 +141,6 @@ then
         install_nvm 0.37.2 || fail
     fi
     install_nodejs 15.6.0 || fail
-    jupyter serverextension enable --py jupyterlab
 fi
 
 ## Install extra packages.
