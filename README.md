@@ -111,10 +111,10 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 
 | Extension | J-lab1 | J-lab2 | J-lab3 |
 | ----- | :-----: | :-----: | :-----: |
-| [`jupyterlab-language-pack-zhCN`](https://github.com/jupyterlab/language-packs)                  | | | :white_check_mark: |
 | [`@aquirdturtle/collapsible_headings`](https://github.com/aquirdTurtle/Collapsible_Headings)     | | | :ballot_box_with_check: |
 | [`jupyterlab-variableinspector`](https://github.com/lckr/jupyterlab-variableInspector)           | | | :ballot_box_with_check: |
 | [`ipylab`](https://github.com/jtpio/ipylab)                                                      | | | :ballot_box_with_check: |
+| [`jupyterlab-language-pack-zhCN`](https://github.com/jupyterlab/language-packs)                  | | | :white_check_mark: |
 | [`jupyterlab-toc`](https://github.com/jupyterlab/jupyterlab-toc)                                 | | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-lsp`](https://github.com/krassowski/jupyterlab-lsp)                                 | | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-debugger`](https://github.com/jupyterlab/debugger)                                  | | :white_check_mark: | :ballot_box_with_check: |
@@ -189,7 +189,7 @@ The following tests has been passed.
 ### ver 1.2a @ 1/28/2021
 
 * [x] Make python version auto-detected, which means `JLAB_COMPAT` has been removed.
-* [ ] Support more useful extensions: `nbdime`, `lsp`, `git`, `mathjax&katex`, `debugger`, `bokeh`, `google-drive`, `sidecar`.
+* [x] Support more useful extensions: `nbdime`, `lsp`, `git`, `mathjax&katex`, `debugger`, `xpython`, `bokeh`, `google-drive`, `sidecar`, `drawio`,  `ipydagred3`, `pyviz`, `bqplot`.
 * [ ] Provide a installation script for `conda`.
 
 ### ver 1.1 @ 1/24/2021
