@@ -126,6 +126,7 @@ then
         install_nvm 0.37.2 || fail
     fi
     install_nodejs 15.6.0 || fail
+    jupyter serverextension enable --py jupyterlab
 fi
 
 ## Install extra packages.
@@ -254,7 +255,7 @@ then
         then
             # Compatibility for conda.
             if nvm_has "conda"; then
-                conda install -y -c conda-forge wrapt==1.12.1 || fail
+                conda install -y -c conda-forge wrapt==1.12.1 --freeze-installed || fail
             fi
             python3 -m pip install bokeh jupyter-bokeh || fail
             if [ "x${COMPATIBLE}" != "xtrue" ]
