@@ -114,26 +114,26 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | [`jupyterlab-language-pack-zhCN`](https://github.com/jupyterlab/language-packs)                  | | | :white_check_mark: |
 | [`@aquirdturtle/collapsible_headings`](https://github.com/aquirdTurtle/Collapsible_Headings)     | | | :ballot_box_with_check: |
 | [`jupyterlab-variableinspector`](https://github.com/lckr/jupyterlab-variableInspector)           | | | :ballot_box_with_check: |
+| [`ipylab`](https://github.com/jtpio/ipylab)                                                      | | | :white_check_mark: |
 | [`jupyterlab-toc`](https://github.com/jupyterlab/jupyterlab-toc)                                 | | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-lsp`](https://github.com/krassowski/jupyterlab-lsp)                                 | | :white_check_mark: | :ballot_box_with_check: |
+| [`jupyterlab-debugger`](https://github.com/jupyterlab/debugger)                                  | | :white_check_mark: | :white_check_mark: |
 | [`jupyterlab-hdf5`](https://github.com/jupyterlab/jupyterlab-hdf5)                               | :ballot_box_with_check: | :ballot_box_with_check: | |
 | [`jupyterlab-git`](https://github.com/jupyterlab/jupyterlab-git)                                 | :white_check_mark: | :white_check_mark: | |
 | [`jupyterlab-github`](https://github.com/jupyterlab/jupyterlab-github)                           | :white_check_mark: | :white_check_mark: | |
 | [`jupyterlab-nvdashboard`](https://github.com/rapidsai/jupyterlab-nvdashboard)                   | :ballot_box_with_check: | :ballot_box_with_check: | |
 | [`jupyterlab_go_to_definition`](https://github.com/krassowski/jupyterlab-go-to-definition)       | :white_check_mark: | :white_check_mark: | |
+| [`jupyter-bokeh`](https://github.com/bokeh/jupyter_bokeh)                                        | :white_check_mark: | :white_check_mark: |   |
+| [`jupyterlab-google-drive`](https://github.com/jupyterlab/jupyterlab-google-drive)               | :white_check_mark: | :white_check_mark: |   |
 | [`jupyterlab-jupytext`](https://github.com/mwouts/jupytext/tree/master/packages/labextension)    | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-matplotlib`](https://github.com/matplotlib/jupyter-matplotlib.git)                  | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [`jupyterlab-nbdime`](https://github.com/jupyter/nbdime)                                         | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| [`jupyterlab-manager`](https://github.com/jupyter-widgets/ipywidgets) | :white_check_mark:       | :white_check_mark: | :white_check_mark: |
+| [`jupyterlab-manager`](https://github.com/jupyter-widgets/ipywidgets)                            | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [`jupyterlab-system-monitor`](https://github.com/jtpio/jupyterlab-system-monitor)                | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [`jupyterlab-topbar`](https://github.com/jtpio/jupyterlab-topbar)                                | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [`jupyterlab-sidecar`](https://github.com/jupyter-widgets/jupyterlab-sidecar)                    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| [`jupyterlab-katex-extension`](https://github.com/jupyterlab/jupyter-renderers/blob/master/packages/katex-extension) | :white_check_mark: | :white_check_mark: |   |
-| [`jupyterlab-mathjax3-extension`](https://github.com/jupyterlab/jupyter-renderers/blob/master/packages/mathjax3-extension) | :white_check_mark: | :white_check_mark: |   |
-| [`jupyterlab-debugger`](https://github.com/jupyterlab/debugger)                                  |   | :white_check_mark: |   |
-| [`jupyter-bokeh`](https://github.com/bokeh/jupyter_bokeh)                                        | :white_check_mark: | :white_check_mark: |   |
-| [`jupyterlab-google-drive`](https://github.com/jupyterlab/jupyterlab-google-drive)               | :white_check_mark: | :white_check_mark: |   |
-| [`ipylab`](https://github.com/jtpio/ipylab)                                                      |  |  |   |
+| [`jupyterlab-katex-extension`](https://github.com/jupyterlab/jupyter-renderers/blob/master/packages/katex-extension) | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| [`jupyterlab-mathjax3-extension`](https://github.com/jupyterlab/jupyter-renderers/blob/master/packages/mathjax3-extension) | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ### Tier 2
 
@@ -141,10 +141,14 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 
 | Extension | J-lab1 | J-lab2 | J-lab3 |
 | ----- | :-----: | :-----: | :-----: |
+| [`jupyterlab-drawio`](https://github.com/QuantStack/jupyterlab-drawio)          | | | :white_check_mark: |
+| [`jupyterlab_html`](https://github.com/mflevine/jupyterlab_html)                | :white_check_mark: | | |
 | [`jupyterlab-tensorboard`](https://github.com/chaoleili/jupyterlab_tensorboard) | :white_check_mark: | :white_check_mark: | |
 | [`jupyterlab-dash`](https://github.com/plotly/jupyterlab-dash)                  | :white_check_mark: | :white_check_mark: | |
-| [`jupyterlab_html`](https://github.com/mflevine/jupyterlab_html)                | :white_check_mark: | | |
 | [`jupyterlab-plotly`](https://github.com/plotly/plotly.py)                      | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| [`pyviz-comms`](https://github.com/holoviz/pyviz_comms)                         | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| [`ipydagred3`](https://github.com/timkpaine/ipydagred3)                         | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| [`bqplot`](https://github.com/bqplot/bqplot)                                    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ## Test report
 
