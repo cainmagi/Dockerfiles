@@ -22,7 +22,7 @@ function mcd {
 MODE=python
 JLAB_VERSION=unset
 JLAB_EXTRA_TIERS=2
-JLAB_COMPATIBLE=false
+CUR_PY_VER=$(python3 /root/scripts/get-pyver.py 2>&1)
 
 for ARGUMENT in "$@"
 do
@@ -32,7 +32,6 @@ do
         MODE)               MODE=${VALUE} ;;
         JLAB_VER)           JLAB_VERSION=${VALUE} ;;
         JLAB_EXTIERS)       JLAB_EXTRA_TIERS=${VALUE} ;;
-        JLAB_COMPAT)        JLAB_COMPATIBLE=${VALUE} ;;
         *)   
     esac    
 done
@@ -46,19 +45,24 @@ then
     apt-get install -y at-spi2-core || fail
     apt-get update -y || fail && apt-get -y dist-upgrade || fail
     
-    if [ "x${JLAB_COMPATIBLE}" = "xtrue" ]
+    if [ "x${CUR_PY_VER}" == "xpy36" ] || [ "x${CUR_PY_VER}" == "xpy37+" ]
     then
-        wget -O /root/scripts/get-pip-3.py https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/get-pip-20.3.4.py || fail
-    else
         curl https://bootstrap.pypa.io/get-pip.py -o /root/scripts/get-pip-3.py || fail
+    else
+        if [ "x${CUR_PY_VER}" == "xpy35" ]
+        then
+            curl https://bootstrap.pypa.io/3.5/get-pip.py -o /root/scripts/get-pip-3.py || fail
+        else
+            curl https://bootstrap.pypa.io/3.4/get-pip.py -o /root/scripts/get-pip-3.py || fail
+        fi
     fi
-    curl https://bootstrap.pypa.io/2.7/get-pip.py -o /root/scripts/get-pip-2.py || fail
     if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
     then
         apt-get install -y python3-pip || fail
         python3 /root/scripts/get-pip-3.py --force-reinstall || fail
         python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
     else
+        curl https://bootstrap.pypa.io/2.7/get-pip.py -o /root/scripts/get-pip-2.py || fail
         apt-get install -y python-pip python3-pip || fail
         python3 /root/scripts/get-pip-3.py --force-reinstall || fail && python2 /root/scripts/get-pip-2.py --force-reinstall || fail
         python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
@@ -69,6 +73,12 @@ fi
 
 if [ "x${MODE}" = "xjupyter" ]
 then
+    if [ "x${CUR_PY_VER}" == "xpy36" ] || [ "x${CUR_PY_VER}" == "xpy37+" ]
+    then
+        JLAB_COMPATIBLE="false"
+    else
+        JLAB_COMPATIBLE="true"
+    fi
     bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} compat=${JLAB_COMPATIBLE} || fail
     msg "Installation for the Jupyter Lab finishes."
 fi

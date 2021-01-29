@@ -20,12 +20,20 @@ function mcd {
 }
 
 THIS_ROOT=/root/configs
-# The script for installing newest ffmpeg
+
+msg "Ensure basic utilities"
+apt-get update -y || fail
+apt-get install -y apt-utils wget || fail
 
 msg "Move files to /etc"
 echo "LC_ALL=en_US.UTF-8" >> /etc/environment
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 mv $THIS_ROOT/locale.gen /etc || fail
+
+msg "Move files to /root"
+mkdir -p /root/scripts || fail
+wget -O /root/scripts/get-pyver.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-pyver.py || fail
+chmod +rwx /root/scripts/get-pyver.py || fail
 
 msg "Move files finished."

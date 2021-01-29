@@ -19,6 +19,10 @@ function mcd {
     cd "$1" || fail
 }
 
+function nvm_has {
+    type "$1" > /dev/null 2>&1
+}
+
 MODE=init
 
 for ARGUMENT in "$@"
@@ -50,6 +54,11 @@ then
         exit 1
     fi
 
+    if ! nvm_has "python3"; then
+        msg "Error: Python3 missing. Currently we do not support automatical installation for python3. Please start from a base image with python3."
+        exit 1
+    fi
+
     # Setting language
     echo "LC_ALL=en_US.UTF-8" >> /etc/environment
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
@@ -63,8 +72,8 @@ then
     apt-get -y dist-upgrade || fail
 
     # Install the desktop
-    apt-get install -y --no-install-recommends build-essential || fail
-    apt-get install -y --no-install-recommends \
+    apt-get install -y build-essential || fail
+    apt-get install -y \
         autoconf \
         automake \
         build-essential \

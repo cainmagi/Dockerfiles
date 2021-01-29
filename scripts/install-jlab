@@ -183,32 +183,39 @@ then
 
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
-            python3 -m pip install bokeh || fail
+            # Compatibility for conda.
+            if nvm_has "conda"; then
+                conda install -y -c conda-forge wrapt==1.12.1 || fail
+            fi
+            python3 -m pip install bokeh python-language-server[all]==0.36.2 jupyter-lsp==0.9.3 || fail
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
                 python3 -m pip install pynvml || fail
-                python3 -m pip install jupyterlab-nvdashboard jupyterlab_hdf || fail
+                python3 -m pip install jupyterlab-nvdashboard jupyterlab_hdf jupyterlab-git nbdime==2.1.0 || fail
                 run_with_nodejs "jupyter labextension install jupyterlab-nvdashboard @jupyterlab/github @jupyterlab/hdf5 --no-build" || fail
+            else
+                python3 -m pip install jupyterlab-git==0.23.3 nbdime==2.0.0 || fail
             fi
+            run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager nbdime-jupyterlab @jupyterlab/git @jupyterlab/mathjax3-extension @jupyterlab/katex-extension @jupyterlab/google-drive @jupyterlab/dataregistry-extension --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x2" ]
         then
-            python3 -m pip install ipympl==0.5.8 || fail
+            python3 -m pip install ipympl==0.5.8 sidecar==0.4.0 xeus-python==0.9.1 ptvsd || fail
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
                 python3 -m pip install jupytext==1.8.2 || fail
             else
                 python3 -m pip install jupytext==1.8.1 || fail # for py3.5
             fi
-            run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 @jupyterlab/toc --no-build" || fail
+            run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 @jupyterlab/toc @bokeh/jupyter_bokeh@2.0.0 @krassowski/jupyterlab-lsp@2.1.2 @jupyterlab/debugger @jupyter-widgets/jupyterlab-sidecar --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x1" ]
         then
-            python3 -m pip install ipympl==0.5.2 || fail
-            run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.1 \
-                @krassowski/jupyterlab_go_to_definition@0.7.1 --no-build" || fail
+            python3 -m pip install ipympl==0.5.2 sidecar==0.3.0 || fail
+            run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.1 @krassowski/jupyterlab_go_to_definition@0.7.1 \
+                @bokeh/jupyter_bokeh@1.0.0 @jupyter-widgets/jupyterlab-sidecar --no-build" || fail
         fi
     fi
 
