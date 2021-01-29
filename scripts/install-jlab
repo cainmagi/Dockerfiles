@@ -228,7 +228,7 @@ then
         then
             # Compatibility for conda.
             if nvm_has "conda"; then
-                conda install -y -c conda-forge wrapt==1.12.1 || fail
+                conda install -y -c conda-forge wrapt==1.12.1 --freeze-installed || fail
             fi
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
