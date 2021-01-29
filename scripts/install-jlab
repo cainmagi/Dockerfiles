@@ -208,14 +208,14 @@ then
             else
                 python3 -m pip install jupytext==1.8.1 || fail # for py3.5
             fi
-            run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 @jupyterlab/toc @bokeh/jupyter_bokeh@2.0.0 @krassowski/jupyterlab-lsp@2.1.2 @jupyterlab/debugger @jupyter-widgets/jupyterlab-sidecar --no-build" || fail
+            run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 @jupyterlab/toc @bokeh/jupyter_bokeh@2.0.4 @krassowski/jupyterlab-lsp@2.1.2 @jupyterlab/debugger @jupyter-widgets/jupyterlab-sidecar --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x1" ]
         then
             python3 -m pip install ipympl==0.5.2 sidecar==0.3.0 || fail
             run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.1 @krassowski/jupyterlab_go_to_definition@0.7.1 \
-                @bokeh/jupyter_bokeh@1.0.0 @jupyter-widgets/jupyterlab-sidecar --no-build" || fail
+                @bokeh/jupyter_bokeh@1.2.0 @jupyter-widgets/jupyterlab-sidecar --no-build" || fail
         fi
     fi
 
