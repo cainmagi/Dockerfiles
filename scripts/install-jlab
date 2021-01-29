@@ -19,7 +19,7 @@ function mcd {
     cd "$1" || fail
 }
 
-nvm_has() {
+function nvm_has {
   type "$1" > /dev/null 2>&1
 }
 
@@ -57,6 +57,21 @@ function run_with_nodejs {
     && . $RUN_NVM_DIR/bash_completion \
     && nvm use default \
     && $1" || fail
+}
+
+function py_fix_wrapt_version {
+    # Compatibility for conda.
+    if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]
+    then
+        if nvm_has "conda"; then
+            conda install -y -c conda-forge wrapt=1.12.1 || fail
+        fi
+    else
+        if nvm_has "conda"; then
+            conda install -y --no-deps -c conda-forge wrapt=1.12.1 || fail
+            python3 -m pip install wrapt==1.12.1 spacy==2.2.4 || fail
+        fi
+    fi
 }
 
 VERSION=unset
@@ -226,16 +241,7 @@ then
 
         if [ "x${VERSION}" = "x3" ]
         then
-            # Compatibility for conda.
-            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]
-            then
-                if nvm_has "conda"; then
-                    conda install -y -c conda-forge wrapt=1.12.1 || fail
-                fi
-                python3 -m pip install python-language-server[all]==0.36.2 || fail
-            else
-                python3 -m pip install python-language-server[all]==0.34.0 || fail
-            fi
+            py_fix_wrapt_version || fail # Fix wrapt version problem.
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
                 python3 -m pip install jupyterlab-drawio || fail
@@ -244,10 +250,10 @@ then
 
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install aquirdturtle_collapsible_headings==3.0.1 jupyterlab-system-monitor==0.7.0 lckr-jupyterlab-variableinspector==3.0.2 jupyter-lsp==1.1.1 jupyterlab-lsp==3.2.0 "ipympl>=0.6.2" jupytext==1.9.1 sidecar || fail
+                python3 -m pip install python-language-server[all]==0.36.2 aquirdturtle_collapsible_headings==3.0.1 jupyterlab-system-monitor==0.7.0 lckr-jupyterlab-variableinspector==3.0.2 jupyter-lsp==1.1.1 jupyterlab-lsp==3.2.0 "ipympl>=0.6.2" jupytext==1.9.1 sidecar || fail
                 run_with_nodejs "jupyter labextension install @jupyterlab/toc @jupyterlab/debugger @jupyterlab/mathjax3-extension @jupyterlab/katex-extension jupyterlab-topbar-extension jupyterlab-system-monitor --no-build" || fail
             else
-                python3 -m pip install ipympl==0.5.8 || fail
+                python3 -m pip install python-language-server[all]==0.34.0 ipympl==0.5.8 || fail
                 run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.4 --no-build" || fail
             fi
 
@@ -257,12 +263,7 @@ then
 
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
-            # Compatibility for conda.
-            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
-                if nvm_has "conda"; then
-                    conda install -y -c conda-forge wrapt=1.12.1 || fail
-                fi
-            fi
+            py_fix_wrapt_version || fail # Fix wrapt version problem.
             python3 -m pip install bokeh jupyter-bokeh || fail
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
