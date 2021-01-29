@@ -157,7 +157,13 @@ then
     then
         msg "Installing Jupyter Lab extensions, tier 1."
         python3 -m pip install "nbresuse>=0.3.3,<=0.3.6" || fail
-        run_with_nodejs "jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor --no-build" || fail
+        if [ "x${COMPATIBLE}" != "xtrue" ]
+        then
+            python3 -m pip install nbdime==2.1.0 || fail
+        else
+            python3 -m pip install nbdime==2.0.0 || fail
+        fi
+        run_with_nodejs "jupyter labextension install nbdime-jupyterlab jupyterlab-topbar-extension jupyterlab-system-monitor --no-build" || fail
 
         if [ "x${VERSION}" = "x3" ]
         then
@@ -165,17 +171,17 @@ then
             if nvm_has "conda"; then
                 conda install -y -c conda-forge wrapt==1.12.1 || fail
             fi
-            python3 -m pip install python-language-server[all]==0.36.2 || fail
+            python3 -m pip install python-language-server[all]==0.36.2 xeus-python==0.9.1 ptvsd sidecar ipylab || fail
 
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
-                python3 -m pip install aquirdturtle_collapsible_headings==3.0.1 jupyterlab-system-monitor==0.7.0 lckr-jupyterlab-variableinspector==3.0.2 jupyterlab-lsp==3.0.0 ipympl==0.6.2 jupytext==1.9.1 nbdime==2.1.0 || fail
+                python3 -m pip install aquirdturtle_collapsible_headings==3.0.1 jupyterlab-system-monitor==0.7.0 lckr-jupyterlab-variableinspector==3.0.2 jupyter-lsp==1.1.1 jupyterlab-lsp==3.2.0 "ipympl>=0.6.2" jupytext==1.9.1 || fail
                 run_with_nodejs "jupyter labextension install @jupyterlab/toc --no-build" || fail
             else
-                python3 -m pip install ipympl==0.5.8 nbdime==2.0.0 || fail
+                python3 -m pip install ipympl==0.5.8 || fail
                 run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib@0.7.4 --no-build" || fail
             fi
-            run_with_nodejs "jupyter labextension install nbdime-jupyterlab --no-build" || fail
+            run_with_nodejs "jupyter labextension install @jupyterlab/katex-extension @jupyterlab/mathjax3-extension @jupyterlab/debugger --no-build" || fail
 
             # Install jupyterlab-language-packs
             python3 -m pip install https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/jupyterlab_language_pack_zh_CN-0.0.1.dev0-py2.py3-none-any.whl || fail
@@ -187,35 +193,28 @@ then
             if nvm_has "conda"; then
                 conda install -y -c conda-forge wrapt==1.12.1 || fail
             fi
-            python3 -m pip install bokeh python-language-server[all]==0.36.2 jupyter-lsp==0.9.3 || fail
+            python3 -m pip install bokeh || fail
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
                 python3 -m pip install pynvml || fail
-                python3 -m pip install jupyterlab-nvdashboard jupyterlab_hdf jupyterlab-git nbdime==2.1.0 || fail
+                python3 -m pip install jupyterlab-nvdashboard jupyterlab_hdf jupytext==1.8.2 || fail
                 run_with_nodejs "jupyter labextension install jupyterlab-nvdashboard @jupyterlab/github @jupyterlab/hdf5 --no-build" || fail
             else
-                python3 -m pip install jupyterlab-git==0.23.3 nbdime==2.0.0 || fail
+                python3 -m pip install jupytext==1.8.1 || fail
             fi
-            run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager nbdime-jupyterlab @jupyterlab/git @jupyterlab/mathjax3-extension @jupyterlab/katex-extension @jupyterlab/google-drive --no-build" || fail
+            run_with_nodejs "jupyter labextension install @jupyter-widgets/jupyterlab-manager @jupyterlab/mathjax3-extension @jupyterlab/katex-extension @jupyterlab/google-drive --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x2" ]
         then
-            python3 -m pip install ipympl==0.5.8 sidecar==0.4.0 xeus-python==0.9.1 ptvsd || fail
-            if [ "x${COMPATIBLE}" != "xtrue" ]
-            then
-                python3 -m pip install jupytext==1.8.2 || fail
-            else
-                python3 -m pip install jupytext==1.8.1 || fail # for py3.5
-            fi
-            run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 @jupyterlab/toc @bokeh/jupyter_bokeh@2.0.4 @krassowski/jupyterlab-lsp@2.1.2 @jupyterlab/debugger @jupyter-widgets/jupyterlab-sidecar --no-build" || fail
+            python3 -m pip install jupyterlab-git ipympl==0.5.8 sidecar==0.4.0 xeus-python==0.9.1 ptvsd python-language-server[all]==0.36.2 jupyter-lsp==0.9.3 || fail
+            run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 @jupyterlab/toc @jupyterlab/git @bokeh/jupyter_bokeh@2.0.4 @krassowski/jupyterlab-lsp@2.1.2 @jupyterlab/debugger @jupyter-widgets/jupyterlab-sidecar --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x1" ]
         then
-            python3 -m pip install ipympl==0.5.2 sidecar==0.3.0 || fail
-            run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.1 @krassowski/jupyterlab_go_to_definition@0.7.1 \
-                @bokeh/jupyter_bokeh@1.2.0 @jupyter-widgets/jupyterlab-sidecar --no-build" || fail
+            python3 -m pip install jupyterlab-git==0.11.0 ipympl==0.5.2 sidecar==0.3.0 || fail
+            run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.1 @krassowski/jupyterlab_go_to_definition@0.7.1 @bokeh/jupyter_bokeh@1.2.0 @jupyter-widgets/jupyterlab-sidecar @jupyterlab/git@0.11.0 jupyterlab-jupytext@1.1.1 --no-build" || fail
         fi
     fi
 
