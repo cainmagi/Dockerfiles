@@ -158,7 +158,12 @@ then
 
         if [ "x${VERSION}" = "x3" ]
         then
-            python3 -m pip install jupyterlab-drawio bqplot || fail
+            if [ "x${COMPATIBLE}" != "xtrue" ]
+            then
+                python3 -m pip install jupyterlab-drawio bqplot || fail
+            else
+                python3 -m pip install bqplot || fail
+            fi
         fi
 
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
@@ -194,7 +199,13 @@ then
 
         if [ "x${VERSION}" = "x3" ] || [ "x${VERSION}" = "x2" ]
         then
-            python3 -m pip install xeus-python==0.9.1 ptvsd || fail
+            if [ "x${COMPATIBLE}" != "xtrue" ]
+            then
+                python3 -m pip install xeus-python==0.9.1 || fail
+            else
+                python3 -m pip install xeus-python==0.7.1 || fail
+            fi
+            python3 -m pip install ptvsd || fail
             run_with_nodejs "jupyter labextension install @jupyterlab/debugger --no-build" || fail
         fi
 
@@ -204,7 +215,13 @@ then
             if nvm_has "conda"; then
                 conda install -y -c conda-forge wrapt==1.12.1 || fail
             fi
-            python3 -m pip install python-language-server[all]==0.36.2 sidecar ipylab || fail
+            if [ "x${COMPATIBLE}" != "xtrue" ]
+            then
+                python3 -m pip install python-language-server[all]==0.36.2 jupyterlab-drawio || fail
+            else
+                python3 -m pip install python-language-server[all]==0.34.0 || fail
+            fi
+            python3 -m pip install bqplot sidecar ipylab || fail
 
             if [ "x${COMPATIBLE}" != "xtrue" ]
             then
@@ -239,6 +256,12 @@ then
 
         if [ "x${VERSION}" = "x2" ]
         then
+            if [ "x${COMPATIBLE}" != "xtrue" ]
+            then
+                python3 -m pip install python-language-server[all]==0.36.2 || fail
+            else
+                python3 -m pip install python-language-server[all]==0.34.0 || fail
+            fi
             python3 -m pip install jupyterlab-git ipympl==0.5.8 sidecar==0.4.0 python-language-server[all]==0.36.2 jupyter-lsp==0.9.3 || fail
             run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 @jupyterlab/toc @jupyterlab/git @bokeh/jupyter_bokeh@2.0.4 @krassowski/jupyterlab-lsp@2.1.2 @jupyter-widgets/jupyterlab-sidecar --no-build" || fail
         fi
