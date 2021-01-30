@@ -34,6 +34,7 @@ mv $THIS_ROOT/locale.gen /etc || fail
 msg "Move files to /root"
 mkdir -p /root/scripts || fail
 wget -O /root/scripts/get-pyver.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-pyver.py || fail
-chmod +rwx /root/scripts/get-pyver.py || fail
+wget -O /root/scripts/get-conda-path.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-conda-path.py || fail
+chmod +rwx /root/scripts/get-pyver.py /root/scripts/get-conda-path.py || fail
 
 msg "Move files finished."

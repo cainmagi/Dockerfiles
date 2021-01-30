@@ -36,6 +36,7 @@ JLAB_VERSION=unset
 JLAB_EXTRA_TIERS=2
 JLAB_INSTALL_MODE='pip'
 CUR_PY_VER=$(python3 /root/scripts/get-pyver.py 2>&1)
+HAS_CONDA=$(python3 /root/scripts/get-conda-path.py -m use-conda 2>&1)
 
 for ARGUMENT in "$@"
 do
@@ -87,12 +88,28 @@ fi
 
 if [ "x${MODE}" = "xjupyter" ]
 then
-    if [ "x${JLAB_INSTALL_MODE}" = "xconda" ] && [ "x$(jlab_has conda)" = "xtrue" ]
-    then
-        msg "Installation for the Jupyter Lab: conda mode."
-        bash /root/scripts/install-jlab-conda version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
-    else
+    HASUSED_CONDA="false"
+    if [ "x${JLAB_INSTALL_MODE}" = "xconda" ] && [ "x${HAS_CONDA}" = "xtrue" ]; then
+        if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]; then
+            msg "Installation for the Jupyter Lab: conda mode."
+            # Fix the pyver of this conda.
+            CONDA_PYTHON_VER=$(python3 /root/scripts/get-pyver.py -p 2>&1)
+            CONDA_META_PATH=$(python3 /root/scripts/get-conda-path.py -m conda-meta 2>&1)
+            echo "${CONDA_PYTHON_VER}" >> "${CONDA_META_PATH}/pinned" || fail
+            # Run the script with conda.
+            bash /root/scripts/install-jlab-conda version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
+            HASUSED_CONDA="true"
+        fi
+    fi
+    if [ "x${HASUSED_CONDA}" != "xtrue" ]; then
         msg "Installation for the Jupyter Lab: pip mode."
+        # Fix the pyver of this conda.
+        if [ "x${HAS_CONDA}" = "xtrue" ] then;
+            CONDA_PYTHON_VER=$(python3 /root/scripts/get-pyver.py -p 2>&1)
+            CONDA_META_PATH=$(python3 /root/scripts/get-conda-path.py -m conda-meta 2>&1)
+            echo "${CONDA_PYTHON_VER}" >> "${CONDA_META_PATH}/pinned" || fail
+        fi
+        # Run the script with pip.
         bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
     fi
     msg "Installation for the Jupyter Lab finishes."

@@ -116,7 +116,7 @@ fi
 OPTION_ROOT=""
 if [ "x${ROOT_DIR}" != "x" ]
 then
-    OPTION_ROOT="--notebook-dir=${ROOT_DIR}"
+    OPTION_ROOT="--NotebookApp.notebook_dir=${ROOT_DIR}"
 fi
 
 run_with_nodejs "jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_PASSWORD} --allow-root ${OPTION_ROOT}"

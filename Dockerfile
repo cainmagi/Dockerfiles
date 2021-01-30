@@ -10,7 +10,7 @@ FROM $BASE_IMAGE
 LABEL maintainer="Yuchen Jin <cainmagi@gmail.com>" \
       author="Yuchen Jin <cainmagi@gmail.com>" \
       description="Jupyter Lab dockerfile supporting 1.x, 2.x and 3.x versions." \
-      version="1.2a"
+      version="1.2"
 ARG DEBIAN_FRONTEND=noninteractive
 ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
 ARG JLAB_VER=unset

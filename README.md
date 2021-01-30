@@ -200,11 +200,13 @@ The following tests has been passed.
 
 ## Update records
 
-### ver 1.2a @ 1/28/2021
+### ver 1.2 @ 1/30/2021
 
-* [x] Make python version auto-detected, which means `JLAB_COMPAT` has been removed.
-* [x] Support more useful extensions: `nbdime`, `lsp`, `git`, `mathjax&katex`, `debugger`, `xpython`, `bokeh`, `google-drive`, `sidecar`, `drawio`,  `ipydagred3`, `pyviz`, `bqplot`.
-* [ ] Provide a installation script for `conda`.
+1. Make python version auto-detected, which means `JLAB_COMPAT` has been removed.
+2. Support more useful extensions: `nbdime`, `lsp`, `git`, `mathjax&katex`, `debugger`, `xpython`, `bokeh`, `google-drive`, `sidecar`, `drawio`,  `ipydagred3`, `pyviz`, `bqplot`.
+3. Provide a installation script for `conda`. This script would only work without compatible mode. If `python<=3.5`, the installation module would fall back to `pip`.
+4. Make the python version pinned (fixed) when using `conda` script.
+5. Fix some bugs in `install-jlab`.
 
 ### ver 1.1 @ 1/24/2021
 

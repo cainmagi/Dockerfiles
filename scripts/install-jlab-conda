@@ -80,32 +80,154 @@ done
 # Unset the version
 if [ "x${VERSION}" = "xunset" ]
 then
+    # If unset, fallback to pip.
     python3 -m pip install jupyterlab || fail
 fi
 
 # Install version 1
 if [ "x${VERSION}" = "x1" ]
 then
+    conda update -y conda || fail
+
+    # Install Jupyter Lab
     msg "Installing Jupyter Lab, ver 1.2.18."
-    
+    conda install -y -c conda-forge "nbconvert>=6.0.7" "jupyter>=1.0" "jupyter_core>=4.7" "notebook>=6.2" "pyzmq>=22.0" "jupyterlab<=1.2.18" || fail
+    python3 -m pip install jupyterlab==1.2.18 || fail # Not provided by conda, fallback to pip.
+
+    # Install nodejs
+    if ! nvm_has "nvm"; then
+        install_nvm 0.37.2 || fail
+    fi
+    install_nodejs 12.20.1 || fail
+
+    # Install packages required by extensions
+    if [ "x${EXTRA_TIERS}" = "x2" ]; then
+        CONDA_TEMP_PKGS="\"bqplot>=0.11.4\" \"tensorboard>=1.14,<=2.2\""
+    else
+        CONDA_TEMP_PKGS=""
+    fi
+    if [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]; then
+        conda install -y -c conda-forge "ipywidgets>=7.5" "nbdime>=2.0" "nbresuse>=0.3.3,<=0.3.6" jupytext=1.8.2 ipympl=0.5.2 bokeh jupyter_bokeh pynvml jupyterlab-nvdashboard jupyterlab-git=0.11.0 ${CONDA_TEMP_PKGS} || fail
+        python3 -m pip install jupyterlab_hdf sidecar==0.3.0 || fail
+    fi
+    if [ "x${EXTRA_TIERS}" = "x2" ]; then
+        conda install -y -c plotly -c defaults -c conda-forge "plotly>=4.14.3" "jupyterlab-dash>=0.1.0a3" || fail
+        conda install -y -c pyviz pyviz_comms || fail
+        python3 -m pip install jupyter-tensorboard || fail
+    fi
+
+    # Install all extensions.
+    if [ "x${EXTRA_TIERS}" = "x2" ]; then
+        CONDA_TEMP_PKGS="jupyterlab-plotly@4.14.3 plotlywidget@4.14.3 jupyterlab_tensorboard jupyterlab-dash bqplot @mflevine/jupyterlab_html @pyviz/jupyterlab_pyviz@0.8.0"
+    else
+        CONDA_TEMP_PKGS=""
+    fi
+    if [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]; then
+        run_with_nodejs "jupyter labextension install nbdime-jupyterlab jupyterlab-nvdashboard @jupyterlab/github @jupyterlab/hdf5 @jupyterlab/google-drive @jupyterlab/mathjax3-extension @jupyterlab/katex-extension jupyterlab-topbar-extension jupyterlab-system-monitor jupyter-matplotlib@0.7.1 @krassowski/jupyterlab_go_to_definition@0.7.1 @bokeh/jupyter_bokeh@1.2.0 @jupyter-widgets/jupyterlab-sidecar @jupyterlab/git@0.11.0 jupyterlab-jupytext@1.1.1 ${CONDA_TEMP_PKGS} --no-build" || fail
+    fi
+
+    # Build
+    if [ "x${EXTRA_TIERS}" = "x3" ] || [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]; then
+        msg "Installing Jupyter Lab extensions, finally building."
+        run_with_nodejs "jupyter lab build" || fail
+    fi
 fi
 
 # Install version 2
 if [ "x${VERSION}" = "x2" ]
 then
-    msg "Installing Jupyter Lab, ver 2.2.9."
+    conda update -y conda || fail
     
+    # Install Jupyter Lab
+    msg "Installing Jupyter Lab, ver 2.2.9."
+    conda install -y -c conda-forge "nbconvert>=6.0.7" "jupyter>=1.0" "jupyter_core>=4.7" "notebook>=6.2" "pyzmq>=22.0" jupyterlab=2.2.9 || fail
+
+    # Install nodejs
+    if ! nvm_has "nvm"; then
+        install_nvm 0.37.2 || fail
+    fi
+    install_nodejs 12.20.1 || fail
+
+    # Install packages required by extensions
+    if [ "x${EXTRA_TIERS}" = "x2" ]; then
+        CONDA_TEMP_PKGS="\"bqplot>=0.11.4\" \"tensorboard>=1.14,<=2.2\""
+    else
+        CONDA_TEMP_PKGS=""
+    fi
+    if [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]; then
+        conda install -y -c conda-forge "ipywidgets>=7.5" "nbdime>=2.0" "nbresuse>=0.3.3,<=0.3.6" jupytext=1.8.2 jupyter-lsp-python=0.9.3 ipympl=0.5.8 sidecar=0.4.0 xeus-python ptvsd bokeh jupyter_bokeh pynvml jupyterlab-nvdashboard python-language-server jupyterlab-git ${CONDA_TEMP_PKGS} || fail
+        python3 -m pip install jupyterlab_hdf || fail
+    fi
+    if [ "x${EXTRA_TIERS}" = "x2" ]; then
+        conda install -y -c plotly -c defaults -c conda-forge "plotly>=4.14.3" "jupyterlab-dash>=0.1.0a3" || fail
+        conda install -y -c pyviz pyviz_comms || fail
+        python3 -m pip install jupyter-tensorboard || fail
+    fi
+
+    # Install all extensions.
+    if [ "x${EXTRA_TIERS}" = "x2" ]; then
+        CONDA_TEMP_PKGS="jupyterlab-plotly@4.14.3 plotlywidget@4.14.3 jupyterlab_tensorboard jupyterlab-dash bqplot @pyviz/jupyterlab_pyviz@1.0.3"
+    else
+        CONDA_TEMP_PKGS=""
+    fi
+    if [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]; then
+        run_with_nodejs "jupyter labextension install nbdime-jupyterlab jupyterlab-nvdashboard @jupyterlab/github @jupyterlab/hdf5 @jupyterlab/google-drive @jupyterlab/mathjax3-extension @jupyterlab/katex-extension jupyterlab-topbar-extension jupyterlab-system-monitor jupyter-matplotlib@0.7.4 @krassowski/jupyterlab_go_to_definition jupyterlab-jupytext@1.2.2 @jupyterlab/toc @bokeh/jupyter_bokeh@2.0.4 @krassowski/jupyterlab-lsp@2.1.2 @jupyter-widgets/jupyterlab-sidecar @jupyterlab/debugger ${CONDA_TEMP_PKGS} --no-build" || fail
+    fi
+
+    # Build
+    if [ "x${EXTRA_TIERS}" = "x3" ] || [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]; then
+        msg "Installing Jupyter Lab extensions, finally building."
+        run_with_nodejs "jupyter lab build" || fail
+    fi
 fi
 
 # Install version 3
 if [ "x${VERSION}" = "x3" ]
 then
-    msg "Installing Jupyter Lab, ver 3.0.5."
+    conda update -y conda || fail
+    
+    # Install Jupyter Lab
+    msg "Installing Jupyter Lab, ver 3.0.6."
+    conda install -y -c conda-forge "nbconvert>=6.0.7" "jupyter>=1.0" "jupyter_core>=4.7" "notebook>=6.2" "pyzmq>=22.0" typing-extensions=3.7.4 jupyterlab=3.0.6 || fail
+
+    # Install nodejs
+    if ! nvm_has "nvm"; then
+        install_nvm 0.37.2 || fail
+    fi
+    install_nodejs 15.6.0 || fail
+
+    # Install packages required by extensions
+    if [ "x${EXTRA_TIERS}" = "x2" ]; then
+        CONDA_TEMP_PKGS="\"bqplot>=0.11.4\""
+    else
+        CONDA_TEMP_PKGS=""
+    fi
+    if [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]; then
+        conda install -y -c conda-forge "ipywidgets>=7.5" "nbdime>=2.0" "nbresuse>=0.3.3,<=0.3.6" "ipympl>=0.6.3" "sidecar>=0.5.0" "jupytext>=1.9.1" xeus-python ptvsd jupyterlab-lsp python-language-server "ipylab>=0.4.1" ${CONDA_TEMP_PKGS} || fail
+        python3 -m pip install jupyterlab-topbar lckr-jupyterlab-variableinspector aquirdturtle_collapsible_headings jupyterlab-system-monitor || fail
+        python3 -m pip install https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/jupyterlab_language_pack_zh_CN-0.0.1.dev0-py2.py3-none-any.whl || fail
+    fi
+    if [ "x${EXTRA_TIERS}" = "x2" ]; then
+        conda install -y -c plotly "plotly>=4.14.3" || fail
+        conda install -y -c pyviz pyviz_comms || fail
+        python3 -m pip install jupyterlab-drawio ipydagred3 || fail
+    fi
+
+    # Install all extensions (if manually installation is required).
+    if [ "x${EXTRA_TIERS}" = "x2" ]; then
+        CONDA_TEMP_PKGS="jupyterlab-plotly@4.14.3 plotlywidget@4.14.3"
+    else
+        CONDA_TEMP_PKGS=""
+    fi
+    if [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]; then
+        run_with_nodejs "jupyter labextension install nbdime-jupyterlab @jupyterlab/toc @jupyterlab/debugger @jupyterlab/mathjax3-extension @jupyterlab/katex-extension jupyterlab-topbar-text ${CONDA_TEMP_PKGS} --no-build" || fail
+    fi
+
+    # Build
+    if [ "x${EXTRA_TIERS}" = "x3" ] || [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]; then
+        msg "Installing Jupyter Lab extensions, finally building."
+        run_with_nodejs "jupyter lab build" || fail
+    fi
 fi
 
-## Install extra packages.
-
-# if [ "x${VERSION}" != "xunset" ]
-# then
-    
-# fi
+#jupyter lab --ip=192.168.127.135 --port=6080 --allow-root --NotebookApp.notebook_dir=/homelocal --NotebookApp.token=openjupyter
