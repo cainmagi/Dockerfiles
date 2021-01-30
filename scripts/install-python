@@ -20,7 +20,15 @@ function mcd {
 }
 
 function nvm_has {
-  type "$1" > /dev/null 2>&1
+    type "$1" > /dev/null 2>&1
+}
+
+function jlab_has {
+    if nvm_has $1; then
+        printf %s "true"
+    else
+        printf %s "false"
+    fi
 }
 
 MODE=python
@@ -79,7 +87,7 @@ fi
 
 if [ "x${MODE}" = "xjupyter" ]
 then
-    if [ "x${JLAB_INSTALL_MODE}" = "xconda" ] && [ nvm_has "conda" ]
+    if [ "x${JLAB_INSTALL_MODE}" = "xconda" ] && [ "x$(jlab_has conda)" = "xtrue" ]
     then
         msg "Installation for the Jupyter Lab: conda mode."
         bash /root/scripts/install-jlab-conda version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
