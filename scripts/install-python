@@ -78,7 +78,7 @@ if [ "x${MODE}" = "xjupyter" ]
 then
     HASUSED_CONDA="false"
     if [ "x${JLAB_INSTALL_MODE}" = "xconda" ] && [ "x${HAS_CONDA}" = "xtrue" ]; then
-        if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]; then
+        if [ "x${CUR_PY_VER}" = "xpy37+" ] || [ "x${CUR_PY_VER}" = "xpy36" ]; then
             msg "Installation for the Jupyter Lab: conda mode."
             # Fix the pyver of this conda.
             CONDA_PYTHON_VER=$(python3 /root/scripts/get-pyver.py -p 2>&1)
