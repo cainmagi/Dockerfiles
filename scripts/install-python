@@ -19,18 +19,6 @@ function mcd {
     cd "$1" || fail
 }
 
-function nvm_has {
-    type "$1" > /dev/null 2>&1
-}
-
-function jlab_has {
-    if nvm_has $1; then
-        printf %s "true"
-    else
-        printf %s "false"
-    fi
-}
-
 MODE=python
 JLAB_VERSION=unset
 JLAB_EXTRA_TIERS=2
@@ -104,7 +92,7 @@ then
     if [ "x${HASUSED_CONDA}" != "xtrue" ]; then
         msg "Installation for the Jupyter Lab: pip mode."
         # Fix the pyver of this conda.
-        if [ "x${HAS_CONDA}" = "xtrue" ] then;
+        if [ "x${HAS_CONDA}" = "xtrue" ]; then
             CONDA_PYTHON_VER=$(python3 /root/scripts/get-pyver.py -p 2>&1)
             CONDA_META_PATH=$(python3 /root/scripts/get-conda-path.py -m conda-meta 2>&1)
             echo "${CONDA_PYTHON_VER}" >> "${CONDA_META_PATH}/pinned" || fail
