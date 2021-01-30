@@ -31,8 +31,8 @@ RUN chmod +x /root/scripts/install-base && bash /root/scripts/install-base MODE=
 # Install python
 COPY scripts/install-python /root/scripts/
 RUN chmod +x /root/scripts/install-python && bash /root/scripts/install-python MODE=python
-COPY scripts/install-jlab /root/scripts/
-RUN chmod +x /root/scripts/install-jlab && bash /root/scripts/install-python MODE=jupyter JLAB_VER=${JLAB_VER} JLAB_EXTIERS=${JLAB_EXTIERS} JLAB_IMODE=${JLAB_IMODE}
+COPY scripts/install-jlab* /root/scripts/
+RUN chmod +x /root/scripts/install-jlab /root/scripts/install-jlab-conda && bash /root/scripts/install-python MODE=jupyter JLAB_VER=${JLAB_VER} JLAB_EXTIERS=${JLAB_EXTIERS} JLAB_IMODE=${JLAB_IMODE}
 RUN bash /root/scripts/install-base MODE=check
 
 # Define working directory.
