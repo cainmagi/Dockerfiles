@@ -38,6 +38,7 @@ There are 4 available options:
 | `BASE_LAUNCH` | The entrypoint script from the base image. If there is no entry script, please use `""`. | `/usr/local/bin/nvidia_entrypoint.sh` |
 | `JLAB_VER` | The version of the Jupyter Lab to be installed. If set `1`, `2` or `3`, would fully install Jupyter Lab. If set `unset`, the Jupyter Lab would be minimally installed. It means that, no extension would be installed, and if there is already a Jupyter Lab in the base image, nothing would be installed. | `unset` |
 | `JLAB_EXTIERS` | The extension tiers to be installed. Could be `1` or `2`. If `JLAB_VER=unset`, nothing would be installed. | `2` |
+| `JLAB_IMODE` | The preferred manager for installing Jupyter Lab. If set `conda`, it will use `conda` when `conda` is available. If not, would fall back to `pip`. | `conda` |
 
 > Note:
 >
