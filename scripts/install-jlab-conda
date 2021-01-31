@@ -203,7 +203,7 @@ then
         CONDA_TEMP_PKGS=""
     fi
     if [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]; then
-        conda install -y -c conda-forge "ipywidgets>=7.5" "nbdime>=2.0" "nbresuse>=0.3.3,<=0.3.6" "ipympl>=0.6.3" "sidecar>=0.5.0" "jupytext>=1.9.1" xeus-python ptvsd jupyterlab-lsp python-language-server "ipylab>=0.4.1" ${CONDA_TEMP_PKGS} || fail
+        conda install -y -c conda-forge "ipywidgets>=7.5" "nbdime>=2.0" "nbresuse>=0.4.0" "ipympl>=0.6.3" "sidecar>=0.5.0" "jupytext>=1.9.1" xeus-python ptvsd jupyterlab-lsp python-language-server "ipylab>=0.4.1" ${CONDA_TEMP_PKGS} || fail
         python3 -m pip install jupyterlab-topbar lckr-jupyterlab-variableinspector aquirdturtle_collapsible_headings jupyterlab-system-monitor || fail
         python3 -m pip install https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/jupyterlab_language_pack_zh_CN-0.0.1.dev0-py2.py3-none-any.whl || fail
     fi

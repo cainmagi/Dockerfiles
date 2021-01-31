@@ -223,7 +223,6 @@ then
     if [ "x${EXTRA_TIERS}" = "x1" ] || [ "x${EXTRA_TIERS}" = "x2" ]
     then
         msg "Installing Jupyter Lab extensions, tier 1."
-        python3 -m pip install "nbresuse>=0.3.3,<=0.3.6" || fail
         if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
         then
             python3 -m pip install nbdime==2.1.0 || fail
@@ -246,6 +245,7 @@ then
         if [ "x${VERSION}" = "x3" ]
         then
             py_fix_wrapt_version || fail # Fix wrapt version problem.
+            python3 -m pip install "nbresuse>=0.4.0" || fail
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
                 python3 -m pip install jupyterlab-drawio || fail
@@ -267,6 +267,7 @@ then
 
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
+            python3 -m pip install "nbresuse>=0.3.3,<=0.3.6" || fail
             python3 -m pip install bokeh jupyter-bokeh || fail
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
