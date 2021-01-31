@@ -41,7 +41,13 @@ done
 if [ "x${MODE}" = "xdesktop" ]
 then
     msg "Begin to install the desktop."
-    [[ -d "/var/cache/app-info/xapian/default" ]] && chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
+    if [ -d "/var/cache/app-info/xapian/default" ]; then
+        msg "try chmod"
+        chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
+        msg "finish chmod"
+    else
+        msg "nothing"
+    fi
     apt-get update -y || fail
     apt-get install -y lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
