@@ -110,6 +110,8 @@ then
     fi
 
     # Fix font issues
+    mkdir -p /root/.cache/fontconfig || fail
+    mkdir -p /root/.fontconfig || fail
     fc-cache -r -v || fail
 
     msg "Installation for VNC finished."
@@ -129,14 +131,16 @@ then
                     "Tela-ubuntu" "Tela-ubuntu-dark" "WhiteSur" "WhiteSur-dark" "Win10Sur" "Win10Sur-dark" \
                     "Numix" "MacOS-3D-Light" "MacOS-3D-Dark" "Material-Originals" "Material-Originals-dark" \
                     "elementary-xfce-darkest" || fail
-
-        msg "Installing windows-style theme pack."
-        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-win-ubuntu-20-04.tar.xz | tar xJ -C /usr/share || fail
-        update_icon "Windows-10-master" "Windows-XP-master" "Chicago95" "Chicago95-tux"  || fail
     else
         wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.25/share.tar.gz | tar xz -C /usr/share || fail
         update_icon "Adwaita-Xfce" "Adwaita-Xfce-Mono" "Adwaita-Xfce-Panel" "elementary-xfce-darkest" \
                     "Arc-X-D" "Arc-X-P" "DarK" "Numix" "Numix-Light" "Paper" "Paper-Mono-Dark" "Suru" || fail
+    fi
+    if [ "x${UBUNTU_VER}" = "x20.04" ]
+    then
+        msg "Installing windows-style theme pack."
+        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-win-ubuntu-20-04.tar.xz | tar xJ -C /usr/share || fail
+        update_icon "Windows-10-master" "Windows-XP-master" "Chicago95" "Chicago95-tux"  || fail
     fi
 
     msg "Installing extra icons."
