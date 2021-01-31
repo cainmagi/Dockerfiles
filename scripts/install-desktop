@@ -24,6 +24,7 @@ JLAB_VERSION=unset
 JLAB_EXTRA_TIERS=2
 USER_ROOT=/home/xubuntu
 CUR_PY_VER=$(python3 /root/scripts/get-pyver.py 2>&1)
+HAS_CONDA=$(python3 /root/scripts/get-conda-path.py -m use-conda 2>&1)
 
 for ARGUMENT in "$@"
 do
@@ -41,6 +42,7 @@ if [ "x${MODE}" = "xdesktop" ]
 then
     apt-get install -y lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
+    chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
     
     # Install xfce4 Desktop
     apt-get install -y dbus-x11 libx11-6 libx11-data libx11-protocol-perl libx11-xcb1 x11-apps \
@@ -277,15 +279,34 @@ then
         /usr/bin/python3 -m pip install "ViTables==3.0.2" "PyQt5<=5.14" || fail
     fi
 
-    wget -O /root/scripts/install-jlab https://raw.githubusercontent.com/cainmagi/Dockerfiles/jlab-v1.1/scripts/install-jlab || fail
-    chmod +x /root/scripts/install-jlab || fail
-
-    if [ "x${CUR_PY_VER}" == "xpy36" ] || [ "x${CUR_PY_VER}" == "xpy37+" ]
-    then
-        JLAB_COMPATIBLE="false"
-    else
-        JLAB_COMPATIBLE="true"
+    # Installation for Jupyter Lab. Automatically select the installation manager between conda and pip.
+    HASUSED_CONDA="false"
+    if [ "x${HAS_CONDA}" = "xtrue" ]; then
+        if [ "x${CUR_PY_VER}" = "xpy37+" ] || [ "x${CUR_PY_VER}" = "xpy36" ]; then
+            msg "Installation for the Jupyter Lab: conda mode."
+            # Fix the pyver of this conda.
+            CONDA_PYTHON_VER=$(python3 /root/scripts/get-pyver.py -p 2>&1)
+            CONDA_META_PATH=$(python3 /root/scripts/get-conda-path.py -m conda-meta 2>&1)
+            echo "${CONDA_PYTHON_VER}" >> "${CONDA_META_PATH}/pinned" || fail
+            # Run the script with conda.
+            wget -O /root/scripts/install-jlab-conda https://raw.githubusercontent.com/cainmagi/Dockerfiles/jlab-v1.2/scripts/install-jlab-conda || fail
+            chmod +x /root/scripts/install-jlab-conda || fail
+            bash /root/scripts/install-jlab-conda version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
+            HASUSED_CONDA="true"
+        fi
     fi
-    bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} compat=${JLAB_COMPATIBLE} || fail
+    if [ "x${HASUSED_CONDA}" != "xtrue" ]; then
+        msg "Installation for the Jupyter Lab: pip mode."
+        # Fix the pyver of this conda.
+        if [ "x${HAS_CONDA}" = "xtrue" ]; then
+            CONDA_PYTHON_VER=$(python3 /root/scripts/get-pyver.py -p 2>&1)
+            CONDA_META_PATH=$(python3 /root/scripts/get-conda-path.py -m conda-meta 2>&1)
+            echo "${CONDA_PYTHON_VER}" >> "${CONDA_META_PATH}/pinned" || fail
+        fi
+        # Run the script with pip.
+        wget -O /root/scripts/install-jlab https://raw.githubusercontent.com/cainmagi/Dockerfiles/jlab-v1.2/scripts/install-jlab || fail
+        chmod +x /root/scripts/install-jlab || fail
+        bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
+    fi
     msg "Installation for the jupyterlab finishes."
 fi

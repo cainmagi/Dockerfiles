@@ -129,7 +129,7 @@ then
     OPTION_JLAB_ROOT=""
     if [ "x${JLAB_ROOT_DIR}" != "x" ]
     then
-        OPTION_JLAB_ROOT="--notebook-dir=${JLAB_ROOT_DIR}"
+        OPTION_JLAB_ROOT="--NotebookApp.notebook_dir=${ROOT_DIR}"
     fi
 
     run_with_nodejs "jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_JLAB_PASSWORD} --allow-root ${OPTION_JLAB_ROOT} --NotebookApp.custom_display_url=http://${MACHINE_IP}:6080/"

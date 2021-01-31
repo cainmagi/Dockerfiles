@@ -15,7 +15,7 @@ ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
 ARG JLAB_VER=unset
 ARG JLAB_EXTIERS=2
 ARG WITH_CHINESE="true"
-ARG WITH_EXTRA_APPS=""
+ARG WITH_EXTRA_APPS="go"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV USER="root" MKL_CBWR="AUTO" LAUNCH_SCRIPT_ORIGINAL="$BASE_LAUNCH" PATH="${PATH}:/usr/games"
@@ -39,6 +39,10 @@ RUN bash /root/scripts/install-base MODE=check
 
 # Install extra packages
 RUN bash /root/scripts/install-desktop MODE=apps JLAB_VER=${JLAB_VER} JLAB_EXTIERS=${JLAB_EXTIERS}
+COPY scripts/install-exapps /root/scripts/
+RUN chmod +x /root/scripts/install-exapps && bash /root/scripts/install-exapps EXAPPS=${WITH_EXTRA_APPS} REQAPPS=pae
+RUN bash /root/scripts/install-exapps EXAPPS=${WITH_EXTRA_APPS} REQAPPS=gnoa
+RUN bash /root/scripts/install-exapps EXAPPS=${WITH_EXTRA_APPS} REQAPPS=x
 RUN bash /root/docker-configs/detach MODE=shortcuts
 
 # Install modern vncserver and themes

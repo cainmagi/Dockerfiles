@@ -1,0 +1,130 @@
+#!/bin/bash
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+
+SET_EXTRA_APPS=""
+REQUIRE_EXTRA_APPS="" # Used for controlling the steps of installations.
+USER_HOME="/home/xubuntu"
+
+# Available codes:
+# p: pycharm
+# g: gimp
+# x: texlive + texstudio
+# n: nautilus + nemo
+# o: libreoffice + thunderbird
+# a: atom + nuclide
+# e: emacs
+
+for ARGUMENT in "$@"
+do
+    KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+    case "$KEY" in
+        apps)          SET_EXTRA_APPS=${VALUE} ;;
+        exapps)        SET_EXTRA_APPS=${VALUE} ;;
+        EXAPPS)        SET_EXTRA_APPS=${VALUE} ;;
+        reqs)          REQUIRE_EXTRA_APPS=${VALUE} ;;
+        reqapps)       REQUIRE_EXTRA_APPS=${VALUE} ;;
+        REQAPPS)       REQUIRE_EXTRA_APPS=${VALUE} ;;
+        *)   
+    esac    
+done
+
+if [ "x${SET_EXTRA_APPS}" != "" ]; then
+    apt-get update -y || fail && apt-get -y dist-upgrade || fail
+    apt-get install -y lsb-release lsb-core || fail
+    UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
+else
+    exit 0
+fi
+
+# pycharm
+if [[ "${SET_EXTRA_APPS}" = *"p"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"p"* ]]; then
+    CUR_PYCHARM_VER="2020.3.3"
+    wget -O- https://download.jetbrains.com/python/pycharm-community-${CUR_PYCHARM_VER}.tar.gz | tar xz -C /opt/ || fail
+    ln -sf /opt/pycharm-community-${CUR_PYCHARM_VER} /opt/pycharm-community || fail
+    ln -sf /opt/pycharm-community-${CUR_PYCHARM_VER}/bin/pycharm.sh /usr/local/bin/pycharm || fail
+fi
+
+# gimp
+if [[ "${SET_EXTRA_APPS}" = *"g"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"g"* ]]; then
+    # Could be used in 16.04, 18.04 and 20.04.
+    apt-get install -y gimp gimp-cbmplugs gimp-data gimp-data-extras gimp-dcraw gimp-dds gimp-gap gimp-gluas gimp-gmic gimp-gutenprint gimp-help-common gimp-help-en gimp-plugin-registry gimp-texturize gtkam-gimp libgimp2.0-dev gimp-lensfun || fail
+fi
+
+# texlive + texstudio
+if [[ "${SET_EXTRA_APPS}" = *"x"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"x"* ]]; then
+    # Could be used in 16.04, 18.04 and 20.04.
+    apt-get install -y texlive texlive-full texlive-lang-all perl-tk || fail
+    apt-get install -y mythes-en-us texstudio texstudio-doc texstudio-l10n || fail
+fi
+
+# nautilus + nemo
+if [[ "${SET_EXTRA_APPS}" = *"n"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"n"* ]]; then
+    if [ "x${UBUNTU_VER}" = "x20.04" ]; then
+        apt-get install -y nautilus nautilus-data tracker tracker-extract tracker-miner-fs eog gnome-sushi nautilus-extension-brasero nautilus-sendto nautilus-wipe nautilus-share nautilus-scripts-manager nautilus-script-debug nautilus-script-collection-svn nautilus-image-converter nautilus-hide nautilus-filename-repairer nautilus-font-manager nautilus-extension-gnome-terminal nautilus-dropbox nautilus-data nautilus-admin python3-nautilus || fail
+        apt-get install -y nemo nemo-data nemo-extension-fma nemo-fileroller nemo-font-manager nemo-gtkhash libnemo-extension1 nemo-python || fail
+    fi
+    if [ "x${UBUNTU_VER}" = "x18.04" ]; then
+        apt-get install -y nautilus nautilus-data nautilus-admin nautilus-compare nautilus-dropbox nautilus-emblems nautilus-extension-gnome-terminal nautilus-filename-repairer nautilus-gtkhash nautilus-hide nautilus-ideviceinfo nautilus-image-converter nautilus-script-collection-svn nautilus-script-debug nautilus-scripts-manager nautilus-sendto nautilus-share nautilus-wipe python-nautilus gnome-sushi libnautilus-extension-dev || fail
+        apt-get install -y nemo nemo-data nemo-fileroller nemo-gtkhash nemo-keyboard nemo-owncloud nemo-python libnemo-extension-dev || fail
+    fi
+    if [ "x${UBUNTU_VER}" = "x16.04" ]; then
+        apt-get install -y nautilus nautilus-data nautilus-admin nautilus-actions nautilus-compare nautilus-dropbox nautilus-emblems nautilus-filename-repairer nautilus-gtkhash nautilus-hide nautilus-ideviceinfo nautilus-image-converter nautilus-image-manipulator nautilus-script-collection-svn nautilus-script-debug nautilus-scripts-manager nautilus-sendto nautilus-share nautilus-wipe python-nautilus gnome-sushi libnautilus-extension-dev || fail
+        apt-get install -y nemo nemo-data nemo-fileroller nemo-gtkhash nemo-keyboard libnemo-extension-dev || fail
+    fi
+fi
+
+# libreoffice + thunderbird
+if [[ "${SET_EXTRA_APPS}" = *"l"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"l"* ]]; then
+    if [ "x${UBUNTU_VER}" = "x20.04" ]; then
+        apt-get install -y libreoffice libreoffice-qt5 libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-evolution libreoffice-gnome libreoffice-gtk3 libreoffice-help-common libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-numbertext libreoffice-script-provider-python libreoffice-texmaths libreoffice-templates libreoffice-voikko libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
+        apt-get install -y birdtray thunderbird thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us thunderbird-locale-zh-cn webext-exteditor webext-tbsync || fail
+    fi
+    if [ "x${UBUNTU_VER}" = "x18.04" ]; then
+        apt-get install -y libreoffice libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-evolution libreoffice-gnome libreoffice-gtk3 libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-script-provider-python libreoffice-texmaths libreoffice-templates libreoffice-voikko libreoffice-pdfimport libreoffice-ogltrans libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
+        apt-get install -y thunderbird thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us thunderbird-locale-zh-cn thunderbird-mozsymbols xul-ext-lightning || fail
+    fi
+    if [ "x${UBUNTU_VER}" = "x16.04" ]; then
+        apt-get install -y libreoffice libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-gnome libreoffice-gtk3 libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-script-provider-python libreoffice-templates libreoffice-voikko libreoffice-pdfimport libreoffice-ogltrans libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
+        apt-get install -y thunderbird thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us thunderbird-locale-zh-cn thunderbird-mozsymbols xul-ext-lightning || fail
+    fi
+fi
+
+# atom + nuclide
+if [[ "${SET_EXTRA_APPS}" = *"a"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"a"* ]]; then
+    wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | apt-key add
+    sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list' || fail
+    apt-get update -y || fail
+    apt-get install -y atom || fail
+    ATOM_HOME=${USER_HOME}/.atom apm install atom-ide-ui hyperclick nuclide-format-js atom-ide-debugger-python atom-ide-debugger-node atom-ide-debugger-react-native atom-ide-debugger-native-gdb atom-ide-debugger-ocaml || fail
+    ATOM_HOME=${USER_HOME}/.atom apm install atom-material-ui atom-python-run pp-markdown markdown-to-html sass scss-compiler rainbow-csv atom-beautify || fail
+    if [ "x${WITH_CHINESE}" = "xtrue" ]; then
+        ATOM_HOME=${USER_HOME}/.atom apm install simplified-chinese-menu || fail
+    fi
+fi
+
+# emacs
+if [[ "${SET_EXTRA_APPS}" = *"e"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"e"* ]]; then
+    add-apt-repository -y ppa:kelleyk/emacs || fail
+    apt-get update -y || fail
+    apt-get install -y emacs27 || fail
+fi

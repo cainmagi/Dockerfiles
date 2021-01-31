@@ -55,6 +55,10 @@ function mv_shortcuts_basic {
         cp -f ${THIS_ROOT}/shortcuts/common/all/PyCharm.desktop ${TARGET_USER_MENU}/ || fail
         cp -f ${THIS_ROOT}/shortcuts/common/all/PyCharm.desktop ${TARGET_DESKTOP}/ || fail
     fi
+    if [[ "${WITH_EXTRA_APPS}" = *"a"* ]]; then
+        cp -f ${THIS_ROOT}/shortcuts/common/all/atom.desktop ${TARGET_USER_MENU}/ || fail
+        cp -f ${THIS_ROOT}/shortcuts/common/all/atom.desktop ${TARGET_DESKTOP}/ || fail
+    fi
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
         # With GIMP
@@ -175,7 +179,8 @@ then
     cp -f ${THIS_ROOT}/.bashrc /root/ || fail
     mkdir -p /root/scripts || fail
     wget -O /root/scripts/get-pyver.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-pyver.py || fail
-    chmod +rwx /root/scripts/get-pyver.py || fail
+    wget -O /root/scripts/get-conda-path.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-conda-path.py || fail
+    chmod +rwx /root/scripts/get-pyver.py /root/scripts/get-conda-path.py || fail
 
     msg "Move files to /usr/local/bin."
     cp -f ${THIS_ROOT}/launch-jupyter /usr/local/bin || fail

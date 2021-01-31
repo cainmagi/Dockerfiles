@@ -41,6 +41,19 @@ There are 3 available options:
 | `JLAB_VER` | The version of the Jupyter Lab to be installed. Could be `1`, `2`, `3` or `unset`. If use `unset`, nothing would be installed if there is already a Jupyter Lab. | `unset` |
 | `JLAB_EXTIERS` | The to-be-installed extra extensions for the Jupyter Lab. If `JLAB_VER` is `unset`, nothing would be installed. To view details about which extensions would be installed, see [here](https://github.com/cainmagi/Dockerfiles/tree/jupyterlab#features). | `2` |
 | `WITH_CHINESE` | If set, the image would be built with Chinese support for vscode, sublime and codeblocks. | `true` |
+| `WITH_EXTRA_APPS` | The installed extra applications. Each character represents an app or several apps. For example, `go` represents fully installing `GIMP`, `LibreOffice` and `Thunderbird`. More details could be referred in the following table. | `go` |
+
+Here we show the list of extra apps:
+
+| Code | Description |
+| :-----: | ----- |
+| `p` | [`PyCharm`](https://www.jetbrains.com/help/pycharm/installation-guide.html) |
+| `g` | [`GIMP`](https://www.gimp.org/downloads) |
+| `x` | [`TeXLive`](https://tug.org/texlive) + [`TeXstudio`](https://www.texstudio.org) |
+| `n` | [`Nautilus`](https://github.com/GNOME/nautilus) + [`Nemo`](https://github.com/linuxmint/nemo) |
+| `o` | [`LibreOffice`](https://www.libreoffice.org) + [`Thunderbird`](https://www.thunderbird.net) |
+| `a` | [`Atom`](https://flight-manual.atom.io/getting-started/sections/installing-atom) + [`Nuclide`](https://nuclide.io/docs/editor/setup) |
+| `e` | [`GNU Emacs`](https://www.gnu.org/software/emacs/download.html#gnu-linux) |
 
 To find your launch script of your base image, use
 
@@ -128,9 +141,9 @@ The plan for the next version.
 * [x] Enhance the launchers of system menu and panels.
 * [x] Set the user as `xubuntu`, and provide the `--root` mode.
 * [x] Make python version auto-detected, which means `XUBUNTU_COMPAT` has been removed.
-* [ ] Add options for installing some extra apps, like PyCharm and GIMP.
+* [x] Add options for installing some extra apps, like PyCharm and GIMP.
 * [ ] Enhance the VNC support by OpenSSL entryption.
-* [ ] Upgrade the Jupyter Lab script.
+* [x] Upgrade the Jupyter Lab script.
 * [ ] Add some themes.
 * [x] Fix the [compatibility problem](https://github.com/pypa/pip/issues/9500) caused by `pip 21.0`.
 * [x] Fix small bugs, related to `nvm` path, `root` authority, and `detach` script.
