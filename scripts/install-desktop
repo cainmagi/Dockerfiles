@@ -71,7 +71,7 @@ then
             xfce4-mailwatch-plugin xfce4-netload-plugin xfce4-notes-plugin xfce4-goodies xfce4-places-plugin \
             xfce4-systemload-plugin xfce4-taskmanager xfce4-verve-plugin xfce4-weather-plugin xfce4-xkb-plugin \
             xfce4-mpc-plugin xfpanel-switch xubuntu-community-wallpapers xul-ext-ubufox mousepad ubuntu-sounds \
-            gnome-system-monitor || fail
+            gnome-system-monitor terminator || fail
         apt-get install -y xfce4-battery-plugin xfce4-settings xfce4-clipman-plugin xfce4-datetime-plugin \
             xfce4-sensors-plugin xfce4-cpufreq-plugin xfce4-diskperf-plugin xfce4-fsguard-plugin \
             xfce4-genmon-plugin xfce4-smartbookmark-plugin xfce4-timer-plugin || fail
@@ -98,7 +98,7 @@ then
             xfce4-indicator-plugin xfce4-mailwatch-plugin xfce4-cpufreq-plugin \
             xfce4-diskperf-plugin xfce4-fsguard-plugin xfce4-genmon-plugin \
             xfce4-smartbookmark-plugin xfce4-timer-plugin xfce4-verve-plugin \
-            xfce4-weather-plugin xfce4-appfinder xfce4-dict || fail
+            xfce4-weather-plugin xfce4-appfinder xfce4-dict terminator || fail
         # Install screen saver
         apt-get install -y xscreensaver xscreensaver-gl-extra xscreensaver-data-extra \
             xscreensaver-screensaver-bsod || fail
