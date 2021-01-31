@@ -59,6 +59,7 @@ fi
 
 # pycharm
 if [[ "${SET_EXTRA_APPS}" = *"p"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"p"* ]]; then
+    msg "Installation for PyCharm."
     CUR_PYCHARM_VER="2020.3.3"
     wget -O- https://download.jetbrains.com/python/pycharm-community-${CUR_PYCHARM_VER}.tar.gz | tar xz -C /opt/ || fail
     ln -sf /opt/pycharm-community-${CUR_PYCHARM_VER} /opt/pycharm-community || fail
@@ -67,12 +68,14 @@ fi
 
 # gimp
 if [[ "${SET_EXTRA_APPS}" = *"g"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"g"* ]]; then
+    msg "Installation for GIMP."
     # Could be used in 16.04, 18.04 and 20.04.
     apt-get install -y gimp gimp-cbmplugs gimp-data gimp-data-extras gimp-dcraw gimp-dds gimp-gap gimp-gluas gimp-gmic gimp-gutenprint gimp-help-common gimp-help-en gimp-plugin-registry gimp-texturize gtkam-gimp libgimp2.0-dev gimp-lensfun || fail
 fi
 
 # texlive + texstudio
 if [[ "${SET_EXTRA_APPS}" = *"x"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"x"* ]]; then
+    msg "Installation for TeXLive adn TeXstudio."
     # Could be used in 16.04, 18.04 and 20.04.
     apt-get install -y texlive texlive-full texlive-lang-all perl-tk || fail
     apt-get install -y mythes-en-us texstudio texstudio-doc texstudio-l10n || fail
@@ -80,6 +83,7 @@ fi
 
 # nautilus + nemo
 if [[ "${SET_EXTRA_APPS}" = *"n"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"n"* ]]; then
+    msg "Installation for Nautilus and Nemo."
     if [ "x${UBUNTU_VER}" = "x20.04" ]; then
         apt-get install -y nautilus nautilus-data tracker tracker-extract tracker-miner-fs eog gnome-sushi nautilus-extension-brasero nautilus-sendto nautilus-wipe nautilus-share nautilus-scripts-manager nautilus-script-debug nautilus-script-collection-svn nautilus-image-converter nautilus-hide nautilus-filename-repairer nautilus-font-manager nautilus-extension-gnome-terminal nautilus-dropbox nautilus-data nautilus-admin python3-nautilus || fail
         apt-get install -y nemo nemo-data nemo-extension-fma nemo-fileroller nemo-font-manager nemo-gtkhash libnemo-extension1 nemo-python || fail
@@ -96,6 +100,7 @@ fi
 
 # libreoffice + thunderbird
 if [[ "${SET_EXTRA_APPS}" = *"l"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"l"* ]]; then
+    msg "Installation for LibreOffice and Thunderbird."
     if [ "x${UBUNTU_VER}" = "x20.04" ]; then
         apt-get install -y libreoffice libreoffice-qt5 libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-evolution libreoffice-gnome libreoffice-gtk3 libreoffice-help-common libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-numbertext libreoffice-script-provider-python libreoffice-texmaths libreoffice-templates libreoffice-voikko libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
         apt-get install -y birdtray thunderbird thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us thunderbird-locale-zh-cn webext-exteditor webext-tbsync || fail
@@ -112,6 +117,7 @@ fi
 
 # atom + nuclide
 if [[ "${SET_EXTRA_APPS}" = *"a"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"a"* ]]; then
+    msg "Installation for Atom and Nuclide."
     wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | apt-key add
     sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list' || fail
     [ -d "/var/cache/app-info/xapian/default" ] && chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
@@ -126,6 +132,7 @@ fi
 
 # emacs
 if [[ "${SET_EXTRA_APPS}" = *"e"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"e"* ]]; then
+    msg "Installation for Emacs."
     add-apt-repository -y ppa:kelleyk/emacs || fail
     [ -d "/var/cache/app-info/xapian/default" ] && chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
     apt-get update -y || fail
