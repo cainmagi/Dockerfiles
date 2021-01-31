@@ -49,6 +49,7 @@ do
 done
 
 if [ "x${SET_EXTRA_APPS}" != "" ]; then
+    [ -d "/var/cache/app-info/xapian/default" ] && chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
     apt-get update -y || fail && apt-get -y dist-upgrade || fail
     apt-get install -y lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
@@ -113,6 +114,7 @@ fi
 if [[ "${SET_EXTRA_APPS}" = *"a"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"a"* ]]; then
     wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | apt-key add
     sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list' || fail
+    [ -d "/var/cache/app-info/xapian/default" ] && chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
     apt-get update -y || fail
     apt-get install -y atom || fail
     ATOM_HOME=${USER_HOME}/.atom apm install atom-ide-ui hyperclick nuclide-format-js atom-ide-debugger-python atom-ide-debugger-node atom-ide-debugger-react-native atom-ide-debugger-native-gdb atom-ide-debugger-ocaml || fail
@@ -125,6 +127,7 @@ fi
 # emacs
 if [[ "${SET_EXTRA_APPS}" = *"e"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"e"* ]]; then
     add-apt-repository -y ppa:kelleyk/emacs || fail
+    [ -d "/var/cache/app-info/xapian/default" ] && chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
     apt-get update -y || fail
     apt-get install -y emacs27 || fail
 fi

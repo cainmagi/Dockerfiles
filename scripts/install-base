@@ -95,6 +95,7 @@ fi
 
 if [ "x${MODE}" = "xcheck" ]
 then
+    [ -d "/var/cache/app-info/xapian/default" ] && chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
     apt-get -y update || fail
     apt-get -y upgrade || fail
     apt-get -y dist-upgrade || fail
