@@ -110,9 +110,7 @@ then
     fi
 
     # Fix font issues
-    mkdir -p /root/.cache/fontconfig || fail
-    mkdir -p /root/.fontconfig || fail
-    fc-cache -r -v || fail
+    /usr/bin/fc-cache -r -v || fail
 
     msg "Installation for VNC finished."
 fi
