@@ -110,7 +110,7 @@ then
     fi
 
     # Fix font issues
-    /usr/bin/fc-cache -r -v && fc-cache -f -v || fail
+    /usr/bin/fc-cache -r -v && fc-cache -f || fail
 
     msg "Installation for VNC finished."
 fi
