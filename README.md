@@ -136,7 +136,6 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | [`jupyterlab-nbdime`](https://github.com/jupyter/nbdime)                                         | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [`jupyterlab-manager`](https://github.com/jupyter-widgets/ipywidgets)                            | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
-
 ### Tier 2
 
 To install the following extensions, use the building argument `JLAB_EXTRA_TIERS=2`.
@@ -157,6 +156,17 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 > Note:
 >
 > We use :white_check_mark: to represent the image is fully built. In comparison, :ballot_box_with_check: means the image requires to be built in compatible mode.
+
+### 1/30/2021
+
+The `conda` script for installing jupyter lab has been finished. This script only supports `python>=3.6` and would not check or install `conda`. We have tested it on the following images:
+
+| Base image | J-lab1 | J-lab2 | J-lab3 |
+| ----- | :-----: | :-----: | :-----: |
+| `nvcr.io/nvidia/pytorch:19.01-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| `nvcr.io/nvidia/pytorch:20.12-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+
+> We have noticed that some options' names are changed since Jupyter Lab 3. Now they are just deprecated, but still could work. In the next version of this dockerfile, we will provide a script for checking the version of Jupyter Lab and enable the entrypoint to use different start options.
 
 ### 1/29/2021
 
