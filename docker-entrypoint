@@ -216,7 +216,7 @@ if [ -s "/vnccerts/self.pem" ]; then
 else
     mkdir -p /vnccerts || fail
     openssl req -new -x509 -days 365 -nodes -config /etc/ssl/vncssl.cnf -out /vnccerts/self.pem -keyout /vnccerts/self.pem || fail
-    cp -f /vnccerts/self.pem /apps/source/noVNC/utils/websockify/self.pem || fail
+    sudo cp -f /vnccerts/self.pem /apps/source/noVNC/utils/websockify/self.pem || fail
 fi
 
 exec noVNC --cert self.pem --key self.pem --vnc $MACHINE_IP:5901 --listen 6080 &

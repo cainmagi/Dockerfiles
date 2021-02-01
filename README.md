@@ -63,7 +63,7 @@ docker inspect <your-base-image>:<tag>
 
 ### Offline building
 
-Otherwise, you need to clone the branch firsly:
+Otherwise, you need to clone the branch firstly:
 
 ```Bash
 git clone --single-branch -b xubuntu https://github.com/cainmagi/Dockerfiles.git xubuntu
@@ -90,6 +90,8 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
     ```bash
     docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0 --root
     ```
+
+    In current version, users could use either `http` to get access to the unencrypted noVNC session or `https` to get access to the ssl-encrypted noVNC session. For users who open the encrypted session firstly, they may need to add the noVNC site into the trusted list.
 
 * By external VNC viewer: If you have installed a VNC viewer on your client side, and want to connect the VNC server of the image directly, please use:
 
