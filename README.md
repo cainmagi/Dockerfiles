@@ -134,7 +134,7 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 
 ## Update records
 
-### ver 1.5 (Alpha) @ 1/26/2021
+### ver 1.5 (Alpha) @ 2/1/2021
 
 The plan for the next version.
 
@@ -142,8 +142,8 @@ The plan for the next version.
 * [x] Set the user as `xubuntu`, and provide the `--root` mode.
 * [x] Make python version auto-detected, which means `XUBUNTU_COMPAT` has been removed.
 * [x] Add options for installing some extra apps, like PyCharm and GIMP.
-* [ ] Enhance the VNC support by OpenSSL entryption.
-* [x] Upgrade the Jupyter Lab script.
+* [x] Enhance the VNC support by [OpenSSL entryption](https://github.com/novnc/websockify#encrypted-websocket-connections-wss).
+* [x] Upgrade the [Jupyter Lab script](https://github.com/cainmagi/Dockerfiles/tree/jlab-v1.2).
 * [ ] Add some themes.
 * [x] Fix the [compatibility problem](https://github.com/pypa/pip/issues/9500) caused by `pip 21.0`.
 * [x] Fix small bugs, related to `nvm` path, `root` authority, and `detach` script.

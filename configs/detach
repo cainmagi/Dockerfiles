@@ -194,6 +194,10 @@ then
     cp -f ${THIS_ROOT}/etc-profile /etc/profile || fail
     mkdir -p /etc/dpkg/dpkg.cfg.d || fail
     cp -f ${THIS_ROOT}/dpkg-excludes /etc/dpkg/dpkg.cfg.d/excludes || fail
+    mkdir -p /etc/ssl || fail
+    mkdir -p /vnccerts || fail
+    chmod ugo+rwx /vnccerts || fail
+    cp -f ${THIS_ROOT}/etc-vncssl.cnf /etc/ssl/vncssl.cnf || fail
 
     msg "Move files to ${USER_ROOT}/ subfolders"
     mkdir -p "${USER_ROOT}/.vnc" || fail
@@ -258,6 +262,7 @@ then
     rm -rf ${THIS_ROOT}/shortcuts || fail
     rm -rf ${THIS_ROOT}/dpkg-excludes || fail
     rm -rf ${THIS_ROOT}/etc-profile || fail
+    rm -rf ${THIS_ROOT}/etc-vncssl || fail
     rm -rf ${THIS_ROOT}/launch-jupyter || fail
     rm -rf ${THIS_ROOT}/.bashrc || fail
     rm -rf ${THIS_ROOT}/locale.gen || fail
