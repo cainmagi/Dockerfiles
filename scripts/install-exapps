@@ -101,7 +101,7 @@ if [[ "${SET_EXTRA_APPS}" = *"n"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"n"* ]]; t
 fi
 
 # libreoffice + thunderbird
-if [[ "${SET_EXTRA_APPS}" = *"l"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"l"* ]]; then
+if [[ "${SET_EXTRA_APPS}" = *"o"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"o"* ]]; then
     msg "Installation for LibreOffice and Thunderbird."
     if [ "x${UBUNTU_VER}" = "x20.04" ]; then
         apt-get install -y libreoffice libreoffice-qt5 libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-evolution libreoffice-gnome libreoffice-gtk3 libreoffice-help-common libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-numbertext libreoffice-script-provider-python libreoffice-texmaths libreoffice-templates libreoffice-voikko libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
