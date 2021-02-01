@@ -219,6 +219,7 @@ else
     sudo cp -f /vnccerts/self.pem /apps/source/noVNC/utils/websockify/self.pem || fail
 fi
 
-exec noVNC --cert self.pem --key self.pem --vnc $MACHINE_IP:5901 --listen 6080 &
+sudo chmod ugo+rwx /apps/source/noVNC/utils/websockify/self.pem || fail
+exec noVNC --cert /apps/source/noVNC/utils/websockify/self.pem --key /apps/source/noVNC/utils/websockify/self.pem --vnc $MACHINE_IP:5901 --listen 6080 &
 
 exec '/bin/bash'

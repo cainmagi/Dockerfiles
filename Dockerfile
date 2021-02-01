@@ -51,9 +51,9 @@ RUN bash /root/scripts/install-vnc MODE=vnc
 RUN bash /root/scripts/install-vnc MODE=theme
 
 # Define working directory.
+RUN bash /root/docker-configs/detach MODE=clean
 COPY docker-entrypoint /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint
-RUN bash /root/docker-configs/detach MODE=clean
 
 # Expose the built-in ports.
 EXPOSE 5901
