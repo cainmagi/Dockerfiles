@@ -23,7 +23,7 @@ To make use of this service, just copy this branch to your `/usr/local/bin/` lik
 And you could use such simple command on your Bash:
 
 ```Bash
-$ noVNC IP=192.168.127.128:5901 PORT=6080
+noVNC IP=192.168.127.128:5901 PORT=6080
 ```
 
 where `5901` is the entry (input) port and `6080` is the service (output) port.
@@ -39,20 +39,25 @@ Here is the list of each dockerfile:
 1. xubuntu at the branch [**xubuntu**](https://github.com/cainmagi/Dockerfiles/tree/xubuntu)
 
     Run such a command to build the newest image online:
-    
+
     ```Bash
-    $ nvidia-docker build -t xubuntu:1.12 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+    docker build -t xubuntu:1.0 https://github.com/cainmagi/Dockerfiles.git#xubuntu
     ```
-   
-2. xubuntu-tf at the branch  [**xubuntu-tf**](https://github.com/cainmagi/Dockerfiles/tree/xubuntu-tf)
+
+2. jupyterlab at the branch  [**jupyterlab**](https://github.com/cainmagi/Dockerfiles/tree/jupyterlab)
 
     Run such a command to build the newest image online:
 
     ```Bash
-    $ nvidia-docker build -t xubuntu-tf:1.25 https://github.com/cainmagi/Dockerfiles.git#xubuntu-tf
+    docker build -t jlab:1.0 https://github.com/cainmagi/Dockerfiles.git#jupyterlab
     ```
    
 ## Update records
+
+### ver 1.45 @ 2/2/2021
+
+1. Add `openssl` support.
+2. Update the submodule `noVNC` to newest version.
 
 ### ver 1.4 @ 1/11/2021
 
