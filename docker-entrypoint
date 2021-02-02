@@ -217,6 +217,7 @@ else
     mkdir -p /vnccerts || fail
     openssl req -new -x509 -days 365 -nodes -config /etc/ssl/vncssl.cnf -out /vnccerts/self.pem -keyout /vnccerts/self.pem || fail
     sudo cp -f /vnccerts/self.pem /apps/source/noVNC/utils/websockify/self.pem || fail
+    rm -f /vnccerts/self.pem || fail
 fi
 
 sudo chmod ugo+rwx /apps/source/noVNC/utils/websockify/self.pem || fail
