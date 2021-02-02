@@ -4,9 +4,14 @@
 set -e
 RESET='\033[0m'
 COLOR='\033[1;32m'
+WARN_COLOR='\033[1;33m'
 
 function msg {
   echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function warn {
+  echo -e "${WARN_COLOR}$(date): $1${RESET}"
 }
 
 function fail {
@@ -23,8 +28,12 @@ function update_icon {
     allargs="'$*'"
     msg "gtk-update-icon-cache ${allargs}"
     for value in "$@"
-    do         
-        [ -d "/usr/share/icons/${value}" ] && gtk-update-icon-cache /usr/share/icons/${value} || fail
+    do
+        if [ -d "/usr/share/icons/${value}" ]; then
+            gtk-update-icon-cache /usr/share/icons/${value} || fail
+        else
+            warn "This icon theme does not exists: /usr/share/icons/${value}"
+        fi
     done
 }
 
