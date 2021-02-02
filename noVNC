@@ -2,6 +2,8 @@
 
 PORT=0
 IP=192.168.127.128:5901
+PEM=""
+GEN=""
 
 for ARGUMENT in "$@"
 do
@@ -9,7 +11,9 @@ do
     VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
     case "$KEY" in
             PORT)  PORT=${VALUE} ;;
-            IP)    IP=${VALUE} ;;     
+            IP)    IP=${VALUE} ;;
+            PEM)   PEM=${VALUE} ;;
+            GEN)   GEN=${VALUE} ;;
             *)   
     esac    
 done
@@ -35,9 +39,32 @@ echo "Note that you need to replace \"$HOSTNAME\" with \"$MACHINE_IP\" in the UR
 echo "    http://$MACHINE_IP:$SHOWPORT/vnc.html?host=$MACHINE_IP&port=$SHOWPORT"
 echo "---------------------"
 
-if [ "$PORT" = "0" ]
+if [ "$PORT" != "0" ]
 then
-    /usr/local/bin/noVNCbin/utils/launch.sh --vnc $IP
+    PORT_OPTION="--listen $PORT"
 else
-    /usr/local/bin/noVNCbin/utils/launch.sh --vnc $IP --listen $PORT
+    PORT_OPTION=""
 fi
+
+if [ "x${GEN}" != "x" ]
+then
+    openssl req -new -x509 -days 365 -nodes -out ${GEN} -keyout ${GEN}
+    if [ "x${PEM}" = "x" ]
+    then
+        PEM=${GEN}
+    fi
+fi
+
+if [ "x${PEM}" = "x" ] && [ "x${GEN}" != "x" ]
+then
+    PEM=${GEN}
+fi
+
+if [ "x${PEM}" != "x" ]
+then
+    SSL_OPTION="--cert ${PEM} --key ${PEM}"
+else
+    SSL_OPTION=""
+fi
+
+/usr/local/bin/noVNCbin/utils/launch.sh --vnc $IP ${PORT_OPTION} ${SSL_OPTION} 
