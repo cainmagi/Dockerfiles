@@ -10,7 +10,7 @@ FROM $BASE_IMAGE
 LABEL maintainer="Yuchen Jin <cainmagi@gmail.com>" \
       author="Yuchen Jin <cainmagi@gmail.com>" \
       description="xUbuntu desktop dockerfile for ubuntu 16.04, 18.04 and 20.04 images." \
-      version="1.5a"
+      version="1.5"
 ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
 ARG JLAB_VER=unset
 ARG JLAB_EXTIERS=2

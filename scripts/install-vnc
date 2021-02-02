@@ -121,21 +121,23 @@ then
     apt-get -y install lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
 
+    mkdir -p /usr/share || fail
     if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
     then
-        msg "Installing basic theme pack."
+        msg "Installing basic theme pack v1.4."
         wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-ubuntu-20-04.tar.xz | tar xJ -C /usr/share || fail
-        update_icon "ePapirus" "McMojave-circle" "McMojave-circle-dark" "Papirus" "Papirus-Dark" "Papirus-Light" \
-                    "Tela-ubuntu" "Tela-ubuntu-dark" "WhiteSur" "WhiteSur-dark" "Win10Sur" "Win10Sur-dark" \
-                    "Numix" "MacOS-3D-Light" "MacOS-3D-Dark" "Material-Originals" "Material-Originals-dark" \
-                    "elementary-xfce-darkest" || fail
+        update_icon "ePapirus" "McMojave-circle" "McMojave-circle-dark" "Papirus" "Papirus-Dark" "Papirus-Light" "Tela-ubuntu" "Tela-ubuntu-dark" "WhiteSur" "WhiteSur-dark" "Win10Sur" "Win10Sur-dark" "Numix" "MacOS-3D-Light" "MacOS-3D-Dark" "Material-Originals" "Material-Originals-dark" "elementary-xfce-darkest" || fail
     else
+        msg "Installing basic theme pack v1.2."
         wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.25/share.tar.gz | tar xz -C /usr/share || fail
-        update_icon "Adwaita-Xfce" "Adwaita-Xfce-Mono" "Adwaita-Xfce-Panel" "elementary-xfce-darkest" \
-                    "Arc-X-D" "Arc-X-P" "DarK" "Numix" "Numix-Light" "Paper" "Paper-Mono-Dark" "Suru" || fail
+        update_icon "Adwaita-Xfce" "Adwaita-Xfce-Mono" "Adwaita-Xfce-Panel" "elementary-xfce-darkest" "Arc-X-D" "Arc-X-P" "DarK" "Numix" "Numix-Light" "Paper" "Paper-Mono-Dark" "Suru" || fail
     fi
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
+        msg "Installing basic theme pack v1.5."
+        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/share-ubuntu-20-04.tar.xz | tar xJ -C /usr/share || fail
+        update_icon "Flat-Remix-Blue-Light" "Flat-Remix-Blue-Dark" "Luna" "Luna-Dark" "Luna-Light" "Marwaita" "Marwaita-Classic" "Marwaita-Classic-Dark" "Marwaita-Classic-Light" "Marwaita-Dark" "Marwaita-Light" "Marwaita-Yellow" "Marwaita-Yellow-Dark" "Marwaita-Yellow-Light" "Orange-Maia" "Reversal-red" "Reversal-red-dark" "Tela-purple" "Tela-purple-dark" "Vimix" "Vimix-dark" "Vimix-Doder" "Vimix-Doder-dark" "Yaru-Green" "Layan-cursors" "Layan-white-cursors" "McMojave-cursors" "Vimix-white-cursors" "WhiteSur-cursors" "Win10-Light-cursors" "Win10OS-cursors" "WinSur-white-cursors" || fail
+        
         msg "Installing windows-style theme pack."
         wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-win-ubuntu-20-04.tar.xz | tar xJ -C /usr/share || fail
         update_icon "Windows-10-master" "Windows-XP-master" "Chicago95" "Chicago95-tux"  || fail
@@ -144,6 +146,9 @@ then
     msg "Installing extra icons."
     mkdir -p /usr/share/pixmaps || fail
     wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/share-pixmaps.tar.xz | tar xJ -C /usr/share/pixmaps || fail
+
+    msg "Installing shared backgrounds."
+    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/share-backgrounds-arts.tar.xz | tar xJ -C /usr/share || fail
 
     msg "Installation for the themes finishes."
 fi

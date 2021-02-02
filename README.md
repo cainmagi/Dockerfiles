@@ -136,19 +136,19 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 
 ## Update records
 
-### ver 1.5 (Alpha) @ 2/1/2021
+### ver 1.5 @ 2/2/2021
 
 The plan for the next version.
 
-* [x] Enhance the launchers of system menu and panels.
-* [x] Set the user as `xubuntu`, and provide the `--root` mode.
-* [x] Make python version auto-detected, which means `XUBUNTU_COMPAT` has been removed.
-* [x] Add options for installing some extra apps, like PyCharm and GIMP.
-* [x] Enhance the VNC support by [OpenSSL entryption](https://github.com/novnc/websockify#encrypted-websocket-connections-wss).
-* [x] Upgrade the [Jupyter Lab script](https://github.com/cainmagi/Dockerfiles/tree/jlab-v1.2).
-* [ ] Add some themes.
-* [x] Fix the [compatibility problem](https://github.com/pypa/pip/issues/9500) caused by `pip 21.0`.
-* [x] Fix small bugs, related to `nvm` path, `root` authority, and `detach` script.
+1. Enhance the launchers of system menu and panels.
+2. Set the user as `xubuntu`, and provide the `--root` mode.
+3. Make python version auto-detected, which means `XUBUNTU_COMPAT` has been removed.
+4. Add options for installing some extra apps, like PyCharm and GIMP.
+5. Enhance the VNC support by [OpenSSL entryption](https://github.com/novnc/websockify#encrypted-websocket-connections-wss).
+6. Upgrade the [Jupyter Lab script](https://github.com/cainmagi/Dockerfiles/tree/jlab-v1.2).
+7. Add some [themes](https://github.com/cainmagi/Dockerfiles/releases/tag/xubuntu-v1.5-u20.04).
+8. Fix the [compatibility problem](https://github.com/pypa/pip/issues/9500) caused by `pip 21.0`.
+9. Fix small bugs, related to `nvm` path, `root` authority, and `detach` script.
 
 ### ver 1.4 @ 1/17/2021
 

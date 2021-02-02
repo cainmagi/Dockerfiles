@@ -133,7 +133,7 @@ then
         apt-get install -y chromium-browser chromium-codecs-ffmpeg chromium-browser-l10n || fail
     fi
 
-    apt-get install -y firefox qt5-default qt5-doc-html qt5-image-formats-plugins qt5-style-plugins codeblocks vlc smplayer gedit okular gnome-screenshot || fail
+    apt-get install -y firefox qt5-default qt5-doc-html qt5-image-formats-plugins qt5-style-plugins codeblocks vlc smplayer gedit okular gnome-screenshot pdf2svg || fail
 
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
@@ -226,6 +226,16 @@ then
         wget https://ufpr.dl.sourceforge.net/project/peazip/6.6.0/peazip_6.6.0.LINUX.GTK2-2_i386.deb -O peazip.deb || fail
     fi
     apt-get -y install ./peazip.deb || fail && rm -f peazip.deb || fail
+
+    # Install GitKraken
+    wget -O gitkraken.deb https://release.gitkraken.com/linux/gitkraken-amd64.deb || fail
+    dpkg -i gitkraken.deb || fail
+    rm -rf gitkraken || fail
+    if [ "x${WITH_CHINESE}" = "xtrue" ]
+    then
+        mv /usr/share/gitkraken/resources/app.asar.unpacked/src/strings.json /usr/share/gitkraken/resources/app.asar.unpacked/src/strings_eng_back.json || fail
+        wget -O /usr/share/gitkraken/resources/app.asar.unpacked/src/strings.json https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/gitkraken-strings.json || fail
+    fi
 
     # Install CJK fonts and input methods.
     apt-get install -y fonts-wqy-zenhei || fail
