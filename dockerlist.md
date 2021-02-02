@@ -4,7 +4,7 @@ To get back to the main page, click [here](./index).
 
 ## Documentation for currently built images (xUbuntu)
 
-> Updated on 1/17/2021
+> Updated on 2/2/2021
 
 Here I am maintaining a list of currently built docker images on our DGX-230. Most of them are built based on:
 
@@ -27,6 +27,14 @@ The basic usage for any of the following image could be divided into 4 cases:
     ```
 
     This option would force the image to launch the VNC server.
+
+    The following command would force the VNC launched by `root` mode.
+
+    ```bash
+    docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0 --root
+    ```
+
+    In current version, users could use either `http` to get access to the unencrypted noVNC session or `https` to get access to the ssl-encrypted noVNC session. For users who open the encrypted session firstly, they may need to add the noVNC site into the trusted list.
 
 * By external VNC viewer: If you have installed a VNC viewer on your client side, and want to connect the VNC server of the image directly, please use:
 
@@ -59,6 +67,10 @@ The basic usage for any of the following image could be divided into 4 cases:
 > It is not required to launch noVNC separately for the newly relesed images. Because the noVNC has been built-in in the images. If we use `-p xxxx:6080` to launch our image, we only need to open our browser and use the following address:
 >
 > http://<dgx-230-ip>:xxxx/vnc.html?host=<dgx-230-ip>&port=xxxx
+>
+> If you want to connect the VNC in encrypt mode, please use:
+>
+> https://<dgx-230-ip>:xxxx/vnc.html?host=<dgx-230-ip>&port=xxxx
 >
 > Here is a tip: the configs after `vnc.html` could be omitted if you only need to get access to your own desktop.
 
@@ -213,7 +225,7 @@ The following images are build based on [xubuntu branch][git-xubuntu].
 
 -----
 
-#### nvcr.io/uoh053018/xubuntu-tf:1.4-2.3.1
+#### nvcr.io/uoh053018/xubuntu-tf:1.5-2.3.1
 
 **X-Ubuntu Tensorflow 2**
 
@@ -222,13 +234,13 @@ The xubuntu tensorflow `2.x` image. Currently, the tensorflow version is `2.3.1`
 This image is built based on the following command:
 
 ```bash
-docker build -t nvcr.io/uoh053018/xubuntu-tf:1.4-2.3.1 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:20.12-tf2-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+docker build -t nvcr.io/uoh053018/xubuntu-tf:1.5-2.3.1 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:20.12-tf2-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg WITH_EXTRA_APPS=pgo https://github.com/cainmagi/Dockerfiles.git#xubuntu-v1.5-u20.04
 ```
 
 This image has been also uploaded to our NGC account, check [here][nv-tf] for viewing details. With our NVIDIA account, you could pull the image directly by:
 
 ```bash
-docker pull nvcr.io/uoh053018/xubuntu-tf:1.4-2.3.1
+docker pull nvcr.io/uoh053018/xubuntu-tf:1.5-2.3.1
 ```
 
 This image contains:
@@ -237,11 +249,12 @@ This image contains:
 * `Python 3.8.5`
 * `xubuntu` desktop with apps
 * `Jupyter Lab 2.2.9`
+* `PyCharm 2020.3.3`
 * `Ubuntu 20.04`
 
 -----
 
-#### nvcr.io/uoh053018/xubuntu-tf:1.4-1.13.1
+#### nvcr.io/uoh053018/xubuntu-tf:1.5-1.13.1
 
 **X-Ubuntu Tensorflow 1.13.1**
 
@@ -250,13 +263,13 @@ The xubuntu tensorflow `1.x` image. Currently, the tensorflow version is `1.13.1
 This image is built based on the following command:
 
 ```bash
-docker build -t nvcr.io/uoh053018/xubuntu-tf:1.4-1.13.1 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg XUBUNTU_COMPAT=true https://github.com/cainmagi/Dockerfiles.git#xubuntu
+docker build -t nvcr.io/uoh053018/xubuntu-tf:1.5-1.13.1 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg WITH_EXTRA_APPS=go https://github.com/cainmagi/Dockerfiles.git#xubuntu-v1.5-u20.04
 ```
 
 This image has been also uploaded to our NGC account, check [here][nv-tf] for viewing details. With our NVIDIA account, you could pull the image directly by:
 
 ```bash
-docker pull nvcr.io/uoh053018/xubuntu-tf:1.4-1.13.1
+docker pull nvcr.io/uoh053018/xubuntu-tf:1.5-1.13.1
 ```
 
 This image contains:
@@ -269,7 +282,7 @@ This image contains:
 
 -----
 
-#### nvcr.io/uoh053018/xubuntu-tc:1.4-1.8.0
+#### nvcr.io/uoh053018/xubuntu-tc:1.5-1.8.0
 
 **X-Ubuntu PyTorch**
 
@@ -278,13 +291,13 @@ The xubuntu latest PyTorch image. Currently, the PyTorch version is `1.8.0a0+160
 This image is built based on the following command:
 
 ```bash
-docker build -t nvcr.io/uoh053018/xubuntu-tc:1.4-1.8.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+docker build -t nvcr.io/uoh053018/xubuntu-tc:1.5-1.8.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg WITH_EXTRA_APPS=pgo https://github.com/cainmagi/Dockerfiles.git#xubuntu-v1.5-u20.04
 ```
 
 This image has been also uploaded to our NGC account, check [here][nv-tc] for viewing details. With our NVIDIA account, you could pull the image directly by:
 
 ```bash
-docker pull nvcr.io/uoh053018/xubuntu-tc:1.4-1.8.0
+docker pull nvcr.io/uoh053018/xubuntu-tc:1.5-1.8.0
 ```
 
 This image contains:
@@ -293,11 +306,12 @@ This image contains:
 * `Python 3.8.5`
 * `xubuntu` desktop with apps
 * `Jupyter Lab 2.2.9`
+* `PyCharm 2020.3.3`
 * `Ubuntu 20.04`
 
 -----
 
-#### nvcr.io/uoh053018/xubuntu-tc:1.4-1.0.0
+#### nvcr.io/uoh053018/xubuntu-tc:1.5-1.0.0
 
 **X-Ubuntu PyTorch 1.0**
 
@@ -306,13 +320,13 @@ The xubuntu PyTorch 1.0 image. Currently, the PyTorch version is `1.0.0a0+056cfa
 This image is built based on the following command:
 
 ```bash
-docker build -t nvcr.io/uoh053018/xubuntu-tc:1.4-1.0.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:19.01-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+docker build -t nvcr.io/uoh053018/xubuntu-tc:1.5-1.0.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:19.01-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg WITH_EXTRA_APPS=pgo https://github.com/cainmagi/Dockerfiles.git#xubuntu-v1.5-u20.04
 ```
 
 This image has been also uploaded to our NGC account, check [here][nv-tc] for viewing details. With our NVIDIA account, you could pull the image directly by:
 
 ```bash
-docker pull nvcr.io/uoh053018/xubuntu-tc:1.4-1.0.0
+docker pull nvcr.io/uoh053018/xubuntu-tc:1.5-1.0.0
 ```
 
 This image contains:
@@ -321,6 +335,7 @@ This image contains:
 * `Python 3.6.7`
 * `xubuntu` desktop with apps
 * `Jupyter Lab 2.2.9`
+* `PyCharm 2020.3.3`
 * `Ubuntu 16.04`
 
 -----
@@ -358,11 +373,11 @@ This image is configured based on [`xubuntu-matlab:r2020b`](#nvcriouoh053018xubu
 
 ### Jupyter Lab
 
-The following images are built based on [jupyterlab branch][git-jlab]. Actually, the xUbuntu images has been **already equipped with** `Jupyter Lab`. However, the versions of all of those JLab releases are `2.2.9`. Here we provide images with `Jupyter Lab 3.0.5`. The JLab 3 has just quitted the pre-release stage for not very long. Currently, the newest version is `3.0.5`. It means most extensions designed for JLab 1 or 2 would not support JLab 3. However, there are also some useful extensions only supporting JLab 3, like Chinese localization, variable inspector and language linter. These images are provided for who want to try the newest Jupyter Lab. All of them do not support desktop applications.
+The following images are built based on [jupyterlab branch][git-jlab]. Actually, the xUbuntu images has been **already equipped with** `Jupyter Lab`. However, the versions of all of those JLab releases are `2.2.9`. Here we provide images with `Jupyter Lab 3.0.6`. The JLab 3 has just quitted the pre-release stage for not very long. Currently, the newest version is `3.0.6`. It means most extensions designed for JLab 1 or 2 would not support JLab 3. However, there are also some useful extensions only supporting JLab 3, like Chinese localization, variable inspector and language linter. These images are provided for who want to try the newest Jupyter Lab. All of them do not support desktop applications.
 
 -----
 
-#### jlab3-tf2:1.0
+#### jlab3-tf:2.3.1
 
 **Jupyter Lab 3 and Tensorflow 2**
 
@@ -371,14 +386,14 @@ The xubuntu tensorflow `2.x` image. Currently, the tensorflow version is `2.3.1`
 This image is built based on the following command:
 
 ```bash
-docker build -t jlab3-tf2:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:20.12-tf2-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=3 --build-arg JLAB_EXTIERS=2 https://github.com/cainmagi/Dockerfiles.git#jupyterlab
+docker build -t jlab3-tf:2.3.1 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:20.12-tf2-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=3 --build-arg JLAB_EXTIERS=2 https://github.com/cainmagi/Dockerfiles.git#jlab-v1.2
 ```
 
 This image contains:
 
 * `Tensorflow 2.3.1`
 * `Python 3.8.5`
-* `Jupyter Lab 3.0.5`
+* `Jupyter Lab 3.0.6`
 * `Ubuntu 20.04`
 
 -----
@@ -392,14 +407,14 @@ The xubuntu latest PyTorch image. Currently, the PyTorch version is `1.8.0a0+160
 This image is built based on the following command:
 
 ```bash
-docker build -t jlab3-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=3 --build-arg JLAB_EXTIERS=2 https://github.com/cainmagi/Dockerfiles.git#jupyterlab
+docker build -t jlab3-tc:1.8.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=3 --build-arg JLAB_EXTIERS=2 https://github.com/cainmagi/Dockerfiles.git#jlab-v1.2
 ```
 
 This image contains:
 
 * `PyTorch 1.8.0a`
 * `Python 3.8.5`
-* `Jupyter Lab 3.0.5`
+* `Jupyter Lab 3.0.6`
 * `Ubuntu 20.04`
 
 -----
