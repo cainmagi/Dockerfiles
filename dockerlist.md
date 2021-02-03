@@ -100,7 +100,7 @@ In this case, unless you use `docker kill` or `docker stop` to terminate your co
 
 When you want to save your image, follow the instructions below:
 
-1. *(This step is confirmed to be unnecessary.)* ~Logout from your desktop by clicking the menu on the right top corner of the desktop.~
+1. *(This step is confirmed to be unnecessary.)* <del>Logout from your desktop by clicking the menu on the right top corner of the desktop.</del>
 2. Hit <kbd>Ctrl</kbd>+<kbd>C</kbd> on your interactive terminal. This operation would terminate noVNC. You will see the `websockify` of noVNC is interrupted.
 3. Use the following command to terminate the VNC server:
 
