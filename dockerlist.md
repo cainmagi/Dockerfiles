@@ -4,7 +4,7 @@ To get back to the main page, click [here](./index).
 
 ## Documentation for currently built images (xUbuntu)
 
-> Updated on 2/2/2021
+> Updated on 2/3/2021
 
 Here I am maintaining a list of currently built docker images on our DGX-230. Most of them are built based on:
 
@@ -34,7 +34,11 @@ The basic usage for any of the following image could be divided into 4 cases:
     docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0 --root
     ```
 
-    In current version, users could use either `http` to get access to the unencrypted noVNC session or `https` to get access to the ssl-encrypted noVNC session. For users who open the encrypted session firstly, they may need to add the noVNC site into the trusted list.
+    In current version, users could use either `http` to get access to the unencrypted noVNC session or `https` to get access to the ssl-encrypted noVNC session. For users who open the encrypted session firstly, they may need to add the noVNC site into the trusted list. Here we show an example of how to do that in Chrome. First we need to add `https://` at the beginning of our accessing address. Then we could check the following figures:
+    
+    | 登录有SSL保护的noVNC | Login with noVNC protected by SSL |
+    | :-----: | :-----: |
+    | ![](./display/example-ssl-hans.png) | ![](./display/example-ssl-eng.png) |
 
 * By external VNC viewer: If you have installed a VNC viewer on your client side, and want to connect the VNC server of the image directly, please use:
 
