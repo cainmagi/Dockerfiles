@@ -286,6 +286,35 @@ This image contains:
 
 -----
 
+#### nvcr.io/uoh053018/xubuntu-tc:1.5-1.2.0
+
+**X-Ubuntu PyTorch**
+
+The xubuntu PyTorch 1.2.0 image. Currently, the PyTorch version is `1.2.0a0+f6aac41` image.
+
+This image is built based on the following command:
+
+```bash
+docker build -t nvcr.io/uoh053018/xubuntu-tc:1.5-1.2.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:19.07-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg WITH_EXTRA_APPS=pgo https://github.com/cainmagi/Dockerfiles.git#xubuntu-v1.5-u20.04
+```
+
+This image has been also uploaded to our NGC account, check [here][nv-tc] for viewing details. With our NVIDIA account, you could pull the image directly by:
+
+```bash
+docker pull nvcr.io/uoh053018/xubuntu-tc:1.5-1.2.0
+```
+
+This image contains:
+
+* `PyTorch 1.2.0a0+f6aac41`
+* `Python 3.6.13`
+* `xubuntu` desktop with apps
+* `Jupyter Lab 2.2.9`
+* `PyCharm 2020.3.3`
+* `Ubuntu 18.04`
+
+-----
+
 #### nvcr.io/uoh053018/xubuntu-tc:1.5-1.8.0
 
 **X-Ubuntu PyTorch**
