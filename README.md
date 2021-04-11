@@ -16,37 +16,37 @@ We provide 3 examples:
 
 * Start from `pytorch 1.8.0a` image:
 
-    ```bash
-    docker build -t xubuntu-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
-    ```
+  ```bash
+  docker build -t xubuntu-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+  ```
 
 * Start from `cuda 11.1` image:
 
-    ```bash
-    docker build -t xubuntu-cuda:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
-    ```
+  ```bash
+  docker build -t xubuntu-cuda:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+  ```
 
 * Start from `tensorflow 1.13.1` image:
 
-    ```bash
-    docker build -t xubuntu-tf:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
-    ```
+  ```bash
+  docker build -t xubuntu-tf:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+  ```
 
 There are 3 available options:
 
-| Option | Description | Default |
-| :-----: | ----- | ----- |
+| Option  | Description | Default |
+| :-----: | ----------- | ------- |
 | `BASE_IMAGE` | The base image for building this desktop image. | `nvcr.io/nvidia/pytorch:20.12-py3` |
-| `BASE_LAUNCH` | The entrypoint script from the base image. If there is no entry script, please use `""`. | `/usr/local/bin/nvidia_entrypoint.sh` |
-| `JLAB_VER` | The version of the Jupyter Lab to be installed. Could be `1`, `2`, `3` or `unset`. If use `unset`, nothing would be installed if there is already a Jupyter Lab. | `unset` |
-| `JLAB_EXTIERS` | The to-be-installed extra extensions for the Jupyter Lab. If `JLAB_VER` is `unset`, nothing would be installed. To view details about which extensions would be installed, see [here](https://github.com/cainmagi/Dockerfiles/tree/jupyterlab#features). | `2` |
+| `BASE_LAUNCH` | The entrypoint script from the base image. If there is no entry script, please use`""`. | `/usr/local/bin/nvidia_entrypoint.sh` |
+| `JLAB_VER` | The version of the Jupyter Lab to be installed. Could be`1`, `2`, `3` or `unset`. If use `unset`, nothing would be installed if there is already a Jupyter Lab. | `unset` |
+| `JLAB_EXTIERS` | The to-be-installed extra extensions for the Jupyter Lab. If`JLAB_VER` is `unset`, nothing would be installed. To view details about which extensions would be installed, see [here](https://github.com/cainmagi/Dockerfiles/tree/jupyterlab#features). | `2` |
 | `WITH_CHINESE` | If set, the image would be built with Chinese support for vscode, sublime and codeblocks. | `true` |
-| `WITH_EXTRA_APPS` | The installed extra applications. Each character represents an app or several apps. For example, `go` represents fully installing `GIMP`, `LibreOffice` and `Thunderbird`. More details could be referred in the following table. | `go` |
+| `WITH_EXTRA_APPS` | The installed extra applications. Each character represents an app or several apps. For example,`go` represents fully installing `GIMP`, `LibreOffice` and `Thunderbird`. More details could be referred in the following table. | `go` |
 
 Here we show the list of extra apps:
 
-| Code | Description |
-| :-----: | ----- |
+|  Code   | Description |
+| :-----: | ----------- |
 | `p` | [`PyCharm`](https://www.jetbrains.com/help/pycharm/installation-guide.html) |
 | `g` | [`GIMP`](https://www.gimp.org/downloads) |
 | `x` | [`TeXLive`](https://tug.org/texlive) + [`TeXstudio`](https://www.texstudio.org) |
@@ -81,45 +81,41 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 
 * By built-in `noVNC`: In default mode, you just need to launch the built image by:
 
-    ```bash
-    docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0
-    ```
+  ```bash
+  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0
+  ```
 
-    It is equivalent to use `--vnc` or not in the above command. However, if you have saved the image in other modes before, you may need this flag to force the image to enter the VNC mode. The `--vnc` option is required when you need to force the image to switch to VNC mode. The following command would force the `vnc` launched by `root` mode.
+  It is equivalent to use `--vnc` or not in the above command. However, if you have saved the image in other modes before, you may need this flag to force the image to enter the VNC mode. The `--vnc` option is required when you need to force the image to switch to VNC mode. The following command would force the `vnc` launched by `root` mode.
 
-    ```bash
-    docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0 --root
-    ```
+  ```bash
+  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0 --root
+  ```
 
-    In current version, users could use either `http` to get access to the unencrypted noVNC session or `https` to get access to the ssl-encrypted noVNC session. For users who open the encrypted session firstly, they may need to add the noVNC site into the trusted list.
-
+  In current version, users could use either `http` to get access to the unencrypted noVNC session or `https` to get access to the ssl-encrypted noVNC session. For users who open the encrypted session firstly, they may need to add the noVNC site into the trusted list.
 * By external VNC viewer: If you have installed a VNC viewer on your client side, and want to connect the VNC server of the image directly, please use:
 
-    ```bash
-    docker run --gpus all -it --rm -v ~:/homelocal -p 5901:5901 xubuntu:1.0
-    ```
+  ```bash
+  docker run --gpus all -it --rm -v ~:/homelocal -p 5901:5901 xubuntu:1.0
+  ```
 
-    The `root` mode could be also applied here.
-
+  The `root` mode could be also applied here.
 * By `Jupyter Lab`: If you want to launch the Jupyter Lab but do not start the desktop, please use
 
-    ```bash
-    docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0 --jlab jlab_password=openjupyter jlab_rootdir=/homelocal
-    ```
+  ```bash
+  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0 --jlab jlab_password=openjupyter jlab_rootdir=/homelocal
+  ```
 
-    The `jlab_password` would override the default random token. The `jlab_rootdir` is the root folder of the launched jupyter lab. If not set `jlab_rootdir`, the default root folder would be `/homelocal`. The `--jlab` option is required when you need to force the image to switch to Jupyter Lab mode.
-
+  The `jlab_password` would override the default random token. The `jlab_rootdir` is the root folder of the launched jupyter lab. If not set `jlab_rootdir`, the default root folder would be `/homelocal`. The `--jlab` option is required when you need to force the image to switch to Jupyter Lab mode.
 * By `BASH`: If you want to enter the command line but do not start the desktop, please use
 
-    ```bash
-    docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.0 --bash
-    ```
-
+  ```bash
+  docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.0 --bash
+  ```
 * By any script: If you want run any script inside the docker for only one time, please use
 
-    ```bash
-    docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.0 script=<the-path-to-your-script>
-    ```
+  ```bash
+  docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.0 script=<the-path-to-your-script>
+  ```
 
 ## Features
 
@@ -136,7 +132,7 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 
 ## Update records
 
-### ver 1.5 @ 2/2/2021
+### ver 1.5 @ 4/10/2021
 
 The plan for the next version.
 
@@ -149,6 +145,7 @@ The plan for the next version.
 7. Add some [themes](https://github.com/cainmagi/Dockerfiles/releases/tag/xubuntu-v1.5-u20.04).
 8. Fix the [compatibility problem](https://github.com/pypa/pip/issues/9500) caused by `pip 21.0`.
 9. Fix small bugs, related to `nvm` path, `root` authority, and `detach` script.
+10. Fix small bugs, related to `jlab` path and the authority of creating SSL certificate.
 
 ### ver 1.4 @ 1/17/2021
 
@@ -196,5 +193,5 @@ Re-craft this dockerfile.
 
 Create the dockerfile branch.
 
-[tigervnc]:https://github.com/TigerVNC/tigervnc "TigerVNC"
-[jlab]:https://github.com/cainmagi/Dockerfiles/tree/jupyterlab "Jupyter Lab"
+[tigervnc]: https://github.com/TigerVNC/tigervnc
+[jlab]: https://github.com/cainmagi/Dockerfiles/tree/jupyterlab

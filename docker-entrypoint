@@ -129,7 +129,7 @@ then
     OPTION_JLAB_ROOT=""
     if [ "x${JLAB_ROOT_DIR}" != "x" ]
     then
-        OPTION_JLAB_ROOT="--NotebookApp.notebook_dir=${ROOT_DIR}"
+        OPTION_JLAB_ROOT="--NotebookApp.notebook_dir=${JLAB_ROOT_DIR}"
     fi
 
     run_with_nodejs "jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_JLAB_PASSWORD} --allow-root ${OPTION_JLAB_ROOT} --NotebookApp.custom_display_url=http://${MACHINE_IP}:6080/"
@@ -212,7 +212,7 @@ then
 fi
 
 if [ -s "/vnccerts/self.pem" ]; then
-    cp -f /vnccerts/self.pem /apps/source/noVNC/utils/websockify/self.pem || fail
+    sudo cp -f /vnccerts/self.pem /apps/source/noVNC/utils/websockify/self.pem || fail
 else
     mkdir -p /vnccerts || fail
     openssl req -new -x509 -days 365 -nodes -config /etc/ssl/vncssl.cnf -out /vnccerts/self.pem -keyout /vnccerts/self.pem || fail
