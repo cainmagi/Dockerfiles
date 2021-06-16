@@ -165,9 +165,25 @@ TARGET_XFCE4CONFIG=${TARGET_CONFIG}/xfce4
 
 msg "Detach script."
 
+if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
+    export http_proxy=${ADDR_PROXY};
+    export https_proxy=${ADDR_PROXY};
+    export no_proxy="127.0.0.1, localhost";
+    msg "Successfully set the proxy to ${ADDR_PROXY}."
+fi
+
 if [ "x${MODE}" = "xbasic" ]
 then 
     msg "Detach script, basic mode."
+
+    if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
+        echo "export http_proxy=${ADDR_PROXY}" >> ~/.bashrc
+        echo "export https_proxy=${ADDR_PROXY}" >> ~/.bashrc
+        echo "export no_proxy=\"127.0.0.1, localhost\"" >> ~/.bashrc
+        msg "Successfully set the proxy to ${ADDR_PROXY} in ./bashrc."
+    else
+        msg "Do not set the proxy."
+    fi
 
     msg "Create user xubuntu ..."
     apt-get update || fail
@@ -184,15 +200,6 @@ then
     wget -O /root/scripts/get-pyver.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-pyver.py || fail
     wget -O /root/scripts/get-conda-path.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-conda-path.py || fail
     chmod +rwx /root/scripts/get-pyver.py /root/scripts/get-conda-path.py || fail
-
-    if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
-        echo "export http_proxy=${ADDR_PROXY}" >> ~/.bashrc
-        echo "export https_proxy=${ADDR_PROXY}" >> ~/.bashrc
-        echo "export no_proxy=\"127.0.0.1, localhost\"" >> ~/.bashrc
-        msg "Successfully set the proxy to ${ADDR_PROXY} in ./bashrc."
-    else
-        msg "Do not set the proxy."
-    fi
 
     msg "Move files to /usr/local/bin."
     cp -f ${THIS_ROOT}/launch-jupyter /usr/local/bin || fail

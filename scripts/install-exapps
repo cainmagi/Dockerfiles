@@ -48,6 +48,13 @@ do
     esac    
 done
 
+if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
+    export http_proxy=${ADDR_PROXY};
+    export https_proxy=${ADDR_PROXY};
+    export no_proxy="127.0.0.1, localhost";
+    msg "Successfully set the proxy to ${ADDR_PROXY}."
+fi
+
 if [ "x${SET_EXTRA_APPS}" != "" ]; then
     if [ -d "/var/cache/app-info/xapian/default" ]; then
         chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
