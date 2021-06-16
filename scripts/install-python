@@ -44,6 +44,11 @@ if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
     export https_proxy=${ADDR_PROXY};
     export no_proxy="127.0.0.1, localhost";
     msg "Successfully set the proxy to ${ADDR_PROXY}."
+    if [ ! -f /etc/curlssl/cacert.pem ]; then
+        mkdir -p /etc/curlssl || fail
+        wget -O /etc/curlssl/cacert.pem https://curl.haxx.se/ca/cacert.pem --no-check-certificate || fail
+    fi
+    export CURL_CA_BUNDLE=/etc/curlssl/cacert.pem
 fi
 
 if [ "x${MODE}" = "xpython" ]
