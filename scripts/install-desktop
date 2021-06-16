@@ -133,7 +133,7 @@ then
 
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
-        wget -O google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb || fail
+        wget -O google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb --no-check-certificate || fail
         apt-get install -y ./google-chrome.deb || fail
         rm -f google-chrome.deb || fail
     else
@@ -145,7 +145,7 @@ then
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
         mkdir -p /usr/share/codeblocks/locale/zh_CN || fail
-        wget -O /usr/share/codeblocks/locale/zh_CN/CodeBlocks.mo https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/CodeBlocks_zhCN.mo || fail
+        wget -O /usr/share/codeblocks/locale/zh_CN/CodeBlocks.mo https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/CodeBlocks_zhCN.mo --no-check-certificate || fail
         chmod +rwx /usr/share/codeblocks/locale --recursive || fail
     fi
     
@@ -183,7 +183,7 @@ then
         apt-get install -y hdf-compass || fail
     fi
     
-    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg || fail
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc --no-check-certificate | gpg --dearmor > packages.microsoft.gpg || fail
     install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/ || fail
     sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list' || fail
     if [ "x${UBUNTU_VER}" = "x16.04" ]
@@ -213,6 +213,7 @@ then
         davidanson.vscode-markdownlint
         pkief.material-icon-theme
         ms-python.python
+        ms-python.vscode-pylance
         kevinrose.vsc-python-indent
         mechatroner.rainbow-csv
         vscode-icons-team.vscode-icons
@@ -228,20 +229,20 @@ then
 
     if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
     then
-        wget https://github.com/peazip/PeaZip/releases/download/7.7.0/peazip_7.7.0.LINUX.x86_64.GTK2.deb -O peazip.deb || fail
+        wget https://github.com/peazip/PeaZip/releases/download/7.7.0/peazip_7.7.0.LINUX.x86_64.GTK2.deb -O peazip.deb --no-check-certificate || fail
     else
-        wget https://ufpr.dl.sourceforge.net/project/peazip/6.6.0/peazip_6.6.0.LINUX.GTK2-2_i386.deb -O peazip.deb || fail
+        wget https://ufpr.dl.sourceforge.net/project/peazip/6.6.0/peazip_6.6.0.LINUX.GTK2-2_i386.deb -O peazip.deb --no-check-certificate || fail
     fi
     apt-get -y install ./peazip.deb || fail && rm -f peazip.deb || fail
 
     # Install GitKraken
-    wget -O gitkraken.deb https://release.gitkraken.com/linux/gitkraken-amd64.deb || fail
+    wget -O gitkraken.deb https://release.gitkraken.com/linux/gitkraken-amd64.deb --no-check-certificate || fail
     dpkg -i gitkraken.deb || fail
     rm -rf gitkraken || fail
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
         mv /usr/share/gitkraken/resources/app.asar.unpacked/src/strings.json /usr/share/gitkraken/resources/app.asar.unpacked/src/strings_eng_back.json || fail
-        wget -O /usr/share/gitkraken/resources/app.asar.unpacked/src/strings.json https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/gitkraken-strings.json || fail
+        wget -O /usr/share/gitkraken/resources/app.asar.unpacked/src/strings.json https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/gitkraken-strings.json --no-check-certificate || fail
     fi
 
     # Install CJK fonts and input methods.
@@ -284,7 +285,7 @@ then
     then
         curl https://bootstrap.pypa.io/get-pip.py -o /root/scripts/get-pip-3.py || fail
     else
-        wget -O /root/scripts/get-pip-3.py https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/get-pip-20.3.4.py || fail
+        wget -O /root/scripts/get-pip-3.py https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/get-pip-20.3.4.py --no-check-certificate || fail
     fi
     curl https://bootstrap.pypa.io/2.7/get-pip.py -o /root/scripts/get-pip-2.py || fail
     if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
