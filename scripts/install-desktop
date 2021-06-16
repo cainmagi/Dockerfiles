@@ -43,6 +43,11 @@ if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
     export https_proxy=${ADDR_PROXY};
     export no_proxy="127.0.0.1, localhost";
     msg "Successfully set the proxy to ${ADDR_PROXY}."
+    if [ ! -f /etc/curlssl/cacert.pem ]; then
+        mkdir -p /etc/curlssl || fail
+        wget -O /etc/curlssl/cacert.pem https://curl.haxx.se/ca/cacert.pem --no-check-certificate || fail
+    fi
+    export CURL_CA_BUNDLE=/etc/curlssl/cacert.pem
 fi
 
 if [ "x${MODE}" = "xdesktop" ]
@@ -148,7 +153,7 @@ then
         wget -O /usr/share/codeblocks/locale/zh_CN/CodeBlocks.mo https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/CodeBlocks_zhCN.mo --no-check-certificate || fail
         chmod +rwx /usr/share/codeblocks/locale --recursive || fail
     fi
-    
+
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
         apt-get install -y vim-gtk3 vim-gui-common || fail
@@ -324,7 +329,7 @@ then
             CONDA_META_PATH=$(python3 /root/scripts/get-conda-path.py -m conda-meta 2>&1)
             echo "${CONDA_PYTHON_VER}" >> "${CONDA_META_PATH}/pinned" || fail
             # Run the script with conda.
-            wget -O /root/scripts/install-jlab-conda https://raw.githubusercontent.com/cainmagi/Dockerfiles/jlab-v1.2/scripts/install-jlab-conda --no-check-certificate || fail
+            wget -O /root/scripts/install-jlab-conda https://raw.githubusercontent.com/cainmagi/Dockerfiles/jupyterlab/scripts/install-jlab-conda --no-check-certificate || fail
             chmod +x /root/scripts/install-jlab-conda || fail
             bash /root/scripts/install-jlab-conda version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
             HASUSED_CONDA="true"
@@ -339,7 +344,7 @@ then
             echo "${CONDA_PYTHON_VER}" >> "${CONDA_META_PATH}/pinned" || fail
         fi
         # Run the script with pip.
-        wget -O /root/scripts/install-jlab https://raw.githubusercontent.com/cainmagi/Dockerfiles/jlab-v1.2/scripts/install-jlab --no-check-certificate || fail
+        wget -O /root/scripts/install-jlab https://raw.githubusercontent.com/cainmagi/Dockerfiles/jupyterlab/scripts/install-jlab --no-check-certificate || fail
         chmod +x /root/scripts/install-jlab || fail
         bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
     fi
