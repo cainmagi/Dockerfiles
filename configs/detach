@@ -116,7 +116,7 @@ function mv_shortcuts_py36p {
 function mv_panel_20_04 {
     msg "Moving panel shortcuts for Ubuntu 20.04."
     rm -rf ${TARGET_XFCE4CONFIG}/panel/* || fail
-    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/xconfigs-u20-04.tar.xz | tar xJ -C ${TARGET_CONFIG}/ || fail
+    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/xconfigs-u20-04.tar.xz --no-check-certificate | tar xJ -C ${TARGET_CONFIG}/ || fail
     # Replace google-chrome
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
@@ -129,7 +129,7 @@ function mv_panel_20_04 {
 function mv_panel_18or16_04 {
     msg "Moving panel shortcuts for Ubuntu 18.04 / 16.04."
     rm -rf ${TARGET_XFCE4CONFIG}/panel/* || fail
-    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/xconfigs-u18or16-04.tar.xz | tar xJ -C ${TARGET_CONFIG}/ || fail
+    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/xconfigs-u18or16-04.tar.xz --no-check-certificate | tar xJ -C ${TARGET_CONFIG}/ || fail
     # Replace chromium
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
@@ -197,8 +197,8 @@ then
     chmod +rwx ${THIS_ROOT} --recursive || fail
     cp -f ${THIS_ROOT}/.bashrc /root/ || fail
     mkdir -p /root/scripts || fail
-    wget -O /root/scripts/get-pyver.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-pyver.py || fail
-    wget -O /root/scripts/get-conda-path.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-conda-path.py || fail
+    wget -O /root/scripts/get-pyver.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-pyver.py --no-check-certificate || fail
+    wget -O /root/scripts/get-conda-path.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-conda-path.py --no-check-certificate || fail
     chmod +rwx /root/scripts/get-pyver.py /root/scripts/get-conda-path.py || fail
 
     msg "Move files to /usr/local/bin."

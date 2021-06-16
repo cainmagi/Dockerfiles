@@ -68,8 +68,8 @@ then
         #apt-get install tigervnc-common tigervnc-standalone-server
         apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -f -y install || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
         
-        wget -O tigervncserver_install.deb https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/tigervncserver_1.11.80+20201228git2a0eabec-1ubuntu1_amd64.deb || fail
-        wget -O tigervncserver https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/vncserver || fail
+        wget -O tigervncserver_install.deb https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/tigervncserver_1.11.80+20201228git2a0eabec-1ubuntu1_amd64.deb --no-check-certificate || fail
+        wget -O tigervncserver https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/vncserver --no-check-certificate || fail
         apt-get -y install ./tigervncserver_install.deb || fail
         cp -f tigervncserver /usr/bin || fail
         chmod ugo+x /usr/bin/tigervncserver || fail
@@ -84,8 +84,8 @@ then
         #apt-get -y install tigervnc-common tigervnc-standalone-server
         apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -f -y install || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
         
-        wget -O tigervncserver_install.deb https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/tigervncserver_1.11.0-1ubuntu1_amd64.deb || fail
-        wget -O tigervncserver https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/vncserver || fail
+        wget -O tigervncserver_install.deb https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/tigervncserver_1.11.0-1ubuntu1_amd64.deb --no-check-certificate || fail
+        wget -O tigervncserver https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/vncserver --no-check-certificate || fail
         apt-get -y install ./tigervncserver_install.deb || fail
         cp -f tigervncserver /usr/bin || fail
         chmod ugo+x /usr/bin/tigervncserver || fail
@@ -98,7 +98,7 @@ then
     then
         apt-get -y install x11-common xserver-common x11-utils xauth libfontenc1 libfreetype6 libgl1-mesa-dri libjpeg-turbo8 libpixman-1-0 libtasn1-3-bin libx11-6 fontconfig-config fonts-dejavu-core libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2 libelf1 libfontconfig1 libfontenc-dev libfontenc1 libfreetype6 libfreetype6-dev libgl1-mesa-dri libgl1-mesa-glx libglapi-mesa libglu1-mesa libice6 libjpeg-turbo8 libllvm6.0 libpciaccess0 libpixman-1-0 libpng12-0 libpng12-dev libpthread-stubs0-dev libsensors4 libsm6 libtasn1-3-bin libtasn1-bin libtxc-dxtn-s2tc0 libx11-6 libx11-data libx11-dev libx11-doc libx11-xcb1 libxau-dev libxau6 libxaw7 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-shape0 libxcb-sync1 libxcb1 libxcb1-dev libxcomposite1 libxcursor1 libxdamage1 libxdmcp-dev libxdmcp6 libxext6 libxfixes3 libxfont1 libxfont1-dev libxft2 libxi6 libxinerama1 libxkbfile1 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrender1 libxshmfence1 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 ucf x11-common x11-utils x11-xkb-utils x11proto-core-dev x11proto-fonts-dev x11proto-input-dev x11proto-kb-dev xauth xorg-sgml-doctools xtrans-dev || fail
         apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -f -y install || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
-        wget -O tigervncserver_install.deb https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/tigervncserver_1.10.1-1ubuntu1_amd64.deb || fail
+        wget -O tigervncserver_install.deb https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/tigervncserver_1.10.1-1ubuntu1_amd64.deb --no-check-certificate || fail
         apt-get -y install ./tigervncserver_install.deb || fail
         rm -f tigervncserver_install.deb || fail
     fi
@@ -141,26 +141,26 @@ then
     if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
     then
         msg "Installing basic theme pack v1.4."
-        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-ubuntu-20-04.tar.xz | tar xJ -C /usr/share || fail
+        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-ubuntu-20-04.tar.xz --no-check-certificate | tar xJ -C /usr/share || fail
     else
         msg "Installing basic theme pack v1.2."
-        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.25/share.tar.gz | tar xz -C /usr/share || fail
+        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-tf-v1.25/share.tar.gz --no-check-certificate | tar xz -C /usr/share || fail
     fi
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
         msg "Installing basic theme pack v1.5."
-        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/share-ubuntu-20-04.tar.xz | tar xJ -C /usr/share || fail
+        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/share-ubuntu-20-04.tar.xz --no-check-certificate | tar xJ -C /usr/share || fail
         
         msg "Installing windows-style theme pack."
-        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-win-ubuntu-20-04.tar.xz | tar xJ -C /usr/share || fail
+        wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.4-u20.04/share-win-ubuntu-20-04.tar.xz --no-check-certificate | tar xJ -C /usr/share || fail
     fi
 
     msg "Installing extra icons."
     mkdir -p /usr/share/pixmaps || fail
-    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/share-pixmaps.tar.xz | tar xJ -C /usr/share/pixmaps || fail
+    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/share-pixmaps.tar.xz --no-check-certificate | tar xJ -C /usr/share/pixmaps || fail
 
     msg "Installing common backgrounds."
-    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/share-backgrounds-arts.tar.xz | tar xJ -C /usr/share || fail
+    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/share-backgrounds-arts.tar.xz --no-check-certificate | tar xJ -C /usr/share || fail
 
     chmod +rwx /usr/share/icons /usr/share/themes /usr/share/backgrounds --recursive || fail
     msg "Update icon cache."
