@@ -176,15 +176,6 @@ if [ "x${MODE}" = "xbasic" ]
 then 
     msg "Detach script, basic mode."
 
-    if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
-        echo "export http_proxy=${ADDR_PROXY}" >> ~/.bashrc
-        echo "export https_proxy=${ADDR_PROXY}" >> ~/.bashrc
-        echo "export no_proxy=\"127.0.0.1, localhost\"" >> ~/.bashrc
-        msg "Successfully set the proxy to ${ADDR_PROXY} in ./bashrc."
-    else
-        msg "Do not set the proxy."
-    fi
-
     msg "Create user xubuntu ..."
     apt-get update || fail
     apt-get install -y apt-utils || fail
@@ -195,6 +186,14 @@ then
     
     msg "Move files to /root"
     chmod +rwx ${THIS_ROOT} --recursive || fail
+    if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
+        echo "export http_proxy=${ADDR_PROXY}" >> ${THIS_ROOT}/.bashrc
+        echo "export https_proxy=${ADDR_PROXY}" >> ${THIS_ROOT}/.bashrc
+        echo "export no_proxy=\"127.0.0.1, localhost\"" >> ${THIS_ROOT}/.bashrc
+        msg "Successfully set the proxy to ${ADDR_PROXY} in ${THIS_ROOT}/bashrc."
+    else
+        msg "Do not set the proxy."
+    fi
     cp -f ${THIS_ROOT}/.bashrc /root/ || fail
     mkdir -p /root/scripts || fail
     wget -O /root/scripts/get-pyver.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-pyver.py --no-check-certificate || fail
