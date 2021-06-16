@@ -35,9 +35,16 @@ do
         JLAB_VER)           JLAB_VERSION=${VALUE} ;;
         JLAB_EXTIERS)       JLAB_EXTRA_TIERS=${VALUE} ;;
         JLAB_IMODE)         JLAB_INSTALL_MODE=${VALUE} ;;
-        *)   
-    esac    
+        *)
+    esac
 done
+
+if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
+    export http_proxy=${ADDR_PROXY};
+    export https_proxy=${ADDR_PROXY};
+    export no_proxy="127.0.0.1, localhost";
+    msg "Successfully set the proxy to ${ADDR_PROXY}."
+fi
 
 if [ "x${MODE}" = "xpython" ]
 then

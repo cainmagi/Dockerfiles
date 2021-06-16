@@ -31,9 +31,16 @@ do
     VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
     case "$KEY" in
         MODE)  MODE=${VALUE} ;;
-        *)   
-    esac    
+        *)
+    esac
 done
+
+if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
+    export http_proxy=${ADDR_PROXY};
+    export https_proxy=${ADDR_PROXY};
+    export no_proxy="127.0.0.1, localhost";
+    msg "Successfully set the proxy to ${ADDR_PROXY}."
+fi
 
 if [ "x${MODE}" = "xinit" ]
 then 

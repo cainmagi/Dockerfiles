@@ -39,6 +39,7 @@ There are 4 available options:
 | `JLAB_VER` | The version of the Jupyter Lab to be installed. If set `1`, `2` or `3`, would fully install Jupyter Lab. If set `unset`, the Jupyter Lab would be minimally installed. It means that, no extension would be installed, and if there is already a Jupyter Lab in the base image, nothing would be installed. | `unset` |
 | `JLAB_EXTIERS` | The extension tiers to be installed. Could be `1` or `2`. If `JLAB_VER=unset`, nothing would be installed. | `2` |
 | `JLAB_IMODE` | The preferred manager for installing Jupyter Lab. If set `conda`, it will use `conda` when `conda` is available. If not, would fall back to `pip`. | `conda` |
+| `ADDR_PROXY` | Set the proxy address pointing to `localhost`. If specified, this value should be a full address. | `unset` |
 
 > Note:
 >
@@ -210,6 +211,11 @@ The following tests has been passed.
 | `nvcr.io/nvidia/pytorch:20.12-py3` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ## Update records
+
+### ver 1.3 (alpha) @ 6/16/2021
+
+* [x] Support the proxy value for the built image, this value is important for the devices protected by the firewall.
+* [ ] Support more extensions.
 
 ### ver 1.2 @ 1/30/2021
 
