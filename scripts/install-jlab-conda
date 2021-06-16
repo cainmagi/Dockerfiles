@@ -37,7 +37,7 @@ function nvm_install_dir {
 
 function install_nvm {
     msg "Installing NVM, version: $1"
-    wget -O- https://raw.githubusercontent.com/nvm-sh/nvm/v$1/install.sh | bash || fail
+    wget -O- https://raw.githubusercontent.com/nvm-sh/nvm/v$1/install.sh --no-check-certificate | bash || fail
 }
 
 function install_nodejs {
