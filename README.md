@@ -42,6 +42,7 @@ There are 3 available options:
 | `JLAB_EXTIERS` | The to-be-installed extra extensions for the Jupyter Lab. If`JLAB_VER` is `unset`, nothing would be installed. To view details about which extensions would be installed, see [here](https://github.com/cainmagi/Dockerfiles/tree/jupyterlab#features). | `2` |
 | `WITH_CHINESE` | If set, the image would be built with Chinese support for vscode, sublime and codeblocks. | `true` |
 | `WITH_EXTRA_APPS` | The installed extra applications. Each character represents an app or several apps. For example,`go` represents fully installing `GIMP`, `LibreOffice` and `Thunderbird`. More details could be referred in the following table. | `go` |
+| `ADDR_PROXY` | Set the proxy address pointing to `localhost`. If specified, this value should be a full address. | `unset` |
 
 Here we show the list of extra apps:
 
@@ -132,9 +133,17 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 
 ## Update records
 
-### ver 1.5 @ 4/10/2021
+### ver 1.6 (alpha) @ 6/16/2021
 
 The plan for the next version.
+
+* [x] Support the proxy value for the built image, this value is important for the devices protected by the firewall.
+* [ ] Add some extra apps, move GitKraken to the optional packages. Instead, we need to find another app for supporting the default Git management.
+* [ ] Upgrade the Jupyter Lab script.
+* [ ] Fix a fatal bug caused by the user authority. We may need to find a method for forwarding the current user to the docker image.
+* [ ] Fix a bug of the VNC launching script. In the previous version, the bug would cause strange behaviors (for example, the screen savers would not work).
+
+### ver 1.5 @ 4/10/2021
 
 1. Enhance the launchers of system menu and panels.
 2. Set the user as `xubuntu`, and provide the `--root` mode.
