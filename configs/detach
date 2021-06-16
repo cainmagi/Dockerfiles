@@ -189,10 +189,7 @@ then
         echo "export http_proxy=${ADDR_PROXY}" >> ~/.bashrc
         echo "export https_proxy=${ADDR_PROXY}" >> ~/.bashrc
         echo "export no_proxy=\"127.0.0.1, localhost\"" >> ~/.bashrc
-        export http_proxy=${ADDR_PROXY}
-        export https_proxy=${ADDR_PROXY}
-        export no_proxy="127.0.0.1, localhost"
-        msg "Successfully set the proxy to ${ADDR_PROXY}."
+        msg "Successfully set the proxy to ${ADDR_PROXY} in ./bashrc."
     else
         msg "Do not set the proxy."
     fi

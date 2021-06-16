@@ -20,6 +20,7 @@ ARG ADDR_PROXY=unset
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV USER="root" MKL_CBWR="AUTO" LAUNCH_SCRIPT_ORIGINAL="$BASE_LAUNCH" PATH="${PATH}:/usr/games"
+RUN if [ "x${ADDR_PROXY}" != "xunset" ]; then export NODE_ENV=development; export http_proxy=${ADDR_PROXY}; export https_proxy=${ADDR_PROXY}; export no_proxy="127.0.0.1, localhost"; fi
 
 # Move configs.
 COPY configs /root/docker-configs
