@@ -83,7 +83,7 @@ then
     apt-get install -y \
         autoconf \
         automake \
-        build-essential \
+        build-essential ca-certificates \
         gcc gcc-multilib gfortran gfortran-multilib \
         cmake ccache curl xz-utils \
         checkinstall pkg-config libtool git \
