@@ -21,6 +21,13 @@ function mcd {
 
 THIS_ROOT=/root/configs
 
+if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
+    export http_proxy=${ADDR_PROXY};
+    export https_proxy=${ADDR_PROXY};
+    export no_proxy="127.0.0.1, localhost";
+    msg "Successfully set the proxy to ${ADDR_PROXY}."
+fi
+
 msg "Ensure basic utilities"
 apt-get update -y || fail
 apt-get install -y apt-utils wget || fail
@@ -31,17 +38,10 @@ echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 mv $THIS_ROOT/locale.gen /etc || fail
 
-if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
-    export http_proxy=${ADDR_PROXY};
-    export https_proxy=${ADDR_PROXY};
-    export no_proxy="127.0.0.1, localhost";
-    msg "Successfully set the proxy to ${ADDR_PROXY}."
-fi
-
 msg "Move files to /root"
 mkdir -p /root/scripts || fail
-wget -O /root/scripts/get-pyver.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-pyver.py || fail
-wget -O /root/scripts/get-conda-path.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-conda-path.py || fail
+wget -O /root/scripts/get-pyver.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-pyver.py --no-check-certificate || fail
+wget -O /root/scripts/get-conda-path.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-conda-path.py --no-check-certificate || fail
 chmod +rwx /root/scripts/get-pyver.py /root/scripts/get-conda-path.py || fail
 
 msg "Move files finished."
