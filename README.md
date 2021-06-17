@@ -40,6 +40,7 @@ There are 4 available options:
 | `JLAB_EXTIERS` | The extension tiers to be installed. Could be `1` or `2`. If `JLAB_VER=unset`, nothing would be installed. | `2` |
 | `JLAB_IMODE` | The preferred manager for installing Jupyter Lab. If set `conda`, it will use `conda` when `conda` is available. If not, would fall back to `pip`. | `conda` |
 | `ADDR_PROXY` | Set the proxy address pointing to `localhost`. If specified, this value should be a full address. | `unset` |
+| `SKIP_PIP` | If specified as `true`, will skip the reinstallation of `python-pip`. | `false` |
 
 > Note:
 >

@@ -25,16 +25,18 @@ JLAB_EXTRA_TIERS=2
 JLAB_INSTALL_MODE='pip'
 CUR_PY_VER=$(python3 /root/scripts/get-pyver.py 2>&1)
 HAS_CONDA=$(python3 /root/scripts/get-conda-path.py -m use-conda 2>&1)
+SKIP_PIP_REINSTALL=false
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo $ARGUMENT | cut -f1 -d=)
-    VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+    VALUE=$(echo $ARGUMENT | cut -f2 -d=)
     case "$KEY" in
         MODE)               MODE=${VALUE} ;;
         JLAB_VER)           JLAB_VERSION=${VALUE} ;;
         JLAB_EXTIERS)       JLAB_EXTRA_TIERS=${VALUE} ;;
         JLAB_IMODE)         JLAB_INSTALL_MODE=${VALUE} ;;
+        SKIP_PIP)           SKIP_PIP_REINSTALL=${VALUE} ;;
         *)
     esac
 done
@@ -87,17 +89,23 @@ then
     if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
     then
         apt-get install -y python3-pip || fail
-        python3 /root/scripts/get-pip-3.py --force-reinstall || fail
+        if [ "x${SKIP_PIP_REINSTALL}" != "xtrue" ]
+        then
+            python3 /root/scripts/get-pip-3.py --force-reinstall || fail
+        fi
         python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
     else
-        if [ "x${USE_CURL}" == "x1" ]
-        then
-            curl https://bootstrap.pypa.io/2.7/get-pip.py -o /root/scripts/get-pip-2.py || fail
-        else
-            wget -O /root/scripts/get-pip-2.py https://bootstrap.pypa.io/2.7/get-pip.py --no-check-certificate || fail
-        fi
         apt-get install -y python-pip python3-pip || fail
-        python3 /root/scripts/get-pip-3.py --force-reinstall || fail && python2 /root/scripts/get-pip-2.py --force-reinstall || fail
+        if [ "x${SKIP_PIP_REINSTALL}" != "xtrue" ]
+        then
+            if [ "x${USE_CURL}" == "x1" ]
+            then
+                curl https://bootstrap.pypa.io/2.7/get-pip.py -o /root/scripts/get-pip-2.py || fail
+            else
+                wget -O /root/scripts/get-pip-2.py https://bootstrap.pypa.io/2.7/get-pip.py --no-check-certificate || fail
+            fi
+            python3 /root/scripts/get-pip-3.py --force-reinstall || fail && python2 /root/scripts/get-pip-2.py --force-reinstall || fail
+        fi
         python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
         python2 -m pip install numpy --upgrade || fail
     fi

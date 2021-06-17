@@ -17,6 +17,7 @@ ARG JLAB_VER=unset
 ARG JLAB_EXTIERS=2
 ARG JLAB_IMODE=conda
 ARG ADDR_PROXY=unset
+ARG SKIP_PIP=false
 
 ENV USER=root MKL_CBWR=AUTO LAUNCH_SCRIPT_ORIGINAL=$BASE_LAUNCH
 
@@ -31,7 +32,7 @@ RUN chmod +x /root/scripts/install-base && bash /root/scripts/install-base MODE=
 
 # Install python
 COPY scripts/install-python /root/scripts/
-RUN chmod +x /root/scripts/install-python && bash /root/scripts/install-python MODE=python
+RUN chmod +x /root/scripts/install-python && bash /root/scripts/install-python MODE=python SKIP_PIP=${SKIP_PIP}
 COPY scripts/install-jlab* /root/scripts/
 RUN chmod +x /root/scripts/install-jlab /root/scripts/install-jlab-conda && bash /root/scripts/install-python MODE=jupyter JLAB_VER=${JLAB_VER} JLAB_EXTIERS=${JLAB_EXTIERS} JLAB_IMODE=${JLAB_IMODE}
 RUN bash /root/scripts/install-base MODE=check
