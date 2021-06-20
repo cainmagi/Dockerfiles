@@ -246,11 +246,6 @@ then
     # Install GitFiend 
     wget -O gitfiend.deb https://gitfiend.com/resources/GitFiend_0.26.0_amd64.deb || fail
     apt-get install -y ./gitfiend.deb || fail && rm -f gitfiend.deb || fail
-    if [ "x${WITH_CHINESE}" = "xtrue" ]
-    then
-        mv /usr/share/gitkraken/resources/app.asar.unpacked/src/strings.json /usr/share/gitkraken/resources/app.asar.unpacked/src/strings_eng_back.json || fail
-        wget -O /usr/share/gitkraken/resources/app.asar.unpacked/src/strings.json https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/gitkraken-strings.json || fail
-    fi
 
     # Install CJK fonts and input methods.
     apt-get install -y fonts-wqy-zenhei || fail
