@@ -152,7 +152,7 @@ then
             bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
         fi
     fi
-    if [ "x${DEBUG_IMAGE}" != "xtrue" ]; then
+    if [ "x${DEBUG_IMAGE}" = "xtrue" ]; then
         msgwarn "Debug mode enabled, skip the jupyterlab installation."
     else
         msg "Installation for the Jupyter Lab finishes."
