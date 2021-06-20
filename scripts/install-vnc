@@ -69,7 +69,7 @@ then
         apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -f -y install || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
         
         wget -O tigervncserver_install.deb https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/tigervncserver_1.11.80+20210616git9ec1f360-1ubuntu1_amd64.deb || fail
-        wget -O tigervncserver https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/vncserver || fail
+        wget -O tigervncserver https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/vncserver_1.11.80+20210616git9ec1f360-1ubuntu1_amd64 || fail
         apt-get -y install ./tigervncserver_install.deb || fail
         cp -f tigervncserver /usr/bin || fail
         chmod ugo+x /usr/bin/tigervncserver || fail
