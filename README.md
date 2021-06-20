@@ -14,10 +14,10 @@ This image is compatible for Ubuntu 16.04, 18.04 and 20.04. Please check your ba
 
 We provide 3 examples:
 
-* Start from `pytorch 1.8.0a` image:
+* Start from `pytorch 1.9.0a` image:
 
   ```bash
-  docker build -t xubuntu-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+  docker build -t xubuntu-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:21.05-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
   ```
 
 * Start from `cuda 11.1` image:
@@ -42,14 +42,15 @@ There are 3 available options:
 | `JLAB_EXTIERS` | The to-be-installed extra extensions for the Jupyter Lab. If`JLAB_VER` is `unset`, nothing would be installed. To view details about which extensions would be installed, see [here](https://github.com/cainmagi/Dockerfiles/tree/jupyterlab#features). | `2` |
 | `WITH_CHINESE` | If set, the image would be built with Chinese support for vscode, sublime and codeblocks. | `true` |
 | `WITH_EXTRA_APPS` | The installed extra applications. Each character represents an app or several apps. For example,`go` represents fully installing `GIMP`, `LibreOffice` and `Thunderbird`. More details could be referred in the following table. | `go` |
-| `ADDR_PROXY` | Set the proxy address pointing to `localhost`. If specified, this value should be a full address. | `unset` |
+| `ADDR_PROXY` | Set the proxy address pointing to `localhost`. If specified, this value should be a full address. (Experimental feature ::) | `unset` |
 
 Here we show the list of extra apps:
 
 |  Code   | Description |
 | :-----: | ----------- |
-| `p` | [`PyCharm`](https://www.jetbrains.com/help/pycharm/installation-guide.html) |
+| `p` | [`PyCharm`][link-pycharm] |
 | `g` | [`GIMP`](https://www.gimp.org/downloads) |
+| `k` | [`GitKraken`][link-gitkraken] |
 | `x` | [`TeXLive`](https://tug.org/texlive) + [`TeXstudio`](https://www.texstudio.org) |
 | `n` | [`Nautilus`](https://github.com/GNOME/nautilus) + [`Nemo`](https://github.com/linuxmint/nemo) |
 | `o` | [`LibreOffice`](https://www.libreoffice.org) + [`Thunderbird`](https://www.thunderbird.net) |
@@ -93,6 +94,7 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
   ```
 
   In current version, users could use either `http` to get access to the unencrypted noVNC session or `https` to get access to the ssl-encrypted noVNC session. For users who open the encrypted session firstly, they may need to add the noVNC site into the trusted list.
+
 * By external VNC viewer: If you have installed a VNC viewer on your client side, and want to connect the VNC server of the image directly, please use:
 
   ```bash
@@ -100,6 +102,7 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
   ```
 
   The `root` mode could be also applied here.
+
 * By `Jupyter Lab`: If you want to launch the Jupyter Lab but do not start the desktop, please use
 
   ```bash
@@ -107,11 +110,13 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
   ```
 
   The `jlab_password` would override the default random token. The `jlab_rootdir` is the root folder of the launched jupyter lab. If not set `jlab_rootdir`, the default root folder would be `/homelocal`. The `--jlab` option is required when you need to force the image to switch to Jupyter Lab mode.
+
 * By `BASH`: If you want to enter the command line but do not start the desktop, please use
 
   ```bash
   docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.0 --bash
   ```
+
 * By any script: If you want run any script inside the docker for only one time, please use
 
   ```bash
@@ -138,7 +143,8 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 The plan for the next version.
 
 * [x] Support the proxy value for the built image, this value is important for the devices protected by the firewall.
-* [ ] Add some extra apps, move GitKraken to the optional packages. Instead, we need to find another app for supporting the default Git management.
+* [x] Move [GitKraken][link-gitkraken] to the optional packages. Instead, the default Git client is switched to [GitFiend][link-gitfiend].
+* [ ] Add some extra apps. Bump [`Pycharm`][link-pycharm], [`tigervncserver`][tigervnc] to the newest versions.
 * [ ] Upgrade the Jupyter Lab script.
 * [ ] Fix a fatal bug caused by the user authority. We may need to find a method for forwarding the current user to the docker image.
 * [ ] Fix a bug of the VNC launching script. In the previous version, the bug would cause strange behaviors (for example, the screen savers would not work).
@@ -204,3 +210,7 @@ Create the dockerfile branch.
 
 [tigervnc]: https://github.com/TigerVNC/tigervnc
 [jlab]: https://github.com/cainmagi/Dockerfiles/tree/jupyterlab
+
+[link-pycharm]:https://www.jetbrains.com/help/pycharm/installation-guide.html
+[link-gitkraken]:https://www.gitkraken.com
+[link-gitfiend]:https://gitfiend.com
