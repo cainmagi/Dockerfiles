@@ -12,10 +12,10 @@ docker build -t jlab:1.0 https://github.com/cainmagi/Dockerfiles.git#jupyterlab
 
 We provide 3 examples:
 
-* Start from `pytorch 1.8.0a` image:
+* Start from `pytorch 1.9.0a` image:
 
     ```bash
-    docker build -t jlab-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh https://github.com/cainmagi/Dockerfiles.git#jupyterlab
+    docker build -t jlab-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:21.05-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh https://github.com/cainmagi/Dockerfiles.git#jupyterlab
     ```
 
 * Start from `cuda 11.1` image:
@@ -24,10 +24,10 @@ We provide 3 examples:
     docker build -t jlab-cuda:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" https://github.com/cainmagi/Dockerfiles.git#jupyterlab
     ```
 
-* Start from `pytorch 1.8.0a`, with Jupyter Lab fully upgraded to `2`:
+* Start from `pytorch 1.9.0a`, with Jupyter Lab fully upgraded to `2`:
 
     ```bash
-    docker build -t jlab-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:20.12-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg JLAB_EXTIERS=2 https://github.com/cainmagi/Dockerfiles.git#jupyterlab
+    docker build -t jlab-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:21.05-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg JLAB_EXTIERS=2 https://github.com/cainmagi/Dockerfiles.git#jupyterlab
     ```
 
 There are 4 available options:

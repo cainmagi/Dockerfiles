@@ -3,14 +3,24 @@
 # Make bashline configurations.
 set -e
 RESET='\033[0m'
+COLOR_ERR='\033[1;31m'
+COLOR_WARN='\033[1;33m'
 COLOR='\033[1;32m'
 
 function msg {
     echo -e "${COLOR}$(date): $1${RESET}"
 }
 
+function msgerr {
+    echo -e "${COLOR_ERR}$(date): $1${RESET}"
+}
+
+function msgwarn {
+    echo -e "${COLOR_WARN}$(date): $1${RESET}"
+}
+
 function fail {
-    msg "Error : $?"
+    msgerr "Error : $?"
     exit 1
 }
 
@@ -123,7 +133,9 @@ then
             CONDA_META_PATH=$(python3 /root/scripts/get-conda-path.py -m conda-meta 2>&1)
             echo "${CONDA_PYTHON_VER}" >> "${CONDA_META_PATH}/pinned" || fail
             # Run the script with conda.
-            bash /root/scripts/install-jlab-conda version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
+            if [ "x${DEBUG_IMAGE}" != "xtrue" ]; then
+                bash /root/scripts/install-jlab-conda version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
+            fi
             HASUSED_CONDA="true"
         fi
     fi
@@ -135,8 +147,14 @@ then
             CONDA_META_PATH=$(python3 /root/scripts/get-conda-path.py -m conda-meta 2>&1)
             echo "${CONDA_PYTHON_VER}" >> "${CONDA_META_PATH}/pinned" || fail
         fi
-        # Run the script with pip.
-        bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
+        if [ "x${DEBUG_IMAGE}" != "xtrue" ]; then
+            # Run the script with pip.
+            bash /root/scripts/install-jlab version=${JLAB_VERSION} ex_tiers=${JLAB_EXTRA_TIERS} py_ver=${CUR_PY_VER} || fail
+        fi
     fi
-    msg "Installation for the Jupyter Lab finishes."
+    if [ "x${DEBUG_IMAGE}" != "xtrue" ]; then
+        msgwarn "Debug mode enabled, skip the jupyterlab installation."
+    else
+        msg "Installation for the Jupyter Lab finishes."
+    fi
 fi
