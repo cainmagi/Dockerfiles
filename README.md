@@ -123,12 +123,12 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | [`jupyterlab-debugger`](https://github.com/jupyterlab/debugger)                                  | | :white_check_mark: | :ballot_box_with_check: |
 | [`xpython`](https://github.com/jupyter-xeus/xeus-python)                                         | | :white_check_mark: | :white_check_mark: |
 | [`jupyterlab-hdf5`](https://github.com/jupyterlab/jupyterlab-hdf5)                               | :ballot_box_with_check: | :ballot_box_with_check: | |
-| [`jupyterlab-nvdashboard`](https://github.com/rapidsai/jupyterlab-nvdashboard)                   | :ballot_box_with_check: | :ballot_box_with_check: | |
-| [`jupyterlab-git`](https://github.com/jupyterlab/jupyterlab-git)                                 | :white_check_mark: | :white_check_mark: | |
 | [`jupyterlab-github`](https://github.com/jupyterlab/jupyterlab-github)                           | :white_check_mark: | :white_check_mark: | |
 | [`jupyterlab_go_to_definition`](https://github.com/krassowski/jupyterlab-go-to-definition)       | :white_check_mark: | :white_check_mark: | |
-| [`jupyter-bokeh`](https://github.com/bokeh/jupyter_bokeh)                                        | :white_check_mark: | :white_check_mark: |   |
-| [`jupyterlab-google-drive`](https://github.com/jupyterlab/jupyterlab-google-drive)               | :white_check_mark: | :white_check_mark: |   |
+| [`jupyterlab-google-drive`](https://github.com/jupyterlab/jupyterlab-google-drive)               | :white_check_mark: | :white_check_mark: | |
+| [`jupyterlab-nvdashboard`](https://github.com/rapidsai/jupyterlab-nvdashboard)                   | :ballot_box_with_check: | :ballot_box_with_check: | :ballot_box_with_check: |
+| [`jupyterlab-git`](https://github.com/jupyterlab/jupyterlab-git)                                 | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
+| [`jupyter-bokeh`](https://github.com/bokeh/jupyter_bokeh)                                        | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-jupytext`](https://github.com/mwouts/jupytext/tree/master/packages/labextension)    | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-system-monitor`](https://github.com/jtpio/jupyterlab-system-monitor)                | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-topbar`](https://github.com/jtpio/jupyterlab-topbar)                                | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
@@ -150,6 +150,7 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | [`jupyterlab_html`](https://github.com/mflevine/jupyterlab_html)                | :white_check_mark: | | |
 | [`jupyterlab-tensorboard`](https://github.com/chaoleili/jupyterlab_tensorboard) | :white_check_mark: | :white_check_mark: | |
 | [`jupyterlab-dash`](https://github.com/plotly/jupyterlab-dash)                  | :white_check_mark: | :white_check_mark: | |
+| [`ipycanvas`](https://github.com/martinRenou/ipycanvas)          | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`pyviz-comms`](https://github.com/holoviz/pyviz_comms)                         | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-plotly`](https://github.com/plotly/plotly.py)                      | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [`bqplot`](https://github.com/bqplot/bqplot)                                    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
@@ -213,10 +214,11 @@ The following tests has been passed.
 
 ## Update records
 
-### ver 1.3 (alpha) @ 6/16/2021
+### ver 1.3 (alpha) @ 6/19/2021
 
 * [x] Support the proxy value for the built image, this value is important for the devices protected by the firewall.
-* [ ] Support more extensions.
+* [ ] Support more extensions: `ipycanvas`.
+* [x] Bump the extensions to the newest versions for supporting Jupyter Lab 3: `jupyterlab-git`, `jupyterlab-nvdashboard`, `jupyter-bokeh`.
 
 ### ver 1.2 @ 1/30/2021
 

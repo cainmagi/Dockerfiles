@@ -76,7 +76,7 @@ then
         then
             curl https://bootstrap.pypa.io/get-pip.py -o /root/scripts/get-pip-3.py || fail
         else
-            wget -O /root/scripts/get-pip-3.py https://bootstrap.pypa.io/get-pip.py --no-check-certificate || fail
+            wget -O /root/scripts/get-pip-3.py https://bootstrap.pypa.io/get-pip.py || fail
         fi
     else
         if [ "x${CUR_PY_VER}" == "xpy35" ]
@@ -85,14 +85,14 @@ then
             then
                 curl https://bootstrap.pypa.io/3.5/get-pip.py -o /root/scripts/get-pip-3.py || fail
             else
-                wget -O /root/scripts/get-pip-3.py https://bootstrap.pypa.io/3.5/get-pip.py --no-check-certificate || fail
+                wget -O /root/scripts/get-pip-3.py https://bootstrap.pypa.io/3.5/get-pip.py || fail
             fi
         else
             if [ "x${USE_CURL}" == "x1" ]
             then
                 curl https://bootstrap.pypa.io/3.4/get-pip.py -o /root/scripts/get-pip-3.py || fail
             else
-                wget -O /root/scripts/get-pip-3.py https://bootstrap.pypa.io/3.4/get-pip.py --no-check-certificate || fail
+                wget -O /root/scripts/get-pip-3.py https://bootstrap.pypa.io/3.4/get-pip.py || fail
             fi
         fi
     fi
@@ -112,7 +112,7 @@ then
             then
                 curl https://bootstrap.pypa.io/2.7/get-pip.py -o /root/scripts/get-pip-2.py || fail
             else
-                wget -O /root/scripts/get-pip-2.py https://bootstrap.pypa.io/2.7/get-pip.py --no-check-certificate || fail
+                wget -O /root/scripts/get-pip-2.py https://bootstrap.pypa.io/2.7/get-pip.py || fail
             fi
             python3 /root/scripts/get-pip-3.py --force-reinstall || fail && python2 /root/scripts/get-pip-2.py --force-reinstall || fail
         fi

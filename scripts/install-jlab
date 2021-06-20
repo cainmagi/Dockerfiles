@@ -42,7 +42,7 @@ function nvm_install_dir {
 
 function install_nvm {
     msg "Installing NVM, version: $1"
-    wget -O- https://raw.githubusercontent.com/nvm-sh/nvm/v$1/install.sh --no-check-certificate | bash || fail
+    wget -O- https://raw.githubusercontent.com/nvm-sh/nvm/v$1/install.sh | bash || fail
 }
 
 function install_nodejs {
@@ -117,7 +117,7 @@ then
     python3 -m pip install jupyter jupyter-core notebook pyzmq --upgrade || fail
     python3 -m pip install jupyterlab==1.2.18 || fail
     if ! nvm_has "nvm"; then
-        install_nvm 0.37.2 || fail
+        install_nvm 0.38.0 || fail
     fi
     install_nodejs 12.20.1 || fail
 fi
@@ -136,7 +136,7 @@ then
     python3 -m pip install jupyter jupyter-core notebook pyzmq --upgrade || fail
     python3 -m pip install jupyterlab==2.2.9 || fail
     if ! nvm_has "nvm"; then
-        install_nvm 0.37.2 || fail
+        install_nvm 0.38.0 || fail
     fi
     install_nodejs 12.20.1 || fail
 fi
@@ -154,16 +154,16 @@ then
     python3 -m pip install jupyter jupyter-core notebook pyzmq --upgrade || fail
     if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
     then
-        msg "Installing Jupyter Lab, ver 3.0.6."
-        python3 -m pip install typing-extensions==3.7.4.3 jupyterlab==3.0.6 || fail
+        msg "Installing Jupyter Lab, ver 3.1.0a11."
+        python3 -m pip install typing-extensions==3.10.0.0 jupyterlab==3.1.0a11 || fail
     else
         msg "For compatibility of python<=3.5, installing Jupyter Lab, ver 3.0.0a14."
         python3 -m pip install jupyterlab==3.0.0a14 || fail
     fi
     if ! nvm_has "nvm"; then
-        install_nvm 0.37.2 || fail
+        install_nvm 0.38.0 || fail
     fi
-    install_nodejs 15.6.0 || fail
+    install_nodejs 15.12.0 || fail
 fi
 
 ## Install extra packages.
@@ -207,17 +207,19 @@ then
         then
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install jupyterlab-drawio pyviz_comms ipydagred3 || fail
+                python3 -m pip install jupyterlab-drawio pyviz_comms ipydagred3 ipycanvas orjson || fail
+                python3 -m pip install git+https://github.com/cliffwoolley/jupyter_tensorboard.git || fail
             else
-                run_with_nodejs "jupyter labextension install bqplot --no-build" || fail
+                python3 -m pip install yarn || fail
+                run_with_nodejs "jupyter labextension install bqplot ipycanvas --no-build" || fail
             fi
         fi
 
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
             python3 -m pip install "tensorboard>=1.14,<=2.2" || fail # If required, downgrad the tensorboard APIs.
-            python3 -m pip install jupyter-tensorboard jupyter-dash pyviz_comms || fail
-            run_with_nodejs "jupyter labextension install jupyterlab_tensorboard jupyterlab-dash bqplot --no-build" || fail
+            python3 -m pip install jupyter-tensorboard jupyter-dash pyviz_comms yarn || fail
+            run_with_nodejs "jupyter labextension install jupyterlab_tensorboard jupyterlab-dash bqplot ipycanvas --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x2" ]
@@ -237,7 +239,7 @@ then
         msg "Installing Jupyter Lab extensions, tier 1."
         if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
         then
-            python3 -m pip install nbdime==2.1.0 || fail
+            python3 -m pip install nbdime==3.1.0 || fail
         else
             python3 -m pip install nbdime==2.0.0 || fail
         fi
@@ -247,7 +249,7 @@ then
         then
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install xeus-python==0.9.1 || fail
+                python3 -m pip install xeus-python==0.12.4 || fail
             else
                 python3 -m pip install xeus-python==0.7.1 || fail
             fi
@@ -260,13 +262,13 @@ then
             python3 -m pip install "nbresuse>=0.4.0" || fail
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install jupyterlab-drawio || fail
+                python3 -m pip install jupyterlab-drawio "jupyterlab-git>=0.30.1" bokeh "jupyter_bokeh>=3.0.2" "jupyterlab_nvdashboard>=0.6.0" || fail
             fi
             python3 -m pip install bqplot ipylab || fail
 
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install python-language-server[all]==0.36.2 aquirdturtle_collapsible_headings==3.0.1 jupyterlab-system-monitor==0.7.0 lckr-jupyterlab-variableinspector==3.0.2 jupyter-lsp==1.1.1 jupyterlab-lsp==3.2.0 "ipympl>=0.6.2" jupytext==1.9.1 sidecar jupyterlab-topbar jupyterlab-system-monitor || fail
+                python3 -m pip install python-language-server[all]==1.11.3 aquirdturtle_collapsible_headings==3.1.0 jupyterlab-system-monitor==0.8.0 lckr-jupyterlab-variableinspector==3.0.9 jupyter-lsp==1.3.0 jupyterlab-lsp==3.7.0 "ipympl>=0.7.0" jupytext==1.11.3 sidecar==0.5.1 jupyterlab-topbar jupyterlab-system-monitor || fail
                 run_with_nodejs "jupyter labextension install @jupyterlab/toc @jupyterlab/debugger @jupyterlab/mathjax3-extension @jupyterlab/katex-extension jupyterlab-topbar-text --no-build" || fail
             else
                 python3 -m pip install python-language-server[all]==0.34.0 ipympl==0.5.8 || fail
