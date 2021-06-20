@@ -58,19 +58,19 @@ fi
 
 if [ "x${MODE}" = "xvnc" ]
 then
-    apt -y update -qq || fail && apt -y install git || fail
-    apt -y install lsb-release lsb-core || fail
+    apt-get -y update -qq || fail && apt-get -y install git || fail
+    apt-get -y install lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
 
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
-        apt -y install fontconfig-config fonts-dejavu-core libbsd0 libc-dev-bin libc6-dev libcrypt-dev libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2 libedit2 libelf1 libexpat1 libfontconfig1 libfontenc-dev libfontenc1 libfreetype-dev libfreetype6 libfreetype6-dev libgl1 libgl1-mesa-dri libglapi-mesa libglu1-mesa libglvnd0 libglx-mesa0 libglx0 libice6 libjpeg-turbo8 libllvm11 libpciaccess0 libpixman-1-0 libpng-dev libpng-tools libpng16-16 libpthread-stubs0-dev libsensors-config libsensors5 libsm6 libvulkan1 libwayland-client0 libx11-6 libx11-data libx11-dev libx11-xcb1 libxau-dev libxau6 libxaw7 libxcb-xkb-dev libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-randr0 libxcb-shape0 libxcb-sync1 libxcb-xfixes0 libxcb1 libxcb1-dev libxcomposite1 libxcursor1 libxdamage1 libxdmcp-dev libxdmcp6 libxext6 libxfixes3 libxfont-dev libxfont2 libxft2 libxi6 libxinerama1 libxkbfile1 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrender1 libxshmfence1 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 linux-libc-dev manpages manpages-dev mesa-vulkan-drivers ucf x11-common x11-utils x11-xkb-utils x11proto-core-dev x11proto-dev xauth xorg-sgml-doctools xtrans-dev zlib1g-dev glibc-doc freetype2-doc pciutils lm-sensors libx11-doc libxcb-doc man-db mesa-utils || fail
-        #apt install tigervnc-common tigervnc-standalone-server
-        apt -y update || fail && apt -y upgrade || fail && apt -f -y install || fail && apt -y dist-upgrade || fail && apt -y autoremove || fail && apt -y autoclean || fail
+        apt-get -y install fontconfig-config fonts-dejavu-core libbsd0 libc-dev-bin libc6-dev libcrypt-dev libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2 libedit2 libelf1 libexpat1 libfontconfig1 libfontenc-dev libfontenc1 libfreetype-dev libfreetype6 libfreetype6-dev libgl1 libgl1-mesa-dri libglapi-mesa libglu1-mesa libglvnd0 libglx-mesa0 libglx0 libice6 libjpeg-turbo8 libllvm11 libpciaccess0 libpixman-1-0 libpng-dev libpng-tools libpng16-16 libpthread-stubs0-dev libsensors-config libsensors5 libsm6 libvulkan1 libwayland-client0 libx11-6 libx11-data libx11-dev libx11-xcb1 libxau-dev libxau6 libxaw7 libxcb-xkb-dev libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-randr0 libxcb-shape0 libxcb-sync1 libxcb-xfixes0 libxcb1 libxcb1-dev libxcomposite1 libxcursor1 libxdamage1 libxdmcp-dev libxdmcp6 libxext6 libxfixes3 libxfont-dev libxfont2 libxft2 libxi6 libxinerama1 libxkbfile1 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrender1 libxshmfence1 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 linux-libc-dev manpages manpages-dev mesa-vulkan-drivers ucf x11-common x11-utils x11-xkb-utils x11proto-core-dev x11proto-dev xauth xorg-sgml-doctools xtrans-dev zlib1g-dev glibc-doc freetype2-doc pciutils lm-sensors libx11-doc libxcb-doc man-db mesa-utils || fail
+        #apt-get install tigervnc-common tigervnc-standalone-server
+        apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -f -y install || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
         
         wget -O tigervncserver_install.deb https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/tigervncserver_1.11.80+20210616git9ec1f360-1ubuntu1_amd64.deb || fail
         wget -O tigervncserver https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/vncserver || fail
-        apt -y install ./tigervncserver_install.deb || fail
+        apt-get -y install ./tigervncserver_install.deb || fail
         cp -f tigervncserver /usr/bin || fail
         chmod ugo+x /usr/bin/tigervncserver || fail
         ln -s /usr/bin/tigervncserver /usr/bin/vncserver || fail
@@ -80,13 +80,13 @@ then
 
     if [ "x${UBUNTU_VER}" = "x18.04" ]
     then
-        apt -y install fontconfig-config fonts-dejavu-core libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2 libelf1 libfontconfig1 libfontenc-dev libfontenc1 libfreetype6 libfreetype6-dev libgl1 libgl1-mesa-dri libgl1-mesa-glx libglapi-mesa libglu1-mesa libglvnd0 libglx-mesa0 libglx0 libice6 libjpeg-turbo8 libllvm8 libpciaccess0 libpixman-1-0 libpng-dev libpng-tools libpng16-16 libpthread-stubs0-dev libsensors4 libsm6 libtasn1-bin libx11-6 libx11-data libx11-dev libx11-doc libx11-xcb1 libxau-dev libxau6 libxaw7 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-shape0 libxcb-sync1 libxcb1 libxcb1-dev libxcomposite1 libxcursor1 libxdamage1 libxdmcp-dev libxdmcp6 libxext6 libxfixes3 libxfont-dev libxfont2 libxft2 libxi6 libxinerama1 libxkbfile1 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrender1 libxshmfence1 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 ucf x11-common x11-utils x11-xkb-utils x11proto-core-dev x11proto-dev xauth xorg-sgml-doctools xtrans-dev pciutils lm-sensors libxcb-doc mesa-utils xfonts-100dpi xfonts-75dpi xfonts-scalable nickle cairo-5c xorg-docs-core || fail
-        #apt -y install tigervnc-common tigervnc-standalone-server
-        apt -y update || fail && apt -y upgrade || fail && apt -f -y install || fail && apt -y dist-upgrade || fail && apt -y autoremove || fail && apt -y autoclean || fail
+        apt-get -y install fontconfig-config fonts-dejavu-core libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2 libelf1 libfontconfig1 libfontenc-dev libfontenc1 libfreetype6 libfreetype6-dev libgl1 libgl1-mesa-dri libgl1-mesa-glx libglapi-mesa libglu1-mesa libglvnd0 libglx-mesa0 libglx0 libice6 libjpeg-turbo8 libllvm8 libpciaccess0 libpixman-1-0 libpng-dev libpng-tools libpng16-16 libpthread-stubs0-dev libsensors4 libsm6 libtasn1-bin libx11-6 libx11-data libx11-dev libx11-doc libx11-xcb1 libxau-dev libxau6 libxaw7 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-shape0 libxcb-sync1 libxcb1 libxcb1-dev libxcomposite1 libxcursor1 libxdamage1 libxdmcp-dev libxdmcp6 libxext6 libxfixes3 libxfont-dev libxfont2 libxft2 libxi6 libxinerama1 libxkbfile1 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrender1 libxshmfence1 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 ucf x11-common x11-utils x11-xkb-utils x11proto-core-dev x11proto-dev xauth xorg-sgml-doctools xtrans-dev pciutils lm-sensors libxcb-doc mesa-utils xfonts-100dpi xfonts-75dpi xfonts-scalable nickle cairo-5c xorg-docs-core || fail
+        #apt-get -y install tigervnc-common tigervnc-standalone-server
+        apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -f -y install || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
         
         wget -O tigervncserver_install.deb https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/tigervncserver_1.11.0-1ubuntu1_amd64.deb || fail
         wget -O tigervncserver https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/vncserver || fail
-        apt -y install ./tigervncserver_install.deb || fail
+        apt-get -y install ./tigervncserver_install.deb || fail
         cp -f tigervncserver /usr/bin || fail
         chmod ugo+x /usr/bin/tigervncserver || fail
         ln -s /usr/bin/tigervncserver /usr/bin/vncserver || fail
@@ -96,10 +96,10 @@ then
     
     if [ "x${UBUNTU_VER}" = "x16.04" ]
     then
-        apt -y install x11-common xserver-common x11-utils xauth libfontenc1 libfreetype6 libgl1-mesa-dri libjpeg-turbo8 libpixman-1-0 libtasn1-3-bin libx11-6 fontconfig-config fonts-dejavu-core libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2 libelf1 libfontconfig1 libfontenc-dev libfontenc1 libfreetype6 libfreetype6-dev libgl1-mesa-dri libgl1-mesa-glx libglapi-mesa libglu1-mesa libice6 libjpeg-turbo8 libllvm6.0 libpciaccess0 libpixman-1-0 libpng12-0 libpng12-dev libpthread-stubs0-dev libsensors4 libsm6 libtasn1-3-bin libtasn1-bin libtxc-dxtn-s2tc0 libx11-6 libx11-data libx11-dev libx11-doc libx11-xcb1 libxau-dev libxau6 libxaw7 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-shape0 libxcb-sync1 libxcb1 libxcb1-dev libxcomposite1 libxcursor1 libxdamage1 libxdmcp-dev libxdmcp6 libxext6 libxfixes3 libxfont1 libxfont1-dev libxft2 libxi6 libxinerama1 libxkbfile1 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrender1 libxshmfence1 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 ucf x11-common x11-utils x11-xkb-utils x11proto-core-dev x11proto-fonts-dev x11proto-input-dev x11proto-kb-dev xauth xorg-sgml-doctools xtrans-dev || fail
-        apt -y update || fail && apt -y upgrade || fail && apt -f -y install || fail && apt -y dist-upgrade || fail && apt -y autoremove || fail && apt -y autoclean || fail
+        apt-get -y install x11-common xserver-common x11-utils xauth libfontenc1 libfreetype6 libgl1-mesa-dri libjpeg-turbo8 libpixman-1-0 libtasn1-3-bin libx11-6 fontconfig-config fonts-dejavu-core libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2 libelf1 libfontconfig1 libfontenc-dev libfontenc1 libfreetype6 libfreetype6-dev libgl1-mesa-dri libgl1-mesa-glx libglapi-mesa libglu1-mesa libice6 libjpeg-turbo8 libllvm6.0 libpciaccess0 libpixman-1-0 libpng12-0 libpng12-dev libpthread-stubs0-dev libsensors4 libsm6 libtasn1-3-bin libtasn1-bin libtxc-dxtn-s2tc0 libx11-6 libx11-data libx11-dev libx11-doc libx11-xcb1 libxau-dev libxau6 libxaw7 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-shape0 libxcb-sync1 libxcb1 libxcb1-dev libxcomposite1 libxcursor1 libxdamage1 libxdmcp-dev libxdmcp6 libxext6 libxfixes3 libxfont1 libxfont1-dev libxft2 libxi6 libxinerama1 libxkbfile1 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrender1 libxshmfence1 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 ucf x11-common x11-utils x11-xkb-utils x11proto-core-dev x11proto-fonts-dev x11proto-input-dev x11proto-kb-dev xauth xorg-sgml-doctools xtrans-dev || fail
+        apt-get -y update || fail && apt-get -y upgrade || fail && apt-get -f -y install || fail && apt-get -y dist-upgrade || fail && apt-get -y autoremove || fail && apt-get -y autoclean || fail
         wget -O tigervncserver_install.deb https://github.com/cainmagi/Dockerfiles/releases/download/tigervncserver-11/tigervncserver_1.10.1-1ubuntu1_amd64.deb || fail
-        apt -y install ./tigervncserver_install.deb || fail
+        apt-get -y install ./tigervncserver_install.deb || fail
         rm -f tigervncserver_install.deb || fail
     fi
 
@@ -134,7 +134,7 @@ fi
 if [ "x${MODE}" = "xtheme" ]
 then 
     # Install xfce4 Desktop
-    apt -y install lsb-release lsb-core || fail
+    apt-get -y install lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
 
     mkdir -p /usr/share || fail

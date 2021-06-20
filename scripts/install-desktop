@@ -54,27 +54,27 @@ then
     if [ -d "/var/cache/app-info/xapian/default" ]; then
         chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
     fi
-    apt update -y || fail
-    apt install -y lsb-release lsb-core || fail
+    apt-get update -y || fail
+    apt-get install -y lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
     
     
     # Install xfce4 Desktop
-    apt install -y dbus-x11 libx11-6 libx11-data libx11-protocol-perl libx11-xcb1 x11-apps \
+    apt-get install -y dbus-x11 libx11-6 libx11-data libx11-protocol-perl libx11-xcb1 x11-apps \
         x11-common x11-session-utils x11-utils x11-xkb-utils x11-xserver-utils || fail
     # Install dialog
-    apt install -y dialog || fail
+    apt-get install -y dialog || fail
     # Install desktop applications.
-    apt install -y xubuntu-desktop synaptic language-selector-gnome || fail
-    apt install -y xfce4 || fail
+    apt-get install -y xubuntu-desktop synaptic language-selector-gnome || fail
+    apt-get install -y xfce4 || fail
     # Install the xfce4 addons
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
         # Install libgtk
-        apt install -y libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev libgirepository1.0-dev \
+        apt-get install -y libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev libgirepository1.0-dev \
             libgraphite2-utils imagemagick pavucontrol || fail
         # Install xfce-plugin
-        apt install -y libxfce4panel-2.0-4 libxfce4ui-1-0 libxfce4ui-2-0 libxfce4ui-common \
+        apt-get install -y libxfce4panel-2.0-4 libxfce4ui-1-0 libxfce4ui-2-0 libxfce4ui-common \
             libxfce4util-common libxfce4util7 xfce4-appfinder xfce4-notifyd xfce4-panel xfce4-session xfce4-settings \
             gtk-update-icon-cache xfce4-indicator-plugin xfce4-power-manager xfce4-pulseaudio-plugin xfce4-screenshooter \
             xfce4-statusnotifier-plugin xfce4-terminal xfce4-whiskermenu-plugin xfce4-cpugraph-plugin xfce4-dict \
@@ -82,26 +82,26 @@ then
             xfce4-systemload-plugin xfce4-taskmanager xfce4-verve-plugin xfce4-weather-plugin xfce4-xkb-plugin \
             xfce4-mpc-plugin xfpanel-switch xubuntu-community-wallpapers xul-ext-ubufox mousepad ubuntu-sounds \
             gnome-system-monitor terminator || fail
-        apt install -y xfce4-battery-plugin xfce4-settings xfce4-clipman-plugin xfce4-datetime-plugin \
+        apt-get install -y xfce4-battery-plugin xfce4-settings xfce4-clipman-plugin xfce4-datetime-plugin \
             xfce4-sensors-plugin xfce4-cpufreq-plugin xfce4-diskperf-plugin xfce4-fsguard-plugin \
             xfce4-genmon-plugin xfce4-smartbookmark-plugin xfce4-timer-plugin || fail
         # Install screen saver
-        apt install -y xfce4-screensaver xscreensaver-gl-extra xscreensaver-data-extra \
+        apt-get install -y xfce4-screensaver xscreensaver-gl-extra xscreensaver-data-extra \
             xscreensaver-screensaver-bsod || fail
         # Install file manager
-        apt install -y thunar libthunarx-3-0 thunar-data thunar-archive-plugin thunar-dropbox-plugin \
+        apt-get install -y thunar libthunarx-3-0 thunar-data thunar-archive-plugin thunar-dropbox-plugin \
             thunar-media-tags-plugin thunar-vcs-plugin thunar-gtkhash thunar-volman || fail
         # Install icon themes and wallpapers
-        apt install -y adwaita-icon-theme elementary-xfce-icon-theme hicolor-icon-theme \
+        apt-get install -y adwaita-icon-theme elementary-xfce-icon-theme hicolor-icon-theme \
             humanity-icon-theme tango-icon-theme gnome-icon-theme xubuntu-community-wallpapers-xenial \
             xubuntu-community-wallpapers-bionic xubuntu-community-wallpapers-trusty || fail
     else
         # Install libgtk
-        apt install -y libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev || fail
-        apt install -y gtk3-engines-xfce xfce4-notifyd mousepad xfce4-terminal \
+        apt-get install -y libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev || fail
+        apt-get install -y gtk3-engines-xfce xfce4-notifyd mousepad xfce4-terminal \
             xfce4-taskmanager gnome-system-monitor lightdm-gtk-greeter-settings || fail
         # Install xfce-plugin
-        apt install -y xfce4-battery-plugin xfce4-settings xfce4-clipman-plugin \
+        apt-get install -y xfce4-battery-plugin xfce4-settings xfce4-clipman-plugin \
             xfce4-cpugraph-plugin xfce4-datetime-plugin xfce4-netload-plugin \
             xfce4-notes-plugin xfce4-places-plugin xfce4-sensors-plugin \
             xfce4-systemload-plugin xfce4-linelight-plugin xfce4-whiskermenu-plugin \
@@ -110,18 +110,18 @@ then
             xfce4-smartbookmark-plugin xfce4-timer-plugin xfce4-verve-plugin \
             xfce4-weather-plugin xfce4-appfinder xfce4-dict terminator || fail
         # Install screen saver
-        apt install -y xscreensaver xscreensaver-gl-extra xscreensaver-data-extra \
+        apt-get install -y xscreensaver xscreensaver-gl-extra xscreensaver-data-extra \
             xscreensaver-screensaver-bsod || fail
         # Install file manager.
-        apt install -y thunar thunar-data thunar-archive-plugin thunar-dropbox-plugin \
+        apt-get install -y thunar thunar-data thunar-archive-plugin thunar-dropbox-plugin \
             thunar-media-tags-plugin thunar-vcs-plugin thunar-gtkhash thunar-volman || fail
     fi
-    apt install -y gvfs gvfs-backends gvfs-common gvfs-daemons gvfs-fuse gvfs-libs || fail
+    apt-get install -y gvfs gvfs-backends gvfs-common gvfs-daemons gvfs-fuse gvfs-libs || fail
 
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
         msg "Installating Chinese language supports."
-        apt install -y language-pack-zh-hans language-pack-zh-hans-base language-pack-gnome-zh-hans \
+        apt-get install -y language-pack-zh-hans language-pack-zh-hans-base language-pack-gnome-zh-hans \
             language-pack-gnome-zh-hans-base fonts-noto-cjk fonts-arphic-ukai fonts-arphic-uming || fail
     fi
 
@@ -131,19 +131,19 @@ fi
 if [ "x${MODE}" = "xapps" ]
 then 
     msg "Begin to install the basic tier of desktop apps."
-    apt install -y lsb-release lsb-core || fail
+    apt-get install -y lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
 
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
         wget -O google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb || fail
-        apt install -y ./google-chrome.deb || fail
+        apt-get install -y ./google-chrome.deb || fail
         rm -f google-chrome.deb || fail
     else
-        apt install -y chromium-browser chromium-codecs-ffmpeg chromium-browser-l10n || fail
+        apt-get install -y chromium-browser chromium-codecs-ffmpeg chromium-browser-l10n || fail
     fi
 
-    apt install -y firefox qt5-default qt5-doc-html qt5-image-formats-plugins qt5-style-plugins codeblocks vlc smplayer gedit okular gnome-screenshot pdf2svg || fail
+    apt-get install -y firefox qt5-default qt5-doc-html qt5-image-formats-plugins qt5-style-plugins codeblocks vlc smplayer gedit okular gnome-screenshot pdf2svg || fail
 
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
@@ -154,9 +154,9 @@ then
 
     if [ "x${UBUNTU_VER}" = "x20.04" ]
     then
-        apt install -y vim-gtk3 vim-gui-common || fail
-        apt install -y nomacs nomacs-l10n || fail
-        apt install -y hdf-compass || fail
+        apt-get install -y vim-gtk3 vim-gui-common || fail
+        apt-get install -y nomacs nomacs-l10n || fail
+        apt-get install -y hdf-compass || fail
         # Do not install notepadqq, install sublime instead.
         if [ "x${USE_CURL}" == "x1" ]
         then
@@ -168,9 +168,9 @@ then
         if [ -d "/var/cache/app-info/xapian/default" ]; then
             chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
         fi
-        apt update -y || fail
+        apt-get update -y || fail
         
-        apt install -y sublime-text || fail
+        apt-get install -y sublime-text || fail
         if [ "x${WITH_CHINESE}" = "xtrue" ]
         then
             git clone -b st3 https://github.com/rexdf/ChineseLocalization.git ${USER_ROOT}/.config/sublime-text-3/Packages/ChineseLocalization || fail
@@ -181,14 +181,14 @@ then
         if [ -d "/var/cache/app-info/xapian/default" ]; then
             chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
         fi
-        apt update -y || fail
+        apt-get update -y || fail
 
-        apt install -y vim-gnome notepadqq nomacs || fail
+        apt-get install -y vim-gnome notepadqq nomacs || fail
     fi
 
     if [ "x${UBUNTU_VER}" = "x18.04" ]
     then
-        apt install -y hdf-compass || fail
+        apt-get install -y hdf-compass || fail
     fi
     
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg || fail
@@ -198,12 +198,12 @@ then
     then
         dpkg --add-architecture i386 || fail
     fi
-    apt install -y apt-transport-https || fail
+    apt-get install -y apt-transport-https || fail
     if [ -d "/var/cache/app-info/xapian/default" ]; then
         chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
     fi
-    apt update -y || fail && apt -y dist-upgrade || fail
-    apt install -y code || fail
+    apt-get update -y || fail && apt-get -y dist-upgrade || fail
+    apt-get install -y code || fail
 
     # Install extensions for code
     CODE_EXTENSIONS="hookyqr.beautify
@@ -241,11 +241,11 @@ then
     else
         wget https://ufpr.dl.sourceforge.net/project/peazip/6.6.0/peazip_6.6.0.LINUX.GTK2-2_i386.deb -O peazip.deb || fail
     fi
-    apt -y install ./peazip.deb || fail && rm -f peazip.deb || fail
+    apt-get -y install ./peazip.deb || fail && rm -f peazip.deb || fail
 
     # Install GitFiend 
     wget -O gitfiend.deb https://gitfiend.com/resources/GitFiend_0.26.0_amd64.deb || fail
-    apt install -y ./gitfiend.deb || fail && rm -f gitfiend.deb || fail
+    apt-get install -y ./gitfiend.deb || fail && rm -f gitfiend.deb || fail
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
         mv /usr/share/gitkraken/resources/app.asar.unpacked/src/strings.json /usr/share/gitkraken/resources/app.asar.unpacked/src/strings_eng_back.json || fail
@@ -253,7 +253,7 @@ then
     fi
 
     # Install CJK fonts and input methods.
-    apt install -y fonts-wqy-zenhei || fail
+    apt-get install -y fonts-wqy-zenhei || fail
     [ -d /usr/share/fonts/opentype ] || mkdir /usr/share/fonts/opentype
     git clone https://github.com/adobe-fonts/source-code-pro.git /usr/share/fonts/opentype/scp || fail
     /usr/bin/fc-cache -r -v && fc-cache -f || fail
@@ -261,32 +261,32 @@ then
     # Uninstall ibus if it is installed
     IBUS_INSTALLED=$(apt -qq --installed list ibus)
     if [[ "x$IBUS_INSTALLED" != "x" ]]; then
-        apt remove -y ibus || fail
-        apt autoremove -y || fail
+        apt-get remove -y ibus || fail
+        apt-get autoremove -y || fail
     fi
-    apt install -y fcitx fcitx-googlepinyin fcitx-table-wbpy fcitx-pinyin fcitx-sunpinyin fcitx-module-dbus || fail
-    apt install -y fcitx-module-cloudpinyin fcitx-table-wubi || fail
-    apt install -y at-spi2-core || fail
+    apt-get install -y fcitx fcitx-googlepinyin fcitx-table-wbpy fcitx-pinyin fcitx-sunpinyin fcitx-module-dbus || fail
+    apt-get install -y fcitx-module-cloudpinyin fcitx-table-wubi || fail
+    apt-get install -y at-spi2-core || fail
     
     # Additional packages for Chinese localization.
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
         msg "Installating Chinese language supports."
         if [ "x${UBUNTU_VER}" = "x20.04" ]; then
-            apt install -y fonts-noto-cjk-extra firefox-locale-zh-hans kde-config-fcitx || fail
+            apt-get install -y fonts-noto-cjk-extra firefox-locale-zh-hans kde-config-fcitx || fail
         fi
         if [ "x${UBUNTU_VER}" = "x18.04" ]; then
-            apt install -y firefox-locale-zh-hans fonts-noto-cjk-extra kde-config-fcitx || fail
+            apt-get install -y firefox-locale-zh-hans fonts-noto-cjk-extra kde-config-fcitx || fail
         fi
         if [ "x${UBUNTU_VER}" = "x16.04" ]; then
-            apt install -y kde-l10n-zhcn firefox-locale-zh-hans || fail
+            apt-get install -y kde-l10n-zhcn firefox-locale-zh-hans || fail
         fi
     fi
 
     # Finish installing localization.
     /etc/init.d/dbus start || fail
 
-    apt install -f -y || fail && apt upgrade -y || fail && apt -y dist-upgrade || fail
+    apt-get install -f -y || fail && apt-get upgrade -y || fail && apt-get -y dist-upgrade || fail
 
     if [ "x${CUR_PY_VER}" == "xpy36" ] || [ "x${CUR_PY_VER}" == "xpy37+" ]
     then
@@ -307,17 +307,17 @@ then
     fi
     if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
     then
-        apt install -y python3-pip || fail
+        apt-get install -y python3-pip || fail
         python3 /root/scripts/get-pip-3.py --force-reinstall || fail
         python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail  
     else
-        apt install -y python-pip python3-pip || fail
+        apt-get install -y python-pip python3-pip || fail
         python3 /root/scripts/get-pip-3.py --force-reinstall || fail && python2 /root/scripts/get-pip-2.py --force-reinstall || fail
         python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
         python2 -m pip install numpy --upgrade || fail
     fi
 
-    apt install -y python3-sip python3-pyqt5 python3-tk || fail
+    apt-get install -y python3-sip python3-pyqt5 python3-tk || fail
     msg "Installation for the extra packages finishes."
 
     # Note that /usr/bin/python3 may be different from python3 especially when conda exists. This installation needs to follow the installation of python3-pyqt5.

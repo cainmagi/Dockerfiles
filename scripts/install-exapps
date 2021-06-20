@@ -59,8 +59,8 @@ if [ "x${SET_EXTRA_APPS}" != "" ]; then
     if [ -d "/var/cache/app-info/xapian/default" ]; then
         chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
     fi
-    apt update -y || fail && apt -y dist-upgrade || fail
-    apt install -y lsb-release lsb-core || fail
+    apt-get update -y || fail && apt-get -y dist-upgrade || fail
+    apt-get install -y lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
 else
     exit 0
@@ -79,7 +79,7 @@ fi
 if [[ "${SET_EXTRA_APPS}" = *"g"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"g"* ]]; then
     msg "Installation for GIMP."
     # Could be used in 16.04, 18.04 and 20.04.
-    apt install -y gimp gimp-cbmplugs gimp-data gimp-data-extras gimp-dcraw gimp-dds gimp-gap gimp-gluas gimp-gmic gimp-gutenprint gimp-help-common gimp-help-en gimp-plugin-registry gimp-texturize gtkam-gimp libgimp2.0-dev gimp-lensfun || fail
+    apt-get install -y gimp gimp-cbmplugs gimp-data gimp-data-extras gimp-dcraw gimp-dds gimp-gap gimp-gluas gimp-gmic gimp-gutenprint gimp-help-common gimp-help-en gimp-plugin-registry gimp-texturize gtkam-gimp libgimp2.0-dev gimp-lensfun || fail
 fi
 
 # Gitkraken
@@ -99,24 +99,24 @@ fi
 if [[ "${SET_EXTRA_APPS}" = *"x"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"x"* ]]; then
     msg "Installation for TeXLive adn TeXstudio."
     # Could be used in 16.04, 18.04 and 20.04.
-    apt install -y texlive texlive-full texlive-lang-all perl-tk || fail
-    apt install -y mythes-en-us texstudio texstudio-doc texstudio-l10n || fail
+    apt-get install -y texlive texlive-full texlive-lang-all perl-tk || fail
+    apt-get install -y mythes-en-us texstudio texstudio-doc texstudio-l10n || fail
 fi
 
 # nautilus + nemo
 if [[ "${SET_EXTRA_APPS}" = *"n"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"n"* ]]; then
     msg "Installation for Nautilus and Nemo."
     if [ "x${UBUNTU_VER}" = "x20.04" ]; then
-        apt install -y nautilus nautilus-data tracker tracker-extract tracker-miner-fs eog gnome-sushi nautilus-extension-brasero nautilus-sendto nautilus-wipe nautilus-share nautilus-scripts-manager nautilus-script-debug nautilus-script-collection-svn nautilus-image-converter nautilus-hide nautilus-filename-repairer nautilus-font-manager nautilus-extension-gnome-terminal nautilus-dropbox nautilus-data nautilus-admin python3-nautilus || fail
-        apt install -y nemo nemo-data nemo-extension-fma nemo-fileroller nemo-font-manager nemo-gtkhash libnemo-extension1 nemo-python || fail
+        apt-get install -y nautilus nautilus-data tracker tracker-extract tracker-miner-fs eog gnome-sushi nautilus-extension-brasero nautilus-sendto nautilus-wipe nautilus-share nautilus-scripts-manager nautilus-script-debug nautilus-script-collection-svn nautilus-image-converter nautilus-hide nautilus-filename-repairer nautilus-font-manager nautilus-extension-gnome-terminal nautilus-dropbox nautilus-data nautilus-admin python3-nautilus || fail
+        apt-get install -y nemo nemo-data nemo-extension-fma nemo-fileroller nemo-font-manager nemo-gtkhash libnemo-extension1 nemo-python || fail
     fi
     if [ "x${UBUNTU_VER}" = "x18.04" ]; then
-        apt install -y nautilus nautilus-data nautilus-admin nautilus-compare nautilus-dropbox nautilus-emblems nautilus-extension-gnome-terminal nautilus-filename-repairer nautilus-gtkhash nautilus-hide nautilus-ideviceinfo nautilus-image-converter nautilus-script-collection-svn nautilus-script-debug nautilus-scripts-manager nautilus-sendto nautilus-share nautilus-wipe python-nautilus gnome-sushi libnautilus-extension-dev || fail
-        apt install -y nemo nemo-data nemo-fileroller nemo-gtkhash nemo-keyboard nemo-owncloud nemo-python libnemo-extension-dev || fail
+        apt-get install -y nautilus nautilus-data nautilus-admin nautilus-compare nautilus-dropbox nautilus-emblems nautilus-extension-gnome-terminal nautilus-filename-repairer nautilus-gtkhash nautilus-hide nautilus-ideviceinfo nautilus-image-converter nautilus-script-collection-svn nautilus-script-debug nautilus-scripts-manager nautilus-sendto nautilus-share nautilus-wipe python-nautilus gnome-sushi libnautilus-extension-dev || fail
+        apt-get install -y nemo nemo-data nemo-fileroller nemo-gtkhash nemo-keyboard nemo-owncloud nemo-python libnemo-extension-dev || fail
     fi
     if [ "x${UBUNTU_VER}" = "x16.04" ]; then
-        apt install -y nautilus nautilus-data nautilus-admin nautilus-actions nautilus-compare nautilus-dropbox nautilus-emblems nautilus-filename-repairer nautilus-gtkhash nautilus-hide nautilus-ideviceinfo nautilus-image-converter nautilus-image-manipulator nautilus-script-collection-svn nautilus-script-debug nautilus-scripts-manager nautilus-sendto nautilus-share nautilus-wipe python-nautilus gnome-sushi libnautilus-extension-dev || fail
-        apt install -y nemo nemo-data nemo-fileroller nemo-gtkhash nemo-keyboard libnemo-extension-dev || fail
+        apt-get install -y nautilus nautilus-data nautilus-admin nautilus-actions nautilus-compare nautilus-dropbox nautilus-emblems nautilus-filename-repairer nautilus-gtkhash nautilus-hide nautilus-ideviceinfo nautilus-image-converter nautilus-image-manipulator nautilus-script-collection-svn nautilus-script-debug nautilus-scripts-manager nautilus-sendto nautilus-share nautilus-wipe python-nautilus gnome-sushi libnautilus-extension-dev || fail
+        apt-get install -y nemo nemo-data nemo-fileroller nemo-gtkhash nemo-keyboard libnemo-extension-dev || fail
     fi
 fi
 
@@ -124,16 +124,16 @@ fi
 if [[ "${SET_EXTRA_APPS}" = *"o"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"o"* ]]; then
     msg "Installation for LibreOffice and Thunderbird."
     if [ "x${UBUNTU_VER}" = "x20.04" ]; then
-        apt install -y libreoffice libreoffice-qt5 libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-evolution libreoffice-gnome libreoffice-gtk3 libreoffice-help-common libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-numbertext libreoffice-script-provider-python libreoffice-texmaths libreoffice-templates libreoffice-voikko libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
-        apt install -y birdtray thunderbird thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us thunderbird-locale-zh-cn webext-exteditor webext-tbsync || fail
+        apt-get install -y libreoffice libreoffice-qt5 libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-evolution libreoffice-gnome libreoffice-gtk3 libreoffice-help-common libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-numbertext libreoffice-script-provider-python libreoffice-texmaths libreoffice-templates libreoffice-voikko libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
+        apt-get install -y birdtray thunderbird thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us thunderbird-locale-zh-cn webext-exteditor webext-tbsync || fail
     fi
     if [ "x${UBUNTU_VER}" = "x18.04" ]; then
-        apt install -y libreoffice libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-evolution libreoffice-gnome libreoffice-gtk3 libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-script-provider-python libreoffice-texmaths libreoffice-templates libreoffice-voikko libreoffice-pdfimport libreoffice-ogltrans libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
-        apt install -y thunderbird thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us thunderbird-locale-zh-cn thunderbird-mozsymbols xul-ext-lightning || fail
+        apt-get install -y libreoffice libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-evolution libreoffice-gnome libreoffice-gtk3 libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-script-provider-python libreoffice-texmaths libreoffice-templates libreoffice-voikko libreoffice-pdfimport libreoffice-ogltrans libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
+        apt-get install -y thunderbird thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us thunderbird-locale-zh-cn thunderbird-mozsymbols xul-ext-lightning || fail
     fi
     if [ "x${UBUNTU_VER}" = "x16.04" ]; then
-        apt install -y libreoffice libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-gnome libreoffice-gtk3 libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-script-provider-python libreoffice-templates libreoffice-voikko libreoffice-pdfimport libreoffice-ogltrans libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
-        apt install -y thunderbird thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us thunderbird-locale-zh-cn thunderbird-mozsymbols xul-ext-lightning || fail
+        apt-get install -y libreoffice libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-gnome libreoffice-gtk3 libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-script-provider-python libreoffice-templates libreoffice-voikko libreoffice-pdfimport libreoffice-ogltrans libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
+        apt-get install -y thunderbird thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us thunderbird-locale-zh-cn thunderbird-mozsymbols xul-ext-lightning || fail
     fi
 fi
 
@@ -145,8 +145,8 @@ if [[ "${SET_EXTRA_APPS}" = *"a"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"a"* ]]; t
     if [ -d "/var/cache/app-info/xapian/default" ]; then
         chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
     fi
-    apt update -y || fail
-    apt install -y atom || fail
+    apt-get update -y || fail
+    apt-get install -y atom || fail
     ATOM_HOME=${USER_HOME}/.atom apm install atom-ide-ui hyperclick nuclide-format-js atom-ide-debugger-python atom-ide-debugger-node atom-ide-debugger-react-native atom-ide-debugger-native-gdb atom-ide-debugger-ocaml || fail
     ATOM_HOME=${USER_HOME}/.atom apm install atom-material-ui atom-python-run pp-markdown markdown-to-html sass scss-compiler rainbow-csv atom-beautify || fail
     if [ "x${WITH_CHINESE}" = "xtrue" ]; then
@@ -161,6 +161,6 @@ if [[ "${SET_EXTRA_APPS}" = *"e"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"e"* ]]; t
     if [ -d "/var/cache/app-info/xapian/default" ]; then
         chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
     fi
-    apt update -y || fail
-    apt install -y emacs27 || fail
+    apt-get update -y || fail
+    apt-get install -y emacs27 || fail
 fi

@@ -183,9 +183,9 @@ then
     msg "Detach script, basic mode."
 
     msg "Create user xubuntu ..."
-    apt update || fail
-    apt install -y apt-utils || fail
-    apt install -y sudo || fail # Install sudo package
+    apt-get update || fail
+    apt-get install -y apt-utils || fail
+    apt-get install -y sudo || fail # Install sudo package
     useradd -ms /bin/bash xubuntu || fail # Add the user
     passwd -d xubuntu || fail # Delete the password
     usermod -a -G sudo xubuntu || fail # Make the user admin
@@ -232,8 +232,8 @@ fi
 
 if [ "x${MODE}" = "xshortcuts" ]
 then
-    apt update || fail
-    apt -y install lsb-release lsb-core || fail
+    apt-get update || fail
+    apt-get -y install lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
     CURIN_PY_VER=$(/usr/bin/python3 /root/scripts/get-pyver.py 2>&1)
 
