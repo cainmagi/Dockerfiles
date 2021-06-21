@@ -109,5 +109,6 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 ### ver 1.0 @ 6/21/2021
 
 1. Create this minimal dockerfile.
+2. Fix a bug of dbus, this fixing would make the screen saver work.
 
 [tigervnc]: https://github.com/TigerVNC/tigervnc

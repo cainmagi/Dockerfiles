@@ -5,11 +5,12 @@ nvm_has(){
 }
 
 # Uncomment the following two lines for normal desktop:
-if nvm_has "dbus-launch"; then
-  unset SESSION_MANAGER
-  unset DBUS_SESSION_BUS_ADDRESS
-  dbus-launch xfce4-session
-fi
+sudo /etc/init.d/dbus restart
+# if nvm_has "dbus-launch"; then
+#   unset SESSION_MANAGER
+#   unset DBUS_SESSION_BUS_ADDRESS
+#   dbus-launch xfce4-session
+# fi
 
 OS=`uname -s`
 if [ $OS = 'Linux' ]; then
