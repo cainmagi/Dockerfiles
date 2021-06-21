@@ -47,7 +47,7 @@ do
 done
 
 if [ ! -z "${SET_UID}" ] && [ "x${SET_UID}" != "x0" ]; then
-    user-mapping uid=${SET_UID} gid=${SET_GID}
+    sudo user-mapping uid=${SET_UID} gid=${SET_GID}
     exec su - xubuntu
     exit 0
 fi
