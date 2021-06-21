@@ -5,12 +5,12 @@
 #
 
 # Pull base image.
-ARG BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.04-py3
+ARG BASE_IMAGE=nvcr.io/nvidia/tensorflow:21.05-tf2-py3
 FROM $BASE_IMAGE
 LABEL maintainer="Yuchen Jin <cainmagi@gmail.com>" \
       author="Yuchen Jin <cainmagi@gmail.com>" \
       description="Jupyter Lab dockerfile supporting 1.x, 2.x and 3.x versions." \
-      version="1.3a"
+      version="1.3"
 ARG DEBIAN_FRONTEND=noninteractive
 ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
 ARG JLAB_VER=unset

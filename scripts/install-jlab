@@ -312,7 +312,7 @@ then
             fi
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install jupyter-lsp==0.9.3 jupyterlab-git || fail
+                python3 -m pip install jupyter-lsp==0.9.3 "jupyterlab-git<=0.24.0" || fail
                 run_with_nodejs "jupyter labextension install @jupyterlab/git --no-build" || fail
             else
                 python3 -m pip install jupyter-lsp==0.9.2 jupyterlab-git==0.21.1 || fail
