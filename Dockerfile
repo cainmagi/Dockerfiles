@@ -10,7 +10,7 @@ FROM $BASE_IMAGE
 LABEL maintainer="Yuchen Jin <cainmagi@gmail.com>" \
       author="Yuchen Jin <cainmagi@gmail.com>" \
       description="xUbuntu desktop (minimal) dockerfile for ubuntu 16.04, 18.04 and 20.04 images." \
-      version="1.0a"
+      version="1.0"
 ARG BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh
 ARG WITH_CHINESE="true"
 ARG ADDR_PROXY=unset
