@@ -294,7 +294,7 @@ then
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
                 python3 -m pip install pynvml || fail
-                python3 -m pip install jupyterlab-nvdashboard jupyterlab_hdf jupytext==1.8.2 || fail
+                python3 -m pip install "jupyterlab-nvdashboard<=0.5.0" jupyterlab_hdf jupytext==1.8.2 || fail
                 run_with_nodejs "jupyter labextension install jupyterlab-nvdashboard @jupyterlab/github @jupyterlab/hdf5 --no-build" || fail
             else
                 python3 -m pip install jupytext==1.8.1 || fail

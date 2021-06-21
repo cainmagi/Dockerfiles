@@ -119,7 +119,7 @@ then
         CONDA_TEMP_PKGS=""
     fi
     if [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]; then
-        conda install -y -c conda-forge "ipywidgets>=7.5" "nbdime>=2.0" "nbresuse>=0.3.3,<=0.3.6" jupytext=1.8.2 ipympl=0.5.2 bokeh jupyter_bokeh pynvml jupyterlab-nvdashboard jupyterlab-git=0.11.0 ${CONDA_TEMP_PKGS} || fail
+        conda install -y -c conda-forge "ipywidgets>=7.5" "nbdime>=2.0" "nbresuse>=0.3.3,<=0.3.6" jupytext=1.8.2 ipympl=0.5.2 bokeh jupyter_bokeh pynvml "jupyterlab-nvdashboard<=0.5.0" jupyterlab-git=0.11.0 ${CONDA_TEMP_PKGS} || fail
         python3 -m pip install jupyterlab_hdf sidecar==0.3.0 || fail
     fi
     if [ "x${EXTRA_TIERS}" = "x2" ]; then
@@ -168,7 +168,7 @@ then
         CONDA_TEMP_PKGS=""
     fi
     if [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]; then
-        conda install -y -c conda-forge "ipywidgets>=7.5" "nbdime>=2.0" "nbresuse>=0.3.3,<=0.3.6" jupytext=1.8.2 jupyter-lsp-python=0.9.3 ipympl=0.5.8 sidecar=0.4.0 xeus-python ptvsd bokeh jupyter_bokeh pynvml jupyterlab-nvdashboard python-language-server jupyterlab-git ${CONDA_TEMP_PKGS} || fail
+        conda install -y -c conda-forge "ipywidgets>=7.5" "nbdime>=2.0" "nbresuse>=0.3.3,<=0.3.6" jupytext=1.8.2 jupyter-lsp-python=0.9.3 ipympl=0.5.8 sidecar=0.4.0 xeus-python ptvsd bokeh jupyter_bokeh pynvml "jupyterlab-nvdashboard<=0.5.0" python-language-server jupyterlab-git ${CONDA_TEMP_PKGS} || fail
         python3 -m pip install jupyterlab_hdf || fail
     fi
     if [ "x${EXTRA_TIERS}" = "x2" ]; then
