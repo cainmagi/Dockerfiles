@@ -1,0 +1,150 @@
+#!/bin/bash
+
+source ~/.bashrc
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+MODE="vnc"
+MODE_RUN_SCRIPT=""
+USER_ROOT="/home/xubuntu"
+# Pass options from command line
+for ARGUMENT in "$@"
+do
+    KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    if [[ $KEY != '--*' ]]
+    then
+        VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+    fi
+    case "$KEY" in
+        --bash)         MODE="bash" ;;
+        --vnc)          MODE="vnc" ;;
+        --root)         MODE="rootvnc" ;;
+        --xvnc)         MODE="xvnc" ;;
+        script)         MODE_RUN_SCRIPT=${VALUE} ;;
+        *)
+    esac    
+done
+
+MACHINE_IP=$(hostname -I | awk 'NR==1 {print $1}')
+echo "Check script: ${LAUNCH_SCRIPT_ORIGINAL}"
+if [ "x${LAUNCH_SCRIPT_ORIGINAL}" != "x" ]
+then
+    echo "Launch script: ${LAUNCH_SCRIPT_ORIGINAL}"
+    bash $LAUNCH_SCRIPT_ORIGINAL echo "Finish launching."
+fi
+
+if [ "x${MODE}" = "xbash" ]
+then
+    exec bash
+    exit 0
+fi
+
+if [ "x${MODE_RUN_SCRIPT}" != "x" ]
+then
+    echo "${MODE_RUN_SCRIPT}" | bash
+    exit 0
+fi
+
+echo "----------------------------------------"
+echo " XUbuntu Desktop Container (Minimal)"
+echo " Yuchen Jin"
+echo "----------------------------------------"
+echo " Pre-request script:"
+echo "   ${LAUNCH_SCRIPT_ORIGINAL} "
+echo "----------------------------------------"
+echo "This is a ubuntu desktop based on VNC server, to understand how to use it, follow these steps:"
+echo "    S1: Input the password as the instruction."
+echo "    S2: Confirm the password and remember the port used by this VNC session."
+echo "        This setting is only required when you first enter the container. If you want to change the password, use \"tigervncpasswd\" to do that."
+echo "    S3: Check the host IP address returned from the screen."
+echo "    S4: Run \"noVNC\" outside the container by \"$ noVNC IP=... PORT=...\" where \"PORT\" is optional."
+echo "    S5: Check the URL returned by noVNC, and use a web browser to connect the desktop URL."
+echo "    S6: Input the password which is set in S1."
+echo "    S7: Now you would see the desktop has been launched"
+echo "    S8: Enjoy your remote desktop. Note that you should not close both the terminal running the container and the default terminal of noVNC screen."
+echo "    S9: Use \"xrandr -s 1920x1080\" to choose the resolution as you want."
+echo "    S10: Before quit from the docker, remember to kill the vnc server."
+echo ""
+
+echo "---------"
+echo "Host IP:"
+echo $MACHINE_IP
+echo "---------"
+
+echo "VNC settings:"
+
+if [ "x${MODE}" = "xrootvnc" ]
+then
+    FILE_VNCPASSWD=/root/.vnc/passwd
+    if [[ -f "${FILE_VNCPASSWD}" ]]; then
+        echo "Find VNC password."
+    else
+        sudo tigervncpasswd ${FILE_VNCPASSWD}
+        mkdir -p /home/xubuntu/.vnc/ || fail
+        if $(sudo [ ! -s /home/xubuntu/.vnc/passwd ]); then
+            sudo cp -f ${FILE_VNCPASSWD} /home/xubuntu/.vnc/ || fail
+            sudo chown xubuntu /home/xubuntu/.vnc/passwd || fail
+            sudo chgrp xubuntu /home/xubuntu/.vnc/passwd || fail
+            sudo chmod ug+rwx /home/xubuntu/.vnc/passwd || fail
+        fi
+    fi
+else
+    FILE_VNCPASSWD=${USER_ROOT}/.vnc/passwd
+    if [[ -f "${FILE_VNCPASSWD}" ]]; then
+        echo "Find VNC password."
+    else
+        tigervncpasswd ${FILE_VNCPASSWD}
+        sudo mkdir -p /root/.vnc/ || fail
+        if $(sudo [ ! -s /root/.vnc/passwd ]); then
+            sudo cp -f ${FILE_VNCPASSWD} /root/.vnc/ || fail
+        fi
+    fi
+fi
+
+if [ "x${MODE}" = "xrootvnc" ]
+then
+    sudo tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
+fi
+
+if [ "x${MODE}" = "xxvnc" ]
+then
+    Xtigervnc :0 -depth 24 -geometry 1920x1080 -br &
+    sleep 3
+    x0tigervncserver -display=:0 -Geometry=1920x1080+0+0 -rfbport=5901 -PasswordFile=${FILE_VNCPASSWD} &
+fi
+
+if [ "x${MODE}" = "xvnc" ]
+then
+    tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
+fi
+
+if [ -s "/vnccerts/self.pem" ]; then
+    sudo cp -f /vnccerts/self.pem /apps/source/noVNC/utils/websockify/self.pem || fail
+else
+    mkdir -p /vnccerts || fail
+    openssl req -new -x509 -days 365 -nodes -config /etc/ssl/vncssl.cnf -out /vnccerts/self.pem -keyout /vnccerts/self.pem || fail
+    sudo cp -f /vnccerts/self.pem /apps/source/noVNC/utils/websockify/self.pem || fail
+    rm -f /vnccerts/self.pem || fail
+fi
+
+sudo chmod ugo+rwx /apps/source/noVNC/utils/websockify/self.pem || fail
+exec noVNC --cert /apps/source/noVNC/utils/websockify/self.pem --key /apps/source/noVNC/utils/websockify/self.pem --vnc $MACHINE_IP:5901 --listen 6080 &
+
+exec '/bin/bash'
