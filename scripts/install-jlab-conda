@@ -218,7 +218,10 @@ then
     fi
     if [ "x${EXTRA_TIERS}" = "x2" ] || [ "x${EXTRA_TIERS}" = "x1" ]; then
         conda install -y -c conda-forge "ipywidgets>=7.6.3" "nbdime>=3.1.0" "nbresuse>=0.4.0" "ipympl>=0.7.0" "sidecar>=0.5.1" "jupytext>=1.11.3" xeus-python ptvsd jupyterlab-lsp python-language-server "ipylab>=0.4.1" "jupyterlab-git>=0.30.1" bokeh "jupyter_bokeh>=3.0.2" ${CONDA_TEMP_PKGS} || fail
-        python3 -m pip install jupyterlab-topbar lckr-jupyterlab-variableinspector aquirdturtle_collapsible_headings jupyterlab-system-monitor "jupyterlab_nvdashboard>=0.6.0" || fail
+        if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
+            python3 -m pip install "jupyterlab_nvdashboard>=0.6.0" || fail
+        fi
+        python3 -m pip install jupyterlab-topbar lckr-jupyterlab-variableinspector aquirdturtle_collapsible_headings jupyterlab-system-monitor || fail
         python3 -m pip install https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/jupyterlab_language_pack_zh_CN-0.0.1.dev0-py2.py3-none-any.whl || fail
     fi
     if [ "x${EXTRA_TIERS}" = "x2" ]; then

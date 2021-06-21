@@ -150,7 +150,7 @@ To install the following extensions, use the building argument `JLAB_EXTRA_TIERS
 | [`jupyterlab_html`](https://github.com/mflevine/jupyterlab_html)                | :white_check_mark: | | |
 | [`jupyterlab-tensorboard`](https://github.com/chaoleili/jupyterlab_tensorboard) | :white_check_mark: | :white_check_mark: | |
 | [`jupyterlab-dash`](https://github.com/plotly/jupyterlab-dash)                  | :white_check_mark: | :white_check_mark: | |
-| [`ipycanvas`](https://github.com/martinRenou/ipycanvas)          | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
+| [`ipycanvas`](https://github.com/martinRenou/ipycanvas)                         | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`pyviz-comms`](https://github.com/holoviz/pyviz_comms)                         | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: |
 | [`jupyterlab-plotly`](https://github.com/plotly/plotly.py)                      | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [`bqplot`](https://github.com/bqplot/bqplot)                                    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
@@ -219,7 +219,7 @@ The following tests has been passed.
 * [x] Support the proxy value for the built image, this value is important for the devices protected by the firewall.
 * [ ] Support more extensions: `ipycanvas`.
 * [x] Bump the extensions to the newest versions for supporting Jupyter Lab 3: `jupyterlab-git`, `jupyterlab-nvdashboard`, `jupyter-bokeh`.
-* [x] Fix a bug casued by the changed address of `get-pip.py`.
+* [x] Fix a bug caused by the changed address of `get-pip.py`.
 
 ### ver 1.2 @ 1/30/2021
 

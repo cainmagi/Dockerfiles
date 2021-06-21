@@ -210,8 +210,7 @@ then
                 python3 -m pip install jupyterlab-drawio pyviz_comms ipydagred3 ipycanvas orjson || fail
                 python3 -m pip install git+https://github.com/cliffwoolley/jupyter_tensorboard.git || fail
             else
-                python3 -m pip install yarn || fail
-                run_with_nodejs "jupyter labextension install bqplot ipycanvas --no-build" || fail
+                run_with_nodejs "jupyter labextension install bqplot --no-build" || fail
             fi
         fi
 
@@ -260,9 +259,13 @@ then
         then
             py_fix_wrapt_version || fail # Fix wrapt version problem.
             python3 -m pip install "nbresuse>=0.4.0" || fail
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]
+            then
+                python3 -m pip install "jupyterlab_nvdashboard>=0.6.0" || fail
+            fi
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install jupyterlab-drawio "jupyterlab-git>=0.30.1" bokeh "jupyter_bokeh>=3.0.2" "jupyterlab_nvdashboard>=0.6.0" || fail
+                python3 -m pip install jupyterlab-drawio "jupyterlab-git>=0.30.1" bokeh "jupyter_bokeh>=3.0.2" || fail
             fi
             python3 -m pip install bqplot ipylab || fail
 
