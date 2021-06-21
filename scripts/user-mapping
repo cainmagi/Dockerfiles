@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# Scripts for user mapping.
+# Thanks the work of
+# https://gist.github.com/renzok/29c9e5744f1dffa392cf
+
+# Make bashline configurations.
+set -e
+RESET='\033[0m'
+COLOR='\033[1;32m'
+
+function msg {
+  echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function fail {
+  msg "Error : $?"
+  exit 1
+}
+
+function mcd {
+  mkdir -p "$1" || fail
+  cd "$1" || fail
+}
+
+HOST_UID=""
+HOST_GID=""
+# Pass options from command line
+for ARGUMENT in "$@"
+do
+    KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    VALUE=$(echo $ARGUMENT | cut -f2 -d=)
+    case "$KEY" in
+        uid)            HOST_UID=${VALUE} ;;
+        gid)            HOST_GID=${VALUE} ;;
+        *)
+    esac    
+done
+
+XUBUNTU_UID=$(id xubuntu -u)
+XUBUNTU_GID=$(id xubuntu -g)
+
+# UID is not changed.
+if [ -z "${HOST_UID}" ] || [ "x${HOST_UID}" = "x0" ] || [ "x${HOST_UID}" = "x${XUBUNTU_UID}" ]; then
+    echo "Current UID is not changed." ; exit 0
+fi
+
+# GID is not changed.
+if [ -z "${HOST_GID}" ] || [ "x${HOST_GID}" = "x0" ] || [ "x${HOST_GID}" = "x${XUBUNTU_GID}" ]; then
+    HOST_GID=${XUBUNTU_UID}
+fi
+
+# reset user_?id to either new id or if empty old (still one of above
+# might not be set)
+USER_ID=${HOST_UID:=$XUBUNTU_UID}
+USER_GID=${HOST_GID:=$XUBUNTU_GID}
+
+USER_NAME=xubuntu
+LINE=$(grep -F ${USER_NAME} /etc/passwd)
+# replace all ':' with a space and create array
+array=( ${LINE//:/ } )
+
+# home is 5th element
+USER_HOME=${array[4]}
+
+sed -i -e "s/^${USER_NAME}:\([^:]*\):[0-9]*:[0-9]*/${USER_NAME}:\1:${USER_ID}:${USER_GID}/"  /etc/passwd
+sed -i -e "s/^${USER_NAME}:\([^:]*\):[0-9]*/${USER_NAME}:\1:${USER_GID}/"  /etc/group
+
+chown -R ${USER_ID}:${USER_GID} ${USER_HOME}
+
+msg "Switch the account id to ${USER_ID}:${USER_GID}. Please commit the image and exit"

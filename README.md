@@ -89,6 +89,18 @@ where `xminimal` is the folder of the corresponding branch. The options in onlin
   docker run --gpus all -it --rm -v ~:/homelocal xminimal:1.0 script=<the-path-to-your-script>
   ```
 
+* Switch the user id: When you use this image for the first time, please configure your user id by:
+
+  ```bash
+  docker run --gpus all -it --rm -v ~:/homelocal xminimal:1.0 uid=$(id -u) gid=$(id -g)
+  ```
+
+  Then commit the image by
+
+  ```bash
+  docker commit --change='CMD [""]' <conatiner-id> xminimal:1.0
+  ```
+
 ## Features
 
 This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` image, it has:

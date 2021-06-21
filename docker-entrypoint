@@ -24,6 +24,8 @@ function mcd {
 MODE="vnc"
 MODE_RUN_SCRIPT=""
 USER_ROOT="/home/xubuntu"
+SET_UID=""
+SET_GID=""
 # Pass options from command line
 for ARGUMENT in "$@"
 do
@@ -38,9 +40,17 @@ do
         --root)         MODE="rootvnc" ;;
         --xvnc)         MODE="xvnc" ;;
         script)         MODE_RUN_SCRIPT=${VALUE} ;;
+        uid)            SET_UID=${VALUE} ;;
+        gid)            SET_GID=${VALUE} ;;
         *)
-    esac    
+    esac
 done
+
+if [ ! -z "${SET_UID}" ] && [ "x${SET_UID}" != "x0" ]; then
+    user-mapping uid=${SET_UID} gid=${SET_GID}
+    exec su - xubuntu
+    exit 0
+fi
 
 MACHINE_IP=$(hostname -I | awk 'NR==1 {print $1}')
 echo "Check script: ${LAUNCH_SCRIPT_ORIGINAL}"
