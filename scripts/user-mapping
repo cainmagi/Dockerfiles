@@ -68,4 +68,17 @@ sed -i -e "s/^${USER_NAME}:\([^:]*\):[0-9]*/${USER_NAME}:\1:${USER_GID}/"  /etc/
 
 chown -R ${USER_ID}:${USER_GID} ${USER_HOME}
 
+msg "Please reset VNC password."
+FILE_VNCPASSWD=${USER_HOME}/.vnc/passwd
+if [[ -f "${FILE_VNCPASSWD}" ]]; then
+    echo "Find VNC password in ${FILE_VNCPASSWD}"
+else
+    echo "Reset VNC password in ${FILE_VNCPASSWD}"
+    sudo -i -u ${USER_NAME} tigervncpasswd ${FILE_VNCPASSWD}
+    mkdir -p /root/.vnc/ || fail
+    if $(sudo [ ! -s /root/.vnc/passwd ]); then
+        cp -f ${FILE_VNCPASSWD} /root/.vnc/ || fail
+    fi
+fi
+
 msg "Switch the account id to ${USER_ID}:${USER_GID}. Please commit the image and exit"

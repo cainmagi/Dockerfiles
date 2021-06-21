@@ -55,6 +55,7 @@ EXPOSE 6080
 
 # Define default command.
 USER xubuntu
+ENV USER="xubuntu"
 WORKDIR /home/xubuntu
 ENTRYPOINT ["bash", "docker-entrypoint"]
 CMD [""]
