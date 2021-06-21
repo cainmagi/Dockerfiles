@@ -219,6 +219,7 @@ The following tests has been passed.
 * [x] Support the proxy value for the built image, this value is important for the devices protected by the firewall.
 * [ ] Support more extensions: `ipycanvas`.
 * [x] Bump the extensions to the newest versions for supporting Jupyter Lab 3: `jupyterlab-git`, `jupyterlab-nvdashboard`, `jupyter-bokeh`.
+* [x] Fix a bug casued by the changed address of `get-pip.py`.
 
 ### ver 1.2 @ 1/30/2021
 
