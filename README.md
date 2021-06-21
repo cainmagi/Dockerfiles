@@ -145,9 +145,10 @@ The plan for the next version.
 * [x] Support the proxy value for the built image, this value is important for the devices protected by the firewall.
 * [x] Move [GitKraken][link-gitkraken] to the optional packages. Instead, the default Git client is switched to [GitFiend][link-gitfiend].
 * [ ] Add some extra apps. Bump [`Pycharm`][link-pycharm], [`tigervncserver`][tigervnc] to the newest versions.
-* [ ] Upgrade the Jupyter Lab script.
+* [x] Upgrade the Jupyter Lab script to `1.3`.
 * [ ] Fix a fatal bug caused by the user authority. We may need to find a method for forwarding the current user to the docker image.
 * [ ] Fix a bug of the VNC launching script. In the previous version, the bug would cause strange behaviors (for example, the screen savers would not work).
+* [x] Fix a bug caused by the changed address of `get-pip.py`.
 
 ### ver 1.5 @ 4/10/2021
 
