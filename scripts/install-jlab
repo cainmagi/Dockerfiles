@@ -210,7 +210,12 @@ then
                 python3 -m pip install jupyterlab-drawio pyviz_comms ipydagred3 ipycanvas orjson || fail
                 python3 -m pip install git+https://github.com/cliffwoolley/jupyter_tensorboard.git || fail
             else
-                run_with_nodejs "jupyter labextension install bqplot --no-build" || fail
+                python3 -m pip install yarn || fail
+                if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]; then
+                    run_with_nodejs "jupyter labextension install bqplot ipycanvas --no-build" || fail
+                else
+                    run_with_nodejs "jupyter labextension install bqplot@0.5.21 ipycanvas --no-build" || fail
+                fi
             fi
         fi
 
@@ -267,7 +272,7 @@ then
             then
                 python3 -m pip install jupyterlab-drawio "jupyterlab-git>=0.30.1" bokeh "jupyter_bokeh>=3.0.2" || fail
             fi
-            python3 -m pip install bqplot ipylab || fail
+            python3 -m pip install ipylab || fail
 
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
