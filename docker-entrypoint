@@ -90,7 +90,7 @@ do
 done
 
 XUBUNTU_UID=$(id xubuntu -u)
-if [ "x${XUBUNTU_UID}" != "x1000" ]; then
+if [ "x${XUBUNTU_UID}" = "x1000" ]; then
     XUBUNTU_UID="0"
 fi
 if [ ! -z "${SET_UID}" ] && [ "x${SET_UID}" != "x0" ] && [ "x${SET_UID}" != "x${XUBUNTU_UID}" ]; then

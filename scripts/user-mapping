@@ -41,7 +41,7 @@ XUBUNTU_UID=$(id xubuntu -u)
 XUBUNTU_GID=$(id xubuntu -g)
 
 # UID is not changed.
-if [ "x${XUBUNTU_UID}" != "x1000" ]; then
+if [ "x${XUBUNTU_UID}" = "x1000" ]; then
     XUBUNTU_UID="0"
 fi
 if [ -z "${HOST_UID}" ] || [ "x${HOST_UID}" = "x0" ] || [ "x${HOST_UID}" = "x${XUBUNTU_UID}" ]; then
