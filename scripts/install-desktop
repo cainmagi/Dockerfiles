@@ -190,7 +190,7 @@ then
     then
         apt-get install -y hdf-compass || fail
     fi
-    
+
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg || fail
     install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/ || fail
     sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list' || fail
@@ -244,7 +244,7 @@ then
     apt-get -y install ./peazip.deb || fail && rm -f peazip.deb || fail
 
     # Install GitFiend 
-    wget -O gitfiend.deb https://gitfiend.com/resources/GitFiend_0.26.0_amd64.deb || fail
+    wget -O gitfiend.deb https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.6-u20.04/GitFiend_0.27.4_amd64.deb || fail
     apt-get install -y ./gitfiend.deb || fail && rm -f gitfiend.deb || fail
 
     # Install CJK fonts and input methods.
@@ -252,7 +252,7 @@ then
     [ -d /usr/share/fonts/opentype ] || mkdir /usr/share/fonts/opentype
     git clone https://github.com/adobe-fonts/source-code-pro.git /usr/share/fonts/opentype/scp || fail
     /usr/bin/fc-cache -r -v && fc-cache -f || fail
-    
+
     # Uninstall ibus if it is installed
     IBUS_INSTALLED=$(apt -qq --installed list ibus)
     if [[ "x$IBUS_INSTALLED" != "x" ]]; then
@@ -262,7 +262,7 @@ then
     apt-get install -y fcitx fcitx-googlepinyin fcitx-table-wbpy fcitx-pinyin fcitx-sunpinyin fcitx-module-dbus || fail
     apt-get install -y fcitx-module-cloudpinyin fcitx-table-wubi || fail
     apt-get install -y at-spi2-core || fail
-    
+
     # Additional packages for Chinese localization.
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
