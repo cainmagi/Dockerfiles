@@ -278,9 +278,6 @@ then
         fi
     fi
 
-    # Finish installing localization.
-    /etc/init.d/dbus start || fail
-
     apt-get install -f -y || fail && apt-get upgrade -y || fail && apt-get -y dist-upgrade || fail
 
     if [ "x${CUR_PY_VER}" == "xpy36" ] || [ "x${CUR_PY_VER}" == "xpy37+" ]
