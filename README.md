@@ -81,16 +81,29 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 
 ### Launching
 
+> When launching the image for the first time, please use the following command to configure your user id and VNC password.
+> When you use this image for the first time, please configure your user id by:
+>
+> ```bash
+> docker run --gpus all -it --rm xubuntu:1.6 uid=$(id -u) gid=$(id -g)
+> ```
+>
+> Then commit the image by
+>
+> ```bash
+> docker commit --change='CMD [""]' <conatiner-id> xubuntu:1.6
+> ```
+
 * By built-in `noVNC`: In default mode, you just need to launch the built image by:
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.6
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 6080:6080 xubuntu:1.6
   ```
 
   It is equivalent to use `--vnc` or not in the above command. However, if you have saved the image in other modes before, you may need this flag to force the image to enter the VNC mode. The `--vnc` option is required when you need to force the image to switch to VNC mode. The following command would force the `vnc` launched by `root` mode.
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.6 --root
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 6080:6080 xubuntu:1.6 --root
   ```
 
   In current version, users could use either `http` to get access to the unencrypted noVNC session or `https` to get access to the ssl-encrypted noVNC session. For users who open the encrypted session firstly, they may need to add the noVNC site into the trusted list.
@@ -98,7 +111,7 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 * By external VNC viewer: If you have installed a VNC viewer on your client side, and want to connect the VNC server of the image directly, please use:
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal -p 5901:5901 xubuntu:1.6
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 5901:5901 xubuntu:1.6
   ```
 
   The `root` mode could be also applied here.
@@ -106,7 +119,7 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 * By `Jupyter Lab`: If you want to launch the Jupyter Lab but do not start the desktop, please use
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.6 --jlab jlab_password=openjupyter jlab_rootdir=/homelocal
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 6080:6080 xubuntu:1.6 --jlab jlab_password=openjupyter jlab_rootdir=/homelocal
   ```
 
   The `jlab_password` would override the default random token. The `jlab_rootdir` is the root folder of the launched jupyter lab. If not set `jlab_rootdir`, the default root folder would be `/homelocal`. The `--jlab` option is required when you need to force the image to switch to Jupyter Lab mode.
@@ -114,25 +127,13 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 * By `BASH`: If you want to enter the command line but do not start the desktop, please use
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.6 --bash
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal xubuntu:1.6 --bash
   ```
 
 * By any script: If you want run any script inside the docker for only one time, please use
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.6 script=<the-path-to-your-script>
-  ```
-
-* Switch the user id: When you use this image for the first time, please configure your user id by:
-
-  ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.6 uid=$(id -u) gid=$(id -g)
-  ```
-
-  Then commit the image by
-
-  ```bash
-  docker commit --change='CMD [""]' <conatiner-id> xubuntu:1.6
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal xubuntu:1.6 script=<the-path-to-your-script>
   ```
 
 ## Features
@@ -146,23 +147,23 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 * **Useful apps**: including nomacs, notepadqq, visual studio code, peazip, okular, smplayer and chrome.
 * **Fully installed Jupyter Lab**: if user needs, a full Jupyter Lab with several extensions could be installed, the details could be checked [here][jlab].
 * **Multiple launching method**: including VNC server, jupyterlab, bash and arbitrary script mode.
-* **Chinese language support**: for some apps including vscode, sublime, codeblocks.
+* **Chinese language support**: for some apps including chrome (chromium), firefox, vscode, sublime, codeblocks, ...
 
 ## Update records
 
-### ver 1.6 (alpha) @ 6/16/2021
+### ver 1.6 @ 6/22/2021
 
 The plan for the next version.
 
-* [x] Support the proxy value for the built image, this value is important for the devices protected by the firewall.
-* [x] Move [GitKraken][link-gitkraken] to the optional packages. Instead, the default Git client is switched to [GitFiend][link-gitfiend].
-* [x] Replace the default system monitor by [`stacer`][link-stacer], the previous app `gnome-system-monitor` is dropped.
-* [x] Change the default configurations of `XFCE4`.
-* [x] Bump [`Pycharm`][link-pycharm], [`tigervncserver`][tigervnc] to the newest versions.
-* [x] Upgrade the Jupyter Lab script to `1.3`.
-* [x] Fix a fatal bug caused by the user authority. We may need to find a method for forwarding the current user to the docker image.
-* [x] Fix a bug of caused by dbus initialization. In the previous version, the bug would cause strange behaviors (for example, the screen savers would not work).
-* [x] Fix a bug caused by the changed address of `get-pip.py`.
+1. Support the proxy value for the built image, this value is important for the devices protected by the firewall.
+2. Move [GitKraken][link-gitkraken] to the optional packages. Instead, the default Git client is switched to [GitFiend][link-gitfiend].
+3. Replace the default system monitor by [`stacer`][link-stacer], the previous app `gnome-system-monitor` is dropped.
+4. Change the default configurations of `XFCE4`.
+5. Bump [`Pycharm`][link-pycharm], [`tigervncserver`][tigervnc] to the newest versions.
+6. Upgrade the Jupyter Lab script to `1.3`.
+7. Fix a fatal bug caused by the user authority. We may need to find a method for forwarding the current user to the docker image.
+8. Fix a bug of caused by dbus initialization. In the previous version, the bug would cause strange behaviors (for example, the screen savers would not work).
+9. Fix a bug caused by the changed address of `get-pip.py`.
 
 ### ver 1.5 @ 4/10/2021
 
