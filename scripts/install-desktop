@@ -237,9 +237,9 @@ then
 
     if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
     then
-        wget https://github.com/peazip/PeaZip/releases/download/7.7.0/peazip_7.7.0.LINUX.x86_64.GTK2.deb -O peazip.deb || fail
+        wget https://github.com/peazip/PeaZip/releases/download/8.0.0/peazip_8.0.0.LINUX.x86_64.GTK2.deb -O peazip.deb || fail
     else
-        wget https://ufpr.dl.sourceforge.net/project/peazip/6.6.0/peazip_6.6.0.LINUX.GTK2-2_i386.deb -O peazip.deb || fail
+        wget https://github.com/peazip/PeaZip/releases/download/6.6.0/peazip_6.6.0.LINUX.GTK2-2_i386.deb -O peazip.deb || fail
     fi
     apt-get -y install ./peazip.deb || fail && rm -f peazip.deb || fail
 
