@@ -49,7 +49,6 @@ done
 XUBUNTU_UID=$(id xubuntu -u)
 if [ ! -z "${SET_UID}" ] && [ "x${SET_UID}" != "x0" ] && [ "x${SET_UID}" != "x${XUBUNTU_UID}" ]; then
     sudo user-mapping uid=${SET_UID} gid=${SET_GID}
-    exec su - xubuntu
     exit 0
 fi
 
