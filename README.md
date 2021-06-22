@@ -7,7 +7,7 @@
 If you do not want to change the contents of the dockerfile, you could use such command to build the image:
 
 ```Bash
-docker build -t xubuntu:1.0 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+docker build -t xubuntu:1.6 https://github.com/cainmagi/Dockerfiles.git#xubuntu
 ```
 
 This image is compatible for Ubuntu 16.04, 18.04 and 20.04. Please check your base image and confirm that the Ubuntu inside the image is compatible with this dockerfile.
@@ -17,19 +17,19 @@ We provide 3 examples:
 * Start from `pytorch 1.9.0a` image:
 
   ```bash
-  docker build -t xubuntu-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:21.05-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+  docker build -t xubuntu-tc:1.6 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:21.05-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
   ```
 
 * Start from `cuda 11.1` image:
 
   ```bash
-  docker build -t xubuntu-cuda:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+  docker build -t xubuntu-cuda:1.6 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
   ```
 
 * Start from `tensorflow 1.13.1` image:
 
   ```bash
-  docker build -t xubuntu-tf:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+  docker build -t xubuntu-tf:1.6 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
   ```
 
 There are 3 available options:
@@ -74,7 +74,7 @@ git clone --single-branch -b xubuntu https://github.com/cainmagi/Dockerfiles.git
 After that, run such command to build the image:
 
 ```Bash
-docker build -t xubuntu:1.0 xubuntu
+docker build -t xubuntu:1.6 xubuntu
 ```
 
 where `xubuntu` is the folder of the corresponding branch. The options in online building examples could be also used for offline buliding.
@@ -84,13 +84,13 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 * By built-in `noVNC`: In default mode, you just need to launch the built image by:
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0
+  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.6
   ```
 
   It is equivalent to use `--vnc` or not in the above command. However, if you have saved the image in other modes before, you may need this flag to force the image to enter the VNC mode. The `--vnc` option is required when you need to force the image to switch to VNC mode. The following command would force the `vnc` launched by `root` mode.
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0 --root
+  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.6 --root
   ```
 
   In current version, users could use either `http` to get access to the unencrypted noVNC session or `https` to get access to the ssl-encrypted noVNC session. For users who open the encrypted session firstly, they may need to add the noVNC site into the trusted list.
@@ -98,7 +98,7 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 * By external VNC viewer: If you have installed a VNC viewer on your client side, and want to connect the VNC server of the image directly, please use:
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal -p 5901:5901 xubuntu:1.0
+  docker run --gpus all -it --rm -v ~:/homelocal -p 5901:5901 xubuntu:1.6
   ```
 
   The `root` mode could be also applied here.
@@ -106,7 +106,7 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 * By `Jupyter Lab`: If you want to launch the Jupyter Lab but do not start the desktop, please use
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.0 --jlab jlab_password=openjupyter jlab_rootdir=/homelocal
+  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.6 --jlab jlab_password=openjupyter jlab_rootdir=/homelocal
   ```
 
   The `jlab_password` would override the default random token. The `jlab_rootdir` is the root folder of the launched jupyter lab. If not set `jlab_rootdir`, the default root folder would be `/homelocal`. The `--jlab` option is required when you need to force the image to switch to Jupyter Lab mode.
@@ -114,13 +114,25 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 * By `BASH`: If you want to enter the command line but do not start the desktop, please use
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.0 --bash
+  docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.6 --bash
   ```
 
 * By any script: If you want run any script inside the docker for only one time, please use
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.0 script=<the-path-to-your-script>
+  docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.6 script=<the-path-to-your-script>
+  ```
+
+* Switch the user id: When you use this image for the first time, please configure your user id by:
+
+  ```bash
+  docker run --gpus all -it --rm -v ~:/homelocal xubuntu:1.6 uid=$(id -u) gid=$(id -g)
+  ```
+
+  Then commit the image by
+
+  ```bash
+  docker commit --change='CMD [""]' <conatiner-id> xubuntu:1.6
   ```
 
 ## Features
@@ -146,8 +158,8 @@ The plan for the next version.
 * [x] Move [GitKraken][link-gitkraken] to the optional packages. Instead, the default Git client is switched to [GitFiend][link-gitfiend].
 * [ ] Add some extra apps. Bump [`Pycharm`][link-pycharm], [`tigervncserver`][tigervnc] to the newest versions.
 * [x] Upgrade the Jupyter Lab script to `1.3`.
-* [ ] Fix a fatal bug caused by the user authority. We may need to find a method for forwarding the current user to the docker image.
-* [ ] Fix a bug of the VNC launching script. In the previous version, the bug would cause strange behaviors (for example, the screen savers would not work).
+* [x] Fix a fatal bug caused by the user authority. We may need to find a method for forwarding the current user to the docker image.
+* [x] Fix a bug of caused by dbus initialization. In the previous version, the bug would cause strange behaviors (for example, the screen savers would not work).
 * [x] Fix a bug caused by the changed address of `get-pip.py`.
 
 ### ver 1.5 @ 4/10/2021

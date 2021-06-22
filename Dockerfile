@@ -54,7 +54,8 @@ RUN bash /root/scripts/install-vnc MODE=theme
 # Define working directory.
 RUN bash /root/docker-configs/detach MODE=clean
 COPY docker-entrypoint /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint
+COPY scripts/user-mapping /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint && chmod +x /usr/local/bin/user-mapping
 
 # Expose the built-in ports.
 EXPOSE 5901
@@ -62,6 +63,7 @@ EXPOSE 6080
 
 # Define default command.
 USER xubuntu
+ENV USER="xubuntu"
 WORKDIR /home/xubuntu
 ENTRYPOINT ["bash", "docker-entrypoint"]
 CMD [""]

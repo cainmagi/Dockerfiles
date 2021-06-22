@@ -64,6 +64,8 @@ MODE_RUN_SCRIPT=""
 JLAB_PASSWORD=""
 JLAB_ROOT_DIR="/homelocal"
 USER_ROOT="/home/xubuntu"
+SET_UID=""
+SET_GID=""
 # Pass options from command line
 for ARGUMENT in "$@"
 do
@@ -73,17 +75,25 @@ do
         VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
     fi
     case "$KEY" in
-            --bash)         MODE="bash" ;;
-            --vnc)          MODE="vnc" ;;
-            --root)         MODE="rootvnc" ;;
-            --xvnc)         MODE="xvnc" ;;
-            --jlab)         MODE="jupyter" ;;
-            script)         MODE_RUN_SCRIPT=${VALUE} ;;
-            jlab_password)  JLAB_PASSWORD=${VALUE} ;;
-            jlab_rootdir)   JLAB_ROOT_DIR=${VALUE} ;;
-            *)   
-    esac    
+        --bash)         MODE="bash" ;;
+        --vnc)          MODE="vnc" ;;
+        --root)         MODE="rootvnc" ;;
+        --xvnc)         MODE="xvnc" ;;
+        --jlab)         MODE="jupyter" ;;
+        script)         MODE_RUN_SCRIPT=${VALUE} ;;
+        jlab_password)  JLAB_PASSWORD=${VALUE} ;;
+        jlab_rootdir)   JLAB_ROOT_DIR=${VALUE} ;;
+        uid)            SET_UID=${VALUE} ;;
+        gid)            SET_GID=${VALUE} ;;
+        *)
+    esac
 done
+
+XUBUNTU_UID=$(id xubuntu -u)
+if [ ! -z "${SET_UID}" ] && [ "x${SET_UID}" != "x0" ] && [ "x${SET_UID}" != "x${XUBUNTU_UID}" ]; then
+    sudo user-mapping uid=${SET_UID} gid=${SET_GID}
+    exit 0
+fi
 
 MACHINE_IP=$(hostname -I | awk 'NR==1 {print $1}')
 echo "Check script: ${LAUNCH_SCRIPT_ORIGINAL}"
