@@ -83,7 +83,7 @@ fi
 
 msg "Switch the account id to ${USER_ID}:${USER_GID}. Please commit the image by the following command and exit."
 echo ""
-echo "docker commit --change='CMD [""]' $(hostname) <your-image-name>:<tag>"
+echo "docker commit --change='CMD [\"\"]' $(hostname) <your-image-name>:<tag>"
 echo ""
 
 exec su - xubuntu
