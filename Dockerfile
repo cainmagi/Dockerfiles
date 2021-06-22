@@ -43,6 +43,7 @@ RUN bash /root/scripts/install-desktop MODE=apps JLAB_VER=${JLAB_VER} JLAB_EXTIE
 COPY scripts/install-exapps /root/scripts/
 RUN chmod +x /root/scripts/install-exapps && bash /root/scripts/install-exapps EXAPPS=${WITH_EXTRA_APPS} REQAPPS=pae
 RUN bash /root/scripts/install-exapps EXAPPS=${WITH_EXTRA_APPS} REQAPPS=gnoa
+RUN bash /root/scripts/install-exapps EXAPPS=${WITH_EXTRA_APPS} REQAPPS=k
 RUN bash /root/scripts/install-exapps EXAPPS=${WITH_EXTRA_APPS} REQAPPS=x
 RUN bash /root/docker-configs/detach MODE=shortcuts
 
