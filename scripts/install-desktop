@@ -34,8 +34,8 @@ do
         MODE)          MODE=${VALUE} ;;
         JLAB_VER)      JLAB_VERSION=${VALUE} ;;
         JLAB_EXTIERS)  JLAB_EXTRA_TIERS=${VALUE} ;;
-        *)   
-    esac    
+        *)
+    esac
 done
 
 if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
@@ -57,8 +57,7 @@ then
     apt-get update -y || fail
     apt-get install -y lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
-    
-    
+
     # Install xfce4 Desktop
     apt-get install -y dbus-x11 libx11-6 libx11-data libx11-protocol-perl libx11-xcb1 x11-apps \
         x11-common x11-session-utils x11-utils x11-xkb-utils x11-xserver-utils || fail
@@ -81,7 +80,7 @@ then
             xfce4-mailwatch-plugin xfce4-netload-plugin xfce4-notes-plugin xfce4-goodies xfce4-places-plugin \
             xfce4-systemload-plugin xfce4-taskmanager xfce4-verve-plugin xfce4-weather-plugin xfce4-xkb-plugin \
             xfce4-mpc-plugin xfpanel-switch xubuntu-community-wallpapers xul-ext-ubufox mousepad ubuntu-sounds \
-            gnome-system-monitor terminator || fail
+            terminator || fail
         apt-get install -y xfce4-battery-plugin xfce4-settings xfce4-clipman-plugin xfce4-datetime-plugin \
             xfce4-sensors-plugin xfce4-cpufreq-plugin xfce4-diskperf-plugin xfce4-fsguard-plugin \
             xfce4-genmon-plugin xfce4-smartbookmark-plugin xfce4-timer-plugin || fail
@@ -99,7 +98,7 @@ then
         # Install libgtk
         apt-get install -y libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev || fail
         apt-get install -y gtk3-engines-xfce xfce4-notifyd mousepad xfce4-terminal \
-            xfce4-taskmanager gnome-system-monitor lightdm-gtk-greeter-settings || fail
+            xfce4-taskmanager lightdm-gtk-greeter-settings || fail
         # Install xfce-plugin
         apt-get install -y xfce4-battery-plugin xfce4-settings xfce4-clipman-plugin \
             xfce4-cpugraph-plugin xfce4-datetime-plugin xfce4-netload-plugin \
@@ -157,6 +156,7 @@ then
         apt-get install -y vim-gtk3 vim-gui-common || fail
         apt-get install -y nomacs nomacs-l10n || fail
         apt-get install -y hdf-compass || fail
+        apt-get install -y stacer || fail
         # Do not install notepadqq, install sublime instead.
         if [ "x${USE_CURL}" == "x1" ]
         then
@@ -178,12 +178,13 @@ then
     else
         add-apt-repository -y ppa:nomacs/stable || fail
         add-apt-repository -y ppa:notepadqq-team/notepadqq || fail
+        add-apt-repository -y ppa:oguzhaninan/stacer || fail
         if [ -d "/var/cache/app-info/xapian/default" ]; then
             chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
         fi
         apt-get update -y || fail
 
-        apt-get install -y vim-gnome notepadqq nomacs || fail
+        apt-get install -y vim-gnome notepadqq nomacs stacer || fail
     fi
 
     if [ "x${UBUNTU_VER}" = "x18.04" ]

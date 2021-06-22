@@ -44,8 +44,8 @@ do
         reqs)          REQUIRE_EXTRA_APPS=${VALUE} ;;
         reqapps)       REQUIRE_EXTRA_APPS=${VALUE} ;;
         REQAPPS)       REQUIRE_EXTRA_APPS=${VALUE} ;;
-        *)   
-    esac    
+        *)
+    esac
 done
 
 if [[ "x${ADDR_PROXY}" != "xunset" ]]; then

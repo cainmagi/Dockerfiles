@@ -31,8 +31,8 @@ do
     VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
     case "$KEY" in
         MODE)  MODE=${VALUE} ;;
-        *)   
-    esac    
+        *)
+    esac
 done
 
 if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
@@ -53,7 +53,7 @@ then
 
     apt-get -y install lsb-release lsb-core || fail
     UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
-    
+
     msg "Ubuntu ver: ${UBUNTU_VER}"
     if [ "x${UBUNTU_VER}" != "x20.04" ] && [ "x${UBUNTU_VER}" != "x18.04" ] && [ "x${UBUNTU_VER}" != "x16.04" ]
     then
@@ -96,7 +96,7 @@ then
     || fail
 
     apt-get -y update -qq || fail && apt-get -y install git || fail
-    
+
     msg "Installation for the basic packages finishes."
 fi
 

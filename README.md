@@ -156,7 +156,9 @@ The plan for the next version.
 
 * [x] Support the proxy value for the built image, this value is important for the devices protected by the firewall.
 * [x] Move [GitKraken][link-gitkraken] to the optional packages. Instead, the default Git client is switched to [GitFiend][link-gitfiend].
-* [ ] Add some extra apps. Bump [`Pycharm`][link-pycharm], [`tigervncserver`][tigervnc] to the newest versions.
+* [x] Replace the default system monitor by [`stacer`][link-stacer], the previous app `gnome-system-monitor` is dropped.
+* [x] Change the default configurations of `XFCE4`.
+* [x] Bump [`Pycharm`][link-pycharm], [`tigervncserver`][tigervnc] to the newest versions.
 * [x] Upgrade the Jupyter Lab script to `1.3`.
 * [x] Fix a fatal bug caused by the user authority. We may need to find a method for forwarding the current user to the docker image.
 * [x] Fix a bug of caused by dbus initialization. In the previous version, the bug would cause strange behaviors (for example, the screen savers would not work).
@@ -227,3 +229,4 @@ Create the dockerfile branch.
 [link-pycharm]:https://www.jetbrains.com/help/pycharm/installation-guide.html
 [link-gitkraken]:https://www.gitkraken.com
 [link-gitfiend]:https://gitfiend.com
+[link-stacer]:https://oguzhaninan.github.io/Stacer-Web/

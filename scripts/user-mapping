@@ -34,7 +34,7 @@ do
         uid)            HOST_UID=${VALUE} ;;
         gid)            HOST_GID=${VALUE} ;;
         *)
-    esac    
+    esac
 done
 
 XUBUNTU_UID=$(id xubuntu -u)
