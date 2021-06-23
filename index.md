@@ -30,6 +30,8 @@ where `5901` is the entry (input) port and `6080` is the service (output) port.
 
 ## Dockerfile list
 
+To view the manual, please check [here](./manual)
+
 To view our dockerfile list, please check [here](./dockerlist)
 
 ## Dockerfiles
@@ -51,7 +53,7 @@ Here is the list of each dockerfile:
     ```Bash
     docker build -t jlab:1.0 https://github.com/cainmagi/Dockerfiles.git#jupyterlab
     ```
-   
+
 ## Update records
 
 ### ver 1.45 @ 2/2/2021
