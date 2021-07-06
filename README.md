@@ -121,6 +121,7 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 ### ver 1.0.1 @ 7/6/2021
 
 1. Fix a bug caused by noVNC version.
+2. Fix a bug caused by the `wget` dependency.
 
 ### ver 1.0 @ 6/21/2021
 
