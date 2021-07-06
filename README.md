@@ -118,6 +118,10 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 
 ## Update records
 
+### ver 1.0.1 @ 7/6/2021
+
+1. Fix a bug caused by noVNC version.
+
 ### ver 1.0 @ 6/21/2021
 
 1. Create this minimal dockerfile.
