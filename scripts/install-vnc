@@ -103,7 +103,7 @@ then
         rm -f tigervncserver_install.deb || fail
     fi
 
-    SOURCE_PATH="/apps/source/"
+    SOURCE_PATH="/apps/source"
     BUILD_PATH="/usr/local/bin"
     mkdir -p $SOURCE_PATH || fail
 
@@ -111,12 +111,22 @@ then
     msg "Install noVNC."
     cd $SOURCE_PATH || fail
     git clone https://github.com/novnc/noVNC.git || fail
-    ln -s $SOURCE_PATH/noVNC/utils/launch.sh $BUILD_PATH/noVNC || fail
+
+    if [ -f "$SOURCE_PATH/noVNC/utils/novnc_proxy" ]; then
+        ln -s $SOURCE_PATH/noVNC/utils/novnc_proxy $BUILD_PATH/noVNC || fail
+    else 
+        if [ -f "$SOURCE_PATH/noVNC/utils/launch.sh" ]; then
+            ln -s $SOURCE_PATH/noVNC/utils/launch.sh $BUILD_PATH/noVNC || fail
+        else 
+            msgerr "Fail to find the launching script in the current noVNC build, maybe the repository has a wrong version."
+            exit 1
+        fi
+    fi
 
     # Install websockify
     cd $SOURCE_PATH/noVNC/utils || fail
     git clone https://github.com/novnc/websockify websockify || fail
-    
+
     # This operation is needed when python<=3.5
     CUR_PY_VER=$(python3 /root/scripts/get-pyver.py 2>&1)
     if [ "x${CUR_PY_VER}" != "xpy36" ] && [ "x${CUR_PY_VER}" != "xpy37+" ]

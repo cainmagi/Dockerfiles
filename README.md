@@ -151,9 +151,11 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 
 ## Update records
 
-### ver 1.6 @ 6/22/2021
+### ver 1.6.1 @ 7/6/2021
 
-The plan for the next version.
+1. Fix a bug caused by the upgrade of noVNC.
+
+### ver 1.6 @ 6/22/2021
 
 1. Support the proxy value for the built image, this value is important for the devices protected by the firewall.
 2. Move [GitKraken][link-gitkraken] to the optional packages. Instead, the default Git client is switched to [GitFiend][link-gitfiend].
