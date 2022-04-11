@@ -156,9 +156,11 @@ then
 
     # Install packages required by extensions
     if [ "x${EXTRA_TIERS}" = "x2" ]; then
-        CONDA_TEMP_PKGS="\"bqplot>=0.11.4\" \"tensorboard>=1.14,<=2.2\" \"ipydatawidgets>=4.2.0\" \"jupyterlab_code_formatter=1.1.0\" black isort"
+        CONDA_TEMP_PKGS="\"bqplot>=0.11.4\" \"tensorboard>=1.14,<=2.2\" \"ipydatawidgets>=4.2.0\" \"jupyterlab_code_formatter=1.1.0\" isort"
         if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
-            CONDA_TEMP_PKGS="${CONDA_TEMP_PKGS} jupyterlab_iframe" || fail
+            CONDA_TEMP_PKGS="${CONDA_TEMP_PKGS} jupyterlab_iframe black" || fail
+        else
+            CONDA_TEMP_PKGS="${CONDA_TEMP_PKGS} black=22.3.0 platformdirs=2.4.0"
         fi
     else
         CONDA_TEMP_PKGS=""
@@ -223,9 +225,11 @@ then
 
     # Install packages required by extensions
     if [ "x${EXTRA_TIERS}" = "x2" ]; then
-        CONDA_TEMP_PKGS="\"bqplot>=0.11.4\" \"tensorboard>=1.14,<=2.8\" \"ipydatawidgets>=4.2.0\" \"jupyterlab_code_formatter=1.3.6\" black isort"
+        CONDA_TEMP_PKGS="\"bqplot>=0.11.4\" \"tensorboard>=1.14,<=2.8\" \"ipydatawidgets>=4.2.0\" \"jupyterlab_code_formatter=1.3.6\" isort"
         if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
-            CONDA_TEMP_PKGS="${CONDA_TEMP_PKGS} jupyterlab_iframe" || fail
+            CONDA_TEMP_PKGS="${CONDA_TEMP_PKGS} jupyterlab_iframe black" || fail
+        else
+            CONDA_TEMP_PKGS="${CONDA_TEMP_PKGS} black=22.3.0 platformdirs=2.4.0"
         fi
     else
         CONDA_TEMP_PKGS=""
@@ -290,9 +294,11 @@ then
 
     # Install packages required by extensions
     if [ "x${EXTRA_TIERS}" = "x2" ]; then
-        CONDA_TEMP_PKGS="\"bqplot>=0.12.29\" \"jupyterlab_code_formatter>=1.4.10\" black isort \"ipydatawidgets>=4.2.0\""
+        CONDA_TEMP_PKGS="\"bqplot>=0.12.29\" \"jupyterlab_code_formatter>=1.4.10\" isort \"ipydatawidgets>=4.2.0\""
         if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
-            CONDA_TEMP_PKGS="${CONDA_TEMP_PKGS} jupyterlab_iframe" || fail
+            CONDA_TEMP_PKGS="${CONDA_TEMP_PKGS} jupyterlab_iframe black" || fail
+        else
+            CONDA_TEMP_PKGS="${CONDA_TEMP_PKGS} black=22.3.0 platformdirs=2.4.0"
         fi
     else
         CONDA_TEMP_PKGS=""

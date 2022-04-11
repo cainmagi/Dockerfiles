@@ -273,8 +273,13 @@ then
             fi
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
+                if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
+                    PIP_TEMP_PKGS="black" || fail
+                else
+                    PIP_TEMP_PKGS="black==22.3.0 platformdirs==2.4.0"
+                fi
                 run_with_nodejs "python3 -m pip install plotly==5.7.0 kaleido==0.2.1 chart-studio==1.1.0" || fail
-                run_with_nodejs "python3 -m pip install jupyterlab-drawio pyviz_comms ipydagred3 ipycanvas orjson \"jupyterlab_code_formatter>=1.4.10\" \"ipydatawidgets>=4.2.0\" black isort" || fail
+                run_with_nodejs "python3 -m pip install jupyterlab-drawio pyviz_comms ipydagred3 ipycanvas orjson \"jupyterlab_code_formatter>=1.4.10\" \"ipydatawidgets>=4.2.0\" isort ${PIP_TEMP_PKGS}" || fail
                 run_with_nodejs "python3 -m pip install git+https://github.com/cliffwoolley/jupyter_tensorboard.git@520c98f5a167db47eee45db1cd6affdc08c21265" || fail
                 run_with_nodejs "python3 -m pip install git+https://github.com/chaoleili/jupyterlab_tensorboard.git@8f5f201a2e7b7a96ed4bd7dd16c26443df020b26" || fail
                 run_with_nodejs "npm install --global yarn" || fail
@@ -290,7 +295,12 @@ then
         then
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install black isort || fail
+                if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
+                    PIP_TEMP_PKGS="black" || fail
+                else
+                    PIP_TEMP_PKGS="black==22.3.0 platformdirs==2.4.0"
+                fi
+                python3 -m pip install ${PIP_TEMP_PKGS} isort || fail
             fi
             python3 -m pip install jupyter-tensorboard jupyter-dash pyviz_comms "ipydatawidgets<=4.2.0" || fail
             run_with_nodejs "npm install --global yarn" || fail

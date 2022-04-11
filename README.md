@@ -268,6 +268,7 @@ The following tests has been passed.
 8. Prefer the `conda` script for updating the python packages when updating python.
 9. Fix some bugs caused by missing of `libffi`, `libssl`, and `rustc`+`cargo`.
 10. Bump the default base image and the base script location to new versions.
+11. Fix the dependency issue of `black`, and `numpy` when using `python=3.6`.
 
 ### ver 1.3 @ 6/19/2021
 
