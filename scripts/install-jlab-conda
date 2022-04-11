@@ -140,7 +140,12 @@ if [ "x${VERSION}" = "x1" ]
 then
     # Install Jupyter Lab
     msg "Installing Jupyter Lab, ver 1.2.21."
-    ${PYPKG_MANAGER} install -y -c conda-forge "nbconvert>=6.0.7" "jupyter>=1.0" "jupyter_core>=4.7" "notebook>=6.2" "pyzmq>=22.0" "jupyterlab<=1.2.21" || fail
+    ${PYPKG_MANAGER} install -y -c conda-forge "nbconvert>=6.0.7" "jupyter>=1.0" "jupyter_core>=4.7" "notebook>=6.2" "pyzmq>=22.0" || fail
+    if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
+        ${PYPKG_MANAGER} install -y -c conda-forge "jupyterlab<=1.2.21" || fail
+    else
+        ${PYPKG_MANAGER} install -y -c conda-forge "jupyterlab<=1.2.21" "jupyter_client<=7.1.0" "jupyter_server<=1.13.1" || fail
+    fi
     echo "jupyterlab=$(jupyter lab --version)" >> "${CONDA_META_PATH}/pinned" || fail
 
     # Install nodejs
@@ -202,7 +207,12 @@ if [ "x${VERSION}" = "x2" ]
 then
     # Install Jupyter Lab
     msg "Installing Jupyter Lab, ver 2.3.2."
-    ${PYPKG_MANAGER} install -y -c conda-forge "nbconvert>=6.0.7" "jupyter>=1.0" "jupyter_core>=4.7" "notebook>=6.2" "pyzmq>=22.0" jupyterlab=2.3.2 || fail
+    ${PYPKG_MANAGER} install -y -c conda-forge "nbconvert>=6.0.7" "jupyter>=1.0" "jupyter_core>=4.7" "notebook>=6.2" "pyzmq>=22.0" || fail
+    if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
+        ${PYPKG_MANAGER} install -y -c conda-forge jupyterlab=2.3.2 || fail
+    else
+        ${PYPKG_MANAGER} install -y -c conda-forge jupyterlab=2.3.2 "jupyter_client<=7.1.0" "jupyter_server<=1.13.1" || fail
+    fi
     echo "jupyterlab=$(jupyter lab --version)" >> "${CONDA_META_PATH}/pinned" || fail
 
     # Install nodejs

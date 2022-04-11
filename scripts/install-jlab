@@ -137,7 +137,7 @@ fi
 # Install version 1
 if [ "x${VERSION}" = "x1" ]
 then
-    msg "Installing Jupyter Lab, ver 1.2.21."
+    
     if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
     then
         python3 -m pip install "nbconvert>=6.4.0" || fail
@@ -146,7 +146,20 @@ then
     fi
     python3 -m pip install tornado==6.1 || fail
     python3 -m pip install jupyter jupyter-core notebook pyzmq --upgrade || fail
-    python3 -m pip install jupyterlab==1.2.21 || fail
+    if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]
+    then
+        msg "Installing Jupyter Lab, ver 1.2.21."
+        python3 -m pip install jupyterlab==1.2.21 || fail
+    else
+        if [ "x${CUR_PYTHON_VER}" = "xpy36" ]
+        then
+            msg "Installing Jupyter Lab, ver 1.2.21."
+            python3 -m pip install jupyterlab==1.2.21 jupyter_client==7.1.0 jupyter_server==1.13.1 || fail
+        else
+            msg "Installing Jupyter Lab, ver 1.2.21."
+            python3 -m pip install jupyterlab==1.2.21 jupyter_client==6.1.12 jupyter_server==1.0.0rc12 || fail
+        fi
+    fi
     if ! nvm_has "nvm"; then
         install_nvm 0.39.1 || fail
     fi
@@ -164,14 +177,20 @@ then
     fi
     python3 -m pip install tornado==6.1 || fail
     python3 -m pip install jupyter jupyter-core notebook pyzmq --upgrade || fail
-    if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
+    if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]
     then
         msg "Installing Jupyter Lab, ver 2.3.2."
         python3 -m pip install jupyterlab==2.3.2 || fail
     else
-        msg "For compatibility of python<=3.5, installing Jupyter Lab, ver 2.2.9."
-        python3 -m pip install jupyterlab==2.2.9 || fail
-    fi 
+        if [ "x${CUR_PYTHON_VER}" = "xpy36" ]
+        then
+            msg "Installing Jupyter Lab, ver 2.3.2."
+            python3 -m pip install jupyterlab==2.3.2 jupyter_client==7.1.0 jupyter_server==1.13.1 || fail
+        else
+            msg "For compatibility of python<=3.5, installing Jupyter Lab, ver 2.2.9."
+            python3 -m pip install jupyterlab==2.2.9 jupyter_client==6.1.12 jupyter_server==1.0.0rc12 || fail
+        fi
+    fi
     if ! nvm_has "nvm"; then
         install_nvm 0.39.1 || fail
     fi
