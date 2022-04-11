@@ -126,7 +126,8 @@ then
             conda update -y -c defaults conda || fail
             conda install -y -c conda-forge mamba || fail
             mamba update -y mamba || fail
-            pip uninstall -y numpy || true  # Prevent the duplicate installation issue if a previous numpy is not fully uninstalled by mamba.
+            mamba update -y pip || fail
+            python3 -m pip uninstall -y numpy || true  # Prevent the duplicate installation issue if a previous numpy is not fully uninstalled by mamba.
             mamba install -y -c conda-forge matplotlib plotly cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml pillow six jinja2 flask python-kaleido || fail
         else
             python3 -m pip install pip --upgrade || fail
@@ -155,7 +156,8 @@ then
             conda update -y -c defaults conda || fail
             conda install -y -c conda-forge mamba || fail
             mamba update -y mamba || fail
-            pip uninstall -y numpy || true  # Prevent the duplicate installation issue if a previous numpy is not fully uninstalled by mamba.
+            mamba update -y pip || fail
+            python3 -m pip uninstall -y numpy || true  # Prevent the duplicate installation issue if a previous numpy is not fully uninstalled by mamba.
             mamba install -y -c conda-forge matplotlib plotly cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml pillow six jinja2 flask python-kaleido || fail
         else
             python3 -m pip install pip --upgrade || fail
