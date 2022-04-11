@@ -51,7 +51,7 @@ function run_with_nodejs {
     fi
 }
 
-MODE="jlab"
+MODE="jupyter"
 MODE_RUN_SCRIPT=""
 ROOT_DIR="/homelocal"
 PASSWORD=""
@@ -69,7 +69,7 @@ do
             script)         MODE_RUN_SCRIPT=${VALUE} ;;
             password)       PASSWORD=${VALUE} ;;
             rootdir)        ROOT_DIR=${VALUE} ;;
-            *)   
+            *)
     esac    
 done
 
@@ -112,18 +112,41 @@ echo "Host IP:"
 echo $MACHINE_IP
 echo "---------"
 
+# Fix the launch script option variety.
+JUPYTERLAB_VERSION="$(jupyter lab --version)" || fail
+JUPYTERLAB_VSPLIT=(${JUPYTERLAB_VERSION//./ }) || fail
+JUPYTERLAB_V1=${JUPYTERLAB_VSPLIT[0]} || fail
+
+
 OPTION_PASSWORD=""
 if [ "x${PASSWORD}" != "x" ]
 then
-    OPTION_PASSWORD="--NotebookApp.token=${PASSWORD}"
+    if [ "x${JUPYTERLAB_V1}" = "x3" ]
+    then
+        OPTION_PASSWORD="--ServerApp.token=${PASSWORD}"
+    else
+        OPTION_PASSWORD="--NotebookApp.token=${PASSWORD}"
+    fi
 fi
 
 OPTION_ROOT=""
 if [ "x${ROOT_DIR}" != "x" ]
 then
-    OPTION_ROOT="--NotebookApp.notebook_dir=${ROOT_DIR}"
+    if [ "x${JUPYTERLAB_V1}" = "x3" ]
+    then
+        OPTION_ROOT="--ServerApp.notebook_dir=${ROOT_DIR}"
+    else
+        OPTION_ROOT="--NotebookApp.notebook_dir=${ROOT_DIR}"
+    fi
 fi
 
-run_with_nodejs "jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_PASSWORD} --allow-root ${OPTION_ROOT}"
+
+if [ "x${JUPYTERLAB_V1}" = "x3" ]
+then
+    run_with_nodejs "jupyter lab --ServerApp.ip=${MACHINE_IP} --ServerApp.port=6080 --ServerApp.open_browser=False --ExtensionApp.open_browser=False --ServerApp.allow_root=True ${OPTION_PASSWORD} ${OPTION_ROOT}"
+else
+    run_with_nodejs "jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser --allow-root ${OPTION_PASSWORD} ${OPTION_ROOT}"
+fi
+
 
 exec "/bin/bash"

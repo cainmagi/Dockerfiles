@@ -20,8 +20,8 @@ function fail {
 }
 
 function mcd {
-  mkdir -p "$1" || fail
-  cd "$1" || fail
+    mkdir -p "$1" || fail
+    cd "$1" || fail
 }
 
 THIS_ROOT=/root/configs

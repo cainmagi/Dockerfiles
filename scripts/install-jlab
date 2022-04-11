@@ -74,13 +74,18 @@ function py_fix_wrapt_version {
 
 VERSION=unset
 EXTRA_TIERS=1
+SET_RUSTC=true
 CUR_PYTHON_VER="py37+"
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo $ARGUMENT | cut -f1 -d=)
-    VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+    if [[ $KEY != '--*' ]]
+    then
+        VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+    fi
     case "$KEY" in
+        --norust)    SET_RUSTC=false ;;
         version)     VERSION=${VALUE} ;;
         ver)         VERSION=${VALUE} ;;
         VERSION)     VERSION=${VALUE} ;;
@@ -95,50 +100,82 @@ if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
     export https_proxy=${ADDR_PROXY};
     export no_proxy="127.0.0.1, localhost";
     msg "Successfully set the proxy to ${ADDR_PROXY}."
+    USE_CURL=0
+else
+    USE_CURL=1
 fi
+
 
 # Unset the version
 if [ "x${VERSION}" = "xunset" ]
 then
     python3 -m pip install jupyterlab || fail
+else
+    # Prepare dependencies
+    apt-get update -qq || fail
+    apt-get install -y libffi-dev libssl-dev || fail
+
+    # Install rustc and meson.
+    if [ "x${SET_RUSTC}" = "xtrue" ]; then
+        if ! nvm_has "cargo" ; then
+            msg "Install Rust-lang, Cargo 1.60.0."
+            if [ "x${USE_CURL}" == "x1" ]
+            then
+                curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y || fail
+            else
+                wget -O- https://sh.rustup.rs | sh -s -- -y || fail
+            fi
+            source $HOME/.cargo/env || fail
+            rustup toolchain install 1.60.0 || fail
+            rustup default 1.60.0 || fail
+            cargo install cargo-c || fail
+        fi
+    fi
 fi
+
 
 # Install version 1
 if [ "x${VERSION}" = "x1" ]
 then
-    msg "Installing Jupyter Lab, ver 1.2.18."
+    msg "Installing Jupyter Lab, ver 1.2.21."
     if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
     then
-        python3 -m pip install "nbconvert>=6.0.7" || fail
+        python3 -m pip install "nbconvert>=6.4.0" || fail
     else
         python3 -m pip install "nbconvert>=5.6.1" || fail
     fi
     python3 -m pip install tornado==6.1 || fail
     python3 -m pip install jupyter jupyter-core notebook pyzmq --upgrade || fail
-    python3 -m pip install jupyterlab==1.2.18 || fail
+    python3 -m pip install jupyterlab==1.2.21 || fail
     if ! nvm_has "nvm"; then
-        install_nvm 0.38.0 || fail
+        install_nvm 0.39.1 || fail
     fi
-    install_nodejs 12.20.1 || fail
+    install_nodejs 12.22.12 || fail
 fi
 
 # Install version 2
 if [ "x${VERSION}" = "x2" ]
 then
-    msg "Installing Jupyter Lab, ver 2.2.9."
     if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
     then
-        python3 -m pip install "nbconvert>=6.0.7" || fail
+        python3 -m pip install "nbconvert>=6.4.0" || fail
     else
         python3 -m pip install "nbconvert>=5.6.1" || fail
     fi
     python3 -m pip install tornado==6.1 || fail
     python3 -m pip install jupyter jupyter-core notebook pyzmq --upgrade || fail
-    python3 -m pip install jupyterlab==2.2.9 || fail
+    if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
+    then
+        msg "Installing Jupyter Lab, ver 2.3.2."
+        python3 -m pip install jupyterlab==2.3.2 || fail
+    else
+        msg "For compatibility of python<=3.5, installing Jupyter Lab, ver 2.2.9."
+        python3 -m pip install jupyterlab==2.2.9 || fail
+    fi 
     if ! nvm_has "nvm"; then
-        install_nvm 0.38.0 || fail
+        install_nvm 0.39.1 || fail
     fi
-    install_nodejs 12.20.1 || fail
+    install_nodejs 12.22.12 || fail
 fi
 
 # Install version 3
@@ -146,24 +183,30 @@ if [ "x${VERSION}" = "x3" ]
 then
     if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
     then
-        python3 -m pip install "nbconvert>=6.0.7" || fail
+        python3 -m pip install "nbconvert>=6.4.0" || fail
     else
         python3 -m pip install "nbconvert>=5.6.1" || fail
     fi
     python3 -m pip install tornado==6.1 || fail
     python3 -m pip install jupyter jupyter-core notebook pyzmq --upgrade || fail
-    if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
+    if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]
     then
-        msg "Installing Jupyter Lab, ver 3.1.0a11."
-        python3 -m pip install typing-extensions==3.10.0.0 jupyterlab==3.1.0a11 || fail
+        msg "Installing Jupyter Lab, ver 3.3.3."
+        python3 -m pip install typing-extensions==4.1.1 jupyterlab==3.3.3 || fail
     else
-        msg "For compatibility of python<=3.5, installing Jupyter Lab, ver 3.0.0a14."
-        python3 -m pip install jupyterlab==3.0.0a14 || fail
+        if [ "x${CUR_PYTHON_VER}" = "xpy36" ]
+        then
+            msg "Installing Jupyter Lab, ver 3.3.3."
+            python3 -m pip install typing-extensions==4.1.1 jupyterlab==3.3.3 jupyter_client==7.1.0 jupyter_server==1.13.1 || fail
+        else
+            msg "For compatibility of python<=3.5, installing Jupyter Lab, ver 3.0.0a14."
+            python3 -m pip install jupyterlab==3.0.0a14 jupyter_client==6.1.12 jupyter_server==1.0.0rc12 || fail
+        fi 
     fi
     if ! nvm_has "nvm"; then
-        install_nvm 0.38.0 || fail
+        install_nvm 0.39.1 || fail
     fi
-    install_nodejs 15.12.0 || fail
+    install_nodejs 16.14.2 || fail
 fi
 
 ## Install extra packages.
@@ -200,40 +243,85 @@ then
     if [ "x${EXTRA_TIERS}" = "x2" ]
     then
         msg "Installing Jupyter Lab extensions, tier 2."
-        python3 -m pip install plotly bqplot || fail
-        run_with_nodejs "jupyter labextension install jupyterlab-plotly@4.14.3 plotlywidget@4.14.3 --no-build" || fail
+        python3 -m pip install bqplot || fail
 
         if [ "x${VERSION}" = "x3" ]
         then
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]
+            then
+                run_with_nodejs "python3 -m pip install jupyterlab_iframe" || fail
+                run_with_nodejs "jupyter serverextension enable --py jupyterlab_iframe" || fail
+            fi
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install jupyterlab-drawio pyviz_comms ipydagred3 ipycanvas orjson || fail
-                python3 -m pip install git+https://github.com/cliffwoolley/jupyter_tensorboard.git || fail
+                run_with_nodejs "python3 -m pip install plotly==5.7.0 kaleido==0.2.1 chart-studio==1.1.0" || fail
+                run_with_nodejs "python3 -m pip install jupyterlab-drawio pyviz_comms ipydagred3 ipycanvas orjson \"jupyterlab_code_formatter>=1.4.10\" \"ipydatawidgets>=4.2.0\" black isort" || fail
+                run_with_nodejs "python3 -m pip install git+https://github.com/cliffwoolley/jupyter_tensorboard.git@520c98f5a167db47eee45db1cd6affdc08c21265" || fail
+                run_with_nodejs "python3 -m pip install git+https://github.com/chaoleili/jupyterlab_tensorboard.git@8f5f201a2e7b7a96ed4bd7dd16c26443df020b26" || fail
+                run_with_nodejs "npm install --global yarn" || fail
+                run_with_nodejs "jupyter labextension install jupyterlab-datawidgets@7.0.0 jupyterlab_iframe@0.4.3 --no-build" || fail
             else
-                python3 -m pip install yarn || fail
-                if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]; then
-                    run_with_nodejs "jupyter labextension install bqplot ipycanvas --no-build" || fail
-                else
-                    run_with_nodejs "jupyter labextension install bqplot@0.5.21 ipycanvas --no-build" || fail
-                fi
+                run_with_nodejs "python3 -m pip install plotly==4.14.3 \"ipydatawidgets>=4.2.0\" kaleido==0.2.1 chart-studio==1.1.0" || fail
+                run_with_nodejs "npm install --global yarn" || fail
+                run_with_nodejs "jupyter labextension install bqplot ipycanvas jupyterlab-plotly@4.14.3 plotlywidget@4.14.3 jupyterlab-datawidgets@7.0.0 --no-build" || fail
             fi
         fi
 
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
-            python3 -m pip install "tensorboard>=1.14,<=2.2" || fail # If required, downgrad the tensorboard APIs.
-            python3 -m pip install jupyter-tensorboard jupyter-dash pyviz_comms yarn || fail
-            run_with_nodejs "jupyter labextension install jupyterlab_tensorboard jupyterlab-dash bqplot ipycanvas --no-build" || fail
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
+            then
+                python3 -m pip install black isort || fail
+            fi
+            python3 -m pip install jupyter-tensorboard jupyter-dash pyviz_comms "ipydatawidgets<=4.2.0" || fail
+            run_with_nodejs "npm install --global yarn" || fail
+            run_with_nodejs "jupyter labextension install jupyterlab-dash bqplot ipycanvas --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x2" ]
         then
-            run_with_nodejs "jupyter labextension install @pyviz/jupyterlab_pyviz@1.0.3 --no-build" || fail
+            python3 -m pip install "tensorboard>=1.14,<=2.8" || fail # If required, downgrad the tensorboard APIs.
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
+            then
+                python3 -m pip install jupyterlab_iframe==0.3.1 jupyterlab_code_formatter==1.3.6 plotly==5.7.0 kaleido==0.2.1 chart-studio==1.1.0 || fail
+                run_with_nodejs "jupyter serverextension enable --py jupyterlab_code_formatter" || fail
+                run_with_nodejs "jupyter serverextension enable --py jupyterlab_iframe" || fail
+            else
+                python3 -m pip install plotly==4.14.3 kaleido==0.2.1 chart-studio==1.1.0 || fail
+            fi
+            EXT_TEMP_PKGS=""
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]
+            then
+                EXT_TEMP_PKGS="jupyterlab_iframe@0.2.3 @ryantam626/jupyterlab_code_formatter@1.3.6"
+            else
+                if [ "x${CUR_PYTHON_VER}" = "xpy36" ]
+                then
+                    EXT_TEMP_PKGS="@ryantam626/jupyterlab_code_formatter@1.3.6"
+                fi
+            fi
+            run_with_nodejs "jupyter labextension install jupyterlab_tensorboard @pyviz/jupyterlab_pyviz@1.0.3 jupyterlab-plotly@5.7.0 jupyterlab-datawidgets@7.0.0 ${EXT_TEMP_PKGS} --no-build" || fail
         fi
 
         if [ "x${VERSION}" = "x1" ]
         then
-            run_with_nodejs "jupyter labextension install @mflevine/jupyterlab_html @pyviz/jupyterlab_pyviz@0.8.0 --no-build" || fail
+            python3 -m pip install plotly==4.14.3 "tensorboard>=1.14,<=2.2" kaleido==0.2.1 chart-studio==1.1.0 || fail # If required, downgrad the tensorboard APIs.
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
+            then
+                python3 -m pip install jupyterlab_iframe==0.2.2 jupyterlab_code_formatter==1.1.0 || fail
+                run_with_nodejs "jupyter serverextension enable --py jupyterlab_code_formatter" || fail
+                run_with_nodejs "jupyter serverextension enable --py jupyterlab_iframe" || fail
+            fi
+            EXT_TEMP_PKGS=""
+            if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]
+            then
+                EXT_TEMP_PKGS="jupyterlab_iframe@0.2.1 @ryantam626/jupyterlab_code_formatter@1.1.0"
+            else
+                if [ "x${CUR_PYTHON_VER}" = "xpy36" ]
+                then
+                    EXT_TEMP_PKGS="@ryantam626/jupyterlab_code_formatter@1.1.0"
+                fi
+            fi
+            run_with_nodejs "jupyter labextension install jupyterlab_tensorboard @mflevine/jupyterlab_html @pyviz/jupyterlab_pyviz@0.8.0 jupyterlab-plotly@4.14.3 plotlywidget@4.14.3 jupyterlab-datawidgets@7.0.0 ${EXT_TEMP_PKGS} --no-build" || fail
         fi
     fi
 
@@ -243,7 +331,7 @@ then
         msg "Installing Jupyter Lab extensions, tier 1."
         if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
         then
-            python3 -m pip install nbdime==3.1.0 || fail
+            python3 -m pip install nbdime==3.1.1 || fail
         else
             python3 -m pip install nbdime==2.0.0 || fail
         fi
@@ -253,7 +341,7 @@ then
         then
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install xeus-python==0.12.4 || fail
+                python3 -m pip install xeus-python==0.13.7 || fail
             else
                 python3 -m pip install xeus-python==0.7.1 || fail
             fi
@@ -263,38 +351,47 @@ then
         if [ "x${VERSION}" = "x3" ]
         then
             py_fix_wrapt_version || fail # Fix wrapt version problem.
-            python3 -m pip install "nbresuse>=0.4.0" || fail
+            run_with_nodejs "python3 -m pip install \"nbresuse>=0.4.0\"" || fail
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]
             then
-                python3 -m pip install "jupyterlab_nvdashboard>=0.6.0" || fail
+                run_with_nodejs "python3 -m pip install \"jupyterlab_nvdashboard>=0.6.0\" bokeh \"jupyter_bokeh>=3.0.4\"" || fail
+            else
+                if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]
+                then
+                    run_with_nodejs "python3 -m pip install bokeh \"jupyter_bokeh>=3.0.2\"" || fail
+                else
+                    run_with_nodejs "python3 -m pip install bokeh \"jupyter_bokeh>=1.1.1\"" || fail
+                fi
             fi
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install jupyterlab-drawio "jupyterlab-git>=0.30.1" bokeh "jupyter_bokeh>=3.0.2" || fail
+                run_with_nodejs "python3 -m pip install \"jupyterlab-github>=3.0.1\" \"jupyterlab-hdf==1.2.0\"" || fail
+                run_with_nodejs "python3 -m pip install jupyterlab-drawio \"jupyterlab-git>=0.30.1\"" || fail
             fi
-            python3 -m pip install ipylab || fail
+            run_with_nodejs "python3 -m pip install ipylab" || fail
 
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
-                python3 -m pip install python-language-server[all]==0.36.2 aquirdturtle_collapsible_headings==3.1.0 jupyterlab-system-monitor==0.8.0 lckr-jupyterlab-variableinspector==3.0.9 jupyter-lsp==1.3.0 jupyterlab-lsp==3.7.0 "ipympl>=0.7.0" jupytext==1.11.3 sidecar==0.5.1 jupyterlab-topbar jupyterlab-system-monitor || fail
-                run_with_nodejs "jupyter labextension install @jupyterlab/toc @jupyterlab/debugger @jupyterlab/mathjax3-extension @jupyterlab/katex-extension jupyterlab-topbar-text --no-build" || fail
+                run_with_nodejs "python3 -m pip install python-language-server[all]==0.36.2 jupyterlab-system-monitor==0.8.0 lckr-jupyterlab-variableinspector==3.0.9 jupyter-lsp==1.5.1 jupyterlab-lsp==3.7.0 \"ipympl>=0.7.0\" jupytext==1.13.8 sidecar==0.5.1 jupyterlab-topbar" || fail
+                run_with_nodejs "jupyter labextension install @jupyterlab/toc @jupyterlab/debugger @jupyterlab/mathjax3-extension @jupyterlab/katex-extension jupyterlab-topbar-text @jupyterlab/hdf5@1.2.0 --no-build" || fail
+                run_with_nodejs "jupyter server extension enable jupyterlab_github" || fail
             else
-                python3 -m pip install python-language-server[all]==0.34.0 ipympl==0.5.8 || fail
-                run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.4 --no-build" || fail
+                run_with_nodejs "python3 -m pip install python-language-server[all]==0.34.0 ipympl==0.5.8" || fail
+                run_with_nodejs "jupyter labextension install jupyter-matplotlib@0.7.4 @bokeh/jupyter_bokeh@3.0.0 --no-build" || fail
             fi
 
             # Install jupyterlab-language-packs
-            python3 -m pip install https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/jupyterlab_language_pack_zh_CN-0.0.1.dev0-py2.py3-none-any.whl || fail
+            run_with_nodejs "python3 -m pip install jupyterlab-language-pack-zh-cn==3.3.post2" || fail
         fi
 
         if [ "x${VERSION}" = "x2" ] || [ "x${VERSION}" = "x1" ]
         then
             python3 -m pip install "nbresuse>=0.3.3,<=0.3.6" || fail
-            python3 -m pip install bokeh jupyter-bokeh || fail
+            python3 -m pip install bokeh "jupyter-bokeh<=3.0.2" || fail
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ] || [ "x${CUR_PYTHON_VER}" = "xpy36" ]
             then
                 python3 -m pip install pynvml || fail
-                python3 -m pip install "jupyterlab-nvdashboard<=0.5.0" jupyterlab_hdf jupytext==1.8.2 || fail
+                python3 -m pip install "jupyterlab-nvdashboard<=0.5.0" jupyterlab_hdf jupytext==1.13.7 || fail
                 run_with_nodejs "jupyter labextension install jupyterlab-nvdashboard @jupyterlab/github @jupyterlab/hdf5 --no-build" || fail
             else
                 python3 -m pip install jupytext==1.8.1 || fail
