@@ -1,4 +1,5 @@
 # Data
+/noVNCbin*
 /datafiles*
 *.tar.gz
 *.tar.xz
