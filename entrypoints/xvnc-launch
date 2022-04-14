@@ -26,19 +26,6 @@ function mcd {
   cd "$1" || fail
 }
 
-kill_descendant_processes() {
-    local pid="$1"
-    local and_self="${2:-false}"
-    if children="$(pgrep -P "$pid")"; then
-        for child in $children; do
-            kill_descendant_processes "$child" true
-        done
-    fi
-    if [[ "$and_self" == true ]]; then
-        kill -9 "$pid"
-    fi
-}
-
 MODE="xvnc"
 USER_ROOT="/home/xubuntu"
 # Pass options from command line
@@ -68,12 +55,12 @@ then
         echo "Find VNC password."
     else
         sudo tigervncpasswd ${FILE_VNCPASSWD}
-        mkdir -p /home/xubuntu/.vnc/ || fail
-        if $(sudo [ ! -s /home/xubuntu/.vnc/passwd ]); then
-            sudo cp -f ${FILE_VNCPASSWD} /home/xubuntu/.vnc/ || fail
-            sudo chown xubuntu /home/xubuntu/.vnc/passwd || fail
-            sudo chgrp xubuntu /home/xubuntu/.vnc/passwd || fail
-            sudo chmod ug+rwx /home/xubuntu/.vnc/passwd || fail
+        mkdir -p ${USER_ROOT}/.vnc/ || fail
+        if $(sudo [ ! -s ${USER_ROOT}/.vnc/passwd ]); then
+            sudo cp -f ${FILE_VNCPASSWD} ${USER_ROOT}/.vnc/ || fail
+            sudo chown xubuntu ${USER_ROOT}/.vnc/passwd || fail
+            sudo chgrp xubuntu ${USER_ROOT}/.vnc/passwd || fail
+            sudo chmod ug+rwx ${USER_ROOT}/.vnc/passwd || fail
         fi
     fi
 else
@@ -128,6 +115,19 @@ exec noVNC --cert /apps/source/noVNC/utils/websockify/self.pem --key /apps/sourc
 
 msg "Wait CTRL+C from users."
 ( trap exit SIGINT ; read -r -d '' _ </dev/tty )  # wait for Ctrl-C
+
+kill_descendant_processes() {
+    local pid="$1"
+    local and_self="${2:-false}"
+    if children="$(pgrep -P "$pid")"; then
+        for child in $children; do
+            kill_descendant_processes "$child" true
+        done
+    fi
+    if [[ "$and_self" == true ]]; then
+        kill -9 "$pid" || true
+    fi
+}
 
 kill_descendant_processes $$
 

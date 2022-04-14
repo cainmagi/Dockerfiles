@@ -108,12 +108,12 @@ then
         echo "Find VNC password."
     else
         sudo tigervncpasswd ${FILE_VNCPASSWD}
-        mkdir -p /home/xubuntu/.vnc/ || fail
-        if $(sudo [ ! -s /home/xubuntu/.vnc/passwd ]); then
-            sudo cp -f ${FILE_VNCPASSWD} /home/xubuntu/.vnc/ || fail
-            sudo chown xubuntu /home/xubuntu/.vnc/passwd || fail
-            sudo chgrp xubuntu /home/xubuntu/.vnc/passwd || fail
-            sudo chmod ug+rwx /home/xubuntu/.vnc/passwd || fail
+        mkdir -p ${USER_ROOT}/.vnc/ || fail
+        if $(sudo [ ! -s ${USER_ROOT}/.vnc/passwd ]); then
+            sudo cp -f ${FILE_VNCPASSWD} ${USER_ROOT}/.vnc/ || fail
+            sudo chown xubuntu ${USER_ROOT}/.vnc/passwd || fail
+            sudo chgrp xubuntu ${USER_ROOT}/.vnc/passwd || fail
+            sudo chmod ug+rwx ${USER_ROOT}/.vnc/passwd || fail
         fi
     fi
 else

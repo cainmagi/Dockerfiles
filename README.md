@@ -48,7 +48,7 @@ git clone --single-branch -b xubuntu-minimal https://github.com/cainmagi/Dockerf
 After that, run such command to build the image:
 
 ```Bash
-docker build -t xminimal:1.0 xminimal
+docker build -t xminimal:1 xminimal
 ```
 
 where `xminimal` is the folder of the corresponding branch. The options in online building examples could be also used for offline building.
@@ -58,21 +58,33 @@ where `xminimal` is the folder of the corresponding branch. The options in onlin
 * By built-in `noVNC`: In default mode, you just need to launch the built image by:
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xminimal:1.0
+  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xminimal:1.1
   ```
 
   It is equivalent to use `--vnc` or not in the above command. However, if you have saved the image in other modes before, you may need this flag to force the image to enter the VNC mode. The `--vnc` option is required when you need to force the image to switch to VNC mode. The following command would force the `vnc` launched by `root` mode.
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xminimal:1.0 --root
+  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xminimal:1.1 --root
   ```
 
   In current version, users could use either `http` to get access to the unencrypted noVNC session or `https` to get access to the ssl-encrypted noVNC session. For users who open the encrypted session firstly, they may need to add the noVNC site into the trusted list.
 
+* Switch the VNCServer to `XTigerVNC` (experimental): Add the option `--xvnc` will make the desktop hosted by the `Xvnc` program. Everything will be run in the same process. There will be no sub-process manager like `tigervncserver` to manage desktop related programs. A good thing is that, users do not need to run `tigervncserver -kill :1` before saving the image. However, currently these desktop related programs are not guaranteed to be closed if hitting <kbd>Ctrl</kbd>+<kbd>C</kbd>. Therefore, we suggest the users to use `ps -aux` to validate the running processes before saving the image.
+
+  ```bash
+  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xminimal:1.1 --xvnc
+  ```
+
+  Certainly, there is also a root mode for this method:
+
+  ```bash
+  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xminimal:1.1 --rootxvnc
+  ```
+
 * By external VNC viewer: If you have installed a VNC viewer on your client side, and want to connect the VNC server of the image directly, please use:
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal -p 5901:5901 xminimal:1.0
+  docker run --gpus all -it --rm -v ~:/homelocal -p 5901:5901 xminimal:1.1
   ```
 
   The `root` mode could be also applied here.
@@ -80,25 +92,25 @@ where `xminimal` is the folder of the corresponding branch. The options in onlin
 * By `BASH`: If you want to enter the command line but do not start the desktop, please use
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal xminimal:1.0 --bash
+  docker run --gpus all -it --rm -v ~:/homelocal xminimal:1.1 --bash
   ```
 
 * By any script: If you want run any script inside the docker for only one time, please use
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal xminimal:1.0 script=<the-path-to-your-script>
+  docker run --gpus all -it --rm -v ~:/homelocal xminimal:1.1 script=<the-path-to-your-script>
   ```
 
 * Switch the user id: When you use this image for the first time, please configure your user id by:
 
   ```bash
-  docker run --gpus all -it --rm -v ~:/homelocal xminimal:1.0 uid=$(id -u) gid=$(id -g)
+  docker run --gpus all -it --rm -v ~:/homelocal xminimal:1.1 uid=$(id -u) gid=$(id -g)
   ```
 
   Then commit the image by
 
   ```bash
-  docker commit --change='CMD [""]' <conatiner-id> xminimal:1.0
+  docker commit --change='CMD [""]' <conatiner-id> xminimal:1.1
   ```
 
 ## Features
