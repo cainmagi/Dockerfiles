@@ -11,23 +11,23 @@ This dockerfile is mainly used for developing the image, especially used for deb
 If you do not want to change the contents of the dockerfile, you could use such command to build the image:
 
 ```Bash
-docker build -t xminimal:1.0 https://github.com/cainmagi/Dockerfiles.git#xubuntu-minimal
+docker build -t xminimal:1.1 https://github.com/cainmagi/Dockerfiles.git#xubuntu-minimal
 ```
 
 This image is compatible for Ubuntu 16.04, 18.04 and 20.04. Please check your base image and confirm that the Ubuntu inside the image is compatible with this dockerfile. Most of the NVIDIA images could be used for building this desktop. For example:
 
-* Start from `pytorch 1.9.0a` image:
+* Start from `pytorch 1.12.0a` image:
 
   ```bash
-  docker build -t xminimal-tc:1.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:21.05-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh https://github.com/cainmagi/Dockerfiles.git#xubuntu-minimal
+  docker build -t xminimal-tc:1.1 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:22.03-py3 --build-arg BASE_LAUNCH=/opt/nvidia/nvidia_entrypoint.sh https://github.com/cainmagi/Dockerfiles.git#xubuntu-minimal
   ```
 
 There are 3 available options:
 
 | Option  | Description | Default |
 | :-----: | ----------- | ------- |
-| `BASE_IMAGE` | The base image for building this desktop image. | `nvcr.io/nvidia/pytorch:21.05-py3` |
-| `BASE_LAUNCH` | The entrypoint script from the base image. If there is no entry script, please use`""`. | `/usr/local/bin/nvidia_entrypoint.sh` |
+| `BASE_IMAGE` | The base image for building this desktop image. | `nvcr.io/nvidia/pytorch:22.03-py3` |
+| `BASE_LAUNCH` | The entrypoint script from the base image. If there is no entry script, please use`""`. | `/opt/nvidia/nvidia_entrypoint.sh` |
 | `WITH_CHINESE` | If set, the image would be built with Chinese support for vscode, sublime and codeblocks. | `true` |
 | `ADDR_PROXY` | Set the proxy address pointing to `localhost`. If specified, this value should be a full address. (Experimental feature ::) | `unset` |
 
@@ -117,6 +117,17 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 * **Chinese language support**: for some apps including Chrome, Firefox.
 
 ## Update records
+
+### ver 1.1 @ 4/14/2022
+
+1. Fix a bug caused by missing of LibreOffice libs (Fixed by `~/.config/xfce4/xinitrc`).
+2. Enable users to run GUIs with `sudo` (Fixed by `~/.config/xfce4/xinitrc`).
+3. Fix a bug where the desktop may be launched by twice in Ubuntu 16.04 (Fixed by `~/.vnc/xstartup`).
+4. Fix a bug caused by using `get-pip.py` with Python 3.6 (Fixed by `install-desktop`).
+5. Prefer `conda/mamba` when updating python packages (Fixed by `install-desktop`).
+6. Upgrade TigerVNC to 1.12.80. (Fixed by `install-vnc`).
+7. Add more path to `sudo/secure_path`, now users are allowed to use `conda` / `mamba` / `pip` directly with `sudo` (Fixed by `sudoers`).
+8. Finish the launching mode `--xvnc` (Fixed by `docker-entrypoint` and `xvnc-launch`).
 
 ### ver 1.0.1 @ 7/6/2021
 

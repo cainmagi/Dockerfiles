@@ -52,7 +52,7 @@ then
     fi
     apt-get update -y || fail
     apt-get install -y lsb-release lsb-core || fail
-    UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
+    UBUNTU_VER=$(lsb_release -cs)
 
     # Install xfce4 Desktop
     apt-get install -y dbus-x11 libx11-6 libx11-data libx11-protocol-perl libx11-xcb1 x11-apps \
@@ -63,7 +63,7 @@ then
     apt-get install -y xubuntu-desktop synaptic language-selector-gnome || fail
     apt-get install -y xfce4 || fail
     # Install the xfce4 addons
-    if [ "x${UBUNTU_VER}" = "x20.04" ]
+    if [ "x${UBUNTU_VER}" = "xfocal" ]
     then
         # Install libgtk
         apt-get install -y libgtk-3-bin libgtk2.0-bin libgtk-3-dev libgtk2.0-dev libgirepository1.0-dev \
@@ -123,9 +123,9 @@ if [ "x${MODE}" = "xapps" ]
 then 
     msg "Begin to install the basic tier of desktop apps."
     apt-get install -y lsb-release lsb-core || fail
-    UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
+    UBUNTU_VER=$(lsb_release -cs)
 
-    if [ "x${UBUNTU_VER}" = "x20.04" ]
+    if [ "x${UBUNTU_VER}" = "xfocal" ]
     then
         wget -O google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb || fail
         apt-get install -y ./google-chrome.deb || fail
@@ -136,7 +136,7 @@ then
 
     apt-get install -y firefox qt5-default qt5-doc-html qt5-image-formats-plugins qt5-style-plugins gedit okular gnome-screenshot pdf2svg || fail
 
-    if [ "x${UBUNTU_VER}" = "x20.04" ]
+    if [ "x${UBUNTU_VER}" = "xfocal" ]
     then
         apt-get install -y vim-gtk3 vim-gui-common || fail
     else
@@ -148,7 +148,7 @@ then
         apt-get install -y vim-gnome || fail
     fi
 
-    if [ "x${UBUNTU_VER}" = "x16.04" ]
+    if [ "x${UBUNTU_VER}" = "xxenial" ]
     then
         dpkg --add-architecture i386 || fail
     fi
@@ -163,28 +163,35 @@ then
     [ -d /usr/share/fonts/opentype ] || mkdir /usr/share/fonts/opentype
     git clone https://github.com/adobe-fonts/source-code-pro.git /usr/share/fonts/opentype/scp || fail
     /usr/bin/fc-cache -r -v && fc-cache -f || fail
-    
+
     # Uninstall ibus if it is installed
     IBUS_INSTALLED=$(apt -qq --installed list ibus)
     if [[ "x$IBUS_INSTALLED" != "x" ]]; then
         apt-get remove -y ibus || fail
         apt-get autoremove -y || fail
     fi
-    apt-get install -y fcitx fcitx-googlepinyin fcitx-table-wbpy fcitx-pinyin fcitx-sunpinyin fcitx-module-dbus || fail
-    apt-get install -y fcitx-module-cloudpinyin fcitx-table-wubi || fail
     apt-get install -y at-spi2-core || fail
-    
+
+    # Install fcitx5 if in Ubuntu 20.04
+    if [ "x${UBUNTU_VER}" = "xfocal" ]; then
+        add-apt-repository -y ppa:zhsj/fcitx5 || fail
+        apt-get update -qq || fail
+        apt-get install -y fcitx5 fcitx5-chinese-addons fcitx5-data fcitx5-frontend-gtk2 fcitx5-frontend-gtk3 fcitx5-frontend-qt5 fcitx5-module-cloudpinyin fcitx5-module-fullwidth fcitx5-module-pinyinhelper fcitx5-module-punctuation fcitx5-module-quickphrase fcitx5-module-quickphrase-editor fcitx5-modules fcitx5-pinyin gir1.2-fcitxg-1.0 fcitx5-module-lua fcitx5-material-color kde-config-fcitx5 || fail
+    else
+        apt-get install -y fcitx fcitx-googlepinyin fcitx-table-wbpy fcitx-pinyin fcitx-sunpinyin fcitx-module-dbus fcitx-module-cloudpinyin fcitx-table-wubi || fail
+    fi
+    if [ "x${UBUNTU_VER}" = "xbionic" ]; then
+        apt-get install -y kde-config-fcitx || fail
+    fi
+
     # Additional packages for Chinese localization.
     if [ "x${WITH_CHINESE}" = "xtrue" ]
     then
         msg "Installating Chinese language supports."
-        if [ "x${UBUNTU_VER}" = "x20.04" ]; then
-            apt-get install -y fonts-noto-cjk-extra firefox-locale-zh-hans kde-config-fcitx || fail
+        if [ "x${UBUNTU_VER}" = "xfocal" ] || [ "x${UBUNTU_VER}" = "xbionic" ]; then
+            apt-get install -y fonts-noto-cjk-extra firefox-locale-zh-hans || fail
         fi
-        if [ "x${UBUNTU_VER}" = "x18.04" ]; then
-            apt-get install -y firefox-locale-zh-hans fonts-noto-cjk-extra kde-config-fcitx || fail
-        fi
-        if [ "x${UBUNTU_VER}" = "x16.04" ]; then
+        if [ "x${UBUNTU_VER}" = "xxenial" ]; then
             apt-get install -y kde-l10n-zhcn firefox-locale-zh-hans || fail
         fi
     fi
@@ -194,7 +201,8 @@ then
 
     apt-get install -f -y || fail && apt-get upgrade -y || fail && apt-get -y dist-upgrade || fail
 
-    if [ "x${CUR_PY_VER}" == "xpy36" ] || [ "x${CUR_PY_VER}" == "xpy37+" ]
+    # Fetch the pip installation script.
+    if [ "x${CUR_PY_VER}" == "xpy37+" ]
     then
         if [ "x${USE_CURL}" == "x1" ]
         then
@@ -202,24 +210,95 @@ then
         else
             wget -O /root/scripts/get-pip-3.py https://bootstrap.pypa.io/pip/get-pip.py || fail
         fi
-    else
-        wget -O /root/scripts/get-pip-3.py https://github.com/cainmagi/Dockerfiles/releases/download/jlab-v1.1/get-pip-20.3.4.py || fail
     fi
-    if [ "x${USE_CURL}" == "x1" ]
+    if [ "x${CUR_PY_VER}" == "xpy36" ]
     then
-        curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o /root/scripts/get-pip-2.py || fail
-    else
-        wget -O /root/scripts/get-pip-2.py https://bootstrap.pypa.io/pip/2.7/get-pip.py || fail
+        if [ "x${USE_CURL}" == "x1" ]
+        then
+            curl https://bootstrap.pypa.io/pip/3.6/get-pip.py -o /root/scripts/get-pip-3.py || fail
+        else
+            wget -O /root/scripts/get-pip-3.py https://bootstrap.pypa.io/pip/3.6/get-pip.py || fail
+        fi
     fi
-    if [ "x${UBUNTU_VER}" = "x20.04" ] || [ "x${UBUNTU_VER}" = "x18.04" ]
+    if [ "x${CUR_PY_VER}" == "xpy35" ]
+    then
+        if [ "x${USE_CURL}" == "x1" ]
+        then
+            curl https://bootstrap.pypa.io/pip/3.5/get-pip.py -o /root/scripts/get-pip-3.py || fail
+        else
+            wget -O /root/scripts/get-pip-3.py https://bootstrap.pypa.io/pip/3.5/get-pip.py || fail
+        fi
+    else
+        if [ "x${USE_CURL}" == "x1" ]
+        then
+            curl https://bootstrap.pypa.io/pip/3.4/get-pip.py -o /root/scripts/get-pip-3.py || fail
+        else
+            wget -O /root/scripts/get-pip-3.py https://bootstrap.pypa.io/pip/3.4/get-pip.py || fail
+        fi
+    fi
+    CONDA_OPTIONAL=""
+    if [ "x${CUR_PY_VER}" == "xpy37+" ] || [ "x${CUR_PY_VER}" == "xpy36" ]
+    then
+        CONDA_OPTIONAL="rich"
+    fi
+    USE_CONDA=false
+    if [ "x${HAS_CONDA}" = "xtrue" ]; then
+        if [ "x${CUR_PY_VER}" == "xpy37+" ] || [ "x${CUR_PY_VER}" == "xpy36" ]
+        then
+            USE_CONDA=true
+        fi
+    fi
+    if [ "x${UBUNTU_VER}" = "xfocal" ] || [ "x${UBUNTU_VER}" = "xbionic" ]
     then
         apt-get install -y python3-pip || fail
         python3 /root/scripts/get-pip-3.py --force-reinstall || fail
-        python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail  
+
+        # Whether to use conda to manage packages
+        if [ "x${USE_CONDA}" = "xtrue" ]; then
+            # Fix the pyver of this conda.
+            CONDA_PYTHON_VER=$(python3 /root/scripts/get-pyver.py -p 2>&1)
+            CONDA_META_PATH=$(python3 /root/scripts/get-conda-path.py -m conda-meta 2>&1)
+            echo "${CONDA_PYTHON_VER}" >> "${CONDA_META_PATH}/pinned" || fail
+            # Replace conda by mamba.
+            conda update -y -c defaults conda || fail
+            conda install -y -c conda-forge mamba || fail
+            mamba update -y mamba || fail
+            mamba update -y pip || fail
+            python3 -m pip uninstall -y numpy || true  # Prevent the duplicate installation issue if a previous numpy is not fully uninstalled by mamba.
+            mamba install -y --force-reinstall -c conda-forge numpy || fail
+            mamba install -y -c conda-forge matplotlib plotly cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml pillow six jinja2 flask python-kaleido tqdm ${CONDA_OPTIONAL} || fail
+        else
+            python3 -m pip install pip --upgrade || fail
+            python3 -m pip install matplotlib plotly kaleido Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask tqdm ${CONDA_OPTIONAL} || fail
+        fi
     else
+        if [ "x${USE_CURL}" == "x1" ]
+        then
+            curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o /root/scripts/get-pip-2.py || fail
+        else
+            wget -O /root/scripts/get-pip-2.py https://bootstrap.pypa.io/pip/2.7/get-pip.py || fail
+        fi
         apt-get install -y python-pip python3-pip || fail
         python3 /root/scripts/get-pip-3.py --force-reinstall || fail && python2 /root/scripts/get-pip-2.py --force-reinstall || fail
-        python3 -m pip install matplotlib plotly Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask || fail
+
+        # Whether to use conda to manage packages
+        if [ "x${USE_CONDA}" = "xtrue" ]; then
+            # Fix the pyver of this conda.
+            CONDA_PYTHON_VER=$(python3 /root/scripts/get-pyver.py -p 2>&1)
+            CONDA_META_PATH=$(python3 /root/scripts/get-conda-path.py -m conda-meta 2>&1)
+            echo "${CONDA_PYTHON_VER}" >> "${CONDA_META_PATH}/pinned" || fail
+            # Replace conda by mamba.
+            conda update -y -c defaults conda || fail
+            conda install -y -c conda-forge mamba || fail
+            mamba update -y mamba || fail
+            mamba update -y pip || fail
+            python3 -m pip uninstall -y numpy || true  # Prevent the duplicate installation issue if a previous numpy is not fully uninstalled by mamba.
+            mamba install -y --force-reinstall -c conda-forge numpy || fail
+            mamba install -y -c conda-forge matplotlib plotly cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml pillow six jinja2 flask python-kaleido tqdm ${CONDA_OPTIONAL} || fail
+        else
+            python3 -m pip install pip --upgrade || fail
+            python3 -m pip install matplotlib plotly kaleido Cython numpy scipy scikit-learn scikit-image ipython h5py leveldb networkx nose pandas python-dateutil protobuf python-gflags pyyaml Pillow six Jinja2 Flask tqdm ${CONDA_OPTIONAL} || fail
+        fi
         python2 -m pip install numpy --upgrade || fail
     fi
 

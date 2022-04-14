@@ -39,6 +39,7 @@ do
         --vnc)          MODE="vnc" ;;
         --root)         MODE="rootvnc" ;;
         --xvnc)         MODE="xvnc" ;;
+        --rootxvnc)     MODE="rootxvnc" ;;
         script)         MODE_RUN_SCRIPT=${VALUE} ;;
         uid)            SET_UID=${VALUE} ;;
         gid)            SET_GID=${VALUE} ;;
@@ -128,6 +129,13 @@ else
     fi
 fi
 
+if [ "x${MODE}" = "xrootxvnc" ]
+then
+    sudo bash xvnc-launch
+    exec '/bin/bash'
+    exit 0
+fi
+
 if [ "x${MODE}" = "xrootvnc" ]
 then
     sudo tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
@@ -135,9 +143,9 @@ fi
 
 if [ "x${MODE}" = "xxvnc" ]
 then
-    Xtigervnc :0 -depth 24 -geometry 1920x1080 -br &
-    sleep 3
-    x0tigervncserver -display=:0 -Geometry=1920x1080+0+0 -rfbport=5901 -PasswordFile=${FILE_VNCPASSWD} &
+    bash xvnc-launch
+    exec '/bin/bash'
+    exit 0
 fi
 
 if [ "x${MODE}" = "xvnc" ]

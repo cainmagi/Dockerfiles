@@ -52,10 +52,10 @@ then
     apt-get clean || fail
 
     apt-get -y install lsb-release lsb-core || fail
-    UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
-    
+    UBUNTU_VER=$(lsb_release -cs)
+
     msg "Ubuntu ver: ${UBUNTU_VER}"
-    if [ "x${UBUNTU_VER}" != "x20.04" ] && [ "x${UBUNTU_VER}" != "x18.04" ] && [ "x${UBUNTU_VER}" != "x16.04" ]
+    if [ "x${UBUNTU_VER}" != "xfocal" ] && [ "x${UBUNTU_VER}" != "xbionic" ] && [ "x${UBUNTU_VER}" != "xxenial" ]
     then
         msg "Error: Currently we only support Ubuntu 16.04, 18.04, 20.04. The base image is not supported."
         exit 1
@@ -67,9 +67,6 @@ then
     fi
 
     # Setting language
-    echo "LC_ALL=en_US.UTF-8" >> /etc/environment
-    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-    echo "LANG=en_US.UTF-8" > /etc/locale.conf
     apt-get install -y locales || fail
     locale-gen en_US.UTF-8
 
@@ -96,7 +93,7 @@ then
     || fail
 
     apt-get -y update -qq || fail && apt-get -y install git || fail
-    
+
     msg "Installation for the basic packages finishes."
 fi
 
