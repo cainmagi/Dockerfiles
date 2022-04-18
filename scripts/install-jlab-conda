@@ -140,7 +140,16 @@ if [ "x${VERSION}" = "x1" ]
 then
     # Install Jupyter Lab
     msg "Installing Jupyter Lab, ver 1.2.21."
-    ${PYPKG_MANAGER} install -y -c conda-forge "nbconvert>=6.0.7" "jupyter>=1.0" "jupyter_core>=4.7" "notebook>=6.2" "pyzmq>=22.0" || fail
+    if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
+        CONDA_TEMP_PKGS="\"immutables>=0.17\" \"typing-extensions>=4.2.0\""
+    else
+        if [ "x${CUR_PYTHON_VER}" = "xpy36" ]; then
+            CONDA_TEMP_PKGS="immutables=0.17 typing-extensions=4.2.0"
+        else
+            CONDA_TEMP_PKGS="\"immutables<0.15\" \"typing-extensions>=3.10.0,<4\""
+        fi
+    fi
+    ${PYPKG_MANAGER} install -y -c conda-forge "nbconvert>=6.0.7" "jupyter>=1.0" "jupyter_core>=4.7" "notebook>=6.2" "pyzmq>=22.0" ${CONDA_TEMP_PKGS} || fail
     if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
         ${PYPKG_MANAGER} install -y -c conda-forge "jupyterlab<=1.2.21" || fail
     else
@@ -209,7 +218,16 @@ if [ "x${VERSION}" = "x2" ]
 then
     # Install Jupyter Lab
     msg "Installing Jupyter Lab, ver 2.3.2."
-    ${PYPKG_MANAGER} install -y -c conda-forge "nbconvert>=6.0.7" "jupyter>=1.0" "jupyter_core>=4.7" "notebook>=6.2" "pyzmq>=22.0" || fail
+    if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
+        CONDA_TEMP_PKGS="\"immutables>=0.17\" \"typing-extensions>=4.2.0\""
+    else
+        if [ "x${CUR_PYTHON_VER}" = "xpy36" ]; then
+            CONDA_TEMP_PKGS="immutables=0.17 typing-extensions=4.2.0"
+        else
+            CONDA_TEMP_PKGS="\"immutables<0.15\" \"typing-extensions>=3.10.0,<4\""
+        fi
+    fi
+    ${PYPKG_MANAGER} install -y -c conda-forge "nbconvert>=6.0.7" "jupyter>=1.0" "jupyter_core>=4.7" "notebook>=6.2" "pyzmq>=22.0" ${CONDA_TEMP_PKGS} || fail
     if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
         ${PYPKG_MANAGER} install -y -c conda-forge jupyterlab=2.3.2 || fail
     else
@@ -278,7 +296,16 @@ if [ "x${VERSION}" = "x3" ]
 then
     # Install Jupyter Lab
     msg "Installing Jupyter Lab, ver 3.3.3."
-    ${PYPKG_MANAGER} install -y -c conda-forge "nbconvert>=6.0.7" "jupyter>=1.0" "jupyter_core>=4.7" "notebook>=6.2" "pyzmq>=22.0" "typing-extensions>=3.10.0" || fail
+    if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
+        CONDA_TEMP_PKGS="\"immutables>=0.17\" \"typing-extensions>=4.2.0\""
+    else
+        if [ "x${CUR_PYTHON_VER}" = "xpy36" ]; then
+            CONDA_TEMP_PKGS="immutables=0.17 typing-extensions=4.2.0"
+        else
+            CONDA_TEMP_PKGS="\"immutables<0.15\" \"typing-extensions>=3.10.0,<4\""
+        fi
+    fi
+    ${PYPKG_MANAGER} install -y -c conda-forge "nbconvert>=6.0.7" "jupyter>=1.0" "jupyter_core>=4.7" "notebook>=6.2" "pyzmq>=22.0" ${CONDA_TEMP_PKGS} || fail
     if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]; then
         ${PYPKG_MANAGER} install -y -c conda-forge jupyterlab=3.3.3 || fail
     else
