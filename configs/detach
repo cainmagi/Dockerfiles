@@ -258,7 +258,7 @@ then
 
     msg "Create user xubuntu ..."
     apt-get update || fail
-    apt-get install -y apt-utils || fail
+    apt-get install -y apt-utils wget curl || fail
     apt-get install -y sudo || fail # Install sudo package
     useradd -ms /bin/bash xubuntu || fail # Add the user
     passwd -d xubuntu || fail # Delete the password

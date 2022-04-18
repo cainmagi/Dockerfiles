@@ -229,6 +229,7 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 8. Switch from Jupyter Lab 2 to Jupyter Lab 3 by default. This configuration is not recommended for those images with Python 3.5. Users may need to configure the J-lab version manually in that case.
 9. Provide the [Oh-my-posh :link:][link-omp] terminal theme.
 10. Provide some optional scripts in the folder `/home/xubuntu` (`~`).
+11. Fix small bugs about dependency problems (in `detach`).
 
 #### Inherit from the update of `xubuntu-minimal:1.1`
 
