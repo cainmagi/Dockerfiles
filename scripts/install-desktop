@@ -20,7 +20,9 @@ function mcd {
 }
 
 function run_with_cargo {
-    RUSTUP_HOME=/apps/rust CARGO_HOME=/apps/rust bash -c 'source ${RUSTUP_HOME}/env && RUSTUP_HOME=${RUSTUP_HOME} CARGO_HOME=${CARGO_HOME} $1' || fail
+    RUSTUP_HOME=/apps/rust
+    CARGO_HOME=/apps/rust
+    env RUSTUP_HOME=${RUSTUP_HOME} CARGO_HOME=${CARGO_HOME} bash -c "source ${RUSTUP_HOME}/env && $1"|| fail
 }
 
 MODE=desktop

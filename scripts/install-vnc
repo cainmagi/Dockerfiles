@@ -188,5 +188,8 @@ then
         update_icon "Adwaita-Xfce" "Adwaita-Xfce-Mono" "Adwaita-Xfce-Panel" "elementary-xfce-darkest" "Arc-X-D" "Arc-X-P" "DarK" "Numix" "Numix-Light" "Paper" "Paper-Mono-Dark" "Suru" || fail
     fi
 
+    # Fix font issues
+    /usr/bin/fc-cache -r -v && fc-cache -f || fail
+
     msg "Installation for the themes finishes."
 fi
