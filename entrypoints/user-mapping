@@ -8,20 +8,26 @@
 set -e
 RESET='\033[0m'
 COLOR='\033[1;32m'
+COLOR_ERR='\033[1;31m'
 
 function msg {
-  echo -e "${COLOR}$(date): $1${RESET}"
+    echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function msgerr {
+    echo -e "${COLOR_ERR}$(date): $1${RESET}"
 }
 
 function fail {
-  msg "Error : $?"
-  exit 1
+    msgerr "Error : $?"
+    exit 1
 }
 
 function mcd {
-  mkdir -p "$1" || fail
-  cd "$1" || fail
+    mkdir -p "$1" || fail
+    cd "$1" || fail
 }
+
 
 HOST_UID=""
 HOST_GID=""

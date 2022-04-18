@@ -4,19 +4,24 @@
 set -e
 RESET='\033[0m'
 COLOR='\033[1;32m'
+COLOR_ERR='\033[1;31m'
 
 function msg {
-  echo -e "${COLOR}$(date): $1${RESET}"
+    echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function msgerr {
+    echo -e "${COLOR_ERR}$(date): $1${RESET}"
 }
 
 function fail {
-  msg "Error : $?"
-  exit 1
+    msgerr "Error : $?"
+    exit 1
 }
 
 function mcd {
-  mkdir -p "$1" || fail
-  cd "$1" || fail
+    mkdir -p "$1" || fail
+    cd "$1" || fail
 }
 
 
@@ -51,12 +56,14 @@ do
     esac
 done
 
+
 if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
     export http_proxy=${ADDR_PROXY};
     export https_proxy=${ADDR_PROXY};
     export no_proxy="127.0.0.1, localhost";
     msg "Successfully set the proxy to ${ADDR_PROXY}."
 fi
+
 
 if [ "x${SET_EXTRA_APPS}" != "" ]; then
     if [ -d "/var/cache/app-info/xapian/default" ]; then
@@ -69,6 +76,7 @@ else
     exit 0
 fi
 
+
 # cloudreve
 if [[ "${SET_EXTRA_APPS}" = *"c"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"c"* ]]; then
     msg "Installation for Cloudreve."
@@ -79,6 +87,7 @@ if [[ "${SET_EXTRA_APPS}" = *"c"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"c"* ]]; t
     chmod +x ${USER_HOME}/Cloudreve/cloudreve || fail
     ln -s ${USER_HOME}/Cloudreve/cloudreve /usr/local/bin/cloudreve || fail
 fi
+
 
 # pycharm
 if [[ "${SET_EXTRA_APPS}" = *"p"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"p"* ]]; then
@@ -91,12 +100,14 @@ if [[ "${SET_EXTRA_APPS}" = *"p"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"p"* ]]; t
     wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.7-u20.04/pycharm-omp-configs.tar.xz | tar xz -C ${USER_HOME}/.config/JetBrains/PyCharmCE${CUR_PYCHARM_VER}/ || fail
 fi
 
+
 # gimp
 if [[ "${SET_EXTRA_APPS}" = *"g"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"g"* ]]; then
     msg "Installation for GIMP."
     # Could be used in 16.04, 18.04 and 20.04.
     apt-get install -y gimp gimp-cbmplugs gimp-data gimp-data-extras gimp-dcraw gimp-dds gimp-gap gimp-gluas gimp-gmic gimp-gutenprint gimp-help-common gimp-help-en gimp-plugin-registry gimp-texturize gtkam-gimp libgimp2.0-dev gimp-lensfun || fail
 fi
+
 
 # Gitkraken
 if [[ "${SET_EXTRA_APPS}" = *"k"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"k"* ]]; then
@@ -110,6 +121,7 @@ if [[ "${SET_EXTRA_APPS}" = *"k"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"k"* ]]; t
         wget -O /usr/share/gitkraken/resources/app.asar.unpacked/src/strings.json https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/gitkraken-strings.json || fail
     fi
 fi
+
 
 # Sublime Text 4
 if [[ "${SET_EXTRA_APPS}" = *"m"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"m"* ]]; then
@@ -133,6 +145,7 @@ if [[ "${SET_EXTRA_APPS}" = *"m"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"m"* ]]; t
     fi
 fi
 
+
 # texlive + texstudio
 if [[ "${SET_EXTRA_APPS}" = *"x"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"x"* ]]; then
     msg "Installation for TeXLive adn TeXstudio."
@@ -140,6 +153,7 @@ if [[ "${SET_EXTRA_APPS}" = *"x"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"x"* ]]; t
     apt-get install -y texlive texlive-full texlive-lang-all perl-tk || fail
     apt-get install -y mythes-en-us texstudio texstudio-doc texstudio-l10n || fail
 fi
+
 
 # nautilus + nemo
 if [[ "${SET_EXTRA_APPS}" = *"n"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"n"* ]]; then
@@ -158,6 +172,7 @@ if [[ "${SET_EXTRA_APPS}" = *"n"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"n"* ]]; t
     fi
 fi
 
+
 # libreoffice + thunderbird
 if [[ "${SET_EXTRA_APPS}" = *"o"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"o"* ]]; then
     msg "Installation for LibreOffice and Thunderbird."
@@ -175,6 +190,7 @@ if [[ "${SET_EXTRA_APPS}" = *"o"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"o"* ]]; t
     fi
 fi
 
+
 # atom + nuclide
 if [[ "${SET_EXTRA_APPS}" = *"a"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"a"* ]]; then
     msg "Installation for Atom and Nuclide."
@@ -191,6 +207,7 @@ if [[ "${SET_EXTRA_APPS}" = *"a"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"a"* ]]; t
         ATOM_HOME=${USER_HOME}/.atom apm install simplified-chinese-menu || fail
     fi
 fi
+
 
 # emacs
 if [[ "${SET_EXTRA_APPS}" = *"e"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"e"* ]]; then

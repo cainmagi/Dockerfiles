@@ -4,25 +4,26 @@
 set -e
 RESET='\033[0m'
 COLOR='\033[1;32m'
-WARN_COLOR='\033[1;33m'
+COLOR_ERR='\033[1;31m'
 
 function msg {
-  echo -e "${COLOR}$(date): $1${RESET}"
+    echo -e "${COLOR}$(date): $1${RESET}"
 }
 
-function warn {
-  echo -e "${WARN_COLOR}$(date): $1${RESET}"
+function msgerr {
+    echo -e "${COLOR_ERR}$(date): $1${RESET}"
 }
 
 function fail {
-  msg "Error : $?"
-  exit 1
+    msgerr "Error : $?"
+    exit 1
 }
 
 function mcd {
-  mkdir -p "$1" || fail
-  cd "$1" || fail
+    mkdir -p "$1" || fail
+    cd "$1" || fail
 }
+
 
 function update_icon {
     allargs="'$*'"
@@ -37,6 +38,7 @@ function update_icon {
     done
 }
 
+
 MODE=vnc
 
 for ARGUMENT in "$@"
@@ -49,12 +51,14 @@ do
     esac
 done
 
+
 if [[ "x${ADDR_PROXY}" != "xunset" ]]; then
     export http_proxy=${ADDR_PROXY};
     export https_proxy=${ADDR_PROXY};
     export no_proxy="127.0.0.1, localhost";
     msg "Successfully set the proxy to ${ADDR_PROXY}."
 fi
+
 
 if [ "x${MODE}" = "xvnc" ]
 then
@@ -140,6 +144,7 @@ then
 
     msg "Installation for VNC finished."
 fi
+
 
 if [ "x${MODE}" = "xtheme" ]
 then 

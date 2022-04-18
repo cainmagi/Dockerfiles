@@ -4,19 +4,24 @@
 set -e
 RESET='\033[0m'
 COLOR='\033[1;32m'
+COLOR_ERR='\033[1;31m'
 
 function msg {
-  echo -e "${COLOR}$(date): $1${RESET}"
+    echo -e "${COLOR}$(date): $1${RESET}"
+}
+
+function msgerr {
+    echo -e "${COLOR_ERR}$(date): $1${RESET}"
 }
 
 function fail {
-  msg "Error : $?"
-  exit 1
+    msgerr "Error : $?"
+    exit 1
 }
 
 function mcd {
-  mkdir -p "$1" || fail
-  cd "$1" || fail
+    mkdir -p "$1" || fail
+    cd "$1" || fail
 }
 
 MODE=vscode
@@ -47,7 +52,7 @@ fi
 
 if [ "x${MODE}" = "xvscode" ]
 then
-    # Install extensions for code
+    # Install extensions for code.
     msg "Install VSCode extensions."
     CODE_EXTENSIONS="hookyqr.beautify
         esbenp.prettier-vscode
@@ -88,6 +93,7 @@ then
         pkief.material-icon-theme
         pkief.material-product-icons
         github.github-vscode-theme
+        rokoroku.vscode-theme-darcula
         eamodio.gitlens
         mhutchie.git-graph"
     for c_ext in ${CODE_EXTENSIONS}; do
@@ -98,6 +104,30 @@ then
     then
         code --install-extension ms-ceintl.vscode-language-pack-zh-hans --extensions-dir "${USER_ROOT}/.vscode/extensions" --user-data-dir "${USER_ROOT}/.vscode/settings" || fail
     fi
+fi
+
+
+if [ "x${MODE}" = "xvscodelocal" ]
+then
+    # Install extensions for code by local installation packs.
+    msg "Install VSCode extensions by local installation packs."
+    mkdir -p /root/vscodepacks || fail
+    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.7-u20.04/snapshot-vscode-ext-041822.tar.xz | tar xJ -C "/root/vscodepacks/" || fail
+
+    for c_ext in "/root/vscodepacks"/*.vsix ; do
+        msg "Install VSCode ext (local): ${c_ext}."
+        code --install-extension ${c_ext} --extensions-dir "${USER_ROOT}/.vscode/extensions" --user-data-dir "${USER_ROOT}/.vscode/settings" || fail
+    done
+
+    if [ "x${WITH_CHINESE}" = "xtrue" ]
+    then
+        for c_ext in "/root/vscodepacks/zh_cn"/*.vsix ; do
+            msg "Install VSCode ext (local): ${c_ext}."
+            code --install-extension ${c_ext} --extensions-dir "${USER_ROOT}/.vscode/extensions" --user-data-dir "${USER_ROOT}/.vscode/settings" || fail
+        done
+    fi
+
+    rm -rf /root/vscodepacks || fail
 fi
 
 
