@@ -230,6 +230,7 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 9. Provide the [Oh-my-posh (OMP) :link:][link-omp] terminal theme.
 10. Provide some optional scripts in the folder `/home/xubuntu` (`~`).
 11. Fix small bugs about dependency problems (in `detach`), and the OMP installation.
+12. Fix a bug caused by `get-conda-path.py`. When there is neither `conda` nor `python`, the script incorrectly returned `True` value before.
 
 #### Inherit from the update of `xubuntu-minimal:1.1`
 
