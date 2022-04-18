@@ -148,7 +148,9 @@ then
     # Get OMP.
     wget -O- https://gist.githubusercontent.com/cainmagi/99a8dbfe175fccdc8b3457d14c67e2b8/raw/install-omp.sh | bash -s -- --skip-basic --skip-fonts || fail
     # Get extra theme.
+    mkdir -p "${USER_ROOT}/.poshthemes" || fail
     wget -O "${USER_ROOT}/.poshthemes/paradox-alt.omp.json" https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.7-u20.04/paradox-alt.omp.json || fail
+    ln -s "${USER_ROOT}/.poshthemes" "/root/.poshthemes" || fail
     # Get terminal configs.
     wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.7-u20.04/home-omp-configs.tar.xz | tar xJ -C "${USER_ROOT}/" || fail
 fi
