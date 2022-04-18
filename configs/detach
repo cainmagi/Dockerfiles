@@ -173,8 +173,8 @@ then
     fi
     cp -f ${THIS_ROOT}/.bashrc /root/ || fail
     mkdir -p /root/scripts || fail
-    wget -O /root/scripts/get-pyver.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-pyver.py || fail
-    wget -O /root/scripts/get-conda-path.py https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.5-u20.04/get-conda-path.py || fail
+    wget -O /root/scripts/get-pyver.py https://gist.githubusercontent.com/cainmagi/9ddcc621d21baf529b08c739ddca5e1c/raw/fdd75b6bd18c5f0e987c47b50f870cf3ce5d2718/get-pyver.py || fail
+    wget -O /root/scripts/get-conda-path.py https://gist.githubusercontent.com/cainmagi/9ddcc621d21baf529b08c739ddca5e1c/raw/fdd75b6bd18c5f0e987c47b50f870cf3ce5d2718/get-conda-path.py || fail
     chmod +rwx /root/scripts/get-pyver.py /root/scripts/get-conda-path.py || fail
 
     msg "Move files to /etc"
