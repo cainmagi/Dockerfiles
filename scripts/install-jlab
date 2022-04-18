@@ -380,7 +380,7 @@ then
         if [ "x${VERSION}" = "x3" ]
         then
             py_fix_wrapt_version || fail # Fix wrapt version problem.
-            run_with_nodejs "python3 -m pip install \"nbresuse>=0.4.0\"" || fail
+            run_with_nodejs "python3 -m pip install --ignore-installed \"nbresuse>=0.4.0\"" || fail
             if [ "x${CUR_PYTHON_VER}" = "xpy37+" ]
             then
                 run_with_nodejs "python3 -m pip install \"jupyterlab_nvdashboard>=0.6.0\" bokeh \"jupyter_bokeh>=3.0.4\"" || fail
