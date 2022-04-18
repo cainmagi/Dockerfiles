@@ -23,7 +23,7 @@ We provide 3 examples:
 * Start from `cuda 11.6` image:
 
   ```bash
-  docker build -t xubuntu-cuda:1.4 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.6.2-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" --build-arg JLAB_VER=3 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+  docker build -t xubuntu-cuda:1.7 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.6.2-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" --build-arg JLAB_VER=3 https://github.com/cainmagi/Dockerfiles.git#xubuntu
   ```
 
 * Start from `tensorflow 1.13.1` image (since it is a Python 3.5 image, we recommend to fall back to Jupyter Lab 2.x):
@@ -48,7 +48,7 @@ Here we show the list of extra apps:
 
 |  Code   | Description |
 | :-----: | ----------- |
-| `c` | [`Cloudreve`](https://cloudreve.org) |
+| `c` | [`Cloudreve`][link-cloudreve] |
 | `p` | [`PyCharm`][link-pycharm] |
 | `g` | [`GIMP`](https://www.gimp.org/downloads) |
 | `k` | [`GitKraken`][link-gitkraken] |
@@ -158,7 +158,7 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
   docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal xubuntu:1.7 script=<the-path-to-your-script>
   ```
 
-* With `Cloudreve`: We recommend users to launch `Cloudreve` by opening a new terminal on the desktop, and using the following command:
+* With [`Cloudreve` :link:][link-cloudreve]: We recommend users to launch `Cloudreve` by opening a new terminal on the desktop, and using the following command:
 
   ```bash
   crpasswd  # only used for checking the INITIAL admin password.
@@ -185,13 +185,13 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 
   Cloudreve will show you a lot of logs on the terminal, it may interfere the messages from `Xvnc` or `noVNC`. So we **do not** recommend to launch it together with the desktop. It is always better if you open a terminal on the desktop and use the `cloudreve` command.
 
-* With `FileBrowser`: We recommend users to launch `filebrowser` by opening a new terminal on the desktop, and using the following command:
+* With [`FileBrowser` :link:][link-filebrowser]: We recommend users to launch `filebrowser` by opening a new terminal on the desktop, and using the following command:
 
   ```bash
   fbrowser  # although users can use filebrowser to launch the app, we still recommend users to use this command, because this command can configure the IP and PORT number automatically.
   ```
 
-  > :warning: We strongly recommend users to change the initial admin password, and keep the modified password by themselves.
+  > :warning: We **STRONGLY** recommend users to change the initial admin password, and keep the modified password by themselves.
 
   After launching the app, users can get access to `FileBrowser` by `<dgx-ip>:5212` port. Remember to expose the port number by `-p 5212:5212` when launching the container.
 
@@ -211,7 +211,9 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 * **Fully installed Jupyter Lab**: if user needs, a full Jupyter Lab with several extensions could be installed, the details could be checked [here][jlab].
 * **Multiple launching method**: including VNC server, jupyterlab, bash and arbitrary script mode.
 * **Chinese language support**: for some apps including edge, chrome (chromium), firefox, vscode, kate, codeblocks, ...
-* **Cloudreve Service (Chinese only)**: a private cloud storage service, allowing users to expose their personal folder as an "online drive" available on LAN. If users are interested, they can dig into the configurations and enable more features (like WebDAV and offline downloading). Currently this feature is designed for using a browser-based app to replace the WinSCP client.
+* [**Cloudreve Service (Chinese only)** :link:][link-cloudreve]: a private cloud storage service, allowing users to expose their personal folder as an "online drive" available on LAN. If users are interested, they can dig into the configurations and enable more features (like WebDAV and offline downloading). Currently this feature is designed for using a browser-based app to replace the WinSCP client.
+* [**FileBrowser Service** :link:][link-filebrowser]: an alternative of `Cloudreve`. It supports multi-language and is more flexible for exchanging files with a single server. Although it does not support so many online drive features like `Cloudreve`, with `FileBrowser`, users can upload / download files, share links, and even run commands (need to be added to the whitelist) easily.
+* **Extra scripts**: we also provide some extra scripts for compiling specific libraries (like `ffmpeg` and `gcc`). These files will be convenient examples for users who want extra features.
 
 ## Update records
 
@@ -225,7 +227,7 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 6. Support a cloud file transfer tool: Cloudreve. This tool may be able to replace the functionality of WinSCP.
 7. Update the versions of packages in the icon / theme bundle.
 8. Switch from Jupyter Lab 2 to Jupyter Lab 3 by default. This configuration is not recommended for those images with Python 3.5. Users may need to configure the J-lab version manually in that case.
-9. Provide the [Oh-my-posh :link:](https://ohmyposh.dev/) terminal theme.
+9. Provide the [Oh-my-posh :link:][link-omp] terminal theme.
 10. Provide some optional scripts in the folder `/home/xubuntu` (`~`).
 
 #### Inherit from the update of `xubuntu-minimal:1.1`
@@ -331,3 +333,6 @@ Create the dockerfile branch.
 [link-sublime-text]:https://www.sublimetext.com/
 [link-gitfiend]:https://gitfiend.com
 [link-stacer]:https://oguzhaninan.github.io/Stacer-Web/
+[link-cloudreve]:https://cloudreve.org/
+[link-filebrowser]:https://filebrowser.org/
+[link-omp]:https://ohmyposh.dev/
