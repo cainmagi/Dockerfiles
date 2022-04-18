@@ -233,6 +233,7 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 12. Fix a bug caused by `get-conda-path.py`. When there is neither `conda` nor `python`, the script incorrectly returned `True` value before.
 13. Prefer a local snapshot to install VS Code extensions. This change may help avoid the [Server 503 error :link:](https://github.com/microsoft/vscode/issues/57867) during the extension installations.
 14. Adjust the formats of some installation scripts.
+15. Provide Bing Wallpaper.
 
 #### Inherit from the update of `xubuntu-minimal:1.1`
 
