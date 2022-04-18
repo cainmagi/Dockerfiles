@@ -20,7 +20,8 @@ function mcd {
 }
 
 MODE=vscode
-USER_ROOT=/home/xubuntu
+USER_NAME=xubuntu
+USER_ROOT="/home/${xubuntu}"
 
 for ARGUMENT in "$@"
 do
@@ -146,7 +147,7 @@ then
     # Get fonts.
     wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.7-u20.04/share-fonts-omp-v2.1.0.tar.xz | tar xJ -C "/usr/share/fonts/" || fail
     # Get OMP.
-    wget -O- https://gist.githubusercontent.com/cainmagi/99a8dbfe175fccdc8b3457d14c67e2b8/raw/install-omp.sh | bash -s -- --skip-basic --skip-fonts || fail
+    wget -O- https://gist.githubusercontent.com/cainmagi/99a8dbfe175fccdc8b3457d14c67e2b8/raw/install-omp.sh | bash -s -- --skip-basic --skip-fonts user=${USER_NAME} || fail
     # Get extra theme.
     mkdir -p "${USER_ROOT}/.poshthemes" || fail
     wget -O "${USER_ROOT}/.poshthemes/paradox-alt.omp.json" https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.7-u20.04/paradox-alt.omp.json || fail
