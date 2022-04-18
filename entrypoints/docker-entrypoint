@@ -6,19 +6,33 @@ source ~/.bashrc
 set -e
 RESET='\033[0m'
 COLOR='\033[1;32m'
+COLOR_ERR='\033[1;31m'
+COLOR_WARN='\033[1;33m'
 
 function msg {
   echo -e "${COLOR}$(date): $1${RESET}"
 }
 
+function msgerr {
+    echo -e "${COLOR_ERR}$(date): $1${RESET}"
+}
+
+function msgwarn {
+    echo -e "${COLOR_WARN}$(date): $1${RESET}"
+}
+
 function fail {
-  msg "Error : $?"
+  msgerr "Error : $?"
   exit 1
 }
 
 function mcd {
   mkdir -p "$1" || fail
   cd "$1" || fail
+}
+
+nvm_has() {
+  type "$1" > /dev/null 2>&1
 }
 
 function nvm_install_dir {
@@ -61,8 +75,11 @@ function run_with_nodejs {
 
 MODE="vnc"
 MODE_RUN_SCRIPT=""
+USE_FILEBROWSER=false
+USE_CLOUDREVE=false
 JLAB_PASSWORD=""
 JLAB_ROOT_DIR="/homelocal"
+FB_ROOT_DIR="/homelocal"
 USER_ROOT="/home/xubuntu"
 SET_UID=""
 SET_GID=""
@@ -79,10 +96,14 @@ do
         --vnc)          MODE="vnc" ;;
         --root)         MODE="rootvnc" ;;
         --xvnc)         MODE="xvnc" ;;
+        --rootxvnc)     MODE="rootxvnc" ;;
         --jlab)         MODE="jupyter" ;;
+        --filebrowser)  USE_FILEBROWSER="true" ;;
+        --cloudreve)    USE_CLOUDREVE="true" ;;
         script)         MODE_RUN_SCRIPT=${VALUE} ;;
         jlab_password)  JLAB_PASSWORD=${VALUE} ;;
         jlab_rootdir)   JLAB_ROOT_DIR=${VALUE} ;;
+        fb_rootdir)     FB_ROOT_DIR=${VALUE} ;;
         uid)            SET_UID=${VALUE} ;;
         gid)            SET_GID=${VALUE} ;;
         *)
@@ -106,8 +127,37 @@ then
     bash $LAUNCH_SCRIPT_ORIGINAL echo "Finish launching."
 fi
 
+if [ "x${USE_CLOUDREVE}" = "xtrue" ] && [ "x${USE_FILEBROWSER}" = "xtrue" ]; then
+    msgwarn "Try to launch Cloudreve and FileBrowser together. This is not allowed, so Cluodreve is dropped."
+    USE_CLOUDREVE="false"
+fi
+
+if ! nvm_has "filebrowser"; then
+    if [ "x${USE_FILEBROWSER}" = "xtrue" ]; then
+        msgwarn "Attempt to run FileBrowser, but FileBrowser is not detected in this build."
+    fi
+fi
+
+if ! nvm_has "cloudreve"; then
+    if [ "x${USE_CLOUDREVE}" = "xtrue" ]; then
+        msgwarn "Attempt to run Cloudreve, but Cloudreve is not detected in this build."
+    fi
+fi
+
 if [ "x${MODE}" = "xbash" ]
 then
+    if nvm_has "cloudreve"; then
+        if [ "x${USE_CLOUDREVE}" = "xtrue" ] && [ "x${USE_FILEBROWSER}" != "xtrue" ]; then
+            crpasswd || fail
+            cloudreve &
+        fi
+    fi
+    if nvm_has "filebrowser"; then
+        if [ "x${USE_FILEBROWSER}" = "xtrue" ]; then
+            mkdir -p "${USER_ROOT}/filebrowser" || fail
+            filebrowser -r ${FB_ROOT_DIR} -a $MACHINE_IP -p 5212 -d "${USER_ROOT}/filebrowser/fb-database.db" &
+        fi
+    fi
     exec bash
     exit 0
 fi
@@ -132,21 +182,36 @@ then
     echo "    rootdir: set the root directory of the lab."
     echo "If not setting the password manually, users need to check the token shown in the terminal."
     echo ""
-    
+
+    # Fix the launch script option variety.
+    JUPYTERLAB_VERSION="$(jupyter lab --version)" || fail
+    JUPYTERLAB_VSPLIT=(${JUPYTERLAB_VERSION//./ }) || fail
+    JUPYTERLAB_V1=${JUPYTERLAB_VSPLIT[0]} || fail
+
     OPTION_JLAB_PASSWORD=""
-    if [ "x${JLAB_PASSWORD}" != "x" ]
-    then
-        OPTION_JLAB_PASSWORD="--NotebookApp.token=${JLAB_PASSWORD}"
+    if [ "x${JLAB_PASSWORD}" != "x" ]; then
+        if [ "x${JUPYTERLAB_V1}" = "x3" ]; then
+            OPTION_JLAB_PASSWORD="--ServerApp.token=${JLAB_PASSWORD}"
+        else
+            OPTION_JLAB_PASSWORD="--NotebookApp.token=${JLAB_PASSWORD}"
+        fi
     fi
 
     OPTION_JLAB_ROOT=""
-    if [ "x${JLAB_ROOT_DIR}" != "x" ]
-    then
-        OPTION_JLAB_ROOT="--NotebookApp.notebook_dir=${JLAB_ROOT_DIR}"
+    if [ "x${JLAB_ROOT_DIR}" != "x" ]; then
+        if [ "x${JUPYTERLAB_V1}" = "x3" ]; then
+            OPTION_JLAB_ROOT="--ServerApp.notebook_dir=${JLAB_ROOT_DIR}"
+        else
+            OPTION_JLAB_ROOT="--NotebookApp.notebook_dir=${JLAB_ROOT_DIR}"
+        fi
     fi
 
-    run_with_nodejs "jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser ${OPTION_JLAB_PASSWORD} --allow-root ${OPTION_JLAB_ROOT} --NotebookApp.custom_display_url=http://${MACHINE_IP}:6080/"
-    
+    if [ "x${JUPYTERLAB_V1}" = "x3" ]; then
+        run_with_nodejs "jupyter lab --ServerApp.ip=${MACHINE_IP} --ServerApp.port=6080 --ServerApp.open_browser=False --ExtensionApp.open_browser=False --ServerApp.allow_root=True ${OPTION_JLAB_PASSWORD} ${OPTION_JLAB_ROOT} --ServerApp.custom_display_url=http://${MACHINE_IP}:6080/"
+    else
+        run_with_nodejs "jupyter lab --ip=${MACHINE_IP} --port=6080 --no-browser --allow-root ${OPTION_JLAB_PASSWORD} ${OPTION_JLAB_ROOT} --NotebookApp.custom_display_url=http://${MACHINE_IP}:6080/"
+    fi
+
     exec bash
     exit 0
 fi
@@ -186,12 +251,12 @@ then
         echo "Find VNC password."
     else
         sudo tigervncpasswd ${FILE_VNCPASSWD}
-        mkdir -p /home/xubuntu/.vnc/ || fail
-        if $(sudo [ ! -s /home/xubuntu/.vnc/passwd ]); then
-            sudo cp -f ${FILE_VNCPASSWD} /home/xubuntu/.vnc/ || fail
-            sudo chown xubuntu /home/xubuntu/.vnc/passwd || fail
-            sudo chgrp xubuntu /home/xubuntu/.vnc/passwd || fail
-            sudo chmod ug+rwx /home/xubuntu/.vnc/passwd || fail
+        mkdir -p ${USER_ROOT}/.vnc/ || fail
+        if $(sudo [ ! -s ${USER_ROOT}/.vnc/passwd ]); then
+            sudo cp -f ${FILE_VNCPASSWD} ${USER_ROOT}/.vnc/ || fail
+            sudo chown xubuntu ${USER_ROOT}/.vnc/passwd || fail
+            sudo chgrp xubuntu ${USER_ROOT}/.vnc/passwd || fail
+            sudo chmod ug+rwx ${USER_ROOT}/.vnc/passwd || fail
         fi
     fi
 else
@@ -207,6 +272,26 @@ else
     fi
 fi
 
+if nvm_has "cloudreve"; then
+    if [ "x${USE_CLOUDREVE}" = "xtrue" ] && [ "x${USE_FILEBROWSER}" != "xtrue" ]; then
+        crpasswd || fail
+        cloudreve &
+    fi
+fi
+if nvm_has "filebrowser"; then
+    if [ "x${USE_FILEBROWSER}" = "xtrue" ]; then
+        mkdir -p "${USER_ROOT}/filebrowser" || fail
+        filebrowser -r ${FB_ROOT_DIR} -a $MACHINE_IP -p 5212 -d "${USER_ROOT}/filebrowser/fb-database.db" &
+    fi
+fi
+
+if [ "x${MODE}" = "xrootxvnc" ]
+then
+    sudo bash xvnc-launch || fail
+    exec '/bin/bash'
+    exit 0
+fi
+
 if [ "x${MODE}" = "xrootvnc" ]
 then
     sudo tigervncserver -name xubuntu -depth 24 -geometry 1920x1080
@@ -214,9 +299,9 @@ fi
 
 if [ "x${MODE}" = "xxvnc" ]
 then
-    Xtigervnc :0 -depth 24 -geometry 1920x1080 -br &
-    sleep 3
-    x0tigervncserver -display=:0 -Geometry=1920x1080+0+0 -rfbport=5901 -PasswordFile=${FILE_VNCPASSWD} &
+    bash xvnc-launch || fail
+    exec '/bin/bash'
+    exit 0
 fi
 
 if [ "x${MODE}" = "xvnc" ]

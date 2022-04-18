@@ -59,4 +59,14 @@ function run_with_nodejs {
     fi
 }
 
-run_with_nodejs "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.notebook_dir=/ --NotebookApp.custom_display_url=http://localhost:8888/" || fail
+# Fix the launch script option variety.
+JUPYTERLAB_VERSION="$(jupyter lab --version)" || fail
+JUPYTERLAB_VSPLIT=(${JUPYTERLAB_VERSION//./ }) || fail
+JUPYTERLAB_V1=${JUPYTERLAB_VSPLIT[0]} || fail
+
+if [ "x${JUPYTERLAB_V1}" = "x3" ]
+then
+    run_with_nodejs "jupyter lab --ServerApp.ip=${MACHINE_IP} --ServerApp.port=8888 --ServerApp.open_browser=False --ExtensionApp.open_browser=False --ServerApp.allow_root=True --ServerApp.notebook_dir=/ --ServerApp.custom_display_url=http://localhost:8888/"
+else
+    run_with_nodejs "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.notebook_dir=/ --NotebookApp.custom_display_url=http://localhost:8888/"
+fi

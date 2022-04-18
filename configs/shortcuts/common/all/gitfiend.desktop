@@ -7,4 +7,5 @@ Icon=gitfiend
 StartupWMClass=GitFiend
 Comment=A Git client designed for humans
 Categories=Development;
-
+Path=
+StartupNotify=false

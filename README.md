@@ -7,50 +7,52 @@
 If you do not want to change the contents of the dockerfile, you could use such command to build the image:
 
 ```Bash
-docker build -t xubuntu:1.6 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+docker build -t xubuntu:1.7 https://github.com/cainmagi/Dockerfiles.git#xubuntu
 ```
 
 This image is compatible for Ubuntu 16.04, 18.04 and 20.04. Please check your base image and confirm that the Ubuntu inside the image is compatible with this dockerfile.
 
 We provide 3 examples:
 
-* Start from `pytorch 1.9.0a` image:
+* Start from `pytorch 1.12.0a` image:
 
   ```bash
-  docker build -t xubuntu-tc:1.6 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:21.05-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+  docker build -t xubuntu-tc:1.7 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:22.03-py3 --build-arg BASE_LAUNCH=/opt/nvidia/nvidia_entrypoint.sh --build-arg JLAB_VER=3 https://github.com/cainmagi/Dockerfiles.git#xubuntu
   ```
 
-* Start from `cuda 11.1` image:
+* Start from `cuda 11.6` image:
 
   ```bash
-  docker build -t xubuntu-cuda:1.6 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+  docker build -t xubuntu-cuda:1.4 --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:11.6.2-cudnn8-runtime-ubuntu20.04 --build-arg BASE_LAUNCH="" --build-arg JLAB_VER=3 https://github.com/cainmagi/Dockerfiles.git#xubuntu
   ```
 
-* Start from `tensorflow 1.13.1` image:
+* Start from `tensorflow 1.13.1` image (since it is a Python 3.5 image, we recommend to fall back to Jupyter Lab 2.x):
 
   ```bash
-  docker build -t xubuntu-tf:1.6 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
+  docker build -t xubuntu-tf:1.7 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 https://github.com/cainmagi/Dockerfiles.git#xubuntu
   ```
 
 There are 3 available options:
 
 | Option  | Description | Default |
 | :-----: | ----------- | ------- |
-| `BASE_IMAGE` | The base image for building this desktop image. | `nvcr.io/nvidia/pytorch:20.12-py3` |
-| `BASE_LAUNCH` | The entrypoint script from the base image. If there is no entry script, please use`""`. | `/usr/local/bin/nvidia_entrypoint.sh` |
+| `BASE_IMAGE` | The base image for building this desktop image. | `nvcr.io/nvidia/pytorch:22.03-py3` |
+| `BASE_LAUNCH` | The entrypoint script from the base image. If there is no entry script, please use`""`. | `/opt/nvidia/nvidia_entrypoint.sh` |
 | `JLAB_VER` | The version of the Jupyter Lab to be installed. Could be`1`, `2`, `3` or `unset`. If use `unset`, nothing would be installed if there is already a Jupyter Lab. | `unset` |
 | `JLAB_EXTIERS` | The to-be-installed extra extensions for the Jupyter Lab. If`JLAB_VER` is `unset`, nothing would be installed. To view details about which extensions would be installed, see [here](https://github.com/cainmagi/Dockerfiles/tree/jupyterlab#features). | `2` |
 | `WITH_CHINESE` | If set, the image would be built with Chinese support for vscode, sublime and codeblocks. | `true` |
-| `WITH_EXTRA_APPS` | The installed extra applications. Each character represents an app or several apps. For example,`go` represents fully installing `GIMP`, `LibreOffice` and `Thunderbird`. More details could be referred in the following table. | `go` |
+| `WITH_EXTRA_APPS` | The installed extra applications. Each character represents an app or several apps. For example,`cgo` represents fully installing `Cloudreve`, `GIMP`, `LibreOffice` and `Thunderbird`. More details could be referred in the following table. | `cgo` |
 | `ADDR_PROXY` | Set the proxy address pointing to `localhost`. If specified, this value should be a full address. (Experimental feature ::) | `unset` |
 
 Here we show the list of extra apps:
 
 |  Code   | Description |
 | :-----: | ----------- |
+| `c` | [`Cloudreve`](https://cloudreve.org) |
 | `p` | [`PyCharm`][link-pycharm] |
 | `g` | [`GIMP`](https://www.gimp.org/downloads) |
 | `k` | [`GitKraken`][link-gitkraken] |
+| `m` | [`Sublime Text 4`][link-sublime-text] |
 | `x` | [`TeXLive`](https://tug.org/texlive) + [`TeXstudio`](https://www.texstudio.org) |
 | `n` | [`Nautilus`](https://github.com/GNOME/nautilus) + [`Nemo`](https://github.com/linuxmint/nemo) |
 | `o` | [`LibreOffice`](https://www.libreoffice.org) + [`Thunderbird`](https://www.thunderbird.net) |
@@ -74,7 +76,7 @@ git clone --single-branch -b xubuntu https://github.com/cainmagi/Dockerfiles.git
 After that, run such command to build the image:
 
 ```Bash
-docker build -t xubuntu:1.6 xubuntu
+docker build -t xubuntu:1.7 xubuntu
 ```
 
 where `xubuntu` is the folder of the corresponding branch. The options in online building examples could be also used for offline buliding.
@@ -85,33 +87,53 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 > When you use this image for the first time, please configure your user id by:
 >
 > ```bash
-> docker run --gpus all -it --rm xubuntu:1.6 uid=$(id -u) gid=$(id -g)
+> docker run --gpus all -it --rm xubuntu:1.7 uid=$(id -u) gid=$(id -g)
 > ```
 >
 > Then commit the image by
 >
 > ```bash
-> docker commit --change='CMD [""]' <conatiner-id> xubuntu:1.6
+> docker commit --change='CMD [""]' <conatiner-id> xubuntu:1.7
 > ```
 
 * By built-in `noVNC`: In default mode, you just need to launch the built image by:
 
   ```bash
-  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 6080:6080 xubuntu:1.6
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 6080:6080 xubuntu:1.7
   ```
 
   It is equivalent to use `--vnc` or not in the above command. However, if you have saved the image in other modes before, you may need this flag to force the image to enter the VNC mode. The `--vnc` option is required when you need to force the image to switch to VNC mode. The following command would force the `vnc` launched by `root` mode.
 
   ```bash
-  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 6080:6080 xubuntu:1.6 --root
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 6080:6080 xubuntu:1.7 --root
   ```
 
   In current version, users could use either `http` to get access to the unencrypted noVNC session or `https` to get access to the ssl-encrypted noVNC session. For users who open the encrypted session firstly, they may need to add the noVNC site into the trusted list.
 
-* By external VNC viewer: If you have installed a VNC viewer on your client side, and want to connect the VNC server of the image directly, please use:
+* Switch the VNCServer to `XTigerVNC` (experimental): Add the option `--xvnc` will make the desktop hosted by the `Xvnc` program. Everything will be run in the same process. There will be no sub-process manager like `tigervncserver` to manage desktop related programs. A good thing is that, users do not need to run `tigervncserver -kill :1` before saving the image. However, currently these desktop related programs are not guaranteed to be closed if hitting <kbd>Ctrl</kbd>+<kbd>C</kbd>. Therefore, we suggest the users to use `ps -aux` to validate the running processes before saving the image.
 
   ```bash
-  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 5901:5901 xubuntu:1.6
+  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.7 --xvnc
+  ```
+
+  Certainly, there is also a root mode for this method:
+
+  ```bash
+  docker run --gpus all -it --rm -v ~:/homelocal -p 6080:6080 xubuntu:1.7 --rootxvnc
+  ```
+
+  After using <kbd>Ctrl</kbd>+<kbd>C</kbd> to kill the `Xvnc` program, users can use the following command to relaunch the `Xvnc` and `noVNC` services:
+
+  ```bash
+  xvnc-launch [--root]
+  ```
+
+  If adding the option `--root`, the desktop will be run with root privilege.
+
+* By external VNC viewer (client): If you have installed a VNC viewer on your client side, and want to connect the VNC server of the image directly, please use:
+
+  ```bash
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 5901:5901 xubuntu:1.7
   ```
 
   The `root` mode could be also applied here.
@@ -119,7 +141,7 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 * By `Jupyter Lab`: If you want to launch the Jupyter Lab but do not start the desktop, please use
 
   ```bash
-  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 6080:6080 xubuntu:1.6 --jlab jlab_password=openjupyter jlab_rootdir=/homelocal
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 6080:6080 xubuntu:1.7 --jlab jlab_password=openjupyter jlab_rootdir=/homelocal
   ```
 
   The `jlab_password` would override the default random token. The `jlab_rootdir` is the root folder of the launched jupyter lab. If not set `jlab_rootdir`, the default root folder would be `/homelocal`. The `--jlab` option is required when you need to force the image to switch to Jupyter Lab mode.
@@ -127,14 +149,55 @@ where `xubuntu` is the folder of the corresponding branch. The options in online
 * By `BASH`: If you want to enter the command line but do not start the desktop, please use
 
   ```bash
-  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal xubuntu:1.6 --bash
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal xubuntu:1.7 --bash
   ```
 
 * By any script: If you want run any script inside the docker for only one time, please use
 
   ```bash
-  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal xubuntu:1.6 script=<the-path-to-your-script>
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal xubuntu:1.7 script=<the-path-to-your-script>
   ```
+
+* With `Cloudreve`: We recommend users to launch `Cloudreve` by opening a new terminal on the desktop, and using the following command:
+
+  ```bash
+  crpasswd  # only used for checking the INITIAL admin password.
+  cloudreve  # launch Cloudreve service, requires users to expose 5212 port.
+  ```
+
+  > :warning: Using `Cloudreve` requires users to add the extra app `c` in the option `WITH_EXTRA_APPS` when building the image.
+
+  > :warning: We **STRONGLY** recommend users to change their admin password, and create a non-admin user for using `Cloudreve`. You can also configure your data exchanging folder. 
+
+  After launching the app, users can get access to `Cloudreve` by `<dgx-ip>:5212` port. Remember to expose the port number by `-p 5212:5212` when launching the container.
+
+  If users have configured `Cloudreve` by the webpage, and commit the image. Then the users can launch the container only with `Cloudreve` (not opening the desktop):
+
+  ```bash
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 5212:5212 xubuntu:1.7 --cloudreve --bash
+  ```
+
+  or launch `Cloudreve` together with the desktop:
+
+  ```bash
+  docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 5212:5212 xubuntu:1.7 --cloudreve
+  ```
+
+  Cloudreve will show you a lot of logs on the terminal, it may interfere the messages from `Xvnc` or `noVNC`. So we **do not** recommend to launch it together with the desktop. It is always better if you open a terminal on the desktop and use the `cloudreve` command.
+
+* With `FileBrowser`: We recommend users to launch `filebrowser` by opening a new terminal on the desktop, and using the following command:
+
+  ```bash
+  fbrowser  # although users can use filebrowser to launch the app, we still recommend users to use this command, because this command can configure the IP and PORT number automatically.
+  ```
+
+  > :warning: We strongly recommend users to change the initial admin password, and keep the modified password by themselves.
+
+  After launching the app, users can get access to `FileBrowser` by `<dgx-ip>:5212` port. Remember to expose the port number by `-p 5212:5212` when launching the container.
+
+  Similarly, the users can also launch `FileBrowser` by adding the option `--filebrowser` when launching the container. The usage is exactly the same as `Cloudreve`.
+
+  > :warning: Note that `Cloudreve` should not be launched together with `FileBrowser`, unless you have carefully configured the launching scripts and understood what you want to do.
 
 ## Features
 
@@ -147,9 +210,43 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 * **Useful apps**: including nomacs, notepadqq, visual studio code, peazip, okular, smplayer and chrome.
 * **Fully installed Jupyter Lab**: if user needs, a full Jupyter Lab with several extensions could be installed, the details could be checked [here][jlab].
 * **Multiple launching method**: including VNC server, jupyterlab, bash and arbitrary script mode.
-* **Chinese language support**: for some apps including chrome (chromium), firefox, vscode, sublime, codeblocks, ...
+* **Chinese language support**: for some apps including edge, chrome (chromium), firefox, vscode, kate, codeblocks, ...
+* **Cloudreve Service (Chinese only)**: a private cloud storage service, allowing users to expose their personal folder as an "online drive" available on LAN. If users are interested, they can dig into the configurations and enable more features (like WebDAV and offline downloading). Currently this feature is designed for using a browser-based app to replace the WinSCP client.
 
 ## Update records
+
+### ver 1.7 @ 4/17/2022
+
+1. Provide Microsoft Edge in the basic tier of the desktop apps.
+2. Add more extensions for Visual Studio Code.
+3. Upgrade the input method fcitx to version 5 when using Ubuntu 20.04. This is a previewed version in Ubuntu 20.04.
+4. Upgrade the other basic tier dependencies, including PeaZip, GitFiend, and Sublime 4.
+5. Move Sublime to the extra tier, because it is not a free software. Use Kate as the replacement.
+6. Support a cloud file transfer tool: Cloudreve. This tool may be able to replace the functionality of WinSCP.
+7. Update the versions of packages in the icon / theme bundle.
+8. Switch from Jupyter Lab 2 to Jupyter Lab 3 by default. This configuration is not recommended for those images with Python 3.5. Users may need to configure the J-lab version manually in that case.
+9. Provide the [Oh-my-posh :link:](https://ohmyposh.dev/) terminal theme.
+10. Provide some optional scripts in the folder `/home/xubuntu` (`~`).
+
+#### Inherit from the update of `xubuntu-minimal:1.1`
+
+1. Fix a bug caused by missing of LibreOffice libs (Fixed by `~/.config/xfce4/xinitrc`).
+2. Enable users to run GUIs with `sudo` (Fixed by `~/.config/xfce4/xinitrc`).
+3. Make the desktop get launched properly. This fixture corrects a bug where the desktop may be launched by twice in Ubuntu 16.04 (Fixed by `~/.vnc/xstartup`).
+4. Fix a bug caused by using `get-pip.py` with Python 3.6. Since the `pip` may be downgraded by NVIDIA configurations, this fixture will also correct the `pip` version. (Fixed by `install-desktop`).
+5. Prefer `conda/mamba` when updating python packages (Fixed by `install-desktop`).
+6. Upgrade TigerVNC to 1.12.80. (Fixed by `install-vnc`).
+7. Add more path to `sudo/secure_path`, now users are allowed to use `conda` / `mamba` / `pip` directly with `sudo` (Fixed by `sudoers`).
+8. Finish the launching mode `--xvnc` (Fixed by `docker-entrypoint` and `xvnc-launch`).
+
+#### Testing report v1.7
+
+This docker file has been tested sucessfully on:
+
+* [ ] `nvcr.io/nvidia/pytorch:22.03-py3` (`Ubuntu 20.04`, `python 3.8`)
+* [ ] `nvcr.io/nvidia/cuda:11.6.2-cudnn8-runtime-ubuntu20.04` (`Ubuntu 20.04`)
+* [ ] `nvcr.io/nvidia/pytorch:19.08-py3` (`Ubuntu 18.04`, `python 3.6`)
+* [ ] `nvcr.io/nvidia/tensorflow:19.03-py3` (`Ubuntu 16.04`, `python 3.5`)
 
 ### ver 1.6.1 @ 7/6/2021
 
@@ -209,14 +306,14 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 2. Fix the font issues.
 3. Finish all testings for Ubuntu 16.04, 18.04 and 20.04.
 
-Testing report:
+#### Testing report v1.1
 
-> This docker file has been tested sucessfully on:
->
-> * `nvcr.io/nvidia/pytorch:20.12-py3` (`Ubuntu 20.04`, `python 3.8`)
-> * `nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04` (`Ubuntu 20.04`)
-> * `nvcr.io/nvidia/pytorch:20.11-py3` (`Ubuntu 18.04`, `python 3.6`)
-> * `nvcr.io/nvidia/tensorflow:19.03-py3` (`Ubuntu 16.04`, `python 3.5`)
+This docker file has been tested sucessfully on:
+
+* [x] `nvcr.io/nvidia/pytorch:20.12-py3` (`Ubuntu 20.04`, `python 3.8`)
+* [x] `nvcr.io/nvidia/cuda:11.1-cudnn8-runtime-ubuntu20.04` (`Ubuntu 20.04`)
+* [x] `nvcr.io/nvidia/pytorch:20.11-py3` (`Ubuntu 18.04`, `python 3.6`)
+* [x] `nvcr.io/nvidia/tensorflow:19.03-py3` (`Ubuntu 16.04`, `python 3.5`)
 
 ### ver 1.0 @ 12/18/2020
 
@@ -231,5 +328,6 @@ Create the dockerfile branch.
 
 [link-pycharm]:https://www.jetbrains.com/help/pycharm/installation-guide.html
 [link-gitkraken]:https://www.gitkraken.com
+[link-sublime-text]:https://www.sublimetext.com/
 [link-gitfiend]:https://gitfiend.com
 [link-stacer]:https://oguzhaninan.github.io/Stacer-Web/

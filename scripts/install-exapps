@@ -25,8 +25,11 @@ REQUIRE_EXTRA_APPS="" # Used for controlling the steps of installations.
 USER_HOME="/home/xubuntu"
 
 # Available codes:
+# c: cloudreve
 # p: pycharm
 # g: gimp
+# k: gitkraken
+# m: sublime-text
 # x: texlive + texstudio
 # n: nautilus + nemo
 # o: libreoffice + thunderbird
@@ -61,18 +64,31 @@ if [ "x${SET_EXTRA_APPS}" != "" ]; then
     fi
     apt-get update -y || fail && apt-get -y dist-upgrade || fail
     apt-get install -y lsb-release lsb-core || fail
-    UBUNTU_VER=$(echo $(lsb_release -a | head -n 4 | tail -1 | awk '{ print $2 }'))
+    UBUNTU_VER=$(lsb_release -cs)
 else
     exit 0
+fi
+
+# cloudreve
+if [[ "${SET_EXTRA_APPS}" = *"c"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"c"* ]]; then
+    msg "Installation for Cloudreve."
+    # Could be used in 16.04, 18.04 and 20.04.
+    mkdir -p ${USER_HOME}/Cloudreve || fail
+    wget -O- https://github.com/cloudreve/Cloudreve/releases/download/3.4.3/cloudreve_3.4.3_linux_amd64.tar.gz | tar xz -C ${USER_HOME}/Cloudreve || fail
+    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.7-u20.04/cloudreve-data-v1.7.tar.xz | tar xJ -C ${USER_HOME}/Cloudreve || fail
+    chmod +x ${USER_HOME}/Cloudreve/cloudreve || fail
+    ln -s ${USER_HOME}/Cloudreve/cloudreve /usr/local/bin/cloudreve || fail
 fi
 
 # pycharm
 if [[ "${SET_EXTRA_APPS}" = *"p"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"p"* ]]; then
     msg "Installation for PyCharm."
-    CUR_PYCHARM_VER="2021.1.2"
+    CUR_PYCHARM_VER="2022.1"
     wget -O- https://download.jetbrains.com/python/pycharm-community-${CUR_PYCHARM_VER}.tar.gz | tar xz -C /opt/ || fail
     ln -sf /opt/pycharm-community-${CUR_PYCHARM_VER} /opt/pycharm-community || fail
     ln -sf /opt/pycharm-community-${CUR_PYCHARM_VER}/bin/pycharm.sh /usr/local/bin/pycharm || fail
+    mkdir -p ${USER_HOME}/.config/JetBrains/PyCharmCE${CUR_PYCHARM_VER}/ || fail
+    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.7-u20.04/pycharm-omp-configs.tar.xz | tar xz -C ${USER_HOME}/.config/JetBrains/PyCharmCE${CUR_PYCHARM_VER}/ || fail
 fi
 
 # gimp
@@ -95,6 +111,28 @@ if [[ "${SET_EXTRA_APPS}" = *"k"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"k"* ]]; t
     fi
 fi
 
+# Sublime Text 4
+if [[ "${SET_EXTRA_APPS}" = *"m"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"m"* ]]; then
+    # Do not install notepadqq, install sublime instead.
+    if [ "x${USE_CURL}" == "x1" ]
+    then
+        curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
+    else
+        wget -qO- https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add - || fail
+    fi
+    add-apt-repository -y "deb https://download.sublimetext.com/ apt/stable/" || fail
+    if [ -d "/var/cache/app-info/xapian/default" ]; then
+        chmod -R a+rX,u+w /var/cache/app-info/xapian/default || fail
+    fi
+    apt-get update -y || fail
+
+    apt-get install -y sublime-text || fail
+    if [ "x${WITH_CHINESE}" = "xtrue" ]
+    then
+        git clone --branch st3 --single-branch --depth 1 https://github.com/rexdf/ChineseLocalization.git ${USER_HOME}/.config/sublime-text/Packages/ChineseLocalization || fail
+    fi
+fi
+
 # texlive + texstudio
 if [[ "${SET_EXTRA_APPS}" = *"x"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"x"* ]]; then
     msg "Installation for TeXLive adn TeXstudio."
@@ -106,15 +144,15 @@ fi
 # nautilus + nemo
 if [[ "${SET_EXTRA_APPS}" = *"n"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"n"* ]]; then
     msg "Installation for Nautilus and Nemo."
-    if [ "x${UBUNTU_VER}" = "x20.04" ]; then
+    if [ "x${UBUNTU_VER}" = "xfocal" ]; then
         apt-get install -y nautilus nautilus-data tracker tracker-extract tracker-miner-fs eog gnome-sushi nautilus-extension-brasero nautilus-sendto nautilus-wipe nautilus-share nautilus-scripts-manager nautilus-script-debug nautilus-script-collection-svn nautilus-image-converter nautilus-hide nautilus-filename-repairer nautilus-font-manager nautilus-extension-gnome-terminal nautilus-dropbox nautilus-data nautilus-admin python3-nautilus || fail
         apt-get install -y nemo nemo-data nemo-extension-fma nemo-fileroller nemo-font-manager nemo-gtkhash libnemo-extension1 nemo-python || fail
     fi
-    if [ "x${UBUNTU_VER}" = "x18.04" ]; then
+    if [ "x${UBUNTU_VER}" = "xbionic" ]; then
         apt-get install -y nautilus nautilus-data nautilus-admin nautilus-compare nautilus-dropbox nautilus-emblems nautilus-extension-gnome-terminal nautilus-filename-repairer nautilus-gtkhash nautilus-hide nautilus-ideviceinfo nautilus-image-converter nautilus-script-collection-svn nautilus-script-debug nautilus-scripts-manager nautilus-sendto nautilus-share nautilus-wipe python-nautilus gnome-sushi libnautilus-extension-dev || fail
         apt-get install -y nemo nemo-data nemo-fileroller nemo-gtkhash nemo-keyboard nemo-owncloud nemo-python libnemo-extension-dev || fail
     fi
-    if [ "x${UBUNTU_VER}" = "x16.04" ]; then
+    if [ "x${UBUNTU_VER}" = "xxenial" ]; then
         apt-get install -y nautilus nautilus-data nautilus-admin nautilus-actions nautilus-compare nautilus-dropbox nautilus-emblems nautilus-filename-repairer nautilus-gtkhash nautilus-hide nautilus-ideviceinfo nautilus-image-converter nautilus-image-manipulator nautilus-script-collection-svn nautilus-script-debug nautilus-scripts-manager nautilus-sendto nautilus-share nautilus-wipe python-nautilus gnome-sushi libnautilus-extension-dev || fail
         apt-get install -y nemo nemo-data nemo-fileroller nemo-gtkhash nemo-keyboard libnemo-extension-dev || fail
     fi
@@ -123,15 +161,15 @@ fi
 # libreoffice + thunderbird
 if [[ "${SET_EXTRA_APPS}" = *"o"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"o"* ]]; then
     msg "Installation for LibreOffice and Thunderbird."
-    if [ "x${UBUNTU_VER}" = "x20.04" ]; then
+    if [ "x${UBUNTU_VER}" = "xfocal" ]; then
         apt-get install -y libreoffice libreoffice-qt5 libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-evolution libreoffice-gnome libreoffice-gtk3 libreoffice-help-common libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-numbertext libreoffice-script-provider-python libreoffice-texmaths libreoffice-templates libreoffice-voikko libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
         apt-get install -y birdtray thunderbird thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us thunderbird-locale-zh-cn webext-exteditor webext-tbsync || fail
     fi
-    if [ "x${UBUNTU_VER}" = "x18.04" ]; then
+    if [ "x${UBUNTU_VER}" = "xbionic" ]; then
         apt-get install -y libreoffice libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-evolution libreoffice-gnome libreoffice-gtk3 libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-script-provider-python libreoffice-texmaths libreoffice-templates libreoffice-voikko libreoffice-pdfimport libreoffice-ogltrans libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
         apt-get install -y thunderbird thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us thunderbird-locale-zh-cn thunderbird-mozsymbols xul-ext-lightning || fail
     fi
-    if [ "x${UBUNTU_VER}" = "x16.04" ]; then
+    if [ "x${UBUNTU_VER}" = "xxenial" ]; then
         apt-get install -y libreoffice libreoffice-avmedia-backend-gstreamer libreoffice-base libreoffice-base-core libreoffice-base-drivers libreoffice-calc libreoffice-common libreoffice-core libreoffice-writer libreoffice-writer2latex libreoffice-writer2xhtml libreoffice-math libreoffice-dmaths libreoffice-draw libreoffice-impress libreoffice-gnome libreoffice-gtk3 libreoffice-help-en-us libreoffice-help-zh-cn libreoffice-l10n-zh-cn libreoffice-lightproof-en libreoffice-nlpsolver libreoffice-script-provider-python libreoffice-templates libreoffice-voikko libreoffice-pdfimport libreoffice-ogltrans libreoffice-style-breeze libreoffice-style-elementary libreoffice-style-oxygen libreoffice-style-tango libreoffice-style-galaxy mythes-en-us || fail
         apt-get install -y thunderbird thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us thunderbird-locale-zh-cn thunderbird-mozsymbols xul-ext-lightning || fail
     fi
