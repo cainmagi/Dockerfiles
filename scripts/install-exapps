@@ -97,7 +97,7 @@ if [[ "${SET_EXTRA_APPS}" = *"p"* ]] && [[ "${REQUIRE_EXTRA_APPS}" = *"p"* ]]; t
     ln -sf /opt/pycharm-community-${CUR_PYCHARM_VER} /opt/pycharm-community || fail
     ln -sf /opt/pycharm-community-${CUR_PYCHARM_VER}/bin/pycharm.sh /usr/local/bin/pycharm || fail
     mkdir -p ${USER_HOME}/.config/JetBrains/PyCharmCE${CUR_PYCHARM_VER}/ || fail
-    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.7-u20.04/pycharm-omp-configs.tar.xz | tar xz -C ${USER_HOME}/.config/JetBrains/PyCharmCE${CUR_PYCHARM_VER}/ || fail
+    wget -O- https://github.com/cainmagi/Dockerfiles/releases/download/xubuntu-v1.7-u20.04/pycharm-omp-configs.tar.xz | tar xJ -C ${USER_HOME}/.config/JetBrains/PyCharmCE${CUR_PYCHARM_VER}/ || fail
 fi
 
 
