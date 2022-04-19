@@ -259,7 +259,7 @@ This docker file has been tested sucessfully on:
 Finished at 4/19/2022.
 
 > :exclamation: This testing build is configured by `WITH_EXTRA_APPS=cpgkmxnoe` indicating an incomplete build. The build test for Atom (`a`) is currently skipped, because the plugin market of Atom is currently down, see the issues https://github.com/atom/atom/issues/25417 and https://github.com/atom/apm/issues/946.
-> :exclamation: The build for VS Code extensions also falls back to the local build method, because currently VS Code extension market is not stably working. See the issue https://github.com/microsoft/vscode/issues/147670#issuecomment-1102923524. Despite this situation, we still manage to install all extensions with a full snapshot of the `.vsix` files.
+> :exclamation: The build for VS Code extensions also falls back to the local build method, because currently VS Code extension market is not stably working. See the issue https://github.com/microsoft/vscode/issues/147670. Despite this situation, we still manage to install all extensions with a full snapshot of the `.vsix` files.
 
 ### ver 1.6.1 @ 7/6/2021
 
