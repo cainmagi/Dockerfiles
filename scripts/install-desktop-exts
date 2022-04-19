@@ -93,7 +93,7 @@ then
         pkief.material-icon-theme
         pkief.material-product-icons
         github.github-vscode-theme
-        rokoroku.vscode-theme-darcula
+        dracula-theme.theme-dracula
         eamodio.gitlens
         mhutchie.git-graph"
     for c_ext in ${CODE_EXTENSIONS}; do
