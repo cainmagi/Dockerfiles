@@ -72,8 +72,8 @@ else
 fi
 
 # Set the XFCE4 wallpaper
-echo $saveDir$picName
-xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitorVNC-0/workspace0/last-image --set "$saveDir$picName"
+echo "Set wallpaper: $saveDir$picName"
+xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitorVNC-0/workspace0/last-image --create --set "$saveDir$picName"
 
 # Exit the script
 exit
