@@ -234,6 +234,7 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 13. Prefer a local snapshot to install VS Code extensions. This change may help avoid the [Server 503 error :link:](https://github.com/microsoft/vscode/issues/57867) during the extension installations.
 14. Adjust the formats of some installation scripts.
 15. Provide Bing Wallpaper.
+16. Wrap up of all tests and scripts. This version can be released now.
 
 #### Inherit from the update of `xubuntu-minimal:1.1`
 
@@ -250,10 +251,15 @@ This is the minimal desktop test based on `ubuntu` `16.04`, `18.04` or `20.04` i
 
 This docker file has been tested sucessfully on:
 
-* [ ] `nvcr.io/nvidia/pytorch:22.03-py3` (`Ubuntu 20.04`, `python 3.8`)
-* [ ] `nvcr.io/nvidia/cuda:11.6.2-cudnn8-runtime-ubuntu20.04` (`Ubuntu 20.04`)
-* [ ] `nvcr.io/nvidia/pytorch:19.08-py3` (`Ubuntu 18.04`, `python 3.6`)
-* [ ] `nvcr.io/nvidia/tensorflow:19.03-py3` (`Ubuntu 16.04`, `python 3.5`)
+* [x] `nvcr.io/nvidia/pytorch:22.03-py3` (`Ubuntu 20.04`, `python 3.8`)
+* [x] `nvcr.io/nvidia/cuda:11.6.2-cudnn8-runtime-ubuntu20.04` (`Ubuntu 20.04`)
+* [x] `nvcr.io/nvidia/pytorch:19.08-py3` (`Ubuntu 18.04`, `python 3.6`)
+* [x] `nvcr.io/nvidia/tensorflow:19.03-py3` (`Ubuntu 16.04`, `python 3.5`)
+
+Finished at 4/19/2022.
+
+> :exclamation: This testing build is configured by `WITH_EXTRA_APPS=cpgkmxnoe` indicating an incomplete build. The build test for Atom (`a`) is currently skipped, because the plugin market of Atom is currently down, see the issues https://github.com/atom/atom/issues/25417 and https://github.com/atom/apm/issues/946.
+> :exclamation: The build for VS Code extensions also falls back to the local build method, because currently VS Code extension market is not stably working. See the issue https://github.com/microsoft/vscode/issues/147670#issuecomment-1102923524. Despite this situation, we still manage to install all extensions with a full snapshot of the `.vsix` files.
 
 ### ver 1.6.1 @ 7/6/2021
 

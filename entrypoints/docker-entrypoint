@@ -149,12 +149,14 @@ then
     if nvm_has "cloudreve"; then
         if [ "x${USE_CLOUDREVE}" = "xtrue" ] && [ "x${USE_FILEBROWSER}" != "xtrue" ]; then
             crpasswd || fail
+            msg "Launch Cloudreve. The admin passowrd can be changed by the web interface."
             cloudreve &
         fi
     fi
     if nvm_has "filebrowser"; then
         if [ "x${USE_FILEBROWSER}" = "xtrue" ]; then
             mkdir -p "${USER_ROOT}/filebrowser" || fail
+            msg "Launch FileBrowser. The root directory can be specified by fb_rootdir."
             filebrowser -r ${FB_ROOT_DIR} -a $MACHINE_IP -p 5212 -d "${USER_ROOT}/filebrowser/fb-database.db" &
         fi
     fi
@@ -178,8 +180,8 @@ then
     echo "This is a container used for launching jupyterlab."
     echo "Use the following options to configure the lab:"
     echo "    --jlab: use this flag to open the jupyter lab."
-    echo "    password: set the password of the lab manually."
-    echo "    rootdir: set the root directory of the lab."
+    echo "    jlab_password: set the password of the lab manually."
+    echo "    jlab_rootdir: set the root directory of the lab."
     echo "If not setting the password manually, users need to check the token shown in the terminal."
     echo ""
 
@@ -275,12 +277,14 @@ fi
 if nvm_has "cloudreve"; then
     if [ "x${USE_CLOUDREVE}" = "xtrue" ] && [ "x${USE_FILEBROWSER}" != "xtrue" ]; then
         crpasswd || fail
+        msg "Launch Cloudreve. The admin passowrd can be changed by the web interface."
         cloudreve &
     fi
 fi
 if nvm_has "filebrowser"; then
     if [ "x${USE_FILEBROWSER}" = "xtrue" ]; then
         mkdir -p "${USER_ROOT}/filebrowser" || fail
+        msg "Launch FileBrowser. The root directory can be specified by fb_rootdir."
         filebrowser -r ${FB_ROOT_DIR} -a $MACHINE_IP -p 5212 -d "${USER_ROOT}/filebrowser/fb-database.db" &
     fi
 fi
