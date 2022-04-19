@@ -17,13 +17,13 @@ function msgerr {
 }
 
 function fail {
-  msgerr "Error : $?"
-  exit 1
+    msgerr "Error : $?"
+    exit 1
 }
 
 function mcd {
-  mkdir -p "$1" || fail
-  cd "$1" || fail
+    mkdir -p "$1" || fail
+    cd "$1" || fail
 }
 
 MODE="xvnc"

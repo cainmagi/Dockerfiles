@@ -10,7 +10,7 @@ COLOR_ERR='\033[1;31m'
 COLOR_WARN='\033[1;33m'
 
 function msg {
-  echo -e "${COLOR}$(date): $1${RESET}"
+    echo -e "${COLOR}$(date): $1${RESET}"
 }
 
 function msgerr {
