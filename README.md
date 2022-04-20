@@ -11,6 +11,9 @@ and we also provide a wrapping script `noVNC` which calls the `noVNCbin` scripts
 To make use of this service, just copy this branch to your `/usr/local/bin/` like
 
 ```Bash
+/etc/ssl/
+`---vncssl.cnf
+
 /usr/local/bin/
 |---noVNC
 `---noVNCbin
