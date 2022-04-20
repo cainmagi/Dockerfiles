@@ -30,9 +30,11 @@ where `5901` is the entry (input) port and `6080` is the service (output) port.
 
 ## Dockerfile list
 
-To view the manual, please check [here](./manual)
+To view the manual, please check [here](./manual).
 
-To view our dockerfile list, please check [here](./dockerlist)
+To view extra manuals about xUbuntu, please check [here](./manual-xubuntu).
+
+To view our dockerfile list, please check [here](./dockerlist).
 
 ## Dockerfiles
 

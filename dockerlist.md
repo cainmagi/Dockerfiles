@@ -14,6 +14,126 @@ The following images are build based on [xubuntu branch][git-xubuntu].
 
 -----
 
+#### nvcr.io/uoh053018/xubuntu-tf:1.7-2.8.0
+
+**X-Ubuntu Tensorflow 2**
+
+The xubuntu tensorflow `2.x` image. Currently, the tensorflow version is `2.8.0`.
+
+This image is built based on the following command:
+
+```bash
+docker build -t nvcr.io/uoh053018/xubuntu-tf:1.7-2.8.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:22.03-tf2-py3 --build-arg BASE_LAUNCH=/opt/nvidia/nvidia_entrypoint.sh --build-arg JLAB_VER=3 --build-arg WITH_EXTRA_APPS=cpgo https://github.com/cainmagi/Dockerfiles.git#xubuntu-v1.7-u20.04
+```
+
+This image has been also uploaded to our NGC account, check [here][nv-tf] for viewing details. With our NVIDIA account, you could pull the image directly by:
+
+```bash
+docker pull nvcr.io/uoh053018/xubuntu-tf:1.7-2.8.0
+```
+
+This image contains:
+
+* `Tensorflow 2.8.0`
+* `Python 3.8.10`
+* `xubuntu` desktop with apps
+* `Jupyter Lab 3.3.3`
+* `PyCharm 2022.1`
+* `Cloudreve 3.4.3` and `FileBrowser 2.21.1`
+* `Ubuntu 20.04`
+
+-----
+
+#### nvcr.io/uoh053018/xubuntu-tf:1.7-1.13.1
+
+**X-Ubuntu Tensorflow 1.13.1**
+
+The xubuntu tensorflow `1.x` image. Currently, the tensorflow version is `1.13.1`.
+
+This image is built based on the following command:
+
+```bash
+docker build -t nvcr.io/uoh053018/xubuntu-tf:1.7-1.13.1 --build-arg BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.03-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=2 --build-arg WITH_EXTRA_APPS=cgo https://github.com/cainmagi/Dockerfiles.git#xubuntu-v1.7-u20.04
+```
+
+This image has been also uploaded to our NGC account, check [here][nv-tf] for viewing details. With our NVIDIA account, you could pull the image directly by:
+
+```bash
+docker pull nvcr.io/uoh053018/xubuntu-tf:1.7-1.13.1
+```
+
+This image contains:
+
+* `Tensorflow 1.13.1`
+* `Python 3.5.2`
+* `xubuntu` desktop with apps
+* `Jupyter Lab 2.2.9`
+* `Cloudreve 3.4.3` and `FileBrowser 2.21.1`
+* `Ubuntu 16.04`
+
+-----
+
+#### nvcr.io/uoh053018/xubuntu-tc:1.7-1.12.0
+
+**X-Ubuntu PyTorch**
+
+The xubuntu latest PyTorch image. Currently, the PyTorch version is `1.9.0a0+2ecb2c7`.
+
+This image is built based on the following command:
+
+```bash
+docker build -t nvcr.io/uoh053018/xubuntu-tc:1.7-1.12.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:22.03-py3 --build-arg BASE_LAUNCH=/opt/nvidia/nvidia_entrypoint.sh --build-arg JLAB_VER=3 --build-arg WITH_EXTRA_APPS=cpgxo https://github.com/cainmagi/Dockerfiles.git#xubuntu-v1.7-u20.04
+```
+
+This image has been also uploaded to our NGC account, check [here][nv-tc] for viewing details. With our NVIDIA account, you could pull the image directly by:
+
+```bash
+docker pull nvcr.io/uoh053018/xubuntu-tc:1.7-1.12.0
+```
+
+This image contains:
+
+* `PyTorch 1.12.0a0+2c916ef`
+* `Python 3.8.13`
+* `xubuntu` desktop with apps
+* `Jupyter Lab 3.3.3`
+* `PyCharm 2022.1`
+* `TeXLive 2019.20200218-1`
+* `Cloudreve 3.4.3` and `FileBrowser 2.21.1`
+* `Ubuntu 20.04`
+
+-----
+
+#### nvcr.io/uoh053018/xubuntu-tc:1.7-1.2.0
+
+**X-Ubuntu PyTorch**
+
+The xubuntu PyTorch 1.2.0 image. Currently, the PyTorch version is `1.2.0a0+f6aac41` image.
+
+This image is built based on the following command:
+
+```bash
+docker build -t nvcr.io/uoh053018/xubuntu-tc:1.7-1.2.0 --build-arg BASE_IMAGE=nvcr.io/nvidia/pytorch:19.07-py3 --build-arg BASE_LAUNCH=/usr/local/bin/nvidia_entrypoint.sh --build-arg JLAB_VER=3 --build-arg WITH_EXTRA_APPS=cpgo https://github.com/cainmagi/Dockerfiles.git#xubuntu-v1.7-u20.04
+```
+
+This image has been also uploaded to our NGC account, check [here][nv-tc] for viewing details. With our NVIDIA account, you could pull the image directly by:
+
+```bash
+docker pull nvcr.io/uoh053018/xubuntu-tc:1.7-1.2.0
+```
+
+This image contains:
+
+* `PyTorch 1.2.0a0+f6aac41`
+* `Python 3.6.13`
+* `xubuntu` desktop with apps
+* `Jupyter Lab 3.3.3`
+* `PyCharm 2022.1`
+* `Cloudreve 3.4.3` and `FileBrowser 2.21.1`
+* `Ubuntu 18.04`
+
+-----
+
 #### nvcr.io/uoh053018/xubuntu-tf:1.6-2.4.0
 
 **X-Ubuntu Tensorflow 2**

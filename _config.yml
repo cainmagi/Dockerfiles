@@ -4,3 +4,5 @@ description: A collection of dockerfiles for NVIDIA DGX-230 machine.
 show_downloads: true
 google_analytics:
 theme: jekyll-theme-hacker
+plugins:
+  - jemoji

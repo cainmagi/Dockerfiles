@@ -4,6 +4,8 @@ To get back to the main page, click [here](./index).
 
 To view the list of image building, click [here](./dockerlist).
 
+To view extra manuals about xUbuntu, click [here](./manual-xubuntu).
+
 ## Guideline for using DGX
 
 As a DGX user, you could:
@@ -27,7 +29,7 @@ If you find any bugs, or want to add any features, please contact the maintainer
 
 ## Documentation for currently built images (xUbuntu)
 
-> Updated on 6/22/2021
+> Updated on 4/19/2022
 
 Here I am maintaining a list of currently built docker images on our DGX-230. Most of them are built based on:
 
@@ -173,6 +175,26 @@ When you want to save your image, follow the instructions below:
 > Note 2:
 >
 > In **any** case when you launch your container by backend mode (with option `-dit`), you should not commit your image, because you could not kill your `tigervncserver` without interactive shell.
+
+
+### Usage: more usages
+
+#### Since ver 1.7
+
+:warning: The follwoing new features are firstly implemented in ver 1.7 desktop. Check the links to learn details.
+
+* [File transfer: How to use FileBrowser :cloud:](./manual-xubuntu/filebrowser)
+* [File transfer: How to use Cloudreve :cloud:](./manual-xubuntu/cloudreve)
+* [Technique: How to use `sudo` :hammer:](./manual-xubuntu/use-sudo)
+* [Technique: How to use `mamba` :hammer:](./manual-xubuntu/use-mambda)
+* [Technique: How to configure `oh-my-posh` :hammer:](./manual-xubuntu/use-omp)
+* [Quick script: The command `set-bing-wallpaper` :scroll:](./manual-xubuntu/set-bing-wallpaper)
+* [Quick script: The command `yjin-tool` :scroll:](./manual-xubuntu/yjin-tool)
+* [Quick script: The command `xvnc-launch` (experimental) :scroll: :telescope:](./manual-xubuntu/xvnc)
+
+#### Since ver 1.6
+
+* [Quick script: The command `user-mapping` :scroll:](./manual-xubuntu/user-mapping)
 
 ## Documentation for currently built images (Jupyter Lab)
 
