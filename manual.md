@@ -4,6 +4,8 @@ To get back to the main page, click [here](./index).
 
 To view the list of image building, click [here](./dockerlist).
 
+To view the detailed graphic guides, click [here](./manual-session).
+
 To view extra manuals about xUbuntu, click [here](./manual-xubuntu).
 
 ## Guideline for using DGX
@@ -52,6 +54,15 @@ docker commit --change='CMD [""]' <conatiner-id> <new-image-name>:<tag>
 ```
 
 The saved image should be only used by one user, because the user id has been registered inside the image.
+
+### Usage: graphic guides
+
+For those amateurs, I have provided graphical guides for the whole workflow of working with a new image and saving it. Check the following links:
+
+To view the detailed graphic guides, click [here](./manual-session).
+
+* [How to work with a new image, and save it :beginner:](./manual-session/interactive)
+* [How to save a image with the bash window lost :beginner:](./manual-session/backend)
 
 ### Usage: interactive mode
 

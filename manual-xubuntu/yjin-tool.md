@@ -4,7 +4,11 @@ To get back to the main page, click [here](../index).
 
 To view the list of image building, click [here](../dockerlist).
 
-To view extra manuals about xUbuntu, click [here](../manual-xubuntu).
+To view the basic manual, click [here](../manual).
+
+To view the detailed graphic guides, click [here](../manual-session).
+
+To view the **contents** of these manuals, click [here](../manual-xubuntu).
 
 ## `yjin-tool`
 
@@ -68,7 +72,12 @@ It is equivalent to
 
 ```bash
 tigervncserver -kill :1
+rm ~/.vnc/*.log || fail
+rm ~/.vnc/passwd || fail
+ls ~/.vnc || fail
 ```
+
+> :warning: Running this command will delete all personal profiles of TigerVNC. In other words, the VNC will be reset to the status with no password configured.
 
 ### `--ln`
 

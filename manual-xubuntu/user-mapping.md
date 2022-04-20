@@ -4,7 +4,11 @@ To get back to the main page, click [here](../index).
 
 To view the list of image building, click [here](../dockerlist).
 
-To view extra manuals about xUbuntu, click [here](../manual-xubuntu).
+To view the basic manual, click [here](../manual).
+
+To view the detailed graphic guides, click [here](../manual-session).
+
+To view the **contents** of these manuals, click [here](../manual-xubuntu).
 
 ## `user-mapping`
 

@@ -6,6 +6,8 @@ To view the list of image building, click [here](./dockerlist).
 
 To view the basic manual, click [here](./manual).
 
+To view the detailed graphic guides, click [here](./manual-session).
+
 ## Manual Content
 
 ### Since ver 1.7
