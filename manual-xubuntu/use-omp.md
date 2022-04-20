@@ -12,7 +12,7 @@ To view extra manuals about xUbuntu, click [here](../manual-xubuntu).
 
 OMP is a terminal beautify tool. You can check the official website here:
 
-https://ohmyposh.dev/
+[https://ohmyposh.dev/ :link:](https://ohmyposh.dev/)
 
 It can also work with powershell. This tool is recommended by Microsoft.
 
@@ -57,7 +57,7 @@ It means that:
 
 If users comment out this part, the OMP will be disabled. If users want to change a theme, we recommend users to check this page:
 
-https://ohmyposh.dev/docs/themes
+[https://ohmyposh.dev/docs/themes :link:](https://ohmyposh.dev/docs/themes)
 
 Then find the wanted theme by
 

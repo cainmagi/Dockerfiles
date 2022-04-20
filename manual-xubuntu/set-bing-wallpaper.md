@@ -24,11 +24,11 @@ set-bing-wallpaper
 
 Microsoft Bing will release a new beautiful landscape photo every day. Use the following link to query today's new photo:
 
-https://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=en-US
+[https://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=en-US :link:](https://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=en-US)
 
 For example, for 4/19/2022, the photo is
 
-[Plitvice Lakes National Park, Croatia (© Janne Kahila/Getty Images)](https://www.bing.com/th?id=OHR.PlitviceBoardwalk_EN-US6264296543_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp)
+[Plitvice Lakes National Park, Croatia (© Janne Kahila/Getty Images) :link:](https://www.bing.com/th?id=OHR.PlitviceBoardwalk_EN-US6264296543_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp)
 
 This script can query the photo, download today's photo and set it as the desktop wallpaper automatically.
 

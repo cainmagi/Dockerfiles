@@ -12,7 +12,7 @@ To view extra manuals about xUbuntu, click [here](../manual-xubuntu).
 
 You can find the official website of FileBrowser here:
 
-https://filebrowser.org/
+[https://filebrowser.org/ :link:](https://filebrowser.org/)
 
 Now we recommend users to launch their desktop with another port exposed:
 

@@ -14,7 +14,7 @@ To view extra manuals about xUbuntu, click [here](../manual-xubuntu).
 
 You can find the official website of Cloudreve here:
 
-https://cloudreve.org/
+[https://cloudreve.org/ :link:](https://cloudreve.org/)
 
 Cloudreve is an online drive service. Compared to FileBrowser, it is more complicated, more powerful, and more secure. However, it only supports **Chinese**.
 

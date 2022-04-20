@@ -14,7 +14,7 @@ To view extra manuals about xUbuntu, click [here](../manual-xubuntu).
 
 Fortunately, someone has developed an alternative of `conda`. Check this project:
 
-https://github.com/mamba-org/mamba
+[https://github.com/mamba-org/mamba :link:](https://github.com/mamba-org/mamba)
 
 If you are using `mamba`, you can use every command from `conda`, for example:
 

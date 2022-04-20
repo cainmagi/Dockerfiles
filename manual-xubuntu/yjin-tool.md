@@ -16,6 +16,10 @@ This script is mainly designed for helping users make configurations and file mo
 yjin-tool --help
 ```
 
+The newest script can be found here:
+
+[https://gist.github.com/cainmagi/0b3159c956422e2f55492ad3bd6b555f :link:](https://gist.github.com/cainmagi/0b3159c956422e2f55492ad3bd6b555f)
+
 Here we explain some mostly used usages:
 
 ### `--df`
