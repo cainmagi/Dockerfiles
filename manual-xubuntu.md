@@ -13,7 +13,7 @@ To view the basic manual, click [here](./manual).
 :warning: The follwoing new features are firstly implemented in ver 1.7 desktop. Check the links to learn details.
 
 * [File transfer: How to use FileBrowser :cloud:](./manual-xubuntu/file-browser)
-* [File transfer: How to use Cloudreve :cloud:](./manual-xubuntu/cloudreve)
+* [File transfer: How to use Cloudreve (experimental) :cloud: :telescope:](./manual-xubuntu/cloudreve)
 * [Technique: How to use `sudo` :hammer:](./manual-xubuntu/use-sudo)
 * [Technique: How to use `mamba` :hammer:](./manual-xubuntu/use-mamba)
 * [Technique: How to configure `oh-my-posh` :hammer:](./manual-xubuntu/use-omp)

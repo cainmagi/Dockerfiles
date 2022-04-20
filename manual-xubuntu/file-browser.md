@@ -53,7 +53,7 @@ It is very unsafe. So you need to log in with the initial password, and enter th
 
 |  User management  |
 | :---------------: |
-| <img width="60%" src=./display/fbrowser-1.png></img> |
+| ![](./display/fbrowser-1.png) |
 
 Then, you can configure your password and allowed commands:
 
@@ -77,7 +77,7 @@ After all, you can login with the non-admin user. Now you can
 
 |   Run a command   |
 | :---------------: |
-| <img width="60%" src=./display/fbrowser-6.png></img> |
+| ![](./display/fbrowser-6.png) |
 
 After finishing the above configurations, you can save your image. Your configurations will be remembered.
 
