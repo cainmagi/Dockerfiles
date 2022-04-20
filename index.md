@@ -58,6 +58,12 @@ Here is the list of each dockerfile:
 
 ## Update records
 
+### ver 1.5 @ 4/20/2022
+
+1. Finish the re-crafted `xubuntu` dockerfile and `jupyterlab` dockerfile.
+2. Update the submodule `noVNC` to newest version.
+3. Write some new guides.
+
 ### ver 1.45 @ 2/2/2021
 
 1. Add `openssl` support.

@@ -31,7 +31,7 @@ If you find any bugs, or want to add any features, please contact the maintainer
 
 ## Documentation for currently built images (xUbuntu)
 
-> Updated on 4/19/2022
+> Updated on 4/20/2022
 
 Here I am maintaining a list of currently built docker images on our DGX-230. Most of them are built based on:
 
@@ -61,6 +61,7 @@ For those amateurs, I have provided graphical guides for the whole workflow of w
 
 To view the detailed graphic guides, click [here](./manual-session).
 
+* [Make you able to run `docker pull` for any NVIDIA images :cloud:](./manual-session/ngc)
 * [How to work with a new image, and save it :beginner:](./manual-session/interactive)
 * [How to save a image with the bash window lost :beginner:](./manual-session/backend)
 
