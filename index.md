@@ -35,6 +35,8 @@ where `5901` is the entry (input) port and `6080` is the service (output) port.
 
 To view the manual, please check [here](./manual).
 
+To view the detailed graphic guides, click [here](./manual-session).
+
 To view extra manuals about xUbuntu, please check [here](./manual-xubuntu).
 
 To view our dockerfile list, please check [here](./dockerlist).
