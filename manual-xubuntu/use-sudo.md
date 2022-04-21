@@ -30,7 +30,7 @@ Currently, we have fixed the two issues about `sudo`:
 
     We have to say that this method is preferred compared to the first approach. For example, if `thunar` is launched by `sudo dbus-launch`, you may be able to open a `mousepad` window with the opened `thunar` window and the `root` mode.
 
-2. Now users can use the following commands in the sudo mode directly:
+2. Now users can use the following commands in the `sudo` mode directly:
 
     ```bash
     sudo conda ...
@@ -39,7 +39,7 @@ Currently, we have fixed the two issues about `sudo`:
     sudo python -m pip ...
     ```
 
-    > :warning: After some tests, we found that `conda`, `mamba` are `python` are all consistent with the user version when using `sudo`. However, if using `sudo`, the `pip` is not `/opt/conda/bin/pip` but `/usr/local/bin/pip`. Therefore, for those who want to use `pip` to install system-scope packages, they need to use either one of the following command:
+    > :warning: After some tests, we found that `conda`, `mamba`, and `python` are all consistent with the user version when using `sudo`. However, if using `sudo`, the `pip` is not `/opt/conda/bin/pip` but `/usr/local/bin/pip`. Therefore, for those who want to use `pip` to install system-scope packages, they need to use either one of the following command:
     > 
     > ```bash
     > sudo /opt/conda/bin/pip install ....
