@@ -44,7 +44,7 @@ Since ver 1.6 desktop images, all images are properly equipped with user authori
 
     You need to wait a few minutes for the initialization finishing. After that, the session will ask you to fill a VNC password. This password **requires to** contain 6 to 8 characters. If you provide a too long password, it may be truncated.
 
-    > :warning: This VNC password will be used in Step . It is different from your password used for getting access to the DGX machine.
+    > :warning: This VNC password will be used in **Step 6**. It is different from your password used for getting access to the DGX machine.
 
     After everything finishes, it will pop up a short hint for you to save the image. Remember it, we will use the command in the next step.
 
@@ -56,13 +56,11 @@ Since ver 1.6 desktop images, all images are properly equipped with user authori
 
     When you hit <kbd>Enter</kbd>, the image will be saved. It may take a few minutes. If the save is successfully done, you will see a `sha256` code, it is the long ID of the saved image.
 
-* **Step 4**: Open the **second** session. Do not close, or type `exit` in the first session. In this session, we can paste the command, and replace the last part with a image name that only belongs to you. For example, I suggest you to name the tag as `<yourname>-<version_number>`:
+* **Step 4**: Now go back to the first session. Since the image is already saved, we can exit from the container now. Just type `exit`. You can confirm that you are in DGX session because you can see something like `xxx@DGX-Station: ~$`:
 
     |   Step 4 (In Putty Session 1)  |
     | :----------------------------: |
     | ![step-4](./display/interactive/step-4.png) |
-
-    Now go back to the first session. Since the image is already saved, we can exit from the container now. Just type `exit`. You can confirm that you are in DGX session because you can see something like `xxx@DGX-Station: ~$`
 
     Now we can start to launch a container with the image we have saved just now. A full command should be like this:
 
@@ -70,13 +68,13 @@ Since ver 1.6 desktop images, all images are properly equipped with user authori
     docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -v /raid/xxx:/data -v /raid/shared:/shareddata -p 5901:5901 -p 5212:5212 -p 6080:6080 <name>:<tag>
     ```
 
-    Here we need clarify three things:
+    Here we need clarify two things:
 
     * `-v <folder-in-DGX>:<folder-in-container>`: this option is used for providing a mounted folder inside the container. If you view the container as a virtual machine, the "mounted folder" is just like a USB external drive equipped to the machine. In other words, if you are changing any files in the mounted folder, you do not need to manually 
 
         In this example, we mount our home folder as a `/homelocal` folder inside the image. If you change anything inside the `/homelocal` folder in the image, these change will take effects on your home folder `~` on the DGX machine.
 
-    * `-p <out-port>:<inner-port>` is a port mapping option. The `<inner-port>` should be always `5212`, `5901`, or `6080`. If you do not understand why it shold be like this, please do not modify them. The former part can be changed according to the situation. In the same time, each `<out-port>` can only be occupied by one container (i.e. a session from one person). If you find your desired port is occupied by others, like the example in the Step 4 figure, you can change the `<out-port>` a little bit.
+    * `-p <out-port>:<inner-port>` is a port mapping option. The `<inner-port>` should be always `5212`, `5901`, or `6080`. If you do not understand why it shold be like this, please do not modify them. The former part can be changed according to the situation. In the same time, each `<out-port>` can only be occupied by one container (i.e. a session from one person). If you find your desired port is occupied by others, like the example in the **Step 4** figure, you can change the `<out-port>` a little bit.
 
         The third port highlighted by the blue box is usually required. You need to expose this `6080` inner port for getting access to the noVNC service. The other two ports are not necessary. But you can check the usages of them in [`5901` usage docs][doc-5901] and [`5212` usage docs][doc-5212].
 
