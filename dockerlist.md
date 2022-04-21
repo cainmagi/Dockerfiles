@@ -14,6 +14,47 @@ The following images are build based on [xubuntu branch][git-xubuntu].
 
 -----
 
+#### nvcr.io/uoh053018/xubuntu-matlab:r2022a
+
+**X-Ubuntu MATLAB R2022a**
+
+The xubuntu MATLAB `R2022a` image.
+
+This image is built based on the [`xubuntu-tc:1.7-1.12.0`](#nvcriouoh053018xubuntu-tc17-1120) image. The MATLAB and other packages are installed by manually. Note that a license is needed if you want to launch MATLAB.
+
+Because the layer of installing matlab is too large, we have not found a method for pushing the image to our NGC account. Maybe we could solve this problem in the future.
+
+This image contains:
+
+* `PyTorch 1.12.0a0+2c916ef` (built by NVIDIA)
+* `Tensorflow 2.7.0` (installed from `conda-forge`)
+* `Python 3.8.13`
+* `xubuntu` desktop with apps
+* `Jupyter Lab 3.3.3`
+* `PyCharm 2022.1`
+* `TeXLive 2019.20200218-1`
+* `Cloudreve 3.4.3` and `FileBrowser 2.21.1`
+* `MATLAB R2022a` with `GCC 6.3.0`
+* `Lapack 3.10.1` and `Lapack95`
+* `Ubuntu 20.04`
+
+##### Authorization
+
+If you want to authorize (or de-authorize) MATLAB by an individual license, just clicking the "Activate" ("Deactivate") button is OK. Remember to configure the licensed user as `xubuntu`.
+
+If you want to authorize (or de-authorize) MATLAB by a computer-level license, you need to use the following command,
+
+```bash
+sudo matlab-activate  # Activate MATLAB R2022a
+sudo matlab-deactivate  # Deactivate MATLAB R2022a
+```
+
+#### Compiler
+
+Currently, it seems that `GCC 6.3.x` is no longer required by MATLAB Compiler. Instead, using `GCC 9.x` is good enough. See [this page :link:](https://www.mathworks.com/support/requirements/supported-compilers.html).
+
+-----
+
 #### nvcr.io/uoh053018/xubuntu-tf:1.7-2.8.0
 
 **X-Ubuntu Tensorflow 2**
