@@ -4,6 +4,10 @@ To get back to the main page, click [here](./index).
 
 To view the manual of using images, click [here](./manual).
 
+To view the detailed graphic guides, click [here](./manual-session).
+
+To view extra manuals about xUbuntu, click [here](./manual-xubuntu).
+
 ## Docker image info list
 
 Here we would show the list of currently built images. Please check each item to find the information of any specific image.
@@ -42,6 +46,10 @@ This image contains:
 
 If you want to authorize (or de-authorize) MATLAB by an individual license, just clicking the "Activate" ("Deactivate") button is OK. Remember to configure the licensed user as `xubuntu`.
 
+|  MATLAB R2020a Authorization  |
+| :---------------------------: |
+| ![MATLAB Authorization](./display/matlab-authorization.jpg) |
+
 If you want to authorize (or de-authorize) MATLAB by a computer-level license, you need to use the following command,
 
 ```bash
@@ -49,7 +57,7 @@ sudo matlab-activate  # Activate MATLAB R2022a
 sudo matlab-deactivate  # Deactivate MATLAB R2022a
 ```
 
-#### Compiler
+##### Compiler
 
 Currently, it seems that `GCC 6.3.x` is no longer required by MATLAB Compiler. Instead, using `GCC 9.x` is good enough. See [this page :link:](https://www.mathworks.com/support/requirements/supported-compilers.html).
 
