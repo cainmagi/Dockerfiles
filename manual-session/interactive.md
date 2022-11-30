@@ -40,13 +40,14 @@ Since ver 1.6 desktop images, all images are properly equipped with user authori
     ```
 
     > Tips :bulb:: If you use `docker run` for an image, it means that you are opening a container based on the image. If we view the image as the data stored in the disk, the container is just like a virtual machine (although at the bottom level its implementation is different from a virtual machine).
-    > DIfferent from VM software, your modifications inside the container need to be manually saved as an image. Otherwise, no modifications will be updated for the image you start with.
+    >
+    > Different from VM software, your modifications inside the container need to be manually saved as an image. Otherwise, no modifications will be updated for the image you start with.
 
     You need to wait a few minutes for the initialization to finish. After that, the session will ask you to fill in a VNC password. This password **requires to** contain 6 to 8 characters. If you provide a too-long password, it may be truncated.
 
     > :warning: This VNC password will be used in **Step 6**. It is different from the password used for getting access to the DGX machine.
 
-    After everything finishes, it will pop up a short hint for you to save the image. Remember it, we will use the command in the next step.
+    After everything finishes, it will pop up a short hint for you to save the image. The short hint will contain the ID of the currently running container. Remember it, we will use the command in the next step.
 
 * **Step 3**: Open the **second** session. Do not close, or type `exit` in the first session. In this session, we can paste the command, and replace the last part with an image name that only belongs to you. For example, I suggest that you should name the tag as `<yourname>-<version_number>`:
 
@@ -142,7 +143,7 @@ Since ver 1.6 desktop images, all images are properly equipped with user authori
     | :-----------------------------: |
     | ![step-10](./display/interactive/step-10.png) |
 
-    The `<container-id>` can be copied from `Session 1`. If you take a look at the screenshot in **Step 9**, you will find the id after `xubuntu@`.
+    The `<container-id>` can be copied from `Session 1`. If you take a look at the screenshot in **Step 9**, you will find the ID after `xubuntu@`.
 
     After you see the `sha256` code, you can confirm that your image is successfully saved. Before that, **do not** close any sessions.
 

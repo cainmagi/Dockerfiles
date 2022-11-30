@@ -65,11 +65,23 @@ Then, you can configure your password and allowed commands:
 | :------------------: | :--------------------------: |
 | ![](./display/fbrowser-2.png) | ![](./display/fbrowser-3.png) |
 
+The recommended administrator's commands are:
+
+```no
+sudo ls cd cp rm ln mv chmod chown chgrp yjin-tool git tar zip unzip
+```
+
 You can also create a new non-admin user, we recommend you to always use this non-admin user for safety issues:
 
 |  Configure password  |  Configure allowed commands  |
 | :------------------: | :--------------------------: |
 | ![](./display/fbrowser-4.png) | ![](./display/fbrowser-5.png) |
+
+The recommended user's commands are:
+
+```no
+ls cd ln chmod chown chgrp yjin-tool git tar zip unzip
+```
 
 After all, you can log in with a non-admin user. Now you can
 
@@ -125,4 +137,4 @@ MACHINE_IP=$(hostname -I | awk 'NR==1 {print $1}')
 filebrowser -r /data -a $MACHINE_IP -p 5212 -d "${USER_ROOT}/filebrowser/fb-database.db"
 ```
 
-The database used for storing the user information is saved in `/home/xubuntu/filebrowser/fb-database.db`.
+The database used for storing the user information is saved in `/home/xubuntu/filebrowser/fb-database.db`. Note that this path is inside the container, and it is not mounted folder!

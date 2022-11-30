@@ -59,7 +59,7 @@ The saved image should be only used by one user because the user id has been reg
 
 For those amateurs, I have provided graphical guides for the whole workflow of working with a new image and saving it. Check the following links:
 
-To view the detailed graphic guides, click [here](./manual-session).
+To view the detailed graphic guides, click [here :link:](./manual-session).
 
 * [Make you able to run `docker pull` for any NVIDIA images :cloud:](./manual-session/ngc)
 * [How to work with a new image, and save it :beginner:](./manual-session/interactive)
@@ -125,11 +125,15 @@ The basic usage for any of the following images could be divided into 4 cases:
 >
 > It is not required to launch noVNC separately for the newly released images. Because the noVNC has been built into the images. If we use `-p xxxx:6080` to launch our image, we only need to open our browser and use the following address:
 >
+> ```addr
 > http://<dgx-230-ip>:xxxx/vnc.html?host=<dgx-230-ip>&port=xxxx
+> ```
 >
 > If you want to connect the VNC in encrypt mode, please use:
 >
-> https://<dgx-230-ip>:xxxx/vnc.html?host=<dgx-230-ip>&port=xxxx
+> ```addr
+> https://<dgx-230-ip\>:xxxx/vnc.html?host=<dgx-230-ip>&port=xxxx
+> ```
 >
 > Here is a tip: the configs after `vnc.html` could be omitted if you only need to get access to your own desktop.
 
@@ -169,10 +173,16 @@ When you want to save your image, follow the instructions below:
     docker commit <container-id> <image-name>:<tag>
     ```
 
-    The `<image-name>` and `<tag>` could be determined by yourself. However, `<container-id>` should be found on your container-side terminal, it should follow the user name of your bash, like:
+    The `<image-name>` and `<tag>` could be determined by yourself. However, `<container-id>` should be found on your container-side terminal, it should follow the user name of your bash, like this:
 
     ```no
-    root@<container-id>: # 
+    xubuntu@<container-id>: $
+    ```
+
+    or this (in root mode):
+
+    ```no
+    root@<container-id>: #
     ```
 
 > Note 1:
@@ -244,11 +254,15 @@ The basic usage for any of the following images could be divided into 4 cases:
 >
 > If you start your container with a configured password, you could open the following address directly and fill in your password:
 >
+> ```addr
 > http://<dgx-230-ip>:xxxx
+> ```
 >
 > When you start your container without configuring the password, you would still be asked for a token, which would be shown in your terminal. In this case, we could use this address to skip the step for filling in the token:
 >
+> ```addr
 > http://<dgx-230-ip>:xxxx/?token=<token-from-the-terminal>
+> ```
 
 ### Usage: backend mode
 

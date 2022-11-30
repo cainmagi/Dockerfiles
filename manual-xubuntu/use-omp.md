@@ -59,7 +59,7 @@ It means that:
 * If still not, use the default theme of OMP.
 * If OMP does not exist, do nothing.
 
-If users comment on this part, the OMP will be disabled. If users want to change a theme, we recommend checking this page:
+If users comment out this part, the OMP will be disabled. If users want to change a theme, we recommend checking this page:
 
 [https://ohmyposh.dev/docs/themes :link:](https://ohmyposh.dev/docs/themes)
 

@@ -33,7 +33,7 @@ In the basic manual, we suggest that users can launch the container in the backe
 
     But in some cases, some guys may change their minds. Although they are using the backend mode, they want to save their changes. This guide is provided for fixing this situation. Let's go to the **Step 2**.
 
-* **Step 1**: Use the following command to view the currently running containers:
+* **Step 2**: Use the following command to view the currently running containers:
 
     ```bash
     docker ps
