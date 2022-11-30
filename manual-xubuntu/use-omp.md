@@ -14,7 +14,7 @@ To view the **contents** of these manuals, click [here](../manual-xubuntu).
 
 > Updated on 4/19/2022
 
-OMP is a terminal beautify tool. You can check the official website here:
+OMP is a terminal beautifying tool. You can check the official website here:
 
 [https://ohmyposh.dev/ :link:](https://ohmyposh.dev/)
 
@@ -27,7 +27,7 @@ A full installation of OMP requires users to install at least one [Nerd font :li
 * Roboto Mono
 * Ubuntu Mono
 
-### Comfigure your OMP
+### Configure your OMP
 
 The starting script of OMP is written in `~/.bashrc`. Just open it with a text editor:
 
@@ -41,7 +41,7 @@ Then you can find this part:
 # Configure Oh-my-posh, enable it if it exists.
 if [ -s "/usr/local/bin/oh-my-posh" ]; then
     if [ -s ~/".poshthemes/paradox-alt.omp.json" ]; then
-    	eval "$(oh-my-posh --init --shell bash --config ~/.poshthemes/paradox-alt.omp.json)"
+        eval "$(oh-my-posh --init --shell bash --config ~/.poshthemes/paradox-alt.omp.json)"
     else
         if [ -s ~/".poshthemes/paradox.omp.json" ]; then
             eval "$(oh-my-posh --init --shell bash --config ~/.poshthemes/paradox.omp.json)"
@@ -59,7 +59,7 @@ It means that:
 * If still not, use the default theme of OMP.
 * If OMP does not exist, do nothing.
 
-If users comment out this part, the OMP will be disabled. If users want to change a theme, we recommend users to check this page:
+If users comment on this part, the OMP will be disabled. If users want to change a theme, we recommend checking this page:
 
 [https://ohmyposh.dev/docs/themes :link:](https://ohmyposh.dev/docs/themes)
 

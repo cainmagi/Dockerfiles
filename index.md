@@ -23,7 +23,7 @@ To make use of this service, just copy this branch to your `/usr/local/bin/` lik
     `---...
 ```
 
-And you could use such simple command on your Bash:
+And you could use such a simple command on your Bash:
 
 ```Bash
 noVNC IP=192.168.127.128:5901 PORT=6080
@@ -66,7 +66,7 @@ Here is the list of each dockerfile:
 ### ver 1.5 @ 4/20/2022
 
 1. Finish the re-crafted `xubuntu` dockerfile and `jupyterlab` dockerfile.
-2. Update the submodule `noVNC` to newest version.
+2. Update the submodule `noVNC` to the newest version.
 3. Write some new guides.
 
 ### ver 1.45 @ 2/2/2021
@@ -77,7 +77,7 @@ Here is the list of each dockerfile:
 ### ver 1.4 @ 1/11/2021
 
 1. Finish the re-crafted `xubuntu` dockerfile.
-2. Update the submodule `noVNC` to newest version.
+2. Update the submodule `noVNC` to the newest version.
 3. Add tips and comments.
 4. Change the `gitpage` path.
 
@@ -89,12 +89,12 @@ Finish the `xubuntu-tf2` dockerfile.
 
 Update master branch. This update includes:
 
-1. Update the submodule `noVNC` to newest version.
-2. Update the start script so that it could be appiled to both `Ubuntu 16.04` and `Ubuntu 18.04`.
+1. Update the submodule `noVNC` to the newest version.
+2. Update the start script so that it could be applied to both `Ubuntu 16.04` and `Ubuntu 18.04`.
 
 ### ver 1.16 @ 20180820
 
-Update xubuntu-tf to 1.2 version.
+Update xubuntu-tf to the 1.2 version.
 
 ### ver 1.15 @ 20180819
 

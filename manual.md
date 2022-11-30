@@ -18,16 +18,16 @@ As a DGX user, you could:
   * Configuring the docker parameters in your user space.
 * Acquire the full authority by `sudo` **inside** any docker image.
 * Upload, or download files in `~`, `/raid/<your-name>`, `/raid/shared/`
-* Using `sudo chown`, `sudo chgrp`, `sudo chown` to maintain the permission of your files.
+* Use `sudo chown`, `sudo chgrp`, `sudo chown` to maintain the permission of your files.
 
-Although you are added in the `sudo` list, you should not do the following things, because modifying the device outside the docker container may cause the device collapsed.
+Although you are added to the `sudo` list, you should not do the following things, because modifying the device outside the docker container may cause the device to collapse.
 
 * You **should not** use `sudo apt` to upgrade, install or remove any package outside the docker container.
-* You **should not** modify any files that are not owned by you, especially for the system related files. (However, modifying any files inside the docker container is allowed)
+* You **should not** modify any files that are not owned by you, especially the system-related files. (However, modifying any files inside the docker container is allowed)
 * You **should not** use `sudo` in any case that is not listed before.
 * You **should not** use, or commit any image that is tagged as others' private images.
 
-If you find any bugs, or want to add any features, please contact the maintainer, unless you are very confident of what you will do.
+If you find any bugs or want to add any features, please contact the maintainer, unless you are very confident about what you will do.
 
 ## Documentation for currently built images (xUbuntu)
 
@@ -39,7 +39,7 @@ Here I am maintaining a list of currently built docker images on our DGX-230. Mo
 
 ### Usage: first launch
 
-:warning: Please pay attention to this section. This feature is firstly introduced in [`1.6`](git-xubuntu-1-6) version. To avoid the authority issues, any user who intends to use the VNC desktop need to use the following method to register the user id and VNC password for the first time.
+:warning: Please pay attention to this section. This feature is first introduced in [`1.6`](git-xubuntu-1-6) version. To avoid authority issues, any user who intends to use the VNC desktop needs to use the following method to register the user id and VNC password for the first time.
 
 When using this image for the first time, users need to run the following command. Only the image name and tag need to be changed according to the needs.
 
@@ -47,13 +47,13 @@ When using this image for the first time, users need to run the following comman
 docker run --gpus all -it --rm xubuntu:1.0 uid=$(id -u) gid=$(id -g)
 ```
 
-The image would ask users to configure the VNC password. After that, the image would suggest users to commit the image by a command like this:
+The image would ask users to configure the VNC password. After that, the image would suggest committing the image by a command like this:
 
 ```bash
-docker commit --change='CMD [""]' <conatiner-id> <new-image-name>:<tag>
+docker commit --change='CMD [""]' <container-id> <new-image-name>:<tag>
 ```
 
-The saved image should be only used by one user, because the user id has been registered inside the image.
+The saved image should be only used by one user because the user id has been registered inside the image.
 
 ### Usage: graphic guides
 
@@ -63,11 +63,11 @@ To view the detailed graphic guides, click [here](./manual-session).
 
 * [Make you able to run `docker pull` for any NVIDIA images :cloud:](./manual-session/ngc)
 * [How to work with a new image, and save it :beginner:](./manual-session/interactive)
-* [How to save a image with the bash window lost :beginner:](./manual-session/backend)
+* [How to save an image with the bash window lost :beginner:](./manual-session/backend)
 
 ### Usage: interactive mode
 
-The basic usage for any of the following image could be divided into 4 cases:
+The basic usage for any of the following images could be divided into 4 cases:
 
 * By built-in `noVNC`: In default mode, you just need to launch the built image by:
 
@@ -83,13 +83,13 @@ The basic usage for any of the following image could be divided into 4 cases:
 
     This option would force the image to launch the VNC server.
 
-    The following command would force the VNC launched by `root` mode.
+    The following command would force the VNC to launch in the `root` mode.
 
     ```bash
     docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -p 6080:6080 xubuntu:1.0 --root
     ```
 
-    In current version, users could use either `http` to get access to the unencrypted noVNC session or `https` to get access to the ssl-encrypted noVNC session. For users who open the encrypted session firstly, they may need to add the noVNC site into the trusted list. Here we show an example of how to do that in Chrome. First we need to add `https://` at the beginning of our accessing address. Then we could check the following figures:
+    In the current version, users could use either `http` to get access to the unencrypted noVNC session or `https` to get access to the ssl-encrypted noVNC session. For users who open the encrypted session first, they may need to add the noVNC site to the trusted list. Here we show an example of how to do that in Chrome. First, we need to add `https://` at the beginning of our accessed address. Then we could check the following figures:
 
     | 登录有SSL保护的noVNC | Login with noVNC protected by SSL |
     | :-----: | :-----: |
@@ -115,7 +115,7 @@ The basic usage for any of the following image could be divided into 4 cases:
     docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal xubuntu:1.0 --bash
     ```
 
-* By any script: If you want run any script inside the docker for only one time, please use
+* By any script: If you want to run any script inside the docker for only one time, please use
 
     ```bash
     docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal xubuntu:1.0 script=<the-path-to-your-script>
@@ -123,7 +123,7 @@ The basic usage for any of the following image could be divided into 4 cases:
 
 > Note:
 >
-> It is not required to launch noVNC separately for the newly relesed images. Because the noVNC has been built-in in the images. If we use `-p xxxx:6080` to launch our image, we only need to open our browser and use the following address:
+> It is not required to launch noVNC separately for the newly released images. Because the noVNC has been built into the images. If we use `-p xxxx:6080` to launch our image, we only need to open our browser and use the following address:
 >
 > http://<dgx-230-ip>:xxxx/vnc.html?host=<dgx-230-ip>&port=xxxx
 >
@@ -135,7 +135,7 @@ The basic usage for any of the following image could be divided into 4 cases:
 
 ### Usage: backend mode
 
-If you want your container run on the backend rather than interactively, please change `-it` by `-dit`. However, this option should be only used when you are working with programs running on the backend, like VNC server. For example:
+If you want your container to run on the backend rather than interactively, please change `-it` to `-dit`. However, this option should be only used when you are working with programs running on the backend, like the VNC server. For example:
 
 ```bash
 docker run --gpus all -dit --rm --shm-size=1g -v ~:/homelocal -p 6080:6080 xubuntu:1.0
@@ -149,7 +149,7 @@ In this case, unless you use `docker kill` or `docker stop` to terminate your co
 
 > Note:
 >
-> The backend mode should not be launched by the released images directly, because those images would require users to set password when firstly opening the container. Users should set their passwords, save the image separately and then could use the backend mode to launch their own images.
+> The backend mode should not be launched by the released images directly, because those images would require users to set a password when first opening the container. Users should set their passwords, save the image separately, and then could use the backend mode to launch their own images.
 
 ### Usage: save the image
 
@@ -186,14 +186,14 @@ When you want to save your image, follow the instructions below:
 
 > Note 2:
 >
-> In **any** case when you launch your container by backend mode (with option `-dit`), you should not commit your image, because you could not kill your `tigervncserver` without interactive shell.
+> In **any** case when you launch your container by backend mode (with option `-dit`), you should not commit your image, because you could not kill your `tigervncserver` without the interactive shell.
 
 
 ### Usage: more usages
 
 #### Since ver 1.7
 
-:warning: The follwoing new features are firstly implemented in ver 1.7 desktop. Check the links to learn details.
+:warning: The following new features are firstly implemented in ver 1.7 desktop. Check the links to learn details.
 
 * [File transfer: How to use FileBrowser :cloud:](./manual-xubuntu/file-browser)
 * [File transfer: How to use Cloudreve (experimental) :cloud: :telescope:](./manual-xubuntu/cloudreve)
@@ -218,7 +218,7 @@ Here I am maintaining a list of currently built docker images on our DGX-230. Mo
 
 ### Usage: interactive mode
 
-The basic usage for any of the following image could be divided into 4 cases:
+The basic usage for any of the following images could be divided into 4 cases:
 
 * By built-in `Jupyter Lab`: In default mode, you just need to launch the built image by:
 
@@ -234,7 +234,7 @@ The basic usage for any of the following image could be divided into 4 cases:
     docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal jlab:1.0 --bash
     ```
 
-* By any script: If you want run any script inside the docker for only one time, please use
+* By any script: If you want to run any script inside the docker for only one time, please use
 
     ```bash
     docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal jlab:1.0 script=<the-path-to-your-script>
@@ -242,17 +242,17 @@ The basic usage for any of the following image could be divided into 4 cases:
 
 > Note:
 >
-> If you start your container with a configured password, you could open the following address directly and fill your password:
+> If you start your container with a configured password, you could open the following address directly and fill in your password:
 >
 > http://<dgx-230-ip>:xxxx
 >
-> When you start your container without configuring the password, you would still be asked for a token, which would be shown in your terminal. In this case, we could use this address to skip the step for filling the token:
+> When you start your container without configuring the password, you would still be asked for a token, which would be shown in your terminal. In this case, we could use this address to skip the step for filling in the token:
 >
 > http://<dgx-230-ip>:xxxx/?token=<token-from-the-terminal>
 
 ### Usage: backend mode
 
-If you want your container run on the backend rather than interactively, please change `-it` by `-dit`. However, this option could be directly used for the released image. You do not need to save your own image first. For example:
+If you want your container to run on the backend rather than interactively, please change `-it` to `-dit`. However, this option could be directly used for the released image. You do not need to save your own image first. For example:
 
 ```bash
 docker run --gpus all -dit --rm --shm-size=1g -v ~:/homelocal -p 6080:6080 jlab:1.0 password=....
@@ -292,7 +292,7 @@ When you want to save your image, follow the instructions below:
 
 > Note 2:
 >
-> In **any** case when you launch your container by backend mode (with option `-dit`), you should not commit your image, because you could not kill your `jupyterlab` without interactive shell.
+> In **any** case when you launch your container by backend mode (with option `-dit`), you should not commit your image, because you could not kill your `jupyterlab` without the interactive shell.
 
 [git-xubuntu]:https://github.com/cainmagi/Dockerfiles/tree/xubuntu "xUbuntu"
 [git-xubuntu-1-6]:https://github.com/cainmagi/Dockerfiles/tree/xubuntu-v1.6-u20.04#launching "xUbuntu 1.6"

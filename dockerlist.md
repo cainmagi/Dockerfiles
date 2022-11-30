@@ -2,7 +2,7 @@
 
 To get back to the main page, click [here](./index).
 
-To view the manual of using images, click [here](./manual).
+To view the manual for using images, click [here](./manual).
 
 To view the detailed graphic guides, click [here](./manual-session).
 
@@ -14,7 +14,7 @@ Here we would show the list of currently built images. Please check each item to
 
 ### xUbuntu
 
-The following images are build based on [xubuntu branch][git-xubuntu].
+The following images are built based on [xubuntu branch][git-xubuntu].
 
 -----
 
@@ -24,9 +24,9 @@ The following images are build based on [xubuntu branch][git-xubuntu].
 
 The xubuntu MATLAB `R2022a` image.
 
-This image is built based on the [`xubuntu-tc:1.7-1.12.0`](#nvcriouoh053018xubuntu-tc17-1120) image. The MATLAB and other packages are installed by manually. Note that a license is needed if you want to launch MATLAB.
+This image is built based on the [`xubuntu-tc:1.7-1.12.0`](#nvcriouoh053018xubuntu-tc17-1120) image. The MATLAB and other packages are installed manually. Note that a license is needed if you want to launch MATLAB.
 
-Because the layer of installing matlab is too large, we have not found a method for pushing the image to our NGC account. Maybe we could solve this problem in the future.
+Because the layer of installing MATLAB is too large, we have not found a method for pushing the image to our NGC account. Maybe we could solve this problem in the future.
 
 This image contains:
 
@@ -44,7 +44,7 @@ This image contains:
 
 ##### Authorization
 
-If you want to authorize (or de-authorize) MATLAB by an individual license, just clicking the "Activate" ("Deactivate") button is OK. Remember to configure the licensed user as `xubuntu`.
+If you want to authorize (or de-authorize) MATLAB by an individual license, just click the "Activate" ("Deactivate") button is OK. Remember to configure the licensed user as `xubuntu`.
 
 |  MATLAB R2020a Authorization  |
 | :---------------------------: |
@@ -67,7 +67,7 @@ Currently, it seems that `GCC 6.3.x` is no longer required by MATLAB Compiler. I
 
 **X-Ubuntu Tensorflow 2**
 
-The xubuntu tensorflow `2.x` image. Currently, the tensorflow version is `2.8.0`.
+The xubuntu TensorFlow `2.x` image. Currently, the TensorFlow version is `2.8.0`.
 
 This image is built based on the following command:
 
@@ -97,7 +97,7 @@ This image contains:
 
 **X-Ubuntu Tensorflow 1.13.1**
 
-The xubuntu tensorflow `1.x` image. Currently, the tensorflow version is `1.13.1`.
+The xubuntu TensorFlow `1.x` image. Currently, the TensorFlow version is `1.13.1`.
 
 This image is built based on the following command:
 
@@ -187,7 +187,7 @@ This image contains:
 
 **X-Ubuntu Tensorflow 2**
 
-The xubuntu tensorflow `2.x` image. Currently, the tensorflow version is `2.4.0`.
+The xubuntu TensorFlow `2.x` image. Currently, the TensorFlow version is `2.4.0`.
 
 This image is built based on the following command:
 
@@ -216,7 +216,7 @@ This image contains:
 
 **X-Ubuntu Tensorflow 1.13.1**
 
-The xubuntu tensorflow `1.x` image. Currently, the tensorflow version is `1.13.1`.
+The xubuntu TensorFlow `1.x` image. Currently, the TensorFlow version is `1.13.1`.
 
 This image is built based on the following command:
 
@@ -302,7 +302,7 @@ This image contains:
 
 **X-Ubuntu Tensorflow 2**
 
-The xubuntu tensorflow `2.x` image. Currently, the tensorflow version is `2.3.1`.
+The xubuntu TensorFlow `2.x` image. Currently, the TensorFlow version is `2.3.1`.
 
 This image is built based on the following command:
 
@@ -331,7 +331,7 @@ This image contains:
 
 **X-Ubuntu Tensorflow 1.13.1**
 
-The xubuntu tensorflow `1.x` image. Currently, the tensorflow version is `1.13.1`.
+The xubuntu TensorFlow `1.x` image. Currently, the TensorFlow version is `1.13.1`.
 
 This image is built based on the following command:
 
@@ -448,9 +448,9 @@ This image contains:
 
 The xubuntu MATLAB `R2020b` image.
 
-This image is built based on the [`xubuntu-tf:1.4-2.3.1`](#nvcriouoh053018xubuntu-tf14-231) image. The MATLAB and other packages are installed by manually. Note that a license is needed if you want to launch MATLAB.
+This image is built based on the [`xubuntu-tf:1.4-2.3.1`](#nvcriouoh053018xubuntu-tf14-231) image. The MATLAB and other packages are installed manually. Note that a license is needed if you want to launch MATLAB.
 
-Because the layer of installing matlab is too large, we have not found a method for pushing the image to our NGC account. Maybe we could solve this problem in the future.
+Because the layer of installing MATLAB is too large, we have not found a method for pushing the image to our NGC account. Maybe we could solve this problem in the future.
 
 This image contains:
 
@@ -469,13 +469,13 @@ This image contains:
 
 **X-Ubuntu MATLAB R2020b (Windows XP Theme)**
 
-This image is configured based on [`xubuntu-matlab:r2020b`](#nvcriouoh053018xubuntu-matlabr2020b). All the installed packages are the same. The only difference is that it is switched to a Windows XP theme. This image is an example for showing how to make the xUbuntu like Windows.
+This image is configured based on [`xubuntu-matlab:r2020b`](#nvcriouoh053018xubuntu-matlabr2020b). All the installed packages are the same. The only difference is that it is switched to a Windows XP theme. This image is an example showing how to make the xUbuntu like Windows.
 
 -----
 
 ### Jupyter Lab
 
-The following images are built based on [jupyterlab branch][git-jlab]. Actually, the xUbuntu images has been **already equipped with** `Jupyter Lab`. However, the versions of all of those JLab releases are `2.2.9`. Here we provide images with `Jupyter Lab 3.0.6`. The JLab 3 has just quitted the pre-release stage for not very long. Currently, the newest version is `3.0.6`. It means most extensions designed for JLab 1 or 2 would not support JLab 3. However, there are also some useful extensions only supporting JLab 3, like Chinese localization, variable inspector and language linter. These images are provided for who want to try the newest Jupyter Lab. All of them do not support desktop applications.
+The following images are built based on [jupyterlab branch][git-jlab]. Actually, the xUbuntu images have been **already equipped with** `Jupyter Lab`. However, the versions of all of those JLab releases are `2.2.9`. Here we provide images with `Jupyter Lab 3.0.6`. The JLab 3 has just quitted the pre-release stage for not very long. Currently, the newest version is `3.0.6`. It means most extensions designed for JLab 1 or 2 would not support JLab 3. However, some useful extensions only support JLab 3, like Chinese localization, variable inspector, and language linter. These images are provided for those who want to try the newest Jupyter Lab. All of them do not support desktop applications.
 
 -----
 
@@ -483,7 +483,7 @@ The following images are built based on [jupyterlab branch][git-jlab]. Actually,
 
 **Jupyter Lab 3 and Tensorflow 2**
 
-The xubuntu tensorflow `2.x` image. Currently, the tensorflow version is `2.3.1`.
+The xubuntu TensorFlow `2.x` image. Currently, the TensorFlow version is `2.3.1`.
 
 This image is built based on the following command:
 

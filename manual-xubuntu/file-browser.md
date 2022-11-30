@@ -18,13 +18,13 @@ You can find the official website of FileBrowser here:
 
 [https://filebrowser.org/ :link:](https://filebrowser.org/)
 
-Now we recommend users to launch their desktop with another port exposed:
+Now we recommend launching the desktop with another port exposed:
 
 ```bash
 docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -v /raid/myname:/data -p 6080:6080 -p 5212:5212 xubuntu:1.7
 ```
 
-The first `5212` can be modified to another value in case of port occupation. To perform the initial configuration, we recommend users to run the desktop in interactive mode, make the configurations to FileBrowser, and save the image.
+The first `5212` can be modified to another value in case of port occupation. To perform the initial configuration, we recommend running the desktop in interactive mode, making the configurations to FileBrowser, and saving the image.
 
 After that, users can get into the desktop, start a new terminal, and run
 
@@ -46,7 +46,7 @@ http://xxx.xx.xx.xxx:5212/
 
 ### The initial configuration
 
-This part is very important, because the administrator of FileBrowser has such information:
+This part is very important because the administrator of FileBrowser has such information:
 
 ```markdown
 User:     admin
@@ -71,13 +71,13 @@ You can also create a new non-admin user, we recommend you to always use this no
 | :------------------: | :--------------------------: |
 | ![](./display/fbrowser-4.png) | ![](./display/fbrowser-5.png) |
 
-After all, you can login with the non-admin user. Now you can
+After all, you can log in with a non-admin user. Now you can
 
 * Upload or download a file.
-* Preview, move, or delete files on DGX.
+* Preview, move or delete files on DGX.
 * Modify some text-based files, like `.txt`, `.sh`, ...
-* Share a file by link. This link can be get access to by anybody in the same LAN.
-* Use some commands, for example, use `tar` to zip / unzip files.
+* Share a file by link. This link can get accessed by anybody on the same LAN.
+* Use some commands, for example, use `tar` to zip/unzip files.
 
 |   Run a command   |
 | :---------------: |
@@ -85,7 +85,7 @@ After all, you can login with the non-admin user. Now you can
 
 After finishing the above configurations, you can save your image. Your configurations will be remembered.
 
-> :warning: Note that this command line is not a `bash` commandline. Running a program is OK, but many commands are restricted.
+> :warning: Note that this command line is not a `bash` command line. Running a program is OK, but many commands are restricted.
 
 ### Run with a different root folder
 
@@ -105,9 +105,9 @@ docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -v /raid/myname:/da
 
 where `fb_rootdir` is the root directory of FileBrowser. If not specified, will use `/homelocal`.
 
-Actually, we recommend users to open FileBrowser always on a terminal inside the desktop. This configuration will help users to control the service better.
+Actually, we recommend users opening FileBrowser always on a terminal inside the desktop. This configuration will help users to control the service better.
 
-> :warning: Do not open Cloudreve and Filebrowser at the same time, unless you know what your are doing and how to configure your ports.
+> :warning: Do not open Cloudreve and Filebrowser at the same time, unless you know what you are doing and how to configure your ports.
 
 ### Explain the `fbrowser` command
 
@@ -125,4 +125,4 @@ MACHINE_IP=$(hostname -I | awk 'NR==1 {print $1}')
 filebrowser -r /data -a $MACHINE_IP -p 5212 -d "${USER_ROOT}/filebrowser/fb-database.db"
 ```
 
-The databased used for storing the user information is saved in `/home/xubuntu/filebrowser/fb-database.db`.
+The database used for storing the user information is saved in `/home/xubuntu/filebrowser/fb-database.db`.

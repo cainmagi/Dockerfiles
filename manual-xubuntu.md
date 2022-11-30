@@ -12,7 +12,7 @@ To view the detailed graphic guides, click [here](./manual-session).
 
 ### Since ver 1.7
 
-:warning: The follwoing new features are firstly implemented in ver 1.7 desktop. Check the links to learn details.
+:warning: The following new features are firstly implemented in ver 1.7 desktop. Check the links to learn details.
 
 * [File transfer: How to use FileBrowser :cloud:](./manual-xubuntu/file-browser)
 * [File transfer: How to use Cloudreve (experimental) :cloud: :telescope:](./manual-xubuntu/cloudreve)

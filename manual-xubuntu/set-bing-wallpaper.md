@@ -22,7 +22,7 @@ You can also manually call the command by:
 set-bing-wallpaper
 ```
 
-> :warning: Note that this script will not be launched by a automatic schedule. It is only automatically launched by the startup of the desktop. In other words, if you keep your desktop opened, and you want to switch your desktop. Please run `set-bing-wallpaper` manually.
+> :warning: Note that this script will not be launched by an automatic schedule. It is only automatically launched by the startup of the desktop. In other words, if you keep your desktop open, and you want to switch your desktop. Please run `set-bing-wallpaper` manually.
 
 ### What is Bing Daily Wallpaper
 

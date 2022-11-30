@@ -10,12 +10,12 @@ To view extra manuals about xUbuntu, click [here](../manual-xubuntu).
 
 To view the **contents** of these manuals, click [here](../manual-session).
 
-## Workflow of saving a image with the bash window lost
+## Workflow of saving an image with the bash window lost
 
 > * Updated on 4/20/2022
 > * Should work with ver 1.4+ images
 
-In the basic manual, we suggest that users can launch the container in the backend mode. In this case, the desktop will remain open even we close our Putty session. However, if we are using this mode, we can not get access to the bash window where the VNC services are managed.
+In the basic manual, we suggest that users can launch the container in the backend mode. In this case, the desktop will remain open even after we close our Putty session. However, if we are using this mode, we can not get access to the bash window where the VNC services are managed.
 
 * **Step 1**: For example, if we run the backend mode with such a command:
 
@@ -27,9 +27,9 @@ In the basic manual, we suggest that users can launch the container in the backe
     | :----------------------------: |
     | ![step-1](./display/backend/step-1.png) |
 
-    We will see a container ID popped up, but we are still in the Putty session on the DGX machine.
+    We will see a container ID pop up, but we are still in the Putty session on the DGX machine.
 
-    In most cases, we assume that we do not need to saving anything with a container running with the backend mode. In that case, we can go the the final step, and kill the container directly if we do not need to use the container. If we want to install new packages, we **should** (1) close the current backend container, (2) and start another interactive container for installing new applications.
+    In most cases, we assume that we do not need to save anything with a container running in the backend mode. In that case, we can go to the final step and kill the container directly if we do not need to use the container. If we want to install new packages, we **should** (1) close the current backend container, (2) and start another interactive container for installing new applications.
 
     But in some cases, some guys may change their minds. Although they are using the backend mode, they want to save their changes. This guide is provided for fixing this situation. Let's go to the **Step 2**.
 
@@ -55,7 +55,7 @@ In the basic manual, we suggest that users can launch the container in the backe
     | :----------------------------: |
     | ![step-3](./display/backend/step-3.png) |
 
-    This command will allow you to open a totally new bash window for a running container. Now you can confirm that you are inside the container, because your user ID changes.
+    This command will allow you to open a totally new bash window for a running container. Now you can confirm that you are inside the container because your user ID changes.
 
 * **Step 4**: Like what we do in the interactive mode. Type the following command to terminate the TigerVNC service.
 
@@ -101,6 +101,6 @@ In the basic manual, we suggest that users can launch the container in the backe
     | :-----------------------------: |
     | ![step-7](./display/backend/step-7.png) |
 
-    This `<container-id>` should be the same as the the id in **Step 5** or **Step 3**. If you successfully kill the container, you will see the container ID in the returned message.
+    This `<container-id>` should be the same as the id in **Step 5** or **Step 3**. If you successfully kill the container, you will see the container ID in the returned message.
 
-    > We have to kill the container manually because the original bash session is still running in the backend mode, although we are not able to get access to it. Even if you do not need to save the image, if you do not want to use the container anymore, you have to kill the container by this way. Just use `docker ps` to check the ID before killing the no longer being used container.
+    > We have to kill the container manually because the original bash session is still running in the backend mode, although we are not able to get access to it. Even if you do not need to save the image, if you do not want to use the container anymore, you have to kill the container in this way. Just use `docker ps` to check the ID before killing the no longer being used container.

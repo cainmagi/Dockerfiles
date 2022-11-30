@@ -22,7 +22,7 @@ sudo user-mapping uid=<uid> gid=<gid>
 
 ### Launched by docker
 
-The following command is equivalent to run the `user-mapping` script instantly after starting a new container:
+The following command is equivalent to running the `user-mapping` script instantly after starting a new container:
 
 ```bash
 docker run --gpus all -it --rm xubuntu:1.0 uid=$(id -u) gid=$(id -g)

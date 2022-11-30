@@ -39,7 +39,7 @@ Currently, we have fixed the two issues about `sudo`:
     sudo python -m pip ...
     ```
 
-    > :warning: After some tests, we found that `conda`, `mamba`, and `python` are all consistent with the user version when using `sudo`. However, if using `sudo`, the `pip` is not `/opt/conda/bin/pip` but `/usr/local/bin/pip`. Therefore, for those who want to use `pip` to install system-scope packages, they need to use either one of the following command:
+    > :warning: After some tests, we found that `conda`, `mamba`, and `python` are all consistent with the user version when using `sudo`. However, if using `sudo`, the `pip` is not `/opt/conda/bin/pip` but `/usr/local/bin/pip`. Therefore, for those who want to use `pip` to install system-scope packages, they need to use either one of the following commands:
     > 
     > ```bash
     > sudo /opt/conda/bin/pip install ....

@@ -28,7 +28,7 @@ Here we explain some mostly used usages:
 
 ### `--df`
 
-Running the script without any arguments will be equivalent to run the following command:
+Running the script without any arguments will be equivalent to running the following command:
 
 ```bash
 yjin-tool --df
@@ -87,7 +87,7 @@ This command will create soft links in a specific folder, the usage is like this
 yjin-tool --ln folder1 folder2 file1 file2 ... target=.
 ```
 
-For each path, if it is a folder (like `folder1` or `folder2`), the command will iterate each file inside the folder, and create the symbolic links of these iterated files. However, if the given path is a file, the symbol link will be used created from the given file.
+For each path, if it is a folder (like `folder1` or `folder2`), the command will iterate each file inside the folder, and create the symbolic links of these iterated files. However, if the given path is a file, the symbol link will be created from the given file.
 
 This command will not walk into the sub-folders recursively.
 
@@ -95,18 +95,18 @@ The last argument `target=.` means that the symbolic links will be created in th
 
 ### `--gitconfig`
 
-This command will be used for creating environmental variable related to git configurations. The usage is like this:
+This command will be used for creating environmental variables related to git configurations. The usage is like this:
 
 ```bash
 yjin-tool --gitconfig user=<your-git-id> token=<your-git-token>.
 ```
 
-The first argument `user=<...>` should not be `xubuntu`. Instead, it should be your Github ID. The second argument should be your Github OAuth Token.
+The first argument `user=<...>` should not be `xubuntu`. Instead, it should be your GitHub ID. The second argument should be your GitHub OAuth Token.
 
-After making this configurations, you can clone a private repository like this:
+After making these configurations, you can clone a private repository like this:
 
 ```bash
 git clone https://${GITTOKEN}@github.com/<your-git-id>/<your-git-repo>.git <folder-name>
 ```
 
-The clone can be done instantly. It will not ask you the token now.
+The clone can be done instantly. It will not ask you to provide the token now.

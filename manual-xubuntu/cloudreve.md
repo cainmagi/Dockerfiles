@@ -14,7 +14,7 @@ To view the **contents** of these manuals, click [here](../manual-xubuntu).
 
 > Updated on 4/19/2022
 
-> :telescope: :construction: This feature is still experimental now. It does not mean that the feature may cause any bug. Actually, it works well. However, for some reasons, it is not a proper alternative of those file exchange clients like WinSCP. If you continue to read this article, your will learn why.
+> :telescope: :construction: This feature is still experimental now. It does not mean that the feature may cause any bugs. Actually, it works well. However, for some reason, it is not a proper alternative to those file exchange clients like WinSCP. If you continue to read this article, you will learn why.
 
 You can find the official website of Cloudreve here:
 
@@ -22,13 +22,13 @@ You can find the official website of Cloudreve here:
 
 Cloudreve is an online drive service. Compared to FileBrowser, it is more complicated, more powerful, and more secure. However, it only supports **Chinese**.
 
-Now we recommend users to launch their desktop with another port exposed:
+Now we recommend launching your personal desktop with another port exposed:
 
 ```bash
 docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -v /raid/myname:/data -p 6080:6080 -p 5212:5212 xubuntu:1.7
 ```
 
-The first `5212` can be modified to another value in case of port occupation. To perform the initial configuration, we recommend users to run the desktop in interactive mode, make the configurations to Cloudreve, and save the image.
+The first `5212` can be modified to another value in case of port occupation. To perform the initial configuration, we recommend running the desktop in interactive mode, making the configurations to Cloudreve, and saving the image.
 
 After that, users can get into the desktop, start a new terminal, and run
 
@@ -36,7 +36,7 @@ After that, users can get into the desktop, start a new terminal, and run
 crpasswd
 ```
 
-This command will show the initial user name and password of the administrator. Remember the information, then run
+This command will show the initial username and password of the administrator. Remember the information, then run
 
 ```bash
 cloudreve
@@ -56,15 +56,15 @@ http://xxx.xx.xx.xxx:5212/
 
 ### The initial configuration
 
-This part is very important, because the initial password of the administrator is public, everyone can manage to find it in my source script. So I recommend users to change it.
+This part is very important because the initial password of the administrator is public, everyone can manage to find it in my source script. So I recommend changing it.
 
-But before changing or admin password, let us create a user account by registration first:
+But before changing the admin password, let us create a user account by registering first:
 
 |  Register a user  |  A new restricted user  |
 | :---------------: | :---------------------: |
 | ![](./display/cloudreve-2.png) | ![](./display/cloudreve-3.png) |
 
-You can successfully and instantly register the user. However, due to the security issue, a new user is not allowed to upload or download files. Therefore, we can logout and login with our administrator account.
+You can successfully and instantly register the user. However, due to a security issue, a new user is not allowed to upload or download files. Therefore, we can log out and log in with our administrator account.
 
 |  Login as an admin   |  Enter the management dashboard  |
 | :------------------: | :------------------------------: |
@@ -86,7 +86,7 @@ After saving the configurations, now we start to edit the user account.
 | :------------------: | :------------------------------: |
 | ![](./display/cloudreve-5.png) | ![](./display/cloudreve-6.png) |
 
-We only need to change the role of the user from a "Provisional User" to a "Registered User". Since the "Registered User" has been verified by the administrator, such user will have 4GB disk space. To verify it, just login with the user account again, and upload a file
+We only need to change the role of the user from a "Provisional User" to a "Registered User". Since the "Registered User" has been verified by the administrator, such a user will have 4GB of disk space. To verify it, just log in with the user account again, and upload a file
 
 |  Upload a file with the user account  |  Check the stored file in your DGX desktop  |
 | :------------------: | :------------------------------: |
@@ -101,15 +101,15 @@ This file can be verified on your DGX desktop. The default path is `/home/xubunt
 Actually, Cloudreve allows you to do more interesting things, like:
 
 * Upload or download a file.
-* Preview, move, or delete files on DGX.
+* Preview, move or delete files on DGX.
 * Modify some text-based files, like `.txt`, `.sh`, ...
-* Share a file by link. This link can be get access to by anybody in the same LAN.
+* Share a file by link. This link can get accessed by anybody on the same LAN.
 * Zip / Unzip files.
-* Use the offline downloading feature (requires to configure the Aria2 service).
+* Use the offline downloading feature (requires configuring the Aria2 service).
 
 Cloudreve allows the administrators to do more configurations. For example,
 
-* The administrator can ban a user. The banned user will not be able to login.
+* The administrator can ban a user. The banned user will not be able to log in.
 * The administrator can view all uploaded files and all ongoing tasks.
 * The administrator can configure the SMTP email service. After that, the registration will require a verification email.
 * The administrator can configure Google reCaptcha, which is more powerful than the default captcha.
@@ -118,7 +118,7 @@ Cloudreve allows the administrators to do more configurations. For example,
 * The administrator can change the theme.
 * ...
 
-Despite these features, we still recommend users to use FileBrowser, not Cloudreve, because Cloudreve manage the file list in its database. In other words, if you put a file into someone's personal folder from the desktop, it will not actually appear in Cloudreve.
+Despite these features, we still recommend using FileBrowser, not Cloudreve because Cloudreve manages the file list in its database. In other words, if you put a file into someone's personal folder from the desktop, it will not actually appear in Cloudreve.
 
 In short, although Cloudreve is powerful, it is more suitable for establishing a centralized service. For example, an administrator can keep a docker container open, where only Cloudreve is running. Then all files are managed by the administrator. All users need to connect the Cloudreve page like a real online disk with their browser, no matter whether they are inside or outside the remote desktop.
 
@@ -130,6 +130,6 @@ You can specify the argument `--cloudreve` when launching the container. Then th
 docker run --gpus all -it --rm --shm-size=1g -v ~:/homelocal -v /raid/myname:/data -p 6080:6080 -p 5212:5212 xubuntu:1.7 --cloudreve
 ```
 
-Actually, we recommend users to open Cloudreve always on a terminal inside the desktop. This configuration will help users to control the service better.
+Actually, we recommend opening Cloudreve always on a terminal inside the desktop. This configuration will help users to control the service better.
 
-> :warning: Do not open Cloudreve and Filebrowser at the same time, unless you know what your are doing and how to configure your ports.
+> :warning: Do not open Cloudreve and Filebrowser at the same time, unless you know what you are doing and how to configure your ports.

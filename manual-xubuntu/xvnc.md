@@ -14,7 +14,7 @@ To view the **contents** of these manuals, click [here](../manual-xubuntu).
 
 > Updated on 4/19/2022
 
-> :telescope: :construction: This feature is still experimental now. Although it should work properly, I have not made much tests. Maybe there would be some unwanted and unknown behaviors.
+> :telescope: :construction: This feature is still experimental now. Although it should work properly, I have not made many tests. Maybe there would be some unwanted and unknown behaviors.
 
 This script provides an alternative way for launching the desktop and noVNC. It is more convenient than using the commands like these:
 
@@ -32,11 +32,11 @@ If users have already terminated the desktop, or have not launched the desktop y
 xvnc-launch
 ```
 
-This command will fork two processes in the current process. One is the `XTigervnc` desktop, and the other one is the noVNC. There will be a lot of logs popped up to the current terminal. If users want to terminate the desktop and noVNC, just hitting <kbd>Ctrl</kbd>+<kbd>C</kbd> is enough. There will be no need for calling  `tigervncserver -kill :1` in this case.
+This command will fork two processes in the current process. One is the `XTigervnc` desktop, and the other one is the noVNC. There will be a lot of logs popping up to the current terminal. If users want to terminate the desktop and noVNC, just hitting <kbd>Ctrl</kbd>+<kbd>C</kbd> is enough. There will be no need for calling  `tigervncserver -kill :1` in this case.
 
 ### Potential problem
 
-Since the desktop and noVNC is forked in the sub-processes. It is possible that the desktop is not terminated after hitting <kbd>Ctrl</kbd>+<kbd>C</kbd>. In this case, users can only check the PID of the desktop by `ps -aux`, and use the `kill -9 <PID>` to terminate the desktop.
+Since the desktop and noVNC are forked in the sub-processes. It is possible that the desktop is not terminated after hitting <kbd>Ctrl</kbd>+<kbd>C</kbd>. In this case, users can only check the PID of the desktop by `ps -aux`, and use the `kill -9 <PID>` to terminate the desktop.
 
 However, it may be OK if users save the image without successfully killing the desktop. Because the launching script of `xvnc-launch` seems to be not influenced by this problem. This behavior is not like `tigervncserver`.
 
