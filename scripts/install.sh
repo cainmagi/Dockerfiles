@@ -24,7 +24,7 @@ function nvm_has {
 }
 
 SCRIPT=$(realpath "$0")
-=$(dirname "$SCRIPT")
+SCRIPTPATH=$(dirname "$SCRIPT")
 SOURCE_ROOT=/opt
 cd $SOURCE_ROOT || fail
 
