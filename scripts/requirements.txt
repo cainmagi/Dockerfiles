@@ -1,0 +1,6 @@
+torch
+transformers[torch]
+requests
+pillow
+timm
+ninja
