@@ -68,4 +68,4 @@ fi
 msg "Preconfigure Deformable DETR..."
 cd "$SOURCE_ROOT/deformable_detr/models/ops" || fail
 cp "$SCRIPTPATH/test-lite.py" "./test-lite.py" || fail
-cp "$SCRIPTPATH/build.py" "$SOURCE_ROOT/deformable_detr/build.sh" || fail
+cp "$SCRIPTPATH/build.sh" "$SOURCE_ROOT/deformable_detr/build.sh" || fail
