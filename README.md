@@ -4,7 +4,7 @@ A collection of my personal customized Dockerfiles.
 
 ## Deformable-DETR
 
-This image is only used for building and testing the usablity of Deformable-DETR.
+This image is only used for building and testing the usablity of [Deformable-DETR]().
 
 In this image, we have the following packages installed:
 
@@ -26,7 +26,24 @@ Run the following command to build the image:
 docker build -t deformable-detr:debian12 https://github.com/cainmagi/Dockerfiles.git#Deformable-DETR
 ```
 
-After that, run the following command to launch a shell
+Note that the GPU is not available during `docker build`. Therefore, during `docker build`,
+we have not build the Deformable-DETR yet. To make the image completely built, we need
+to run the container manually,
+
+```sh
+docker run --gpus all -it --rm --shm-size=1g deformable-detr:debian12 bash
+```
+
+In the container, run
+
+```sh
+cd /opt/deformable-detr
+bash ./build.sh
+```
+
+and commit the image by the `docker commit`. After that, we can expect that the image can be used normally.
+
+After commiting the image, use the following command to relaunch a container shell:
 
 ```sh
 docker run --gpus all -it --rm --shm-size=1g deformable-detr:debian12 bash

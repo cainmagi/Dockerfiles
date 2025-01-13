@@ -4,13 +4,18 @@
 set -e
 RESET='\033[0m'
 COLOR='\033[1;32m'
+COLOR_ERR='\033[1;31m'
 
 function msg {
   echo -e "${COLOR}$(date): $1${RESET}"
 }
 
+function msg_err {
+  echo -e "${COLOR_ERR}$(date): $1${RESET}"
+}
+
 function fail {
-  msg "Error : $?"
+  msg_err "Error : $?"
   exit 1
 }
 
@@ -60,12 +65,7 @@ else
   git pull || fail
 fi
 
-msg "Build Deformable DETR..."
+msg "Preconfigure Deformable DETR..."
 cd "$SOURCE_ROOT/deformable_detr/models/ops" || fail
 cp "$SCRIPTPATH/test-lite.py" "./test-lite.py" || fail
-bash ./make.sh || fail
-# unit test (should see all checking is True)
-# Change the test, because it may fail due to the OOM issue. My device only has 16GB
-# GPU memory, it will fails on 2048 channels.
-${PYTHON} test-lite.py || fail
-${PYTHON} -m pip install . || fail
+cp "$SCRIPTPATH/build.py" "$SOURCE_ROOT/deformable_detr/build.sh" || fail
