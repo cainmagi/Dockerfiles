@@ -21,6 +21,17 @@ function fail {
 
 msg "Build Deformable DETR..."
 
+if nvm_has "python"; then
+    PYTHON=python
+else
+    if nvm_has "python3"; then
+        PYTHON=python3
+    else
+        msgerr "Fail to find Python3 in the image, stop the running."
+        exit 1
+    fi
+fi
+
 SOURCE_ROOT=/opt
 cd "$SOURCE_ROOT/deformable_detr/models/ops" || fail
 bash ./make.sh || fail
@@ -28,4 +39,3 @@ bash ./make.sh || fail
 # Change the test, because it may fail due to the OOM issue. My device only has 16GB
 # GPU memory, it will fails on 2048 channels.
 ${PYTHON} test-lite.py || fail
-${PYTHON} -m pip install . || fail
