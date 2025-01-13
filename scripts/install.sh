@@ -4,13 +4,18 @@
 set -e
 RESET='\033[0m'
 COLOR='\033[1;32m'
+COLOR_ERR='\033[1;31m'
 
 function msg {
   echo -e "${COLOR}$(date): $1${RESET}"
 }
 
+function msg_err {
+  echo -e "${COLOR_ERR}$(date): $1${RESET}"
+}
+
 function fail {
-  msg "Error : $?"
+  msg_err "Error : $?"
   exit 1
 }
 
