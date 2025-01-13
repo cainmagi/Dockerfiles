@@ -1,0 +1,31 @@
+# Shell
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+Gemfile.lock
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Cache
+/.cache
+
+# Editor
+/.vscode
+/.idea
+
+# Marked by dev.
+/alpha*
+/outputs
