@@ -42,7 +42,7 @@ else
     if nvm_has "python3"; then
         PYTHON=python3
     else
-        msgerr "Fail to find Python3 in the image, stop the running."
+        msg_err "Fail to find Python3 in the image, stop the running."
         exit 1
     fi
 fi

@@ -12,6 +12,6 @@
 
 #### :wrench: Fix
 
-1. Fix: Correct a typo in the installation script.
+1. Fix: Correct typos in the installation and build scripts.
 2. Fix: Split the CUDA compiling in another script because it is not usable during the `docker build`.
 3. Fix: Add the missing link in the readme file.

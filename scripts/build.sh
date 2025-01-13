@@ -19,17 +19,21 @@ function fail {
   exit 1
 }
 
+function nvm_has {
+  type "$1" > /dev/null 2>&1
+}
+
 msg "Build Deformable DETR..."
 
 if nvm_has "python"; then
-    PYTHON=python
+  PYTHON=python
 else
-    if nvm_has "python3"; then
-        PYTHON=python3
-    else
-        msgerr "Fail to find Python3 in the image, stop the running."
-        exit 1
-    fi
+  if nvm_has "python3"; then
+    PYTHON=python3
+  else
+    msg_err "Fail to find Python3 in the image, stop the running."
+    exit 1
+  fi
 fi
 
 SOURCE_ROOT=/opt
