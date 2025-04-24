@@ -35,7 +35,7 @@ function nvm_has {
 
 HOST_UID=""
 HOST_GID=""
-USER_NAME="$(id -n -u)"
+USER_NAME=""
 # Pass options from command line
 for ARGUMENT in "$@"
 do
@@ -44,9 +44,15 @@ do
   case "$KEY" in
     uid)            HOST_UID=${VALUE} ;;
     gid)            HOST_GID=${VALUE} ;;
+    username)       USER_NAME=${VALUE} ;;
     *)
   esac
 done
+
+if [ "x${USER_NAME}" = "x" ]; then
+  msg_err "Need to specify username=..."
+  exit 1
+fi
 
 SCRIPT=$(realpath "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
@@ -65,6 +71,10 @@ fi
 # GID is not changed.
 if [ -z "${HOST_GID}" ] || [ "x${HOST_GID}" = "x0" ] || [ "x${HOST_GID}" = "x${CUR_GID}" ]; then
   HOST_GID=${CUR_UID}
+fi
+
+if [ -f "${SCRIPTPATH}/reconfigure-code.sh" ]; then
+  bash "${SCRIPTPATH}/reconfigure-code.sh" || fail
 fi
 
 # reset user_?id to either new id or if empty old (still one of above
@@ -108,10 +118,6 @@ else
   else
     PYTHON=""
   fi
-fi
-
-if [ -f "${SCRIPTPATH}/reconfigure-code.sh" ]; then
-  bash --login "${SCRIPTPATH}/reconfigure-code.sh" || fail
 fi
 
 msg "Switch the account id to ${USER_ID}:${USER_GID}. Please commit the image by the following command and exit."

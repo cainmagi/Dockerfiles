@@ -72,7 +72,7 @@ fi
 if [ ! -z "${SET_UID}" ] && [ "x${SET_UID}" != "x0" ] && [ "x${SET_UID}" != "x${CUR_UID}" ]; then
   msg "Remap the file ownership and the setup the VSCode configuration"
   cd ${SCRIPTPATH} || fail
-  sudo bash ./user-mapping.sh uid=${SET_UID} gid=${SET_GID} || fail
+  sudo bash ./user-mapping.sh uid=${SET_UID} gid=${SET_GID} username="$(id -n -u)" || fail
   exit 0
 fi
 
