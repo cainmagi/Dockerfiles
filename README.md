@@ -53,7 +53,7 @@ http://localhost:8000
 
 The following video shows an example of how to use the editor with GitHub repositories.
 
-
+https://github.com/user-attachments/assets/f93ff5cb-3aa6-4efa-866b-d050bd915b85
 
 ## Extra usages
 
