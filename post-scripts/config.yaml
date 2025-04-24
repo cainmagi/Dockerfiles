@@ -1,0 +1,7 @@
+bind-addr: 0.0.0.0:8000
+auth: password
+password: f946b9d61b73356b84efd3de
+hashed-password:
+cert: false
+app-name: LaTeX Editor
+welcome-text: TeXLive

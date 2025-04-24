@@ -1,0 +1,2 @@
+# zh-CN
+ms-ceintl.vscode-language-pack-zh-hans
