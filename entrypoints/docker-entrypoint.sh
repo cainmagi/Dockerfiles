@@ -161,19 +161,20 @@ if [ "x${LANG_NAME}" = "xzh_CN" ]; then
   FLAG_LANG="--locale zh-cn"
 fi
 
-if ${USESSL} && [ ! -s "~/code-cert.pem" ]
-then
-  if [ -s "/codecerts/code-cert.pem" ]; then
-    sudo cp -f /codecerts/cert.pem ~/code-cert.pem || fail
-  else
-    openssl req -new -x509 -days 365 -nodes -config /etc/ssl/code-server.cnf -out ~/code-cert.pem -keyout ~/code-cert.pem || fail
-  fi
-fi
-
 FLAG_CERT=""
-if ${USESSL} && [ -f "~/code-cert.pem" ]; then
-  msg "USE SSL mode."
-  FLAG_CERT="--cert ~/code-cert.pem --cert-key ~/code-cert.pem --cert-host localhost"
+if ${USESSL}
+then
+  if [ ! -s "~/code-cert.pem" ]; then
+    if [ -s "/codecerts/code-cert.pem" ]; then
+      sudo cp -f /codecerts/cert.pem ~/code-cert.pem || fail
+    else
+      openssl req -new -x509 -days 365 -nodes -config /etc/ssl/code-server.cnf -out ~/code-cert.pem -keyout ~/code-cert.pem || fail
+    fi
+  fi
+  if [ -s "~/code-cert.pem" ]; then
+    msg "USE SSL mode."
+    FLAG_CERT="--cert ~/code-cert.pem --cert-key ~/code-cert.pem --cert-host localhost"
+  fi
 fi
 
 if [ ${#INARGS[@]} -lt 1 ]; then
