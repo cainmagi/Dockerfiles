@@ -93,7 +93,8 @@ fi
 if [ "x${LANG_NAME}" = "xzh_CN" ] && [ "x${LANG_ENC}" = "xUTF-8" ]; then
   cp -f ${SCRIPTPATH}/etc/locale-zh_CN.gen /etc/locale.gen || fail
 fi
-cp -f ${SCRIPTPATH}/etc/sudoers /etc || fail
+cp -f ${SCRIPTPATH}/etc/sudoers /etc/ || fail
+cp -f ${SCRIPTPATH}/etc/code-server-ssl.cnf /etc/ || fail
 
 # Setting language
 apt-get ${APT_OPTIONS} install -y locales || fail

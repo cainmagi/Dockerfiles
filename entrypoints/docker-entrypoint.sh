@@ -37,6 +37,7 @@ HELP=false
 VERSION=false
 BASH=false
 RECONFIG=false
+USESSL=false
 SET_UID=""
 SET_GID=""
 INARGS=()
@@ -54,6 +55,7 @@ do
     --version)      VERSION=true ;;
     --bash)         BASH=true ;;
     --reconfig)     RECONFIG=true ;;
+    --usessl)       USESSL=true ;;
     uid)            SET_UID=${VALUE} ;;
     gid)            SET_GID=${VALUE} ;;
     *)              INARGS+=("${ARGUMENT}");;
@@ -159,10 +161,25 @@ if [ "x${LANG_NAME}" = "xzh_CN" ]; then
   FLAG_LANG="--locale zh-cn"
 fi
 
+if ${USESSL} && [ ! -s "~/code-cert.pem" ]
+then
+  if [ -s "/codecerts/code-cert.pem" ]; then
+    sudo cp -f /codecerts/cert.pem ~/code-cert.pem || fail
+  else
+    openssl req -new -x509 -days 365 -nodes -config /etc/ssl/code-server-ssl.cnf -out ~/code-cert.pem -keyout ~/code-cert.pem || fail
+  fi
+fi
+
+FLAG_CERT=""
+if ${USESSL} && [ -f "~/code-cert.pem" ]; then
+  msg "USE SSL mode."
+  FLAG_CERT="--cert ~/code-cert.pem --cert-key ~/code-cert.pem --cert-host localhost"
+fi
+
 if [ ${#INARGS[@]} -lt 1 ]; then
   echo "code-server ~"
-  echo "GITHUB_TOKEN=${GITHUB_TOKEN} code-server ${FLAG_LANG} --config ~/code-config.yaml ~" | bash
+  echo "GITHUB_TOKEN=${GITHUB_TOKEN} code-server ${FLAG_LANG} ${FLAG_CERT} --config ~/code-config.yaml ~" | bash
 else
   echo "code-server ${INARGS[@]}"
-  echo "GITHUB_TOKEN=${GITHUB_TOKEN} code-server ${FLAG_LANG} --config ~/code-config.yaml ${INARGS[@]}" | bash
+  echo "GITHUB_TOKEN=${GITHUB_TOKEN} code-server ${FLAG_LANG} ${FLAG_CERT} --config ~/code-config.yaml ${INARGS[@]}" | bash
 fi

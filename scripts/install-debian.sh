@@ -42,7 +42,7 @@ APT_OPTIONS="-o Acquire::Retries=5 -o Acquire::http::timeout=20 -o Acquire::http
 # Required packages
 apt-get -y update || fail && apt-get $APT_OPTIONS -y install apt-utils \
 apt-transport-https wget curl jq gnupg2 lsb-release xz-utils \
-python3-yaml git-core sudo argon2 || fail
+python3-yaml git-core sudo argon2 openssl || fail
 
 if ! nvm_has "lsb_release"; then
   msg_err "lsb_release does not exist. This should not happen. Please contact the author for technical supports."

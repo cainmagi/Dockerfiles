@@ -93,6 +93,17 @@ docker run --gpus all -it --rm --shm-size=1g -p 8000:8000 cainmagi/texlive-code:
 docker run --gpus all -it --rm --shm-size=1g -p 8000:8000 cainmagi/texlive-code:2025 --verison
 ```
 
+### Use SSL mode
+
+Adding a flag `--usessl` will enable the SSL (HTTPS) features.
+
+> [!warning]
+> Note that this feature is experimental. If using HTTPS, some functionalities may not work if not using `localhost`.
+
+```sh
+docker run --gpus all -it --rm --shm-size=1g -p 8000:8000 cainmagi/texlive-code:2025 --usessl
+```
+
 ### Pass extra configurations
 
 Any configurations of `code-server`, except `--config`, can be passed to `docker run`. For example, you can override the name of the application shown in the welcome page.

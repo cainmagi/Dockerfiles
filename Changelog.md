@@ -6,6 +6,10 @@
 
 ### 1.0.1 @ 04/25/2025
 
+#### :mega: New
+
+1. Support the SSL mode (experimental feature, which may have bugs if not deployed on localhost).
+
 #### :wrench: Fix
 
 1. Fix: Correct the `user-mapping.sh` script and use the target user name to reconfigure the code-server.
