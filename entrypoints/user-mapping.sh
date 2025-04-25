@@ -32,6 +32,13 @@ function nvm_has {
   type "$1" > /dev/null 2>&1
 }
 
+function del_user_if_exist {
+  if id "$user_id" &>/dev/null; then
+    local del_name=$(id -n -u $1)
+    userdel ${del_name}
+  fi
+}
+
 
 HOST_UID=""
 HOST_GID=""
@@ -71,6 +78,10 @@ fi
 # GID is not changed.
 if [ -z "${HOST_GID}" ] || [ "x${HOST_GID}" = "x0" ] || [ "x${HOST_GID}" = "x${CUR_GID}" ]; then
   HOST_GID=${CUR_UID}
+fi
+
+if [ "x${CUR_UID}" != "x${HOST_UID}" ]; then
+  del_user_if_exist ${HOST_UID}
 fi
 
 if [ -f "${SCRIPTPATH}/reconfigure-code.sh" ]; then

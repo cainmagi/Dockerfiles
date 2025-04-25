@@ -30,6 +30,13 @@ function nvm_has {
   type "$1" > /dev/null 2>&1
 }
 
+function del_user_if_exist {
+  if id "$user_id" &>/dev/null; then
+    local del_name=$(id -n -u $1)
+    userdel ${del_name}
+  fi
+}
+
 NEW_USER=codeuser
 
 # Pass options from command line
@@ -56,6 +63,7 @@ msg "Create user ${NEW_USER} ..."
 apt-get update || fail
 apt-get ${APT_OPTIONS} install -y apt-utils wget curl sudo || fail
 
+del_user_if_exist 1000 || fail
 useradd -ms /bin/bash ${NEW_USER} || fail # Add the user
 passwd -d ${NEW_USER} || fail # Delete the password
 usermod -a -G sudo ${NEW_USER} || fail # Make the user admin
