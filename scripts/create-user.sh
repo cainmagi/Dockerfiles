@@ -31,7 +31,7 @@ function nvm_has {
 }
 
 function del_user_if_exist {
-  if id "$user_id" &>/dev/null; then
+  if id "$1" &>/dev/null; then
     local del_name=$(id -n -u $1)
     userdel ${del_name}
   fi
