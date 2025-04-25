@@ -74,7 +74,7 @@ if [ -z "${HOST_GID}" ] || [ "x${HOST_GID}" = "x0" ] || [ "x${HOST_GID}" = "x${C
 fi
 
 if [ -f "${SCRIPTPATH}/reconfigure-code.sh" ]; then
-  bash "${SCRIPTPATH}/reconfigure-code.sh" || fail
+  sudo -u ${USER_NAME} bash "${SCRIPTPATH}/reconfigure-code.sh" || fail
 fi
 
 # reset user_?id to either new id or if empty old (still one of above

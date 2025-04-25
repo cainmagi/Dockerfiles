@@ -4,7 +4,7 @@ FROM $BASE_IMAGE
 LABEL maintainer="Yuchen Jin <Yuchen.Jin@aramcoamericas.com>" \
       author="Yuchen Jin <cainmagi@gmail.com>" \
       description="VSCode Server with TeXLive." \
-      version="1.0.0"
+      version="1.0.1"
 
 # Set configs
 ARG INSTALL_MODE=default
