@@ -171,10 +171,8 @@ then
       openssl req -new -x509 -days 365 -nodes -config /etc/ssl/code-server.cnf -out ~/code-cert.pem -keyout ~/code-cert.pem || fail
     fi
   fi
-  if [ -s "~/code-cert.pem" ]; then
-    msg "USE SSL mode."
-    FLAG_CERT="--cert ~/code-cert.pem --cert-key ~/code-cert.pem --cert-host localhost"
-  fi
+  msg "USE SSL mode."
+  FLAG_CERT="--cert ~/code-cert.pem --cert-key ~/code-cert.pem --cert-host localhost"
 fi
 
 if [ ${#INARGS[@]} -lt 1 ]; then
