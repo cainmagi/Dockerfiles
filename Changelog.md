@@ -12,6 +12,10 @@
 2. Fix: Add a User ID check. If a user with an ID `1000` exists, will delete the user. This update secures that the user ID mapping to work correctly.
 3. Fix: Correct a bug of the user detection.
 
+#### :floppy_disk: Change
+
+1. Remove the extensions that are not supported by open-vsx.
+
 ### 1.0.0 @ 04/24/2025
 
 #### :mega: New

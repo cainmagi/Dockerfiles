@@ -1,20 +1,13 @@
 # Latex
-mathematic.vscode-latex
 James-Yu.latex-workshop
 tecosaur.latex-utilities
 
 # Git
-github.remotehub
 github.vscode-pull-request-github
 codezombiech.gitignore
 mhutchie.git-graph
 
 # Markdown
-bierner.github-markdown-preview
-bierner.markdown-checkbox
-bierner.markdown-emoji
-bierner.markdown-footnotes
 bierner.markdown-mermaid
 bierner.markdown-preview-github-styles
-bierner.markdown-yaml-preamble
 yzhang.markdown-all-in-one
