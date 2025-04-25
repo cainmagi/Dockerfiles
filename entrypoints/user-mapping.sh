@@ -80,7 +80,7 @@ if [ -z "${HOST_GID}" ] || [ "x${HOST_GID}" = "x0" ] || [ "x${HOST_GID}" = "x${C
   HOST_GID=${CUR_UID}
 fi
 
-if [ "x$(id ${USERNAME} -u)" != "x${HOST_UID}" ]; then
+if [ "x$(id ${USER_NAME} -u)" != "x${HOST_UID}" ]; then
   del_user_if_exist ${HOST_UID}
 fi
 
