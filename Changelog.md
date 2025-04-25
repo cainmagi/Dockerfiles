@@ -15,6 +15,7 @@
 1. Fix: Correct the `user-mapping.sh` script and use the target user name to reconfigure the code-server.
 2. Fix: Add a User ID check. If a user with an ID `1000` exists, will delete the user. This update secures that the user ID mapping to work correctly.
 3. Fix: Correct a bug of the user detection.
+4. Fix: Correct the path of the SSL configuration file.
 
 #### :floppy_disk: Change
 
