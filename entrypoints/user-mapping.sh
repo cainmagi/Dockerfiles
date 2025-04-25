@@ -35,7 +35,7 @@ function nvm_has {
 function del_user_if_exist {
   if id "$1" &>/dev/null; then
     local del_name=$(id -n -u $1)
-    userdel ${del_name}
+    userdel ${del_name} || fail
   fi
 }
 
@@ -80,7 +80,7 @@ if [ -z "${HOST_GID}" ] || [ "x${HOST_GID}" = "x0" ] || [ "x${HOST_GID}" = "x${C
   HOST_GID=${CUR_UID}
 fi
 
-if [ "x${CUR_UID}" != "x${HOST_UID}" ]; then
+if [ "x$(id ${USERNAME} -u)" != "x${HOST_UID}" ]; then
   del_user_if_exist ${HOST_UID}
 fi
 
