@@ -20,6 +20,7 @@
 #### :floppy_disk: Change
 
 1. Remove the extensions that are not supported by open-vsx.
+2. Adjust the configuration override order.
 
 ### 1.0.0 @ 04/24/2025
 

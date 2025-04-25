@@ -178,8 +178,8 @@ fi
 
 if [ ${#INARGS[@]} -lt 1 ]; then
   echo "code-server ~"
-  echo "GITHUB_TOKEN=${GITHUB_TOKEN} code-server ${FLAG_LANG} ${FLAG_CERT} --config ~/code-config.yaml ~" | bash
+  echo "GITHUB_TOKEN=${GITHUB_TOKEN} code-server --config ~/code-config.yaml ${FLAG_LANG} ${FLAG_CERT} ~" | bash
 else
   echo "code-server ${INARGS[@]}"
-  echo "GITHUB_TOKEN=${GITHUB_TOKEN} code-server ${FLAG_LANG} ${FLAG_CERT} --config ~/code-config.yaml ${INARGS[@]}" | bash
+  echo "GITHUB_TOKEN=${GITHUB_TOKEN} code-server --config ~/code-config.yaml ${FLAG_LANG} ${FLAG_CERT} --config ~/code-config.yaml ${INARGS[@]}" | bash
 fi
